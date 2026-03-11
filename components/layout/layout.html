@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Layout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../components/button/button.css">
+  <link rel="stylesheet" href="../../components/divider/divider.css">
+  <link rel="stylesheet" href="layout.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      overflow:         hidden;
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position:       fixed;
+      top:            0;
+      left:           0;
+      right:          0;
+      height:         48px;
+      background:     var(--soil-bg-elevated);
+      border-bottom:  1px solid var(--soil-border-subtle);
+      display:        flex;
+      align-items:    center;
+      justify-content: space-between;
+      padding:        0 var(--seed-space-4);
+      gap:            var(--seed-space-3);
+      z-index:        var(--seed-z-sticky);
+    }
+
+    .topbar-left {
+      display:     flex;
+      align-items: center;
+      gap:         var(--seed-space-3);
+    }
+
+    .topbar-right {
+      display:     flex;
+      align-items: center;
+      gap:         var(--seed-space-3);
+    }
+
+    .topbar-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-base);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .topbar-subtitle {
+      font-size:  var(--seed-text-sm);
+      color:      var(--soil-text-muted);
+    }
+
+    /* ── Icon button ── */
+    .icon-btn {
+      display:         inline-flex;
+      align-items:     center;
+      justify-content: center;
+      width:           32px;
+      height:          32px;
+      border-radius:   var(--seed-radius-md, 8px);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      color:           var(--soil-text-muted);
+      cursor:          pointer;
+      font-size:       var(--seed-text-sm);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* ── Nav link ── */
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full, 9999px);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full, 9999px);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* ── Layout sits below topbar ── */
+    .layout-wrap {
+      padding-top: 48px;
+      height:      100vh;
+    }
+
+    /* ── Left nav ── */
+    .left-inner {
+      padding: var(--seed-space-4) var(--seed-space-3);
+    }
+
+    .nav-section-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      padding:        var(--seed-space-2) var(--seed-space-3);
+      margin-bottom:  var(--seed-space-1);
+    }
+
+    .nav-item {
+      display:       flex;
+      align-items:   center;
+      gap:           var(--seed-space-2);
+      padding:       var(--seed-space-2) var(--seed-space-3);
+      border-radius: var(--seed-radius-md, 8px);
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+      user-select:   none;
+    }
+
+    .nav-item:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .nav-item--active {
+      background: var(--good-bg-subtle-default);
+      color:      var(--good-text-bold-default);
+      font-weight: var(--seed-weight-medium);
+    }
+
+    .nav-item--active:hover {
+      background: var(--good-bg-subtle-hover);
+    }
+
+    .nav-dot {
+      width:         6px;
+      height:        6px;
+      border-radius: 50%;
+      background:    currentColor;
+      flex-shrink:   0;
+      opacity:       0.5;
+    }
+
+    .nav-item--active .nav-dot {
+      opacity: 1;
+    }
+
+    /* ── Center content ── */
+    .center-inner {
+      padding:    var(--seed-space-8) var(--seed-space-8);
+      max-width:  720px;
+    }
+
+    .content-eyebrow {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--good-text-bold-default);
+      margin-bottom:  var(--seed-space-2);
+    }
+
+    .content-heading {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-2xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-text);
+      letter-spacing: -0.02em;
+      line-height:    var(--seed-leading-tight);
+      margin-bottom:  var(--seed-space-4);
+    }
+
+    .content-body {
+      font-size:     var(--seed-text-base);
+      color:         var(--soil-text-muted);
+      line-height:   var(--seed-leading-normal);
+      margin-bottom: var(--seed-space-6);
+    }
+
+    .content-actions {
+      display: flex;
+      gap:     var(--seed-space-3);
+      margin-bottom: var(--seed-space-8);
+    }
+
+    /* ── Right aside ── */
+    .right-inner {
+      padding: var(--seed-space-4) var(--seed-space-4);
+    }
+
+    .aside-section {
+      margin-bottom: var(--seed-space-6);
+    }
+
+    .aside-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-3);
+    }
+
+    .meta-row {
+      display:       flex;
+      align-items:   center;
+      justify-content: space-between;
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      padding:       var(--seed-space-2) 0;
+    }
+
+    .meta-value {
+      color:       var(--soil-text);
+      font-weight: var(--seed-weight-medium);
+    }
+
+    .filter-item {
+      display:       flex;
+      align-items:   center;
+      gap:           var(--seed-space-2);
+      padding:       var(--seed-space-2) var(--seed-space-3);
+      border-radius: var(--seed-radius-md, 8px);
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+      user-select:   none;
+    }
+
+    .filter-item:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .filter-count {
+      margin-left:   auto;
+      font-size:     var(--seed-text-xs);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-subtle-default);
+      border-radius: var(--seed-radius-full, 9999px);
+      padding:       0.1em 0.5em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Top bar ── -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="icon-btn" id="toggle-left" onclick="toggleLeft()" title="Toggle sidebar" aria-label="Toggle sidebar">☰</button>
+      <span class="topbar-title">seed</span>
+      <span class="topbar-subtitle">Layout demo</span>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" id="toggle-right" onclick="toggleRight()" title="Toggle aside" aria-label="Toggle aside">⊞</button>
+      <a class="nav-link" href="../../index.html">← Preview</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+    </div>
+  </div>
+
+  <!-- ── Layout ── -->
+  <div class="layout-wrap">
+    <div class="seed-layout" id="layout">
+
+      <!-- Left: sidebar nav -->
+      <aside class="seed-layout__left">
+        <div class="left-inner">
+
+          <p class="nav-section-label">Workspace</p>
+          <div class="nav-item nav-item--active">
+            <span class="nav-dot"></span> Overview
+          </div>
+          <div class="nav-item">
+            <span class="nav-dot"></span> Projects
+          </div>
+          <div class="nav-item">
+            <span class="nav-dot"></span> Tasks
+          </div>
+          <div class="nav-item">
+            <span class="nav-dot"></span> Calendar
+          </div>
+
+          <hr class="seed-divider seed-divider--spaced-sm">
+
+          <p class="nav-section-label">Library</p>
+          <div class="nav-item">
+            <span class="nav-dot"></span> Tokens
+          </div>
+          <div class="nav-item">
+            <span class="nav-dot"></span> Components
+          </div>
+          <div class="nav-item">
+            <span class="nav-dot"></span> Patterns
+          </div>
+
+          <hr class="seed-divider seed-divider--spaced-sm">
+
+          <p class="nav-section-label">Settings</p>
+          <div class="nav-item">
+            <span class="nav-dot"></span> Preferences
+          </div>
+          <div class="nav-item">
+            <span class="nav-dot"></span> Team
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- Center: main content -->
+      <main class="seed-layout__center">
+        <div class="center-inner">
+
+          <p class="content-eyebrow">Design System</p>
+          <h1 class="content-heading">Build with intention,<br>ship with confidence.</h1>
+          <p class="content-body">
+            Seed is the open source design foundation for the FAM ecosystem. Start with tokens — color, typography, spacing — then grow into a full component library that stays coherent from its first line to its last.
+          </p>
+          <div class="content-actions">
+            <button class="seed-button seed-button--primary seed-button--md">Get started</button>
+            <button class="seed-button seed-button--secondary seed-button--md">View components</button>
+          </div>
+
+          <hr class="seed-divider">
+
+          <p class="content-body">
+            Every token tells a story. Soil grounds the neutrals. Good, warn, bad, and selected carry semantic intent. The metaphor runs all the way through — from raw palette to component API — so the system feels coherent whether you're reading the CSS or the Figma file.
+          </p>
+          <p class="content-body">
+            Panels like this one scroll independently. The sidebar collapses below 768px. The aside hides at 1024px. Use the toggle buttons in the top bar to show and hide them manually.
+          </p>
+
+        </div>
+      </main>
+
+      <!-- Right: aside -->
+      <aside class="seed-layout__right">
+        <div class="right-inner">
+
+          <div class="aside-section">
+            <p class="aside-label">Details</p>
+            <div class="meta-row">
+              <span>Version</span>
+              <span class="meta-value">v0.1</span>
+            </div>
+            <div class="meta-row">
+              <span>Status</span>
+              <span class="meta-value">Active</span>
+            </div>
+            <div class="meta-row">
+              <span>License</span>
+              <span class="meta-value">MIT</span>
+            </div>
+            <div class="meta-row">
+              <span>Maintainer</span>
+              <span class="meta-value">FAM</span>
+            </div>
+          </div>
+
+          <hr class="seed-divider seed-divider--spaced-sm">
+
+          <div class="aside-section">
+            <p class="aside-label">Components</p>
+            <div class="filter-item">Button <span class="filter-count">5</span></div>
+            <div class="filter-item">Badge <span class="filter-count">5</span></div>
+            <div class="filter-item">Grid <span class="filter-count">1</span></div>
+            <div class="filter-item">Divider <span class="filter-count">4</span></div>
+            <div class="filter-item">Layout <span class="filter-count">3</span></div>
+          </div>
+
+          <hr class="seed-divider seed-divider--spaced-sm">
+
+          <div class="aside-section">
+            <p class="aside-label">Links</p>
+            <div class="filter-item">GitHub</div>
+            <div class="filter-item">Preview</div>
+            <div class="filter-item">famkind.com</div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+
+    function toggleLeft() {
+      document.getElementById('layout').classList.toggle('seed-layout--collapsed-left');
+    }
+
+    function toggleRight() {
+      document.getElementById('layout').classList.toggle('seed-layout--collapsed-right');
+    }
+  </script>
+
+</body>
+</html>

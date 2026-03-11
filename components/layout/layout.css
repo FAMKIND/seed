@@ -1,0 +1,103 @@
+/* ═══════════════════════════════════════════════════════
+   SEED LAYOUT
+   Requires: tokens/tokens.css
+   Usage:
+     <div class="seed-layout">
+       <aside class="seed-layout__left">...</aside>
+       <main  class="seed-layout__center">...</main>
+       <aside class="seed-layout__right">...</aside>
+     </div>
+
+   Three-panel app layout — sidebar + main + aside.
+   Panels scroll independently. Responsive collapse built-in.
+   All values from Seed tokens.
+═══════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────
+   CONTAINER
+───────────────────────────────────────────────────── */
+
+.seed-layout {
+    display:    flex;
+    min-height: 100vh;
+    width:      100%;
+    overflow:   hidden;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   LEFT PANEL — sidebar
+───────────────────────────────────────────────────── */
+
+.seed-layout__left {
+    width:        260px;
+    flex-shrink:  0;
+    background:   var(--soil-bg-surface);
+    border-right: 1px solid var(--soil-border-subtle);
+    overflow-y:   auto;
+    transition:   width 200ms ease, opacity 200ms ease;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   CENTER PANEL — main content
+───────────────────────────────────────────────────── */
+
+.seed-layout__center {
+    flex:       1;
+    min-width:  0;
+    background: var(--soil-bg-canvas);
+    overflow-y: auto;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   RIGHT PANEL — aside
+───────────────────────────────────────────────────── */
+
+.seed-layout__right {
+    width:       300px;
+    flex-shrink: 0;
+    background:  var(--soil-bg-surface);
+    border-left: 1px solid var(--soil-border-subtle);
+    overflow-y:  auto;
+    transition:  width 200ms ease, opacity 200ms ease;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   COLLAPSE MODIFIERS — manual toggle
+───────────────────────────────────────────────────── */
+
+.seed-layout--collapsed-left .seed-layout__left {
+    width:      0;
+    opacity:    0;
+    overflow:   hidden;
+    border:     none;
+}
+
+.seed-layout--collapsed-right .seed-layout__right {
+    width:      0;
+    opacity:    0;
+    overflow:   hidden;
+    border:     none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   RESPONSIVE BREAKPOINTS
+   ≤ 1024px — right panel auto-hides
+   ≤ 768px  — left panel also auto-hides
+───────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+    .seed-layout__right {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .seed-layout__left {
+        display: none;
+    }
+}
