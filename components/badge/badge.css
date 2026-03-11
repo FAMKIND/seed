@@ -1,0 +1,99 @@
+/* ═══════════════════════════════════════════════════════
+   SEED BADGE
+   Requires: tokens/tokens.css
+   Usage:    <span class="seed-badge seed-badge--good seed-badge--md">Label</span>
+
+   Zero hardcoded colors — every value flows from
+   Seed semantic tokens. Theme switching is automatic.
+═══════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────
+   BASE
+───────────────────────────────────────────────────── */
+
+.seed-badge {
+    display:         inline-flex;
+    align-items:     center;
+    gap:             0.35em;
+    white-space:     nowrap;
+
+    border:          1px solid transparent;
+    border-radius:   var(--seed-radius-full);
+
+    font-family:     var(--seed-font-ui);
+    font-weight:     var(--seed-weight-medium);
+    line-height:     var(--seed-leading-tight);
+
+    user-select:     none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SIZES
+───────────────────────────────────────────────────── */
+
+.seed-badge--sm {
+    font-size: var(--seed-text-xs);
+    padding:   0.2em 0.6em;
+}
+
+.seed-badge--md {
+    font-size: var(--seed-text-sm);
+    padding:   0.3em 0.75em;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   VARIANTS
+
+   neutral  calm ground, informational
+   good     lime/green, success, positive
+   warn     amber, caution, attention
+   bad      brick/rose, error, destructive
+   selected lime solid, active, chosen
+───────────────────────────────────────────────────── */
+
+.seed-badge--neutral {
+    background:   var(--calm-bg-subtle-default);
+    border-color: var(--calm-border-subtle-default);
+    color:        var(--calm-text-bold-default);
+}
+
+.seed-badge--good {
+    background:   var(--good-bg-subtle-default);
+    border-color: var(--good-border-subtle-default);
+    color:        var(--good-text-bold-default);
+}
+
+.seed-badge--warn {
+    background:   var(--warn-bg-subtle-default);
+    border-color: var(--warn-border-subtle-default);
+    color:        var(--warn-text-bold-default);
+}
+
+.seed-badge--bad {
+    background:   var(--bad-bg-subtle-default);
+    border-color: var(--bad-border-subtle-default);
+    color:        var(--bad-text-bold-default);
+}
+
+.seed-badge--selected {
+    background:   var(--selected-bg-bold-default);
+    border-color: var(--selected-border-bold-default);
+    color:        var(--selected-text-bold-default);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   DOT — optional status indicator
+   Usage: <span class="seed-badge__dot"></span>
+───────────────────────────────────────────────────── */
+
+.seed-badge__dot {
+    display:       inline-block;
+    width:         0.5em;
+    height:        0.5em;
+    border-radius: var(--seed-radius-full);
+    background:    currentColor;
+    flex-shrink:   0;
+}

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Button</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="button.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      padding:          var(--seed-space-12) var(--seed-space-8);
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-12);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .page-title span {
+      font-weight: var(--seed-weight-regular);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-sm);
+      margin-left: var(--seed-space-3);
+    }
+
+    /* ── Nav ── */
+    .page-nav {
+      display:     flex;
+      gap:         var(--seed-space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: var(--seed-space-12);
+    }
+
+    .section-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-4);
+    }
+
+    /* ── Grid ── */
+    .button-grid {
+      display:               grid;
+      grid-template-columns: max-content repeat(3, max-content);
+      align-items:           center;
+      gap:                   var(--seed-space-4) var(--seed-space-4);
+    }
+
+    .grid-header {
+      font-size:   var(--seed-text-xs);
+      font-weight: var(--seed-weight-semibold);
+      color:       var(--soil-text-muted);
+      padding:     0 var(--seed-space-2);
+      text-align:  center;
+    }
+
+    .grid-label {
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      padding-right: var(--seed-space-6);
+      white-space:   nowrap;
+    }
+
+    .cell {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      padding:         var(--seed-space-2);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border:     none;
+      border-top: 1px solid var(--soil-border-subtle);
+      margin:     var(--seed-space-8) 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-title">
+      seed <span>Button component · v0.1</span>
+    </div>
+    <div class="page-nav">
+      <a class="nav-link" href="../badge/badge.html">← Badge</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+    </div>
+  </header>
+
+  <!-- ── Variants × Sizes ── -->
+  <section class="section">
+    <p class="section-label">Variants × Sizes</p>
+    <div class="button-grid">
+
+      <div></div>
+      <div class="grid-header">sm</div>
+      <div class="grid-header">md</div>
+      <div class="grid-header">lg</div>
+
+      <div class="grid-label">primary</div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--sm">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--md">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--lg">Button</button></div>
+
+      <div class="grid-label">secondary</div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--sm">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--md">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--lg">Button</button></div>
+
+      <div class="grid-label">link</div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--sm">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--md">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--lg">Button</button></div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Disabled ── -->
+  <section class="section">
+    <p class="section-label">Disabled</p>
+    <div class="button-grid">
+
+      <div></div>
+      <div class="grid-header">sm</div>
+      <div class="grid-header">md</div>
+      <div class="grid-header">lg</div>
+
+      <div class="grid-label">primary</div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--sm" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--md" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--lg" disabled>Button</button></div>
+
+      <div class="grid-label">secondary</div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--sm" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--md" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--lg" disabled>Button</button></div>
+
+      <div class="grid-label">link</div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--sm" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--md" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--lg" disabled>Button</button></div>
+
+    </div>
+  </section>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+  </script>
+
+</body>
+</html>

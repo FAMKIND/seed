@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Badge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="badge.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      padding:          var(--seed-space-12) var(--seed-space-8);
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-12);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .page-title span {
+      font-weight: var(--seed-weight-regular);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-sm);
+      margin-left: var(--seed-space-3);
+    }
+
+    /* ── Nav ── */
+    .page-nav {
+      display:     flex;
+      gap:         var(--seed-space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: var(--seed-space-12);
+    }
+
+    .section-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-4);
+    }
+
+    /* ── Grid ── */
+    .badge-grid {
+      display:               grid;
+      grid-template-columns: max-content repeat(2, max-content);
+      align-items:           center;
+      gap:                   var(--seed-space-4) var(--seed-space-4);
+    }
+
+    .grid-header {
+      font-size:   var(--seed-text-xs);
+      font-weight: var(--seed-weight-semibold);
+      color:       var(--soil-text-muted);
+      padding:     0 var(--seed-space-2);
+      text-align:  center;
+    }
+
+    .grid-label {
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      padding-right: var(--seed-space-6);
+      white-space:   nowrap;
+    }
+
+    .cell {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      gap:             var(--seed-space-2);
+      padding:         var(--seed-space-2);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border:     none;
+      border-top: 1px solid var(--soil-border-subtle);
+      margin:     var(--seed-space-8) 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-title">
+      seed <span>Badge component · v0.1</span>
+    </div>
+    <div class="page-nav">
+      <a class="nav-link" href="../button/button.html">Button →</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+    </div>
+  </header>
+
+  <!-- ── Variants × Sizes ── -->
+  <section class="section">
+    <p class="section-label">Variants × Sizes</p>
+    <div class="badge-grid">
+
+      <div></div>
+      <div class="grid-header">sm</div>
+      <div class="grid-header">md</div>
+
+      <div class="grid-label">neutral</div>
+      <div class="cell"><span class="seed-badge seed-badge--neutral seed-badge--sm">Neutral</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--neutral seed-badge--md">Neutral</span></div>
+
+      <div class="grid-label">good</div>
+      <div class="cell"><span class="seed-badge seed-badge--good seed-badge--sm">Good</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--good seed-badge--md">Good</span></div>
+
+      <div class="grid-label">warn</div>
+      <div class="cell"><span class="seed-badge seed-badge--warn seed-badge--sm">Warn</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--warn seed-badge--md">Warn</span></div>
+
+      <div class="grid-label">bad</div>
+      <div class="cell"><span class="seed-badge seed-badge--bad seed-badge--sm">Bad</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--bad seed-badge--md">Bad</span></div>
+
+      <div class="grid-label">selected</div>
+      <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--sm">Selected</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--md">Selected</span></div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── With dot indicator ── -->
+  <section class="section">
+    <p class="section-label">With dot indicator</p>
+    <div class="badge-grid">
+
+      <div></div>
+      <div class="grid-header">sm</div>
+      <div class="grid-header">md</div>
+
+      <div class="grid-label">neutral</div>
+      <div class="cell"><span class="seed-badge seed-badge--neutral seed-badge--sm"><span class="seed-badge__dot"></span>Neutral</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--neutral seed-badge--md"><span class="seed-badge__dot"></span>Neutral</span></div>
+
+      <div class="grid-label">good</div>
+      <div class="cell"><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Good</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--good seed-badge--md"><span class="seed-badge__dot"></span>Good</span></div>
+
+      <div class="grid-label">warn</div>
+      <div class="cell"><span class="seed-badge seed-badge--warn seed-badge--sm"><span class="seed-badge__dot"></span>Warn</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--warn seed-badge--md"><span class="seed-badge__dot"></span>Warn</span></div>
+
+      <div class="grid-label">bad</div>
+      <div class="cell"><span class="seed-badge seed-badge--bad seed-badge--sm"><span class="seed-badge__dot"></span>Bad</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--bad seed-badge--md"><span class="seed-badge__dot"></span>Bad</span></div>
+
+      <div class="grid-label">selected</div>
+      <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--sm"><span class="seed-badge__dot"></span>Selected</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--md"><span class="seed-badge__dot"></span>Selected</span></div>
+
+    </div>
+  </section>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+  </script>
+
+</body>
+</html>
