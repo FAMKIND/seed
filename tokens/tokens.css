@@ -283,7 +283,7 @@
     --calm-text-bold-hover:         var(--seed-soil-50);
     --calm-text-bold-disabled:      var(--seed-soil-600);
     --calm-border-subtle-default:   #3E5C50;
-    --calm-border-normal-default:   var(--seed-soil-700);
+    --calm-border-normal-default:   #4A6B5C;
     --calm-border-bold-default:     var(--seed-soil-400);
     --calm-icon-normal-default:     var(--seed-soil-400);
     --calm-icon-normal-hover:       var(--seed-soil-300);
@@ -306,7 +306,7 @@
     --good-text-bold-hover:         #F0FDE8;
     --good-text-bold-disabled:      var(--seed-lime-700);
     --good-border-subtle-default:   #2D8B50;
-    --good-border-normal-default:   var(--seed-lime-700);
+    --good-border-normal-default:   #2D8B50;
     --good-border-bold-default:     var(--seed-lime-500);
     --good-icon-normal-default:     var(--seed-lime-400);
     --good-icon-normal-hover:       var(--seed-lime-300);
@@ -349,7 +349,7 @@
     --bad-text-bold-default:        var(--seed-brick-900);
     --bad-text-bold-disabled:       var(--seed-brick-700);
     --bad-border-subtle-default:    #B34068;
-    --bad-border-normal-default:    var(--seed-brick-700);
+    --bad-border-normal-default:    #B34068;
     --bad-border-bold-default:      var(--seed-brick-500);
     --bad-icon-normal-default:      var(--seed-brick-300);
     --bad-icon-normal-hover:        var(--seed-brick-200);
