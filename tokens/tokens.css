@@ -1,0 +1,407 @@
+/* ═══════════════════════════════════════════════════════
+   SEED TOKEN SYSTEM v0.1
+   by FAM (famkind.com) — MIT License
+   github.com/FAMKIND/seed
+
+   The metaphor:
+   ─────────────────────────────────────────────────────
+   soil    → the ground everything grows from (neutrals)
+   root    → the why / intent
+   stem    → where it applies (bg, text, icon, border)
+   bud     → how intense (subtle, normal, bold)
+   flower  → when / state (default, hover, active, disabled)
+
+   Naming:
+   ─────────────────────────────────────────────────────
+   Neutrals:  --soil-{stem}-{role}
+   Semantic:  --{root}-{stem}-{bud}-{flower}
+
+   Tiers:
+   ─────────────────────────────────────────────────────
+   Tier 1 → Raw palette     never use directly in components
+   Tier 2 → Semantic tokens  what components always reference
+   Tier 3 → Scale tokens     type, space, radius, shadow, grid
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   TIER 1: RAW PALETTE
+───────────────────────────────────────────────────── */
+
+:root {
+
+  /* Soil — warm neutral scale */
+  --seed-soil-0:        #F9F8F4;
+  --seed-soil-50:       #F0EEE6;
+  --seed-soil-100:      #E8E4DB;
+  --seed-soil-200:      #D8D3C8;
+  --seed-soil-300:      #C0BAB0;
+  --seed-soil-400:      #A09890;
+  --seed-soil-500:      #787068;
+  --seed-soil-600:      #504840;
+  --seed-soil-700:      #342E28;
+  --seed-soil-800:      #221E18;
+  --seed-soil-900:      #141210;
+  --seed-soil-950:      #131B17;
+
+  /* Lime — primary accent */
+  --seed-lime-100:      #E4F9BE;
+  --seed-lime-200:      #C8F09A;
+  --seed-lime-300:      #A3E18A;
+  --seed-lime-400:      #5DC870;
+  --seed-lime-500:      #09A950;
+  --seed-lime-600:      #078040;
+  --seed-lime-700:      #055C2E;
+  --seed-lime-950:      #131B17;
+
+  /* Yellow — energy, attention */
+  --seed-yellow-100:    #FEFEF0;
+  --seed-yellow-200:    #FEFBD0;
+  --seed-yellow-300:    #FEF8A0;
+  --seed-yellow-400:    #FDF467;
+  --seed-yellow-500:    #FCEE23;
+  --seed-yellow-600:    #D4C800;
+  --seed-yellow-700:    #A89E00;
+
+  /* Brick — error, urgent */
+  --seed-brick-100:     #FAEEEC;
+  --seed-brick-200:     #F0D0CC;
+  --seed-brick-300:     #E0A89A;
+  --seed-brick-400:     #C47060;
+  --seed-brick-500:     #A84B3C;
+  --seed-brick-600:     #8A3228;
+  --seed-brick-700:     #6A2018;
+
+}
+
+
+/* ─────────────────────────────────────────────────────
+   TIER 2: SEMANTIC TOKENS — LIGHT MODE
+───────────────────────────────────────────────────── */
+
+[data-theme="light"] {
+
+  /* Soil — structural ground */
+  --soil-bg-canvas:               var(--seed-soil-50);
+  --soil-bg-surface:              var(--seed-soil-0);
+  --soil-bg-elevated:             #FFFFFF;
+  --soil-text:                    var(--seed-soil-900);
+  --soil-text-muted:              var(--seed-soil-500);
+  --soil-text-disabled:           var(--seed-soil-300);
+  --soil-border:                  var(--seed-soil-200);
+  --soil-border-subtle:           var(--seed-soil-100);
+
+  /* Logo */
+  --soil-logo-ink:                var(--seed-lime-950);
+
+  /* calm — warm paper, informational, resting */
+  --calm-bg-subtle-default:       var(--seed-soil-50);
+  --calm-bg-subtle-hover:         var(--seed-soil-100);
+  --calm-bg-subtle-active:        var(--seed-soil-200);
+  --calm-bg-subtle-disabled:      var(--seed-soil-50);
+  --calm-bg-normal-default:       var(--seed-soil-100);
+  --calm-bg-normal-hover:         var(--seed-soil-200);
+  --calm-bg-bold-default:         var(--seed-soil-700);
+  --calm-bg-bold-hover:           var(--seed-soil-800);
+  --calm-text-normal-default:     var(--seed-soil-600);
+  --calm-text-normal-hover:       var(--seed-soil-700);
+  --calm-text-bold-default:       var(--seed-soil-800);
+  --calm-text-bold-hover:         var(--seed-soil-900);
+  --calm-text-bold-disabled:      var(--seed-soil-300);
+  --calm-border-subtle-default:   var(--seed-soil-100);
+  --calm-border-normal-default:   var(--seed-soil-200);
+  --calm-border-bold-default:     var(--seed-soil-600);
+  --calm-icon-normal-default:     var(--seed-soil-500);
+  --calm-icon-normal-hover:       var(--seed-soil-600);
+  --calm-icon-bold-default:       var(--seed-soil-800);
+
+  /* good — lime, growth, success, positive */
+  --good-bg-subtle-default:       var(--seed-lime-100);
+  --good-bg-subtle-hover:         var(--seed-lime-200);
+  --good-bg-subtle-active:        var(--seed-lime-300);
+  --good-bg-subtle-disabled:      var(--seed-lime-100);
+  --good-bg-normal-default:       var(--seed-lime-300);
+  --good-bg-normal-hover:         var(--seed-lime-400);
+  --good-bg-bold-default:         var(--seed-lime-500);
+  --good-bg-bold-hover:           var(--seed-lime-600);
+  --good-bg-bold-active:          var(--seed-lime-700);
+  --good-bg-bold-disabled:        var(--seed-lime-200);
+  --good-text-normal-default:     var(--seed-lime-600);
+  --good-text-normal-hover:       var(--seed-lime-700);
+  --good-text-bold-default:       var(--seed-lime-700);
+  --good-text-bold-hover:         var(--seed-lime-950);
+  --good-text-bold-disabled:      var(--seed-lime-300);
+  --good-border-subtle-default:   var(--seed-lime-200);
+  --good-border-normal-default:   var(--seed-lime-300);
+  --good-border-bold-default:     var(--seed-lime-500);
+  --good-icon-normal-default:     var(--seed-lime-500);
+  --good-icon-normal-hover:       var(--seed-lime-600);
+  --good-icon-bold-default:       var(--seed-lime-700);
+
+  /* warn — yellow, caution, energy, attention */
+  --warn-bg-subtle-default:       var(--seed-yellow-100);
+  --warn-bg-subtle-hover:         var(--seed-yellow-200);
+  --warn-bg-subtle-active:        var(--seed-yellow-300);
+  --warn-bg-subtle-disabled:      var(--seed-yellow-100);
+  --warn-bg-normal-default:       var(--seed-yellow-300);
+  --warn-bg-normal-hover:         var(--seed-yellow-400);
+  --warn-bg-bold-default:         var(--seed-yellow-500);
+  --warn-bg-bold-hover:           var(--seed-yellow-600);
+  --warn-bg-bold-disabled:        var(--seed-yellow-200);
+  --warn-text-normal-default:     var(--seed-yellow-700);
+  --warn-text-normal-hover:       var(--seed-yellow-700);
+  --warn-text-bold-default:       var(--seed-soil-800);
+  --warn-text-bold-disabled:      var(--seed-yellow-400);
+  --warn-border-subtle-default:   var(--seed-yellow-200);
+  --warn-border-normal-default:   var(--seed-yellow-400);
+  --warn-border-bold-default:     var(--seed-yellow-500);
+  --warn-icon-normal-default:     var(--seed-yellow-600);
+  --warn-icon-normal-hover:       var(--seed-yellow-700);
+  --warn-icon-bold-default:       var(--seed-soil-800);
+
+  /* bad — brick, error, destructive, urgent */
+  --bad-bg-subtle-default:        var(--seed-brick-100);
+  --bad-bg-subtle-hover:          var(--seed-brick-200);
+  --bad-bg-subtle-active:         var(--seed-brick-300);
+  --bad-bg-subtle-disabled:       var(--seed-brick-100);
+  --bad-bg-normal-default:        var(--seed-brick-300);
+  --bad-bg-normal-hover:          var(--seed-brick-400);
+  --bad-bg-bold-default:          var(--seed-brick-500);
+  --bad-bg-bold-hover:            var(--seed-brick-600);
+  --bad-bg-bold-active:           var(--seed-brick-700);
+  --bad-bg-bold-disabled:         var(--seed-brick-200);
+  --bad-text-normal-default:      var(--seed-brick-500);
+  --bad-text-normal-hover:        var(--seed-brick-600);
+  --bad-text-bold-default:        var(--seed-brick-700);
+  --bad-text-bold-disabled:       var(--seed-brick-300);
+  --bad-border-subtle-default:    var(--seed-brick-100);
+  --bad-border-normal-default:    var(--seed-brick-300);
+  --bad-border-bold-default:      var(--seed-brick-500);
+  --bad-icon-normal-default:      var(--seed-brick-500);
+  --bad-icon-normal-hover:        var(--seed-brick-600);
+  --bad-icon-bold-default:        var(--seed-brick-700);
+
+  /* selected — lime, chosen, active, on */
+  --selected-bg-subtle-default:   var(--seed-lime-100);
+  --selected-bg-subtle-hover:     var(--seed-lime-200);
+  --selected-bg-subtle-active:    var(--seed-lime-300);
+  --selected-bg-bold-default:     var(--seed-lime-500);
+  --selected-bg-bold-hover:       var(--seed-lime-600);
+  --selected-bg-bold-active:      var(--seed-lime-700);
+  --selected-bg-bold-disabled:    var(--seed-lime-200);
+  --selected-text-normal-default: var(--seed-lime-600);
+  --selected-text-normal-hover:   var(--seed-lime-700);
+  --selected-text-bold-default:   var(--seed-soil-0);
+  --selected-text-bold-disabled:  var(--seed-lime-300);
+  --selected-border-subtle-default: var(--seed-lime-200);
+  --selected-border-bold-default: var(--seed-lime-500);
+  --selected-icon-normal-default: var(--seed-lime-500);
+  --selected-icon-normal-hover:   var(--seed-lime-600);
+  --selected-icon-bold-default:   var(--seed-soil-0);
+
+}
+
+
+/* ─────────────────────────────────────────────────────
+   TIER 2: SEMANTIC TOKENS — DARK MODE
+   Same roots, smoked and deepened.
+   Backgrounds darken, text carries more hue.
+───────────────────────────────────────────────────── */
+
+[data-theme="dark"] {
+
+  /* Soil — structural ground */
+  --soil-bg-canvas:               var(--seed-soil-950);
+  --soil-bg-surface:              var(--seed-soil-900);
+  --soil-bg-elevated:             var(--seed-soil-800);
+  --soil-text:                    var(--seed-soil-50);
+  --soil-text-muted:              var(--seed-soil-400);
+  --soil-text-disabled:           var(--seed-soil-600);
+  --soil-border:                  var(--seed-soil-700);
+  --soil-border-subtle:           var(--seed-soil-800);
+
+  /* Logo — stays light on dark */
+  --soil-logo-ink:                var(--seed-soil-0);
+
+  /* calm — smoked warm paper */
+  --calm-bg-subtle-default:       #1E1E1A;
+  --calm-bg-subtle-hover:         #26261F;
+  --calm-bg-subtle-active:        #2E2E28;
+  --calm-bg-subtle-disabled:      var(--seed-soil-900);
+  --calm-bg-normal-default:       var(--seed-soil-800);
+  --calm-bg-normal-hover:         var(--seed-soil-700);
+  --calm-bg-bold-default:         var(--seed-soil-400);
+  --calm-bg-bold-hover:           var(--seed-soil-300);
+  --calm-text-normal-default:     var(--seed-soil-300);
+  --calm-text-normal-hover:       var(--seed-soil-200);
+  --calm-text-bold-default:       var(--seed-soil-100);
+  --calm-text-bold-hover:         var(--seed-soil-50);
+  --calm-text-bold-disabled:      var(--seed-soil-600);
+  --calm-border-subtle-default:   var(--seed-soil-800);
+  --calm-border-normal-default:   var(--seed-soil-700);
+  --calm-border-bold-default:     var(--seed-soil-400);
+  --calm-icon-normal-default:     var(--seed-soil-400);
+  --calm-icon-normal-hover:       var(--seed-soil-300);
+  --calm-icon-bold-default:       var(--seed-soil-100);
+
+  /* good — smoked sage, deep evergreen */
+  --good-bg-subtle-default:       #0D2016;
+  --good-bg-subtle-hover:         #112B1E;
+  --good-bg-subtle-active:        #163826;
+  --good-bg-subtle-disabled:      #0A1A10;
+  --good-bg-normal-default:       #1A3D22;
+  --good-bg-normal-hover:         #1F4A28;
+  --good-bg-bold-default:         var(--seed-lime-600);
+  --good-bg-bold-hover:           var(--seed-lime-500);
+  --good-bg-bold-active:          var(--seed-lime-400);
+  --good-bg-bold-disabled:        #1A3D22;
+  --good-text-normal-default:     var(--seed-lime-300);
+  --good-text-normal-hover:       var(--seed-lime-200);
+  --good-text-bold-default:       var(--seed-lime-100);
+  --good-text-bold-hover:         #F0FDE8;
+  --good-text-bold-disabled:      var(--seed-lime-700);
+  --good-border-subtle-default:   #1A3D22;
+  --good-border-normal-default:   var(--seed-lime-700);
+  --good-border-bold-default:     var(--seed-lime-500);
+  --good-icon-normal-default:     var(--seed-lime-400);
+  --good-icon-normal-hover:       var(--seed-lime-300);
+  --good-icon-bold-default:       var(--seed-lime-100);
+
+  /* warn — smoked amber, burnt honey */
+  --warn-bg-subtle-default:       #221A08;
+  --warn-bg-subtle-hover:         #2E2410;
+  --warn-bg-subtle-active:        #3A2E18;
+  --warn-bg-subtle-disabled:      #1A1405;
+  --warn-bg-normal-default:       #3D3010;
+  --warn-bg-normal-hover:         #4A3C18;
+  --warn-bg-bold-default:         var(--seed-yellow-600);
+  --warn-bg-bold-hover:           var(--seed-yellow-500);
+  --warn-bg-bold-disabled:        #3D3010;
+  --warn-text-normal-default:     var(--seed-yellow-400);
+  --warn-text-normal-hover:       var(--seed-yellow-300);
+  --warn-text-bold-default:       var(--seed-yellow-200);
+  --warn-text-bold-disabled:      var(--seed-yellow-700);
+  --warn-border-subtle-default:   #2E2410;
+  --warn-border-normal-default:   var(--seed-yellow-700);
+  --warn-border-bold-default:     var(--seed-yellow-500);
+  --warn-icon-normal-default:     var(--seed-yellow-400);
+  --warn-icon-normal-hover:       var(--seed-yellow-300);
+  --warn-icon-bold-default:       var(--seed-yellow-200);
+
+  /* bad — smoked brick, deep terracotta */
+  --bad-bg-subtle-default:        #221010;
+  --bad-bg-subtle-hover:          #2E1818;
+  --bad-bg-subtle-active:         #3A2020;
+  --bad-bg-subtle-disabled:       #1A0C0C;
+  --bad-bg-normal-default:        #3D1E1E;
+  --bad-bg-normal-hover:          #4A2828;
+  --bad-bg-bold-default:          var(--seed-brick-600);
+  --bad-bg-bold-hover:            var(--seed-brick-500);
+  --bad-bg-bold-active:           var(--seed-brick-400);
+  --bad-bg-bold-disabled:         #3D1E1E;
+  --bad-text-normal-default:      var(--seed-brick-300);
+  --bad-text-normal-hover:        var(--seed-brick-200);
+  --bad-text-bold-default:        var(--seed-brick-100);
+  --bad-text-bold-disabled:       var(--seed-brick-700);
+  --bad-border-subtle-default:    #2E1818;
+  --bad-border-normal-default:    var(--seed-brick-700);
+  --bad-border-bold-default:      var(--seed-brick-500);
+  --bad-icon-normal-default:      var(--seed-brick-300);
+  --bad-icon-normal-hover:        var(--seed-brick-200);
+  --bad-icon-bold-default:        var(--seed-brick-100);
+
+  /* selected — lime on dark */
+  --selected-bg-subtle-default:   #0D2016;
+  --selected-bg-subtle-hover:     #112B1E;
+  --selected-bg-subtle-active:    #163826;
+  --selected-bg-bold-default:     var(--seed-lime-500);
+  --selected-bg-bold-hover:       var(--seed-lime-400);
+  --selected-bg-bold-active:      var(--seed-lime-300);
+  --selected-bg-bold-disabled:    #1A3D22;
+  --selected-text-normal-default: var(--seed-lime-300);
+  --selected-text-normal-hover:   var(--seed-lime-200);
+  --selected-text-bold-default:   var(--seed-soil-950);
+  --selected-text-bold-disabled:  var(--seed-lime-700);
+  --selected-border-subtle-default: #1A3D22;
+  --selected-border-bold-default: var(--seed-lime-500);
+  --selected-icon-normal-default: var(--seed-lime-400);
+  --selected-icon-normal-hover:   var(--seed-lime-300);
+  --selected-icon-bold-default:   var(--seed-soil-950);
+
+}
+
+
+/* ─────────────────────────────────────────────────────
+   TIER 3: SCALE TOKENS
+   Shared across both themes. Never theme-specific.
+───────────────────────────────────────────────────── */
+
+:root {
+
+  /* Typography */
+  --seed-font-brand:        'Montserrat', sans-serif;
+  --seed-font-serif:        'Lora', serif;
+  --seed-font-ui:           'Inter', sans-serif;
+
+  --seed-text-xs:           12px;
+  --seed-text-sm:           14px;
+  --seed-text-base:         16px;
+  --seed-text-lg:           20px;
+  --seed-text-xl:           24px;
+  --seed-text-2xl:          32px;
+  --seed-text-3xl:          48px;
+
+  --seed-leading-tight:     1.2;
+  --seed-leading-snug:      1.4;
+  --seed-leading-normal:    1.6;
+
+  --seed-weight-regular:    400;
+  --seed-weight-medium:     500;
+  --seed-weight-semibold:   600;
+
+  /* Spacing — 4px base unit */
+  --seed-space-1:           4px;
+  --seed-space-2:           8px;
+  --seed-space-3:           12px;
+  --seed-space-4:           16px;
+  --seed-space-6:           24px;
+  --seed-space-8:           32px;
+  --seed-space-12:          48px;
+  --seed-space-16:          64px;
+  --seed-space-24:          96px;
+  --seed-space-32:          128px;
+
+  /* Border Radius */
+  --seed-radius-sm:         4px;
+  --seed-radius-md:         8px;
+  --seed-radius-lg:         16px;
+  --seed-radius-xl:         24px;
+  --seed-radius-full:       9999px;
+
+  /* Shadows */
+  --seed-shadow-none:       none;
+  --seed-shadow-xs:         0 1px 2px rgba(19, 27, 23, 0.04);
+  --seed-shadow-sm:         0 2px 4px rgba(19, 27, 23, 0.06);
+  --seed-shadow-md:         0 4px 12px rgba(19, 27, 23, 0.08);
+  --seed-shadow-lg:         0 8px 24px rgba(19, 27, 23, 0.10);
+  --seed-shadow-xl:         0 16px 48px rgba(19, 27, 23, 0.12);
+  --seed-shadow-focus:      0 0 0 3px rgba(9, 169, 80, 0.30);
+
+  /* Grid */
+  --seed-grid-columns:      12;
+  --seed-grid-gutter-lg:    24px;
+  --seed-grid-gutter-md:    16px;
+  --seed-grid-gutter-sm:    16px;
+  --seed-grid-margin:       auto;
+  --seed-grid-max-width:    1280px;
+
+  /* Z-index */
+  --seed-z-base:            0;
+  --seed-z-raised:          10;
+  --seed-z-dropdown:        100;
+  --seed-z-sticky:          200;
+  --seed-z-overlay:         300;
+  --seed-z-modal:           400;
+  --seed-z-toast:           500;
+
+}
