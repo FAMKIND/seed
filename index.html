@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="tokens/tokens.css">
   <link rel="stylesheet" href="components/button/button.css">
   <link rel="stylesheet" href="components/badge/badge.css">
+  <link rel="stylesheet" href="components/grid/grid.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -177,6 +178,26 @@
       margin-bottom:  var(--seed-space-4);
       margin-top:     var(--seed-space-8);
     }
+
+    /* ── Grid col boxes ── */
+    .col-box {
+      border-radius:   var(--seed-radius-md, 8px);
+      padding:         var(--seed-space-2) var(--seed-space-2);
+      font-size:       var(--seed-text-xs);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-align:      center;
+      min-height:      40px;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+    }
+
+    .col-box--calm     { background: var(--calm-bg-subtle-default);     border: 1px solid var(--calm-border-subtle-default); }
+    .col-box--good     { background: var(--good-bg-subtle-default);     border: 1px solid var(--good-border-subtle-default); }
+    .col-box--warn     { background: var(--warn-bg-subtle-default);     border: 1px solid var(--warn-border-subtle-default); }
+    .col-box--bad      { background: var(--bad-bg-subtle-default);      border: 1px solid var(--bad-border-subtle-default); }
+    .col-box--selected { background: var(--selected-bg-subtle-default); border: 1px solid var(--selected-border-subtle-default); }
 
     /* ── Footer ── */
     .page-footer {
@@ -392,6 +413,60 @@
       <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--lg seed-badge--interactive">Selected</span></div>
     </div>
 
+  </section>
+
+
+  <!-- ── Grid ── -->
+  <section class="section">
+    <p class="section-title">Grid</p>
+
+    <p class="subsection-label">12 × 1</p>
+    <div class="seed-grid seed-grid--gap-4">
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+      <div class="seed-col-1 col-box col-box--calm">1</div>
+    </div>
+
+    <p class="subsection-label">6 + 6</p>
+    <div class="seed-grid seed-grid--gap-4">
+      <div class="seed-col-6 col-box col-box--good">6</div>
+      <div class="seed-col-6 col-box col-box--good">6</div>
+    </div>
+
+    <p class="subsection-label">4 + 4 + 4</p>
+    <div class="seed-grid seed-grid--gap-4">
+      <div class="seed-col-4 col-box col-box--warn">4</div>
+      <div class="seed-col-4 col-box col-box--warn">4</div>
+      <div class="seed-col-4 col-box col-box--warn">4</div>
+    </div>
+
+    <p class="subsection-label">3 + 9</p>
+    <div class="seed-grid seed-grid--gap-4">
+      <div class="seed-col-3 col-box col-box--bad">3</div>
+      <div class="seed-col-9 col-box col-box--bad">9</div>
+    </div>
+
+    <p class="subsection-label">8 + 4</p>
+    <div class="seed-grid seed-grid--gap-4">
+      <div class="seed-col-8 col-box col-box--selected">8</div>
+      <div class="seed-col-4 col-box col-box--selected">4</div>
+    </div>
+
+    <p class="subsection-label">Responsive — 4+4+4 → 6+6 → 12</p>
+    <div class="seed-grid seed-grid--gap-4">
+      <div class="seed-col-4 seed-col-md-6 seed-col-sm-12 col-box col-box--good">4 · md:6 · sm:12</div>
+      <div class="seed-col-4 seed-col-md-6 seed-col-sm-12 col-box col-box--good">4 · md:6 · sm:12</div>
+      <div class="seed-col-4 seed-col-md-12 seed-col-sm-12 col-box col-box--good">4 · md:12 · sm:12</div>
+    </div>
   </section>
 
 

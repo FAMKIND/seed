@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Grid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="grid.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      padding:          var(--seed-space-12) var(--seed-space-8);
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-12);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .page-title span {
+      font-weight: var(--seed-weight-regular);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-sm);
+      margin-left: var(--seed-space-3);
+    }
+
+    /* ── Nav ── */
+    .page-nav {
+      display:     flex;
+      gap:         var(--seed-space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full, 9999px);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full, 9999px);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: var(--seed-space-12);
+    }
+
+    .section-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-4);
+    }
+
+    /* ── Grid wrapper — constrains demo to page width ── */
+    .demo-wrap {
+      width: 100%;
+    }
+
+    /* ── Column boxes ── */
+    .col-box {
+      border-radius: var(--seed-radius-md, 8px);
+      padding:       var(--seed-space-3) var(--seed-space-2);
+      font-size:     var(--seed-text-xs);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      text-align:    center;
+      min-height:    48px;
+      display:       flex;
+      align-items:   center;
+      justify-content: center;
+    }
+
+    .col-box--calm     { background: var(--calm-bg-subtle-default);  border: 1px solid var(--calm-border-subtle-default); }
+    .col-box--good     { background: var(--good-bg-subtle-default);  border: 1px solid var(--good-border-subtle-default); }
+    .col-box--warn     { background: var(--warn-bg-subtle-default);  border: 1px solid var(--warn-border-subtle-default); }
+    .col-box--bad      { background: var(--bad-bg-subtle-default);   border: 1px solid var(--bad-border-subtle-default); }
+    .col-box--selected { background: var(--selected-bg-subtle-default); border: 1px solid var(--selected-border-subtle-default); }
+
+    /* ── Divider ── */
+    .divider {
+      border:     none;
+      border-top: 1px solid var(--soil-border-subtle);
+      margin:     var(--seed-space-8) 0;
+    }
+
+    /* ── Responsive label ── */
+    .breakpoint-note {
+      font-size:     var(--seed-text-xs);
+      color:         var(--soil-text-muted);
+      margin-bottom: var(--seed-space-3);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-title">
+      seed <span>Grid component · v0.1</span>
+    </div>
+    <div class="page-nav">
+      <a class="nav-link" href="../../index.html">← Preview</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+    </div>
+  </header>
+
+  <!-- ── 12 × 1 ── -->
+  <section class="section">
+    <p class="section-label">12 × 1</p>
+    <div class="demo-wrap">
+      <div class="seed-grid seed-grid--gap-4">
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+        <div class="seed-col-1 col-box col-box--calm">1</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 6 + 6 ── -->
+  <section class="section">
+    <p class="section-label">6 + 6</p>
+    <div class="demo-wrap">
+      <div class="seed-grid seed-grid--gap-4">
+        <div class="seed-col-6 col-box col-box--good">6</div>
+        <div class="seed-col-6 col-box col-box--good">6</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 4 + 4 + 4 ── -->
+  <section class="section">
+    <p class="section-label">4 + 4 + 4</p>
+    <div class="demo-wrap">
+      <div class="seed-grid seed-grid--gap-4">
+        <div class="seed-col-4 col-box col-box--warn">4</div>
+        <div class="seed-col-4 col-box col-box--warn">4</div>
+        <div class="seed-col-4 col-box col-box--warn">4</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 3 + 9 ── -->
+  <section class="section">
+    <p class="section-label">3 + 9</p>
+    <div class="demo-wrap">
+      <div class="seed-grid seed-grid--gap-4">
+        <div class="seed-col-3 col-box col-box--bad">3</div>
+        <div class="seed-col-9 col-box col-box--bad">9</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 8 + 4 ── -->
+  <section class="section">
+    <p class="section-label">8 + 4</p>
+    <div class="demo-wrap">
+      <div class="seed-grid seed-grid--gap-4">
+        <div class="seed-col-8 col-box col-box--selected">8</div>
+        <div class="seed-col-4 col-box col-box--selected">4</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Responsive: 4+4+4 → 6+6 → 12 ── -->
+  <section class="section">
+    <p class="section-label">Responsive — 4+4+4 → 6+6 → 12</p>
+    <p class="breakpoint-note">Resize the window: desktop 4+4+4 · tablet ≤768px 6+6 · mobile ≤480px full width</p>
+    <div class="demo-wrap">
+      <div class="seed-grid seed-grid--gap-4">
+        <div class="seed-col-4 seed-col-md-6 seed-col-sm-12 col-box col-box--good">4 · md:6 · sm:12</div>
+        <div class="seed-col-4 seed-col-md-6 seed-col-sm-12 col-box col-box--good">4 · md:6 · sm:12</div>
+        <div class="seed-col-4 seed-col-md-12 seed-col-sm-12 col-box col-box--good">4 · md:12 · sm:12</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Gap modifiers ── -->
+  <section class="section">
+    <p class="section-label">Gap modifiers</p>
+    <div style="display: flex; flex-direction: column; gap: var(--seed-space-6);">
+
+      <div>
+        <p class="breakpoint-note" style="margin-bottom: var(--seed-space-2);">gap-2 (8px)</p>
+        <div class="seed-grid seed-grid--gap-2">
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+        </div>
+      </div>
+
+      <div>
+        <p class="breakpoint-note" style="margin-bottom: var(--seed-space-2);">gap-4 (16px)</p>
+        <div class="seed-grid seed-grid--gap-4">
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+        </div>
+      </div>
+
+      <div>
+        <p class="breakpoint-note" style="margin-bottom: var(--seed-space-2);">gap-6 (24px)</p>
+        <div class="seed-grid seed-grid--gap-6">
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+        </div>
+      </div>
+
+      <div>
+        <p class="breakpoint-note" style="margin-bottom: var(--seed-space-2);">gap-8 (32px)</p>
+        <div class="seed-grid seed-grid--gap-8">
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+          <div class="seed-col-3 col-box col-box--calm">3</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+/* ═══════════════════════════════════════════════════════
+   SEED GRID
+   Requires: tokens/tokens.css
+   Usage:    <div class="seed-grid">
+               <div class="seed-col-6">...</div>
+               <div class="seed-col-6">...</div>
+             </div>
+
+   12-column CSS Grid, fully token-driven.
+   Zero hardcoded values.
+═══════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────
+   CONTAINER
+───────────────────────────────────────────────────── */
+
+.seed-grid {
+    display:               grid;
+    grid-template-columns: repeat(var(--seed-grid-columns), 1fr);
+    gap:                   var(--seed-grid-gutter-lg);
+    max-width:             var(--seed-grid-max-width);
+    margin-inline:         var(--seed-grid-margin);
+    width:                 100%;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   GAP MODIFIERS
+───────────────────────────────────────────────────── */
+
+.seed-grid--gap-2 { gap: var(--seed-space-2); }
+.seed-grid--gap-4 { gap: var(--seed-space-4); }
+.seed-grid--gap-6 { gap: var(--seed-space-6); }
+.seed-grid--gap-8 { gap: var(--seed-space-8); }
+
+
+/* ─────────────────────────────────────────────────────
+   COLUMNS — desktop (default)
+   .seed-col-{n}  spans n of 12 columns
+───────────────────────────────────────────────────── */
+
+.seed-col-1  { grid-column: span 1; }
+.seed-col-2  { grid-column: span 2; }
+.seed-col-3  { grid-column: span 3; }
+.seed-col-4  { grid-column: span 4; }
+.seed-col-5  { grid-column: span 5; }
+.seed-col-6  { grid-column: span 6; }
+.seed-col-7  { grid-column: span 7; }
+.seed-col-8  { grid-column: span 8; }
+.seed-col-9  { grid-column: span 9; }
+.seed-col-10 { grid-column: span 10; }
+.seed-col-11 { grid-column: span 11; }
+.seed-col-12 { grid-column: span 12; }
+
+
+/* ─────────────────────────────────────────────────────
+   COLUMNS — tablet  ≤ 768px
+   .seed-col-md-{n}
+───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .seed-grid {
+        gap: var(--seed-grid-gutter-md);
+    }
+
+    .seed-col-md-1  { grid-column: span 1; }
+    .seed-col-md-2  { grid-column: span 2; }
+    .seed-col-md-3  { grid-column: span 3; }
+    .seed-col-md-4  { grid-column: span 4; }
+    .seed-col-md-5  { grid-column: span 5; }
+    .seed-col-md-6  { grid-column: span 6; }
+    .seed-col-md-7  { grid-column: span 7; }
+    .seed-col-md-8  { grid-column: span 8; }
+    .seed-col-md-9  { grid-column: span 9; }
+    .seed-col-md-10 { grid-column: span 10; }
+    .seed-col-md-11 { grid-column: span 11; }
+    .seed-col-md-12 { grid-column: span 12; }
+}
+
+
+/* ─────────────────────────────────────────────────────
+   COLUMNS — mobile  ≤ 480px
+   .seed-col-sm-{n}
+───────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+    .seed-grid {
+        gap: var(--seed-grid-gutter-sm);
+    }
+
+    .seed-col-sm-1  { grid-column: span 1; }
+    .seed-col-sm-2  { grid-column: span 2; }
+    .seed-col-sm-3  { grid-column: span 3; }
+    .seed-col-sm-4  { grid-column: span 4; }
+    .seed-col-sm-5  { grid-column: span 5; }
+    .seed-col-sm-6  { grid-column: span 6; }
+    .seed-col-sm-7  { grid-column: span 7; }
+    .seed-col-sm-8  { grid-column: span 8; }
+    .seed-col-sm-9  { grid-column: span 9; }
+    .seed-col-sm-10 { grid-column: span 10; }
+    .seed-col-sm-11 { grid-column: span 11; }
+    .seed-col-sm-12 { grid-column: span 12; }
+}
