@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="components/grid/grid.css">
   <link rel="stylesheet" href="components/divider/divider.css">
   <link rel="stylesheet" href="components/card/card.css">
+  <link rel="stylesheet" href="components/input/input.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -487,6 +488,60 @@
       <div style="padding: var(--seed-space-3) var(--seed-space-4); font-size: var(--seed-text-sm); color: var(--soil-text-muted);">Left</div>
       <div class="seed-divider seed-divider--vertical seed-divider--flush"></div>
       <div style="padding: var(--seed-space-3) var(--seed-space-4); font-size: var(--seed-text-sm); color: var(--soil-text-muted);">Right</div>
+    </div>
+  </section>
+
+
+  <!-- ── Input ── -->
+  <section class="section">
+    <p class="section-title">Input</p>
+
+    <p class="subsection-label">States</p>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--seed-space-6); margin-bottom: var(--seed-space-8);">
+
+      <div class="seed-input-group">
+        <label class="seed-label">Default</label>
+        <input class="seed-input" type="text" placeholder="Placeholder text">
+      </div>
+
+      <div class="seed-input-group">
+        <label class="seed-label">Error</label>
+        <input class="seed-input seed-input--error" type="text" value="ab">
+        <p class="seed-input-error">Must be at least 3 characters.</p>
+      </div>
+
+      <div class="seed-input-group">
+        <label class="seed-label">Success</label>
+        <input class="seed-input seed-input--success" type="text" value="ada_lace">
+        <p class="seed-input-hint">Username is available.</p>
+      </div>
+
+      <div class="seed-input-group">
+        <label class="seed-label">Disabled</label>
+        <input class="seed-input" type="text" value="locked_field" disabled>
+      </div>
+
+      <div class="seed-input-group">
+        <label class="seed-label">Select</label>
+        <select class="seed-input">
+          <option value="" disabled selected>Choose…</option>
+          <option>Designer</option>
+          <option>Engineer</option>
+        </select>
+      </div>
+
+      <div class="seed-input-group">
+        <label class="seed-label">Textarea</label>
+        <textarea class="seed-input" rows="2" placeholder="Write something…"></textarea>
+      </div>
+
+    </div>
+
+    <p class="subsection-label">Sizes</p>
+    <div style="display: flex; flex-direction: column; gap: var(--seed-space-4); max-width: 360px;">
+      <input class="seed-input seed-input--sm" type="text" placeholder="Small">
+      <input class="seed-input" type="text" placeholder="Medium (default)">
+      <input class="seed-input seed-input--lg" type="text" placeholder="Large">
     </div>
   </section>
 

@@ -1,0 +1,174 @@
+/* ═══════════════════════════════════════════════════════
+   SEED INPUT
+   Requires: tokens/tokens.css
+   Usage:    <div class="seed-input-group">
+               <label class="seed-label">Label</label>
+               <input class="seed-input" type="text">
+               <p class="seed-input-hint">Hint text</p>
+             </div>
+
+   Covers: input, textarea, select.
+   All values from Seed tokens. Dark mode automatic.
+═══════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────
+   GROUP — label + field + hint/error stack
+───────────────────────────────────────────────────── */
+
+.seed-input-group {
+    display:        flex;
+    flex-direction: column;
+    gap:            var(--seed-space-1);
+    width:          100%;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   LABEL
+───────────────────────────────────────────────────── */
+
+.seed-label {
+    display:     block;
+    font-family: var(--seed-font-ui);
+    font-size:   var(--seed-text-sm);
+    font-weight: var(--seed-weight-medium);
+    color:       var(--soil-text);
+    line-height: var(--seed-leading-tight);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   BASE INPUT — applies to input, textarea, select
+───────────────────────────────────────────────────── */
+
+.seed-input {
+    display:      block;
+    width:        100%;
+    background:   var(--soil-bg-elevated);
+    border:       1px solid var(--calm-border-normal-default);
+    border-radius: var(--seed-radius-lg, 8px);
+    padding:      0.6em 0.875em;
+
+    font-family:  var(--seed-font-ui);
+    font-size:    var(--seed-text-base);
+    font-weight:  var(--seed-weight-regular);
+    color:        var(--soil-text);
+    line-height:  var(--seed-leading-tight);
+
+    appearance:   none;
+    outline:      none;
+    transition:   border-color 120ms ease, box-shadow 120ms ease,
+                  background 120ms ease;
+}
+
+.seed-input::placeholder {
+    color: var(--soil-text-muted);
+}
+
+.seed-input:hover {
+    border-color: var(--calm-border-bold-default);
+}
+
+.seed-input:focus {
+    border-color: var(--selected-border-bold-default);
+    box-shadow:   var(--seed-shadow-focus);
+}
+
+.seed-input:disabled {
+    opacity:      0.4;
+    cursor:       not-allowed;
+    background:   var(--calm-bg-subtle-default);
+    border-color: var(--calm-border-normal-default);
+}
+
+.seed-input:disabled:hover {
+    border-color: var(--calm-border-normal-default);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   TEXTAREA — multiline
+───────────────────────────────────────────────────── */
+
+textarea.seed-input {
+    resize:     vertical;
+    min-height: 100px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SELECT — dropdown arrow
+───────────────────────────────────────────────────── */
+
+select.seed-input {
+    cursor:              pointer;
+    padding-right:       2.5em;
+    background-image:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23787068' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat:   no-repeat;
+    background-position: right 0.875em center;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   VALIDATION STATES
+───────────────────────────────────────────────────── */
+
+/* Error */
+.seed-input--error {
+    border-color: var(--bad-border-normal-default);
+}
+
+.seed-input--error:hover {
+    border-color: var(--bad-border-normal-default);
+}
+
+.seed-input--error:focus {
+    border-color: var(--bad-border-normal-default);
+    box-shadow:   0 0 0 3px rgba(168, 75, 60, 0.20);
+}
+
+/* Success */
+.seed-input--success {
+    border-color: var(--good-border-normal-default);
+}
+
+.seed-input--success:hover {
+    border-color: var(--good-border-normal-default);
+}
+
+.seed-input--success:focus {
+    border-color: var(--good-border-normal-default);
+    box-shadow:   0 0 0 3px rgba(9, 169, 80, 0.20);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SIZES
+───────────────────────────────────────────────────── */
+
+.seed-input--sm {
+    font-size: var(--seed-text-sm);
+    padding:   0.45em 0.75em;
+}
+
+.seed-input--lg {
+    font-size: var(--seed-text-lg);
+    padding:   0.65em 1em;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   HINT & ERROR TEXT
+───────────────────────────────────────────────────── */
+
+.seed-input-hint {
+    font-size:   var(--seed-text-xs);
+    color:       var(--soil-text-muted);
+    line-height: var(--seed-leading-snug);
+}
+
+.seed-input-error {
+    font-size:   var(--seed-text-xs);
+    color:       var(--bad-text-bold-default);
+    line-height: var(--seed-leading-snug);
+}

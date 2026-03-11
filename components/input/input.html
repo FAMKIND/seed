@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Input</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../components/button/button.css">
+  <link rel="stylesheet" href="../../components/divider/divider.css">
+  <link rel="stylesheet" href="../../components/grid/grid.css">
+  <link rel="stylesheet" href="../../components/card/card.css">
+  <link rel="stylesheet" href="input.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      padding:          var(--seed-space-12) var(--seed-space-8);
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-12);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .page-title span {
+      font-weight: var(--seed-weight-regular);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-sm);
+      margin-left: var(--seed-space-3);
+    }
+
+    .page-nav {
+      display:     flex;
+      gap:         var(--seed-space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full, 9999px);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full, 9999px);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* ── Sections ── */
+    .section {
+      margin-bottom: var(--seed-space-12);
+    }
+
+    .section-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-6);
+    }
+
+    .demo-divider {
+      border:     none;
+      border-top: 1px solid var(--soil-border-subtle);
+      margin:     var(--seed-space-10) 0;
+    }
+
+    /* ── Demo grid ── */
+    .states-grid {
+      display:               grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:                   var(--seed-space-6);
+    }
+
+    @media (max-width: 768px) {
+      .states-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .states-grid { grid-template-columns: 1fr; }
+    }
+
+    .state-label {
+      font-size:     var(--seed-text-xs);
+      color:         var(--soil-text-muted);
+      margin-bottom: var(--seed-space-3);
+      font-weight:   var(--seed-weight-medium);
+    }
+
+    /* ── Form card ── */
+    .form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--seed-space-4);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--seed-space-4);
+    }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .form-actions {
+      display:    flex;
+      gap:        var(--seed-space-3);
+      margin-top: var(--seed-space-2);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-title">
+      seed <span>Input component · v0.1</span>
+    </div>
+    <div class="page-nav">
+      <a class="nav-link" href="../../index.html">← Preview</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+    </div>
+  </header>
+
+
+  <!-- ── States ── -->
+  <section class="section">
+    <p class="section-label">States</p>
+    <div class="states-grid">
+
+      <div>
+        <p class="state-label">Default</p>
+        <div class="seed-input-group">
+          <label class="seed-label">Label</label>
+          <input class="seed-input" type="text" placeholder="Placeholder text">
+        </div>
+      </div>
+
+      <div>
+        <p class="state-label">With hint</p>
+        <div class="seed-input-group">
+          <label class="seed-label">Email address</label>
+          <input class="seed-input" type="email" placeholder="you@example.com">
+          <p class="seed-input-hint">We'll never share your email.</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="state-label">Filled</p>
+        <div class="seed-input-group">
+          <label class="seed-label">Full name</label>
+          <input class="seed-input" type="text" value="Ada Lovelace">
+        </div>
+      </div>
+
+      <div>
+        <p class="state-label">Error</p>
+        <div class="seed-input-group">
+          <label class="seed-label">Username</label>
+          <input class="seed-input seed-input--error" type="text" value="ab">
+          <p class="seed-input-error">Must be at least 3 characters.</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="state-label">Success</p>
+        <div class="seed-input-group">
+          <label class="seed-label">Username</label>
+          <input class="seed-input seed-input--success" type="text" value="ada_lace">
+          <p class="seed-input-hint">Username is available.</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="state-label">Disabled</p>
+        <div class="seed-input-group">
+          <label class="seed-label">Username</label>
+          <input class="seed-input" type="text" value="locked_field" disabled>
+          <p class="seed-input-hint">This field cannot be edited.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Sizes ── -->
+  <section class="section">
+    <p class="section-label">Sizes</p>
+    <div style="display: flex; flex-direction: column; gap: var(--seed-space-6); max-width: 480px;">
+
+      <div class="seed-input-group">
+        <label class="seed-label">Small</label>
+        <input class="seed-input seed-input--sm" type="text" placeholder="Small input">
+      </div>
+
+      <div class="seed-input-group">
+        <label class="seed-label">Medium (default)</label>
+        <input class="seed-input" type="text" placeholder="Medium input">
+      </div>
+
+      <div class="seed-input-group">
+        <label class="seed-label">Large</label>
+        <input class="seed-input seed-input--lg" type="text" placeholder="Large input">
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Textarea ── -->
+  <section class="section">
+    <p class="section-label">Textarea</p>
+    <div style="max-width: 560px;">
+      <div class="seed-input-group">
+        <label class="seed-label">Description</label>
+        <textarea class="seed-input" rows="4" placeholder="Write something..."></textarea>
+        <p class="seed-input-hint">Markdown is supported.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Select ── -->
+  <section class="section">
+    <p class="section-label">Select</p>
+    <div style="max-width: 360px;">
+      <div class="seed-input-group">
+        <label class="seed-label">Role</label>
+        <select class="seed-input">
+          <option value="" disabled selected>Choose a role…</option>
+          <option>Designer</option>
+          <option>Engineer</option>
+          <option>Product</option>
+          <option>Marketing</option>
+        </select>
+        <p class="seed-input-hint">Your role determines your default permissions.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Real-world form ── -->
+  <section class="section">
+    <p class="section-label">Real-world — sign up form</p>
+    <div style="max-width: 520px;">
+      <div class="seed-card">
+        <div class="seed-card__header">
+          <p style="font-size: var(--seed-text-base); font-weight: var(--seed-weight-semibold); color: var(--soil-text); margin-bottom: 2px;">Create your account</p>
+          <p style="font-size: var(--seed-text-sm); color: var(--soil-text-muted);">Free to use, open source.</p>
+        </div>
+        <div class="seed-card__body">
+          <div class="form-grid">
+
+            <div class="form-row">
+              <div class="seed-input-group">
+                <label class="seed-label">First name</label>
+                <input class="seed-input" type="text" placeholder="Ada">
+              </div>
+              <div class="seed-input-group">
+                <label class="seed-label">Last name</label>
+                <input class="seed-input" type="text" placeholder="Lovelace">
+              </div>
+            </div>
+
+            <div class="seed-input-group">
+              <label class="seed-label">Email address</label>
+              <input class="seed-input" type="email" placeholder="ada@example.com">
+            </div>
+
+            <div class="seed-input-group">
+              <label class="seed-label">Password</label>
+              <input class="seed-input" type="password" placeholder="Min. 8 characters">
+              <p class="seed-input-hint">Use a mix of letters, numbers, and symbols.</p>
+            </div>
+
+            <div class="seed-input-group">
+              <label class="seed-label">Role</label>
+              <select class="seed-input">
+                <option value="" disabled selected>Choose a role…</option>
+                <option>Designer</option>
+                <option>Engineer</option>
+                <option>Product</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+        <div class="seed-card__footer">
+          <div class="form-actions">
+            <button class="seed-button seed-button--primary seed-button--md">Create account</button>
+            <button class="seed-button seed-button--secondary seed-button--md">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+  </script>
+
+</body>
+</html>
