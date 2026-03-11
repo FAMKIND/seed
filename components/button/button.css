@@ -102,7 +102,7 @@
 
 .seed-button--secondary:hover {
     background:   var(--calm-bg-subtle-hover);
-    border-color: var(--calm-border-bold-default);
+    border-color: var(--calm-border-normal-default);
 }
 
 .seed-button--secondary:active {

@@ -2,6 +2,7 @@
    SEED BADGE
    Requires: tokens/tokens.css
    Usage:    <span class="seed-badge seed-badge--good seed-badge--md">Label</span>
+             Add seed-badge--interactive for hover/selected states
 
    Zero hardcoded colors — every value flows from
    Seed semantic tokens. Theme switching is automatic.
@@ -42,6 +43,24 @@
     padding:   0.3em 0.75em;
 }
 
+.seed-badge--lg {
+    font-size: var(--seed-text-base);
+    padding:   0.4em 1em;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   INTERACTIVE — opt-in hover + selected states
+   Add seed-badge--interactive to enable pointer behaviour.
+   Add seed-badge--active to force the selected state.
+───────────────────────────────────────────────────── */
+
+.seed-badge--interactive {
+    cursor:     pointer;
+    transition: background 120ms ease, border-color 120ms ease,
+                color 120ms ease;
+}
+
 
 /* ─────────────────────────────────────────────────────
    VARIANTS
@@ -59,11 +78,25 @@
     color:        var(--calm-text-bold-default);
 }
 
+.seed-badge--neutral.seed-badge--interactive:hover,
+.seed-badge--neutral.seed-badge--active {
+    background:   var(--calm-bg-subtle-hover);
+    border-color: var(--calm-border-normal-default);
+}
+
+
 .seed-badge--good {
     background:   var(--good-bg-subtle-default);
     border-color: var(--good-border-subtle-default);
     color:        var(--good-text-bold-default);
 }
+
+.seed-badge--good.seed-badge--interactive:hover,
+.seed-badge--good.seed-badge--active {
+    background:   var(--good-bg-subtle-hover);
+    border-color: var(--good-border-normal-default);
+}
+
 
 .seed-badge--warn {
     background:   var(--warn-bg-subtle-default);
@@ -71,16 +104,36 @@
     color:        var(--warn-text-bold-default);
 }
 
+.seed-badge--warn.seed-badge--interactive:hover,
+.seed-badge--warn.seed-badge--active {
+    background:   var(--warn-bg-subtle-hover);
+    border-color: var(--warn-border-normal-default);
+}
+
+
 .seed-badge--bad {
     background:   var(--bad-bg-subtle-default);
     border-color: var(--bad-border-subtle-default);
     color:        var(--bad-text-bold-default);
 }
 
+.seed-badge--bad.seed-badge--interactive:hover,
+.seed-badge--bad.seed-badge--active {
+    background:   var(--bad-bg-subtle-hover);
+    border-color: var(--bad-border-normal-default);
+}
+
+
 .seed-badge--selected {
     background:   var(--selected-bg-bold-default);
     border-color: var(--selected-border-bold-default);
     color:        var(--selected-text-bold-default);
+}
+
+.seed-badge--selected.seed-badge--interactive:hover,
+.seed-badge--selected.seed-badge--active {
+    background:   var(--selected-bg-bold-hover);
+    border-color: var(--selected-bg-bold-hover);
 }
 
 
