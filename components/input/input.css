@@ -44,8 +44,8 @@
 .seed-input {
     display:      block;
     width:        100%;
-    background:   var(--soil-bg-elevated);
-    border:       1px solid var(--calm-border-normal-default);
+    background:   var(--soil-bg-surface);
+    border:       1px solid var(--calm-border-subtle-default);
     border-radius: var(--seed-radius-lg, 8px);
     padding:      0.6em 0.875em;
 
@@ -66,11 +66,11 @@
 }
 
 .seed-input:hover {
-    border-color: var(--calm-border-bold-default);
+    border-color: var(--calm-border-normal-default);
 }
 
 .seed-input:focus {
-    border-color: var(--selected-border-bold-default);
+    border-color: var(--good-border-subtle-default);
     box-shadow:   var(--seed-shadow-focus);
 }
 
@@ -78,11 +78,11 @@
     opacity:      0.4;
     cursor:       not-allowed;
     background:   var(--calm-bg-subtle-default);
-    border-color: var(--calm-border-normal-default);
+    border-color: var(--calm-border-subtle-default);
 }
 
 .seed-input:disabled:hover {
-    border-color: var(--calm-border-normal-default);
+    border-color: var(--calm-border-subtle-default);
 }
 
 
@@ -115,30 +115,30 @@ select.seed-input {
 
 /* Error */
 .seed-input--error {
-    border-color: var(--bad-border-normal-default);
+    border-color: var(--bad-border-subtle-default);
 }
 
 .seed-input--error:hover {
-    border-color: var(--bad-border-normal-default);
+    border-color: var(--bad-border-subtle-default);
 }
 
 .seed-input--error:focus {
-    border-color: var(--bad-border-normal-default);
-    box-shadow:   0 0 0 3px rgba(168, 75, 60, 0.20);
+    border-color: var(--bad-border-subtle-default);
+    box-shadow:   0 0 0 3px rgba(139, 8, 54, 0.12);
 }
 
 /* Success */
 .seed-input--success {
-    border-color: var(--good-border-normal-default);
+    border-color: var(--good-border-subtle-default);
 }
 
 .seed-input--success:hover {
-    border-color: var(--good-border-normal-default);
+    border-color: var(--good-border-subtle-default);
 }
 
 .seed-input--success:focus {
-    border-color: var(--good-border-normal-default);
-    box-shadow:   0 0 0 3px rgba(9, 169, 80, 0.20);
+    border-color: var(--good-border-subtle-default);
+    box-shadow:   var(--seed-shadow-focus);
 }
 
 
@@ -170,5 +170,11 @@ select.seed-input {
 .seed-input-error {
     font-size:   var(--seed-text-xs);
     color:       var(--bad-text-bold-default);
+    line-height: var(--seed-leading-snug);
+}
+
+.seed-input-success {
+    font-size:   var(--seed-text-xs);
+    color:       var(--good-text-bold-default);
     line-height: var(--seed-leading-snug);
 }
