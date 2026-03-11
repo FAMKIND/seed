@@ -19,7 +19,7 @@
     white-space:     nowrap;
 
     border:          1px solid transparent;
-    border-radius:   var(--seed-radius-full);
+    border-radius:   var(--seed-radius-full, 9999px);
 
     font-family:     var(--seed-font-ui);
     font-weight:     var(--seed-weight-medium);
