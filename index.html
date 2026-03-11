@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="components/button/button.css">
   <link rel="stylesheet" href="components/badge/badge.css">
   <link rel="stylesheet" href="components/grid/grid.css">
+  <link rel="stylesheet" href="components/divider/divider.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -466,6 +467,25 @@
       <div class="seed-col-4 seed-col-md-6 seed-col-sm-12 col-box col-box--good">4 · md:6 · sm:12</div>
       <div class="seed-col-4 seed-col-md-6 seed-col-sm-12 col-box col-box--good">4 · md:6 · sm:12</div>
       <div class="seed-col-4 seed-col-md-12 seed-col-sm-12 col-box col-box--good">4 · md:12 · sm:12</div>
+    </div>
+  </section>
+
+
+  <!-- ── Divider ── -->
+  <section class="section">
+    <p class="section-title">Divider</p>
+
+    <p class="subsection-label">Horizontal — subtle</p>
+    <hr class="seed-divider seed-divider--flush">
+
+    <p class="subsection-label">Horizontal — bold</p>
+    <hr class="seed-divider seed-divider--flush seed-divider--bold">
+
+    <p class="subsection-label">Vertical — in flex row</p>
+    <div style="display: flex; align-items: stretch; background: var(--calm-bg-subtle-default); border-radius: var(--seed-radius-md, 8px); width: fit-content;">
+      <div style="padding: var(--seed-space-3) var(--seed-space-4); font-size: var(--seed-text-sm); color: var(--soil-text-muted);">Left</div>
+      <div class="seed-divider seed-divider--vertical seed-divider--flush"></div>
+      <div style="padding: var(--seed-space-3) var(--seed-space-4); font-size: var(--seed-text-sm); color: var(--soil-text-muted);">Right</div>
     </div>
   </section>
 

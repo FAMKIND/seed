@@ -1,0 +1,61 @@
+/* ═══════════════════════════════════════════════════════
+   SEED DIVIDER
+   Requires: tokens/tokens.css
+   Usage:    <hr class="seed-divider">
+             <div class="seed-divider seed-divider--vertical"></div>
+
+   Hairline separator — horizontal and vertical.
+   All colors from Seed tokens. Dark mode automatic.
+═══════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────
+   BASE — horizontal
+   Semantic element: <hr>
+───────────────────────────────────────────────────── */
+
+.seed-divider {
+    border:     none;
+    height:     1px;
+    background: var(--soil-border-subtle);
+    width:      100%;
+    margin:     var(--seed-space-6) 0;
+    flex-shrink: 0;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   VERTICAL
+   Use inside a flex container.
+   Semantic element: <div class="seed-divider seed-divider--vertical">
+───────────────────────────────────────────────────── */
+
+.seed-divider--vertical {
+    width:      1px;
+    height:     auto;
+    background: var(--soil-border-subtle);
+    margin:     0 var(--seed-space-4);
+    align-self: stretch;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   WEIGHT
+───────────────────────────────────────────────────── */
+
+.seed-divider--bold {
+    background: var(--soil-border);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SPACING MODIFIERS
+───────────────────────────────────────────────────── */
+
+.seed-divider--flush     { margin: 0; }
+.seed-divider--spaced-sm { margin: var(--seed-space-3) 0; }
+.seed-divider--spaced-lg { margin: var(--seed-space-8) 0; }
+
+/* vertical spacing modifiers */
+.seed-divider--vertical.seed-divider--flush     { margin: 0; }
+.seed-divider--vertical.seed-divider--spaced-sm { margin: 0 var(--seed-space-2); }
+.seed-divider--vertical.seed-divider--spaced-lg { margin: 0 var(--seed-space-6); }
