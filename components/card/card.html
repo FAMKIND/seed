@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../components/button/button.css">
+  <link rel="stylesheet" href="../../components/badge/badge.css">
+  <link rel="stylesheet" href="../../components/divider/divider.css">
+  <link rel="stylesheet" href="../../components/grid/grid.css">
+  <link rel="stylesheet" href="card.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      padding:          var(--seed-space-12) var(--seed-space-8);
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-12);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .page-title span {
+      font-weight: var(--seed-weight-regular);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-sm);
+      margin-left: var(--seed-space-3);
+    }
+
+    /* ── Nav ── */
+    .page-nav {
+      display:     flex;
+      gap:         var(--seed-space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full, 9999px);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full, 9999px);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* ── Sections ── */
+    .section {
+      margin-bottom: var(--seed-space-12);
+    }
+
+    .section-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-6);
+    }
+
+    /* ── Card content helpers ── */
+    .card-title {
+      font-size:     var(--seed-text-base);
+      font-weight:   var(--seed-weight-semibold);
+      color:         var(--soil-text);
+      margin-bottom: var(--seed-space-1);
+      line-height:   var(--seed-leading-tight);
+    }
+
+    .card-meta {
+      font-size: var(--seed-text-xs);
+      color:     var(--soil-text-muted);
+    }
+
+    .card-body-text {
+      font-size:   var(--seed-text-sm);
+      color:       var(--soil-text-muted);
+      line-height: var(--seed-leading-normal);
+    }
+
+    .card-actions {
+      display:     flex;
+      align-items: center;
+      gap:         var(--seed-space-3);
+    }
+
+    /* ── Media placeholder ── */
+    .media-placeholder {
+      width:           100%;
+      height:          180px;
+      background:      var(--calm-bg-normal-default);
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      font-size:       var(--seed-text-xs);
+      color:           var(--soil-text-muted);
+      letter-spacing:  0.05em;
+    }
+
+    /* ── Divider ── */
+    .demo-divider {
+      border:     none;
+      border-top: 1px solid var(--soil-border-subtle);
+      margin:     var(--seed-space-10) 0;
+    }
+
+    /* ── Max-width containers ── */
+    .card-wrap-sm { max-width: 400px; }
+    .card-wrap-md { max-width: 560px; }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-title">
+      seed <span>Card component · v0.1</span>
+    </div>
+    <div class="page-nav">
+      <a class="nav-link" href="../../index.html">← Preview</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+    </div>
+  </header>
+
+
+  <!-- ── Basic: header + body + footer ── -->
+  <section class="section">
+    <p class="section-label">Basic — header + body + footer</p>
+    <div class="card-wrap-sm">
+      <div class="seed-card">
+        <div class="seed-card__header">
+          <p class="card-title">Project overview</p>
+          <p class="card-meta">Updated 2 hours ago</p>
+        </div>
+        <div class="seed-card__body">
+          <p class="card-body-text">
+            The design system foundation is complete. Token system, button, badge, grid, divider, layout, and card components are shipped and live on GitHub Pages.
+          </p>
+        </div>
+        <div class="seed-card__footer">
+          <div class="card-actions">
+            <button class="seed-button seed-button--primary seed-button--sm">View details</button>
+            <button class="seed-button seed-button--secondary seed-button--sm">Dismiss</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Media card ── -->
+  <section class="section">
+    <p class="section-label">With media</p>
+    <div class="card-wrap-sm">
+      <div class="seed-card">
+        <div class="seed-card__media">
+          <div class="media-placeholder">16 : 9 media</div>
+        </div>
+        <div class="seed-card__body">
+          <p class="card-title" style="margin-bottom: var(--seed-space-2);">Open source design</p>
+          <p class="card-body-text">
+            Built for mission-driven artists, designers, and builders who need a clean, composable UI foundation without opinionated frameworks getting in the way.
+          </p>
+        </div>
+        <div class="seed-card__footer">
+          <div class="card-actions">
+            <span class="seed-badge seed-badge--good seed-badge--sm">Open source</span>
+            <span class="seed-badge seed-badge--neutral seed-badge--sm">v0.1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Interactive ── -->
+  <section class="section">
+    <p class="section-label">Interactive — lifts on hover</p>
+    <div class="card-wrap-sm">
+      <div class="seed-card seed-card--interactive">
+        <div class="seed-card__body">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: var(--seed-space-3); margin-bottom: var(--seed-space-3);">
+            <p class="card-title">Token system</p>
+            <span class="seed-badge seed-badge--selected seed-badge--sm">Active</span>
+          </div>
+          <p class="card-body-text">
+            Three tiers: raw palette → semantic tokens → scale tokens. Every component references Tier 2. No hardcoded values.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Elevated ── -->
+  <section class="section">
+    <p class="section-label">Elevated</p>
+    <div class="card-wrap-sm">
+      <div class="seed-card seed-card--elevated">
+        <div class="seed-card__header">
+          <p class="card-title">Elevated surface</p>
+          <p class="card-meta">Stronger resting shadow</p>
+        </div>
+        <div class="seed-card__body">
+          <p class="card-body-text">
+            Use elevated cards to create visual hierarchy — modals, popovers, and featured content benefit from a lifted surface.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Grid of 3 ── -->
+  <section class="section">
+    <p class="section-label">Grid — 3 × 4 columns</p>
+    <div class="seed-grid seed-grid--gap-6">
+
+      <div class="seed-col-4 seed-col-md-6 seed-col-sm-12">
+        <div class="seed-card seed-card--interactive" style="height: 100%;">
+          <div class="seed-card__media">
+            <div class="media-placeholder" style="height: 120px; background: var(--good-bg-subtle-default);">Lime</div>
+          </div>
+          <div class="seed-card__body">
+            <p class="card-title" style="margin-bottom: var(--seed-space-2);">good</p>
+            <p class="card-body-text">Growth, success, positive signal. Lime palette, green-tinted in dark mode.</p>
+          </div>
+          <div class="seed-card__footer">
+            <span class="seed-badge seed-badge--good seed-badge--sm">success</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="seed-col-4 seed-col-md-6 seed-col-sm-12">
+        <div class="seed-card seed-card--interactive" style="height: 100%;">
+          <div class="seed-card__media">
+            <div class="media-placeholder" style="height: 120px; background: var(--warn-bg-subtle-default);">Amber</div>
+          </div>
+          <div class="seed-card__body">
+            <p class="card-title" style="margin-bottom: var(--seed-space-2);">warn</p>
+            <p class="card-body-text">Caution, energy, attention. Yellow palette, smoked amber in dark mode.</p>
+          </div>
+          <div class="seed-card__footer">
+            <span class="seed-badge seed-badge--warn seed-badge--sm">caution</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="seed-col-4 seed-col-md-12 seed-col-sm-12">
+        <div class="seed-card seed-card--interactive" style="height: 100%;">
+          <div class="seed-card__media">
+            <div class="media-placeholder" style="height: 120px; background: var(--bad-bg-subtle-default);">Brick</div>
+          </div>
+          <div class="seed-card__body">
+            <p class="card-title" style="margin-bottom: var(--seed-space-2);">bad</p>
+            <p class="card-body-text">Error, destructive, urgent. Brick palette, deep terracotta in dark mode.</p>
+          </div>
+          <div class="seed-card__footer">
+            <span class="seed-badge seed-badge--bad seed-badge--sm">error</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+  </script>
+
+</body>
+</html>

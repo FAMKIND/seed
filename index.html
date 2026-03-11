@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="components/badge/badge.css">
   <link rel="stylesheet" href="components/grid/grid.css">
   <link rel="stylesheet" href="components/divider/divider.css">
+  <link rel="stylesheet" href="components/card/card.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -486,6 +487,72 @@
       <div style="padding: var(--seed-space-3) var(--seed-space-4); font-size: var(--seed-text-sm); color: var(--soil-text-muted);">Left</div>
       <div class="seed-divider seed-divider--vertical seed-divider--flush"></div>
       <div style="padding: var(--seed-space-3) var(--seed-space-4); font-size: var(--seed-text-sm); color: var(--soil-text-muted);">Right</div>
+    </div>
+  </section>
+
+
+  <!-- ── Card ── -->
+  <section class="section">
+    <p class="section-title">Card</p>
+
+    <p class="subsection-label">Basic — header + body + footer</p>
+    <div style="max-width: 360px; margin-bottom: var(--seed-space-8);">
+      <div class="seed-card">
+        <div class="seed-card__header">
+          <div style="font-size: var(--seed-text-sm); font-weight: var(--seed-weight-semibold); color: var(--soil-text); margin-bottom: 2px;">Project overview</div>
+          <div style="font-size: var(--seed-text-xs); color: var(--soil-text-muted);">Updated 2 hours ago</div>
+        </div>
+        <div class="seed-card__body">
+          <p style="font-size: var(--seed-text-sm); color: var(--soil-text-muted); line-height: var(--seed-leading-normal);">Token system, button, badge, grid, divider, and card components shipped.</p>
+        </div>
+        <div class="seed-card__footer">
+          <div style="display: flex; gap: var(--seed-space-3);">
+            <button class="seed-button seed-button--primary seed-button--sm">View</button>
+            <button class="seed-button seed-button--secondary seed-button--sm">Dismiss</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="subsection-label">Grid of 3 — interactive</p>
+    <div class="seed-grid seed-grid--gap-6">
+
+      <div class="seed-col-4 seed-col-md-6 seed-col-sm-12">
+        <div class="seed-card seed-card--interactive" style="height: 100%;">
+          <div class="seed-card__body">
+            <div style="font-size: var(--seed-text-sm); font-weight: var(--seed-weight-semibold); color: var(--soil-text); margin-bottom: var(--seed-space-2);">good</div>
+            <p style="font-size: var(--seed-text-sm); color: var(--soil-text-muted); line-height: var(--seed-leading-normal);">Growth, success, positive signal.</p>
+          </div>
+          <div class="seed-card__footer">
+            <span class="seed-badge seed-badge--good seed-badge--sm">success</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="seed-col-4 seed-col-md-6 seed-col-sm-12">
+        <div class="seed-card seed-card--interactive" style="height: 100%;">
+          <div class="seed-card__body">
+            <div style="font-size: var(--seed-text-sm); font-weight: var(--seed-weight-semibold); color: var(--soil-text); margin-bottom: var(--seed-space-2);">warn</div>
+            <p style="font-size: var(--seed-text-sm); color: var(--soil-text-muted); line-height: var(--seed-leading-normal);">Caution, energy, attention.</p>
+          </div>
+          <div class="seed-card__footer">
+            <span class="seed-badge seed-badge--warn seed-badge--sm">caution</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="seed-col-4 seed-col-md-12 seed-col-sm-12">
+        <div class="seed-card seed-card--interactive" style="height: 100%;">
+          <div class="seed-card__body">
+            <div style="font-size: var(--seed-text-sm); font-weight: var(--seed-weight-semibold); color: var(--soil-text); margin-bottom: var(--seed-space-2);">bad</div>
+            <p style="font-size: var(--seed-text-sm); color: var(--soil-text-muted); line-height: var(--seed-leading-normal);">Error, destructive, urgent.</p>
+          </div>
+          <div class="seed-card__footer">
+            <span class="seed-badge seed-badge--bad seed-badge--sm">error</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
