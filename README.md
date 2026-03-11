@@ -111,12 +111,55 @@ Seed ships with four color families in v0.1:
 
 ---
 
+## Components
+
+Seed components are plain HTML + CSS. Each lives in `components/{name}/` with a `.css` file and a `.html` demo page.
+
+### Button `components/button/`
+
+```html
+<!-- Variants -->
+<button class="seed-button seed-button--primary seed-button--md">Primary</button>
+<button class="seed-button seed-button--secondary seed-button--md">Secondary</button>
+<button class="seed-button seed-button--link seed-button--md">Link</button>
+<button class="seed-button seed-button--danger seed-button--md">Danger</button>
+
+<!-- Danger outlined: combine --danger with --secondary -->
+<button class="seed-button seed-button--danger seed-button--secondary seed-button--md">Delete</button>
+
+<!-- Sizes: --sm  --md  --lg -->
+<!-- Disabled: add the disabled attribute -->
+```
+
+### Badge `components/badge/`
+
+```html
+<!-- Variants -->
+<span class="seed-badge seed-badge--neutral seed-badge--md">Neutral</span>
+<span class="seed-badge seed-badge--good seed-badge--md">Good</span>
+<span class="seed-badge seed-badge--warn seed-badge--md">Warn</span>
+<span class="seed-badge seed-badge--bad seed-badge--md">Bad</span>
+<span class="seed-badge seed-badge--selected seed-badge--md">Selected</span>
+
+<!-- With dot indicator -->
+<span class="seed-badge seed-badge--good seed-badge--md">
+  <span class="seed-badge__dot"></span>Active
+</span>
+
+<!-- Interactive (hover/active states) -->
+<span class="seed-badge seed-badge--good seed-badge--md seed-badge--interactive">Good</span>
+
+<!-- Sizes: --sm  --md  --lg -->
+```
+
+---
+
 ## Roadmap
 
 | Version | Focus |
 |---|---|
-| **v0.1** | Design token system — palette, semantic tokens, scale (current) |
-| **v0.2** | Core components — Button, Input, Badge, Text, Stack, Icon |
+| **v0.1** | Design token system — palette, semantic tokens, scale ✓ |
+| **v0.2** | Core components — Button, Badge ✓ · Input, Text, Stack, Icon |
 | **v0.3** | Compositions — Card, Form, Navigation, Overlay |
 | **v1.0** | Full Storybook, accessibility audit, public docs site |
 

@@ -134,3 +134,42 @@
 .seed-button--link:active {
     color: var(--good-text-bold-default);
 }
+
+
+/* ─────────────────────────────────────────────────────
+   DANGER
+   Destructive actions — solid bad fill by default.
+   Combine with --secondary for an outlined variant:
+   <button class="seed-button seed-button--danger seed-button--secondary">
+───────────────────────────────────────────────────── */
+
+.seed-button--danger {
+    background:   var(--bad-bg-bold-default);
+    border-color: var(--bad-border-bold-default);
+    color:        var(--soil-bg-elevated);
+}
+
+.seed-button--danger:hover {
+    background:   var(--bad-bg-bold-hover);
+    border-color: var(--bad-bg-bold-hover);
+}
+
+.seed-button--danger:active {
+    background:   var(--bad-bg-bold-active);
+    border-color: var(--bad-bg-bold-active);
+}
+
+.seed-button--danger.seed-button--secondary {
+    background:   transparent;
+    border-color: var(--bad-border-normal-default);
+    color:        var(--bad-text-bold-default);
+}
+
+.seed-button--danger.seed-button--secondary:hover {
+    background:   var(--bad-bg-subtle-hover);
+    border-color: var(--bad-border-normal-default);
+}
+
+.seed-button--danger.seed-button--secondary:active {
+    background:   var(--bad-bg-subtle-active);
+}
