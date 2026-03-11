@@ -72,6 +72,10 @@
     box-shadow: var(--seed-shadow-md);
 }
 
+[data-theme="dark"] .seed-card--elevated {
+    border-color: var(--soil-border);
+}
+
 /* Interactive — lifts on hover */
 .seed-card--interactive {
     cursor:     pointer;

@@ -262,8 +262,8 @@
     --soil-text:                    var(--seed-soil-50);
     --soil-text-muted:              var(--seed-soil-400);
     --soil-text-disabled:           var(--seed-soil-600);
-    --soil-border:                  var(--seed-soil-700);
-    --soil-border-subtle:           var(--seed-soil-800);
+    --soil-border:                  #3A4A44;
+    --soil-border-subtle:           #2A3A34;
 
     /* Logo — stays light on dark */
     --soil-logo-ink:                var(--seed-soil-0);
