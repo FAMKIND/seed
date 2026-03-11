@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Design System Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens/tokens.css">
+  <link rel="stylesheet" href="components/button/button.css">
+  <link rel="stylesheet" href="components/badge/badge.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    /* ── Layout ── */
+    .page {
+      max-width:  960px;
+      margin:     0 auto;
+      padding:    var(--seed-space-12) var(--seed-space-8);
+    }
+
+    /* ── Header ── */
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-16);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-2xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.02em;
+      line-height:    1;
+    }
+
+    .page-subtitle {
+      font-size:   var(--seed-text-sm);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-weight: var(--seed-weight-regular);
+      margin-top:  var(--seed-space-1);
+    }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+      align-self:    center;
+    }
+
+    .theme-toggle:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* ── Sections ── */
+    .section {
+      margin-bottom: var(--seed-space-16);
+    }
+
+    .section-title {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-6);
+      padding-bottom: var(--seed-space-3);
+      border-bottom:  1px solid var(--soil-border-subtle);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border:        none;
+      border-top:    1px solid var(--soil-border-subtle);
+      margin:        var(--seed-space-8) 0;
+    }
+
+    /* ── Token palette ── */
+    .palette-group {
+      margin-bottom: var(--seed-space-8);
+    }
+
+    .palette-label {
+      font-size:     var(--seed-text-xs);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      margin-bottom: var(--seed-space-3);
+    }
+
+    .swatch-row {
+      display: flex;
+      gap:     var(--seed-space-2);
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      display:        flex;
+      flex-direction: column;
+      align-items:    center;
+      gap:            var(--seed-space-1);
+    }
+
+    .swatch-color {
+      width:         40px;
+      height:        40px;
+      border-radius: var(--seed-radius-md);
+      border:        1px solid rgba(0,0,0,0.06);
+    }
+
+    .swatch-step {
+      font-size: 10px;
+      color:     var(--soil-text-muted);
+    }
+
+    /* ── Component grids ── */
+    .comp-grid {
+      display:               grid;
+      grid-template-columns: max-content repeat(3, max-content);
+      align-items:           center;
+      gap:                   var(--seed-space-3) var(--seed-space-4);
+    }
+
+    .comp-grid--2col {
+      grid-template-columns: max-content repeat(2, max-content);
+    }
+
+    .grid-header {
+      font-size:   var(--seed-text-xs);
+      font-weight: var(--seed-weight-semibold);
+      color:       var(--soil-text-muted);
+      padding:     0 var(--seed-space-2);
+      text-align:  center;
+    }
+
+    .grid-label {
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      padding-right: var(--seed-space-6);
+      white-space:   nowrap;
+    }
+
+    .cell {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      padding:         var(--seed-space-1) var(--seed-space-2);
+    }
+
+    .subsection-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-4);
+      margin-top:     var(--seed-space-8);
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      padding-top:   var(--seed-space-8);
+      border-top:    1px solid var(--soil-border-subtle);
+      font-size:     var(--seed-text-xs);
+      color:         var(--soil-text-muted);
+      display:       flex;
+      gap:           var(--seed-space-3);
+    }
+
+    .page-footer a {
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+    }
+
+    .page-footer a:hover {
+      color: var(--soil-text);
+    }
+
+    .footer-sep {
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── Header ── -->
+  <header class="page-header">
+    <div>
+      <div class="page-title">seed</div>
+      <div class="page-subtitle">Design System Preview · v0.1</div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+      Toggle dark mode
+    </button>
+  </header>
+
+
+  <!-- ── Token Palette ── -->
+  <section class="section">
+    <p class="section-title">Token Palette</p>
+
+    <div class="palette-group">
+      <p class="palette-label">Soil — warm neutral</p>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-0)"></div><span class="swatch-step">0</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-100)"></div><span class="swatch-step">100</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-200)"></div><span class="swatch-step">200</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-300)"></div><span class="swatch-step">300</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-400)"></div><span class="swatch-step">400</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-500)"></div><span class="swatch-step">500</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-600)"></div><span class="swatch-step">600</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-700)"></div><span class="swatch-step">700</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-800)"></div><span class="swatch-step">800</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-900)"></div><span class="swatch-step">900</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-soil-950)"></div><span class="swatch-step">950</span></div>
+      </div>
+    </div>
+
+    <div class="palette-group">
+      <p class="palette-label">Lime — primary accent</p>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-lime-25)"></div><span class="swatch-step">25</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-lime-100)"></div><span class="swatch-step">100</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-lime-200)"></div><span class="swatch-step">200</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-lime-300)"></div><span class="swatch-step">300</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-lime-400)"></div><span class="swatch-step">400</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-lime-500)"></div><span class="swatch-step">500</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-lime-600)"></div><span class="swatch-step">600</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-lime-700)"></div><span class="swatch-step">700</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-lime-950)"></div><span class="swatch-step">950</span></div>
+      </div>
+    </div>
+
+    <div class="palette-group">
+      <p class="palette-label">Yellow — energy, caution</p>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-yellow-50)"></div><span class="swatch-step">50</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-yellow-100)"></div><span class="swatch-step">100</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-yellow-200)"></div><span class="swatch-step">200</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-yellow-300)"></div><span class="swatch-step">300</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-yellow-400)"></div><span class="swatch-step">400</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-yellow-500)"></div><span class="swatch-step">500</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-yellow-600)"></div><span class="swatch-step">600</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-yellow-700)"></div><span class="swatch-step">700</span></div>
+      </div>
+    </div>
+
+    <div class="palette-group">
+      <p class="palette-label">Brick — error, urgent</p>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-brick-25)"></div><span class="swatch-step">25</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-brick-100)"></div><span class="swatch-step">100</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-brick-200)"></div><span class="swatch-step">200</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-brick-300)"></div><span class="swatch-step">300</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-brick-400)"></div><span class="swatch-step">400</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-brick-500)"></div><span class="swatch-step">500</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-brick-600)"></div><span class="swatch-step">600</span></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--seed-brick-700)"></div><span class="swatch-step">700</span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Buttons ── -->
+  <section class="section">
+    <p class="section-title">Button</p>
+
+    <p class="subsection-label">Variants × Sizes</p>
+    <div class="comp-grid">
+      <div></div>
+      <div class="grid-header">sm</div>
+      <div class="grid-header">md</div>
+      <div class="grid-header">lg</div>
+
+      <div class="grid-label">primary</div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--sm">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--md">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--lg">Button</button></div>
+
+      <div class="grid-label">secondary</div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--sm">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--md">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--lg">Button</button></div>
+
+      <div class="grid-label">link</div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--sm">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--md">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--lg">Button</button></div>
+
+      <div class="grid-label">danger</div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--sm">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--md">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--lg">Button</button></div>
+
+      <div class="grid-label">danger outlined</div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--sm">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--md">Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--lg">Button</button></div>
+    </div>
+
+    <p class="subsection-label">Disabled</p>
+    <div class="comp-grid">
+      <div></div>
+      <div class="grid-header">sm</div>
+      <div class="grid-header">md</div>
+      <div class="grid-header">lg</div>
+
+      <div class="grid-label">primary</div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--sm" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--md" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--lg" disabled>Button</button></div>
+
+      <div class="grid-label">secondary</div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--sm" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--md" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--lg" disabled>Button</button></div>
+
+      <div class="grid-label">link</div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--sm" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--md" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--link seed-button--lg" disabled>Button</button></div>
+
+      <div class="grid-label">danger</div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--sm" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--md" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--lg" disabled>Button</button></div>
+
+      <div class="grid-label">danger outlined</div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--sm" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--md" disabled>Button</button></div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--lg" disabled>Button</button></div>
+    </div>
+  </section>
+
+
+  <!-- ── Badges ── -->
+  <section class="section">
+    <p class="section-title">Badge</p>
+
+    <p class="subsection-label">Variants × Sizes</p>
+    <div class="comp-grid">
+      <div></div>
+      <div class="grid-header">sm</div>
+      <div class="grid-header">md</div>
+      <div class="grid-header">lg</div>
+
+      <div class="grid-label">neutral</div>
+      <div class="cell"><span class="seed-badge seed-badge--neutral seed-badge--sm seed-badge--interactive">Neutral</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--neutral seed-badge--md seed-badge--interactive">Neutral</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--neutral seed-badge--lg seed-badge--interactive">Neutral</span></div>
+
+      <div class="grid-label">good</div>
+      <div class="cell"><span class="seed-badge seed-badge--good seed-badge--sm seed-badge--interactive">Good</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--good seed-badge--md seed-badge--interactive">Good</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--good seed-badge--lg seed-badge--interactive">Good</span></div>
+
+      <div class="grid-label">warn</div>
+      <div class="cell"><span class="seed-badge seed-badge--warn seed-badge--sm seed-badge--interactive">Warn</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--warn seed-badge--md seed-badge--interactive">Warn</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--warn seed-badge--lg seed-badge--interactive">Warn</span></div>
+
+      <div class="grid-label">bad</div>
+      <div class="cell"><span class="seed-badge seed-badge--bad seed-badge--sm seed-badge--interactive">Bad</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--bad seed-badge--md seed-badge--interactive">Bad</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--bad seed-badge--lg seed-badge--interactive">Bad</span></div>
+
+      <div class="grid-label">selected</div>
+      <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--sm seed-badge--interactive">Selected</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--md seed-badge--interactive">Selected</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--lg seed-badge--interactive">Selected</span></div>
+    </div>
+
+    <p class="subsection-label">With dot indicator</p>
+    <div class="comp-grid">
+      <div></div>
+      <div class="grid-header">sm</div>
+      <div class="grid-header">md</div>
+      <div class="grid-header">lg</div>
+
+      <div class="grid-label">neutral</div>
+      <div class="cell"><span class="seed-badge seed-badge--neutral seed-badge--sm seed-badge--interactive"><span class="seed-badge__dot"></span>Neutral</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--neutral seed-badge--md seed-badge--interactive"><span class="seed-badge__dot"></span>Neutral</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--neutral seed-badge--lg seed-badge--interactive"><span class="seed-badge__dot"></span>Neutral</span></div>
+
+      <div class="grid-label">good</div>
+      <div class="cell"><span class="seed-badge seed-badge--good seed-badge--sm seed-badge--interactive"><span class="seed-badge__dot"></span>Good</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--good seed-badge--md seed-badge--interactive"><span class="seed-badge__dot"></span>Good</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--good seed-badge--lg seed-badge--interactive"><span class="seed-badge__dot"></span>Good</span></div>
+
+      <div class="grid-label">warn</div>
+      <div class="cell"><span class="seed-badge seed-badge--warn seed-badge--sm seed-badge--interactive"><span class="seed-badge__dot"></span>Warn</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--warn seed-badge--md seed-badge--interactive"><span class="seed-badge__dot"></span>Warn</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--warn seed-badge--lg seed-badge--interactive"><span class="seed-badge__dot"></span>Warn</span></div>
+
+      <div class="grid-label">bad</div>
+      <div class="cell"><span class="seed-badge seed-badge--bad seed-badge--sm seed-badge--interactive"><span class="seed-badge__dot"></span>Bad</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--bad seed-badge--md seed-badge--interactive"><span class="seed-badge__dot"></span>Bad</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--bad seed-badge--lg seed-badge--interactive"><span class="seed-badge__dot"></span>Bad</span></div>
+
+      <div class="grid-label">selected</div>
+      <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--sm seed-badge--interactive"><span class="seed-badge__dot"></span>Selected</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--md seed-badge--interactive"><span class="seed-badge__dot"></span>Selected</span></div>
+      <div class="cell"><span class="seed-badge seed-badge--selected seed-badge--lg seed-badge--interactive"><span class="seed-badge__dot"></span>Selected</span></div>
+    </div>
+  </section>
+
+
+  <!-- ── Footer ── -->
+  <footer class="page-footer">
+    <span>MIT</span>
+    <span class="footer-sep">·</span>
+    <a href="https://famkind.com">FAM (famkind.com)</a>
+    <span class="footer-sep">·</span>
+    <a href="https://github.com/FAMKIND/seed">github.com/FAMKIND/seed</a>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  }
+</script>
+</body>
+</html>
