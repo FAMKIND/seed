@@ -14,31 +14,70 @@ Built for mission-driven artists, designers, and builders who need a clean, comp
 
 ---
 
-## The Metaphor
+## How Seed Names Things
 
-Seed's naming system follows a natural metaphor. Every token tells a story:
+Every Seed token follows a simple pattern: `root.stem.bud.flower`
 
-| Part | Role | Examples |
-|---|---|---|
-| `soil` | The ground — neutrals and structure | `soil-bg-canvas`, `soil-text-muted` |
-| `root` | The why — semantic intent | `calm`, `good`, `warn`, `bad`, `selected` |
-| `stem` | Where it applies | `bg`, `text`, `icon`, `border` |
-| `bud` | How intense | `subtle`, `normal`, `bold` |
-| `flower` | When / state | `default`, `hover`, `active`, `disabled` |
+Think of it as answering four questions in a row:
 
-Token names follow the pattern: `--{root}-{stem}-{bud}-{flower}`
+| Part | Question it answers | Think of it as... |
+|------|-------------------|-------------------|
+| **root** | "What kind of message is this?" | The **intent** — calm, good, warn, bad, selected |
+| **stem** | "Where do I apply it?" | The **layer** — bg, text, icon, border |
+| **bud** | "How intense should it feel?" | The **volume knob** — subtle, normal, bold |
+| **flower** | "What moment is this?" | The **state** — default, hover, active, disabled |
 
-**Examples:**
+### Roots — the why
+
+Each root carries a meaning:
+
+- **calm** — neutral ground, informational, resting
+- **good** — success, growth, positive
+- **warn** — caution, attention, slow down
+- **bad** — error, destructive, urgent
+- **selected** — chosen, active, this one
+
+### Buds — the volume knob
+
+Same intent, different intensity:
+
+- **subtle** — present but quiet (tinted backgrounds, soft borders)
+- **normal** — everyday default
+- **bold** — demands attention (strong fills, high-contrast text)
+
+### Flowers — the moment
+
+When does this style show up?
+
+- **default** — at rest, no interaction
+- **hover** — pointer is over it
+- **active** — being pressed
+- **disabled** — can't be used right now
+
+### Reading a token out loud
+
+The best test: read it left to right like a sentence.
+
+- `warn.bg.subtle.hover` → "warning background, gently, on hover"
+- `selected.border.bold.active` → "selected border, strongly, while pressed"
+- `good.text.normal.default` → "positive text, normal strength, at rest"
+
+### Fill in the blank
+
+Once you get the pattern, you can guess any token:
 
 ```css
-/* A soft lime background for a success state at rest */
+/* A soft success background at rest */
 background: var(--good-bg-subtle-default);
 
 /* Bold warning text on hover */
 color: var(--warn-text-bold-hover);
+
+/* Selected border, strongly, while pressed */
+border-color: var(--selected-border-bold-active);
 ```
 
-Neutrals use soil directly: `--soil-{stem}-{role}` (e.g. `--soil-bg-canvas`, `--soil-text-muted`).
+Neutrals step outside this pattern — they use `soil` directly: `--soil-{stem}-{role}` (e.g. `--soil-bg-canvas`, `--soil-text-muted`). No intent, no state. Just the ground everything else grows from.
 
 ---
 
