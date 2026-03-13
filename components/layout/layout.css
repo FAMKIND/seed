@@ -1,93 +1,187 @@
 /* ═══════════════════════════════════════════════════════
-   SEED LAYOUT
+   SEED LAYOUT v2
    Requires: tokens/tokens.css
-   Usage:
-     <div class="seed-layout">
-       <aside class="seed-layout__left">...</aside>
-       <main  class="seed-layout__center">...</main>
-       <aside class="seed-layout__right">...</aside>
-     </div>
 
-   Three-panel app layout — sidebar + main + aside.
-   Panels scroll independently. Responsive collapse built-in.
-   All values from Seed tokens.
+   Three-panel app shell — left sidebar · main canvas · right aside.
+   Panels scroll independently. All three support docked/floating modes.
+   Left and right are user-resizable via drag handles.
+   Collapses responsively; also togglable via modifier classes.
+
+   Modifier classes (applied to .seed-layout):
+     .seed-layout--collapsed-left   → left collapses to 56px icon strip
+     .seed-layout--collapsed-right  → right panel hides
+
+   Floating panel modifiers (applied to the panel itself):
+     .seed-layout__left--floating
+     .seed-layout__center--floated
+     .seed-layout__right--floating
+
+   All color values from Seed semantic tokens — zero hardcoded colors.
 ═══════════════════════════════════════════════════════ */
+
 
 /* ─────────────────────────────────────────────────────
    CONTAINER
 ───────────────────────────────────────────────────── */
 
 .seed-layout {
+    position:   relative;
     display:    flex;
-    min-height: 100vh;
+    height:     100%;
     width:      100%;
     overflow:   hidden;
+    background: var(--soil-bg-canvas);
 }
 
 
 /* ─────────────────────────────────────────────────────
-   LEFT PANEL — sidebar
+   LEFT PANEL — sidebar nav
 ───────────────────────────────────────────────────── */
 
 .seed-layout__left {
-    width:        260px;
-    flex-shrink:  0;
-    background:   var(--soil-bg-surface);
-    border-right: 1px solid var(--soil-border-subtle);
-    overflow-y:   auto;
-    transition:   width 200ms ease, opacity 200ms ease;
+    width:          240px;
+    min-width:      180px;
+    max-width:      400px;
+    flex-shrink:    0;
+    position:       relative;
+    display:        flex;
+    flex-direction: column;
+    background:     var(--soil-bg-surface);
+    border-right:   1px solid var(--soil-border-subtle);
+    overflow-y:     auto;
+    overflow-x:     hidden;
+    transition:     width 200ms ease, margin 200ms ease,
+                    border-radius 200ms ease, box-shadow 200ms ease,
+                    border-color 200ms ease;
+}
+
+/* Floating — detached card, sits over canvas */
+.seed-layout__left--floating {
+    margin:        var(--seed-space-2);
+    border-right:  none;
+    border-radius: var(--seed-radius-lg);
+    box-shadow:    var(--seed-shadow-md);
 }
 
 
 /* ─────────────────────────────────────────────────────
-   CENTER PANEL — main content
+   CENTER PANEL — main content canvas
 ───────────────────────────────────────────────────── */
 
 .seed-layout__center {
-    flex:       1;
-    min-width:  0;
-    background: var(--soil-bg-canvas);
-    overflow-y: auto;
+    flex:           1;
+    min-width:      0;
+    display:        flex;
+    flex-direction: column;
+    background:     var(--soil-bg-surface);
+    overflow-y:     auto;
+    transition:     margin 200ms ease, border-radius 200ms ease,
+                    box-shadow 200ms ease, background 200ms ease;
+}
+
+/* Floated — card on the canvas */
+.seed-layout__center--floated {
+    margin:        var(--seed-space-2);
+    border-radius: var(--seed-radius-lg);
+    box-shadow:    var(--seed-shadow-md);
+    background:    var(--soil-bg-elevated);
 }
 
 
 /* ─────────────────────────────────────────────────────
-   RIGHT PANEL — aside
+   RIGHT PANEL — metadata / details / filters
 ───────────────────────────────────────────────────── */
 
 .seed-layout__right {
-    width:       300px;
-    flex-shrink: 0;
-    background:  var(--soil-bg-surface);
-    border-left: 1px solid var(--soil-border-subtle);
-    overflow-y:  auto;
-    transition:  width 200ms ease, opacity 200ms ease;
+    width:          280px;
+    min-width:      180px;
+    max-width:      400px;
+    flex-shrink:    0;
+    position:       relative;
+    display:        flex;
+    flex-direction: column;
+    background:     var(--soil-bg-surface);
+    border-left:    1px solid var(--soil-border-subtle);
+    overflow-y:     auto;
+    overflow-x:     hidden;
+    transition:     width 200ms ease, margin 200ms ease,
+                    border-radius 200ms ease, box-shadow 200ms ease,
+                    border-color 200ms ease;
+}
+
+/* Floating — detached card */
+.seed-layout__right--floating {
+    margin:        var(--seed-space-2);
+    border-left:   none;
+    border-radius: var(--seed-radius-lg);
+    box-shadow:    var(--seed-shadow-md);
 }
 
 
 /* ─────────────────────────────────────────────────────
-   COLLAPSE MODIFIERS — manual toggle
+   RESIZE HANDLES
+   Positioned on the inner edge of each side panel.
+   4px strip: transparent → calm border on hover → lime on drag.
 ───────────────────────────────────────────────────── */
 
-.seed-layout--collapsed-left .seed-layout__left {
-    width:      0;
-    opacity:    0;
-    overflow:   hidden;
-    border:     none;
+.seed-layout__resize-handle {
+    position:    absolute;
+    top:         0;
+    bottom:      0;
+    width:       4px;
+    cursor:      col-resize;
+    z-index:     var(--seed-z-raised);
+    background:  transparent;
+    flex-shrink: 0;
+    transition:  background 120ms ease;
 }
 
+.seed-layout__left  .seed-layout__resize-handle { right: 0; }
+.seed-layout__right .seed-layout__resize-handle { left:  0; }
+
+.seed-layout__resize-handle:hover {
+    background: var(--calm-border-subtle-default);
+}
+
+.seed-layout__resize-handle.is-dragging {
+    background: var(--selected-border-bold-default);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   COLLAPSE MODIFIERS
+───────────────────────────────────────────────────── */
+
+/* Left → icon-only strip */
+.seed-layout--collapsed-left .seed-layout__left {
+    width:     56px;
+    min-width: 56px;
+}
+
+/* Right → fully hidden */
 .seed-layout--collapsed-right .seed-layout__right {
-    width:      0;
-    opacity:    0;
-    overflow:   hidden;
-    border:     none;
+    width:     0;
+    min-width: 0;
+    overflow:  hidden;
+    border:    none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   HAMBURGER TRIGGER
+   Hidden by default. Shown only below 480px.
+───────────────────────────────────────────────────── */
+
+.seed-layout__hamburger {
+    display: none;
 }
 
 
 /* ─────────────────────────────────────────────────────
    RESPONSIVE BREAKPOINTS
-   ≤ 1024px — right panel auto-hides
-   ≤ 768px  — left panel also auto-hides
+   ≤ 1024px  right panel hides
+   ≤  768px  left panel collapses to icon strip
+   ≤  480px  left panel fully hidden, hamburger shows
 ───────────────────────────────────────────────────── */
 
 @media (max-width: 1024px) {
@@ -98,6 +192,17 @@
 
 @media (max-width: 768px) {
     .seed-layout__left {
+        width:     56px !important;
+        min-width: 56px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .seed-layout__left {
         display: none;
+    }
+
+    .seed-layout__hamburger {
+        display: flex;
     }
 }
