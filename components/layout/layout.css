@@ -289,8 +289,8 @@
     position:   fixed;
     top:        50%;
     transform:  translateY(-50%);
-    width:      8px;
-    height:     48px;
+    width:      6px;
+    height:     40px;
     background: var(--soil-border-subtle);
     cursor:     pointer;
     z-index:    var(--seed-z-sticky);
@@ -299,17 +299,17 @@
 
 .seed-layout__reveal-left {
     left:          0;
-    border-radius: 0 var(--seed-radius-md) var(--seed-radius-md) 0;
+    border-radius: 0 var(--seed-radius-sm) var(--seed-radius-sm) 0;
 }
 
 .seed-layout__reveal-right {
     right:         0;
-    border-radius: var(--seed-radius-md) 0 0 var(--seed-radius-md);
+    border-radius: var(--seed-radius-sm) 0 0 var(--seed-radius-sm);
 }
 
 .seed-layout__reveal-left:hover,
 .seed-layout__reveal-right:hover {
-    width:      12px;
+    width:      10px;
     background: var(--soil-border);
 }
 

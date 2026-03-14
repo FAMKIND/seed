@@ -25,12 +25,13 @@
 
     /* ── Left panel ──────────────────────────────────── */
 
-    /* Company header: equal padding all around, avatar + name vertically centred */
+    /* Company header: left/right padding matches nav indentation (space-2 + space-2 = 16px).
+       Gap matches nav-item gap so avatar+name feel part of the same rhythm. */
     .left-header {
       display:      flex;
       align-items:  center;
-      gap:          var(--seed-space-3);
-      padding:      var(--seed-space-4);
+      gap:          var(--seed-space-2);
+      padding:      var(--seed-space-3) var(--seed-space-4);
       flex-shrink:  0;
     }
 
@@ -185,68 +186,191 @@
       transition:    max-width 200ms ease, opacity 200ms ease;
     }
 
-    /* ── Theme toggle: sun / moon in pure CSS ──
-       Button: 24px × 24px, flex-centered.
-       Light (sun): 6px circle + 8 ray dots via box-shadow.
-         Ray positions confirmed to fit within 24px button bounds.
-       Dark (moon): 12px filled circle + box-shadow bite to create crescent.
-         Bite color = panel surface background to match background. */
+    /* ── Theme toggle: 40×22px sliding track switch ──
+       Track shifts background per theme.
+       Thumb (::before): 16×16px circle slides left ↔ right.
+       Icon (::after): sun dot (light) or moon crescent (dark) moves with thumb. */
     .theme-toggle {
-      display:         flex;
-      align-items:     center;
-      justify-content: center;
-      width:           24px;
-      height:          24px;
-      padding:         0;
-      border:          none;
-      background:      transparent;
-      border-radius:   var(--seed-radius-sm);
-      cursor:          pointer;
-      color:           var(--soil-text-muted);
-      flex-shrink:     0;
-      overflow:        hidden;
-      max-width:       24px;
-      transition:      background 120ms ease, color 120ms ease,
-                       max-width 200ms ease, opacity 200ms ease;
+      position:    relative;
+      width:       40px;
+      height:      22px;
+      padding:     0;
+      border:      1px solid var(--soil-border-subtle);
+      border-radius: var(--seed-radius-full);
+      background:  var(--calm-bg-subtle-default);
+      cursor:      pointer;
+      flex-shrink: 0;
+      overflow:    hidden;
+      max-width:   40px;
+      transition:  background 200ms ease, border-color 200ms ease,
+                   max-width 200ms ease, opacity 200ms ease;
     }
 
     .theme-toggle:hover {
+      background:   var(--calm-bg-subtle-hover);
+      border-color: var(--soil-border);
+    }
+
+    /* Sliding thumb */
+    .theme-toggle::before {
+      content:       '';
+      position:      absolute;
+      top:           2px;
+      left:          2px;
+      width:         16px;
+      height:        16px;
+      border-radius: 50%;
+      background:    var(--soil-text-muted);
+      transition:    transform 200ms ease;
+    }
+
+    /* Thumb icon — travels with thumb via matching translateX */
+    .theme-toggle::after {
+      content:        '';
+      position:       absolute;
+      pointer-events: none;
+      transition:     transform 200ms ease;
+    }
+
+    /* Light mode: sun — 4px dot on thumb */
+    [data-theme="light"] .theme-toggle::after {
+      top:           50%;
+      left:          8px;
+      width:         4px;
+      height:        4px;
+      border-radius: 50%;
+      background:    var(--soil-bg-surface);
+      transform:     translateY(-50%);
+    }
+
+    /* Dark mode: thumb slides right, moon crescent on thumb */
+    [data-theme="dark"] .theme-toggle::before {
+      transform: translateX(18px);
+    }
+
+    [data-theme="dark"] .theme-toggle::after {
+      top:           50%;
+      left:          8px;
+      width:         8px;
+      height:        8px;
+      border-radius: 50%;
+      border:        1.5px solid var(--soil-bg-surface);
+      border-right-color: transparent;
+      background:    transparent;
+      transform:     translateX(18px) translateY(-50%) rotate(45deg);
+    }
+
+    /* ── Search field ────────────────────────────────── */
+
+    /* Wrapper: relative so ::before/::after can overlay the input as a magnifying glass */
+    .left-search {
+      position:    relative;
+      display:     flex;
+      align-items: center;
+      padding:     0 var(--seed-space-2) var(--seed-space-1);
+      flex-shrink: 0;
+    }
+
+    /* Magnifying glass circle */
+    .left-search::before {
+      content:       '';
+      position:      absolute;
+      left:          14px;
+      top:           calc(50% - 5px);
+      width:         10px;
+      height:        10px;
+      border-radius: 50%;
+      border:        1.5px solid var(--soil-text-muted);
+      pointer-events: none;
+      z-index:       1;
+    }
+
+    /* Magnifying glass handle */
+    .left-search::after {
+      content:          '';
+      position:         absolute;
+      left:             23px;
+      top:              calc(50% + 3px);
+      width:            5px;
+      height:           1.5px;
+      background:       var(--soil-text-muted);
+      transform:        rotate(45deg);
+      transform-origin: left center;
+      border-radius:    1px;
+      pointer-events:   none;
+      z-index:          1;
+    }
+
+    .search-input {
+      width:         100%;
+      padding:       var(--seed-space-2) var(--seed-space-2) var(--seed-space-2) 28px;
+      background:    var(--soil-bg-elevated);
+      border:        1px solid var(--calm-border-subtle-default);
+      border-radius: var(--seed-radius-md);
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-xs);
+      color:         var(--soil-text);
+      outline:       none;
+      max-width:     100%;
+      transition:    border-color 120ms ease, background 120ms ease,
+                     max-width 200ms ease, opacity 200ms ease;
+    }
+
+    .search-input::placeholder {
+      color: var(--soil-text-muted);
+    }
+
+    .search-input:focus {
+      border-color: var(--calm-border-bold-default);
+      background:   var(--soil-bg-surface);
+    }
+
+    /* Icon-only button — shown in collapsed mode, hidden otherwise */
+    .search-icon-btn {
+      position:      relative;
+      display:       none;
+      align-items:   center;
+      justify-content: center;
+      width:         36px;
+      height:        32px;
+      padding:       0;
+      border:        none;
+      background:    transparent;
+      border-radius: var(--seed-radius-md);
+      cursor:        pointer;
+      color:         var(--soil-text-muted);
+      flex-shrink:   0;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .search-icon-btn:hover {
       background: var(--calm-bg-subtle-hover);
       color:      var(--soil-text);
     }
 
-    /* Sun: 6px circle with 8 ray dots via box-shadow */
-    [data-theme="light"] .theme-toggle::before {
+    /* Magnifying glass on icon button */
+    .search-icon-btn::before {
       content:       '';
-      display:       block;
-      width:         6px;
-      height:        6px;
+      position:      absolute;
+      top:           calc(50% - 7px);
+      left:          calc(50% - 8px);
+      width:         10px;
+      height:        10px;
       border-radius: 50%;
-      background:    currentColor;
-      flex-shrink:   0;
-      /* Cardinals at ±7px, diagonals at ±5px — all fit within 24px button */
-      box-shadow:
-         0   -7px 0 -1px currentColor,  /* N  */
-         0    7px 0 -1px currentColor,  /* S  */
-        -7px  0   0 -1px currentColor,  /* W  */
-         7px  0   0 -1px currentColor,  /* E  */
-        -5px -5px 0 -1px currentColor,  /* NW */
-         5px -5px 0 -1px currentColor,  /* NE */
-        -5px  5px 0 -1px currentColor,  /* SW */
-         5px  5px 0 -1px currentColor;  /* SE */
+      border:        1.5px solid currentColor;
     }
 
-    /* Moon: filled 12px circle with a shadow bite creating a crescent */
-    [data-theme="dark"] .theme-toggle::before {
-      content:       '';
-      display:       block;
-      width:         12px;
-      height:        12px;
-      border-radius: 50%;
-      background:    currentColor;
-      flex-shrink:   0;
-      /* Bite: same-size circle shifted 3px right + 3px up, in surface color */
-      box-shadow:    3px -3px 0 0 var(--soil-bg-surface);
+    .search-icon-btn::after {
+      content:          '';
+      position:         absolute;
+      top:              calc(50% + 1px);
+      left:             calc(50% + 1px);
+      width:            5px;
+      height:           1.5px;
+      background:       currentColor;
+      transform:        rotate(45deg);
+      transform-origin: left center;
+      border-radius:    1px;
     }
 
     /* ── Collapse states — labels and extras slide away ── */
@@ -258,6 +382,19 @@
       opacity:   0;
     }
 
+    /* Search: hide input + glass, show icon button */
+    .seed-layout--collapsed-left .search-input {
+      max-width:      0;
+      opacity:        0;
+      padding:        0;
+      border-width:   0;
+      pointer-events: none;
+    }
+    .seed-layout--collapsed-left .left-search::before,
+    .seed-layout--collapsed-left .left-search::after { display: none; }
+    .seed-layout--collapsed-left .search-icon-btn  { display: flex; }
+    .seed-layout--collapsed-left .left-search      { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
+
     .seed-layout--collapsed-left .nav-item    { justify-content: center; }
     .seed-layout--collapsed-left .left-header { justify-content: center; }
     .seed-layout--collapsed-left .left-footer { justify-content: center; }
@@ -267,6 +404,10 @@
         max-width: 0;
         opacity:   0;
       }
+      .search-input { max-width: 0; opacity: 0; padding: 0; border-width: 0; pointer-events: none; }
+      .left-search::before, .left-search::after { display: none; }
+      .search-icon-btn  { display: flex; }
+      .left-search      { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
       .nav-item    { justify-content: center; }
       .left-header { justify-content: center; }
       .left-footer { justify-content: center; }
@@ -429,6 +570,14 @@
       </div>
 
       <hr class="seed-divider seed-divider--flush">
+
+      <!-- Search: compact input with CSS magnifying glass, collapses to icon in icon-only mode -->
+      <div class="left-search">
+        <button class="search-icon-btn" id="search-expand-btn"
+                aria-label="Expand sidebar to search"></button>
+        <input class="search-input" type="search" placeholder="Search..."
+               aria-label="Search" autocomplete="off">
+      </div>
 
       <!-- Nav: items stack from top, flex: 1 pushes footer to bottom -->
       <nav class="left-nav" aria-label="Main navigation">
@@ -615,7 +764,8 @@
     const revealRight = document.getElementById('reveal-right');
     const leftHandle  = document.getElementById('left-resize');
     const rightHandle = document.getElementById('right-resize');
-    const themeBtn    = document.getElementById('theme-btn');
+    const themeBtn         = document.getElementById('theme-btn');
+    const searchExpandBtn  = document.getElementById('search-expand-btn');
 
     // ── Theme ──────────────────────────────────────────────
     themeBtn.addEventListener('click', () => {
@@ -776,6 +926,9 @@
     document.getElementById('left-opt-expanded').addEventListener('click',  () => setLeftCollapse('expanded'));
     document.getElementById('left-opt-collapsed').addEventListener('click', () => setLeftCollapse('collapsed'));
     document.getElementById('left-opt-hide').addEventListener('click',      hideLeft);
+
+    // Expand panel when search icon is clicked in collapsed mode
+    searchExpandBtn.addEventListener('click', () => setLeftCollapse('expanded'));
 
     hamburger.addEventListener('click',   restoreLeft);
     revealLeft.addEventListener('click',  restoreLeft);
