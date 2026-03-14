@@ -4,7 +4,7 @@
 
    Three-panel app shell — left sidebar · main canvas · right aside.
    Panels scroll independently. All three support docked/floating modes.
-   Left and right are user-resizable via drag handles.
+   Left and right are user-resizable via drag handles on the parent container.
    Collapses responsively; also togglable via panel context menus.
 
    Modifier classes (on .seed-layout):
@@ -50,7 +50,7 @@
     background:     var(--soil-bg-surface);
     border-right:   1px solid var(--soil-border-subtle);
     overflow-y:     auto;
-    overflow-x:     hidden;
+    /* No overflow-x: hidden — labels handle their own clipping via max-width */
     transition:     width 200ms ease, margin 200ms ease,
                     border-radius 200ms ease, box-shadow 200ms ease,
                     border-color 200ms ease;
@@ -107,7 +107,6 @@
     background:     var(--soil-bg-surface);
     border-left:    1px solid var(--soil-border-subtle);
     overflow-y:     auto;
-    overflow-x:     hidden;
     transition:     width 200ms ease, margin 200ms ease,
                     border-radius 200ms ease, box-shadow 200ms ease,
                     border-color 200ms ease;
@@ -123,37 +122,48 @@
 
 /* ─────────────────────────────────────────────────────
    RESIZE HANDLES
-   4px strip on the inner edge of each side panel.
-   transparent → subtle on hover → soil border on drag.
+   Positioned on .seed-layout (the parent), not inside panels.
+   Each handle straddles the border between two panels.
+   `left` is set by JS to match the panel boundary.
+   transform: translateX(-50%) centers the 8px hit area on that boundary.
+   Visible center line via ::after — 2px, appears on hover/drag.
 ───────────────────────────────────────────────────── */
 
 .seed-layout__resize-handle {
-    position:    absolute;
-    top:         0;
-    bottom:      0;
-    width:       4px;
-    cursor:      col-resize;
-    z-index:     var(--seed-z-raised);
-    background:  transparent;
-    flex-shrink: 0;
-    transition:  background 120ms ease;
+    position:  absolute;
+    top:       0;
+    bottom:    0;
+    width:     8px;
+    cursor:    col-resize;
+    z-index:   var(--seed-z-raised);
+    transform: translateX(-50%);
+    /* left set dynamically by JS */
 }
 
-.seed-layout__left  .seed-layout__resize-handle { right: 0; }
-.seed-layout__right .seed-layout__resize-handle { left:  0; }
-
-.seed-layout__resize-handle:hover {
-    background: var(--calm-border-subtle-default);
+/* Visible 2px center line */
+.seed-layout__resize-handle::after {
+    content:    '';
+    position:   absolute;
+    top:        0;
+    bottom:     0;
+    left:       3px; /* center of the 8px hit area */
+    width:      2px;
+    background: transparent;
+    transition: background 120ms ease;
 }
 
-.seed-layout__resize-handle.is-dragging {
+.seed-layout__resize-handle:hover::after {
+    background: var(--soil-border-subtle);
+}
+
+.seed-layout__resize-handle.is-dragging::after {
     background: var(--soil-border);
 }
 
 
 /* ─────────────────────────────────────────────────────
    PANEL CONTEXT MENU
-   Three-dot trigger + dropdown, positioned top-right of each panel.
+   Three-dot trigger + dropdown, top-right of each panel.
    Trigger fades in on panel hover. Menu opens on click.
 ───────────────────────────────────────────────────── */
 
@@ -164,7 +174,6 @@
     z-index:  var(--seed-z-dropdown);
 }
 
-/* Three-dot button */
 .seed-layout__menu-trigger {
     display:         flex;
     align-items:     center;
@@ -182,7 +191,6 @@
                      opacity 120ms ease;
 }
 
-/* Show trigger when panel is hovered or menu is open */
 .seed-layout__left:hover   .seed-layout__menu-trigger,
 .seed-layout__center:hover .seed-layout__menu-trigger,
 .seed-layout__right:hover  .seed-layout__menu-trigger,
@@ -195,7 +203,7 @@
     color:      var(--soil-text);
 }
 
-/* Three dots via single ::before + box-shadow */
+/* Three dots via ::before + box-shadow */
 .seed-layout__menu-trigger::before {
     content:       '';
     display:       block;
@@ -207,7 +215,6 @@
     flex-shrink:   0;
 }
 
-/* Dropdown */
 .seed-layout__menu {
     display:       none;
     position:      absolute;
@@ -226,7 +233,6 @@
     display: block;
 }
 
-/* Menu items */
 .seed-layout__menu-item {
     position:    relative;
     display:     flex;
@@ -250,7 +256,7 @@
     color: var(--soil-text-muted);
 }
 
-/* Checkmark — rotated L-shape border */
+/* Checkmark — rotated L border */
 .seed-layout__menu-item--checked::before {
     content:       '';
     position:      absolute;
@@ -263,12 +269,52 @@
     border-bottom: 1.5px solid var(--soil-text);
 }
 
-/* Divider line */
 .seed-layout__menu-divider {
     height:     1px;
     background: var(--soil-border-subtle);
     margin:     var(--seed-space-1) 0;
 }
+
+
+/* ─────────────────────────────────────────────────────
+   REVEAL TRIGGERS
+   Thin edge tabs — appear when a panel is hidden.
+   Click restores the hidden panel.
+   Border-radius on the inward side only, giving a pill tab look.
+───────────────────────────────────────────────────── */
+
+.seed-layout__reveal-left,
+.seed-layout__reveal-right {
+    display:    none;
+    position:   fixed;
+    top:        50%;
+    transform:  translateY(-50%);
+    width:      8px;
+    height:     48px;
+    background: var(--soil-border-subtle);
+    cursor:     pointer;
+    z-index:    var(--seed-z-sticky);
+    transition: width 120ms ease, background 120ms ease;
+}
+
+.seed-layout__reveal-left {
+    left:          0;
+    border-radius: 0 var(--seed-radius-md) var(--seed-radius-md) 0;
+}
+
+.seed-layout__reveal-right {
+    right:         0;
+    border-radius: var(--seed-radius-md) 0 0 var(--seed-radius-md);
+}
+
+.seed-layout__reveal-left:hover,
+.seed-layout__reveal-right:hover {
+    width:      12px;
+    background: var(--soil-border);
+}
+
+.seed-layout__reveal-left--visible  { display: block; }
+.seed-layout__reveal-right--visible { display: block; }
 
 
 /* ─────────────────────────────────────────────────────
@@ -302,7 +348,6 @@
     color:      var(--soil-text);
 }
 
-/* Three lines */
 .seed-layout__hamburger::before {
     content:    '';
     display:    block;
@@ -321,11 +366,14 @@
    COLLAPSE MODIFIERS
 ───────────────────────────────────────────────────── */
 
+/* Left → 56px icon strip. overflow: visible lets nav tooltips escape. */
 .seed-layout--collapsed-left .seed-layout__left {
     width:     56px;
     min-width: 56px;
+    overflow:  visible;
 }
 
+/* Right → fully hidden */
 .seed-layout--collapsed-right .seed-layout__right {
     width:     0;
     min-width: 0;
@@ -351,6 +399,7 @@
     .seed-layout__left {
         width:     56px !important;
         min-width: 56px !important;
+        overflow:  visible !important;
     }
 }
 
