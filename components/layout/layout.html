@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lime — Layout</title>
+  <title>seed — Layout</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../tokens/tokens.css">
   <link rel="stylesheet" href="../../components/button/button.css">
-  <link rel="stylesheet" href="../../components/badge/badge.css">
   <link rel="stylesheet" href="../../components/divider/divider.css">
   <link rel="stylesheet" href="layout.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
+    html, body {
+      height:           100%;
       font-family:      var(--seed-font-ui);
       background-color: var(--soil-bg-canvas);
       color:            var(--soil-text);
@@ -23,144 +23,13 @@
       transition:       background-color 200ms ease, color 200ms ease;
     }
 
-    /* ── Control bar ─────────────────────────────────── */
-    .topbar {
-      position:        fixed;
-      top:             0;
-      left:            0;
-      right:           0;
-      height:          48px;
-      background:      var(--soil-bg-elevated);
-      border-bottom:   1px solid var(--soil-border-subtle);
-      display:         flex;
-      align-items:     center;
-      gap:             var(--seed-space-3);
-      padding:         0 var(--seed-space-4);
-      z-index:         var(--seed-z-sticky);
-      overflow:        hidden;
-    }
-
-    .topbar-brand {
-      display:     flex;
-      align-items: center;
-      gap:         var(--seed-space-2);
-      flex-shrink: 0;
-    }
-
-    .brand-mark {
-      width:            28px;
-      height:           28px;
-      border-radius:    var(--seed-radius-md);
-      background:       var(--good-bg-bold-default);
-      display:          flex;
-      align-items:      center;
-      justify-content:  center;
-      font-family:      var(--seed-font-brand);
-      font-size:        var(--seed-text-xs);
-      font-weight:      var(--seed-weight-semibold);
-      color:            var(--selected-text-bold-default);
-      flex-shrink:      0;
-    }
-
-    .brand-name {
-      font-family:    var(--seed-font-brand);
-      font-size:      var(--seed-text-sm);
-      font-weight:    var(--seed-weight-semibold);
-      color:          var(--soil-logo-ink);
-      letter-spacing: -0.01em;
-    }
-
-    .topbar-sep {
-      width:       1px;
-      height:      20px;
-      background:  var(--soil-border-subtle);
-      flex-shrink: 0;
-    }
-
-    /* Scrollable pill strip */
-    .topbar-controls {
-      display:    flex;
-      align-items: center;
-      gap:         var(--seed-space-2);
-      flex:        1;
-      overflow-x:  auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-
-    .topbar-controls::-webkit-scrollbar { display: none; }
-
-    .control-group {
-      display:     flex;
-      align-items: center;
-      gap:         var(--seed-space-1);
-      flex-shrink: 0;
-    }
-
-    .control-label {
-      font-size:    var(--seed-text-xs);
-      color:        var(--soil-text-muted);
-      white-space:  nowrap;
-      padding-right: var(--seed-space-1);
-    }
-
-    .topbar-right {
-      display:     flex;
-      align-items: center;
-      gap:         var(--seed-space-2);
-      flex-shrink: 0;
-      margin-left: auto;
-    }
-
-    .icon-btn {
-      display:         inline-flex;
-      align-items:     center;
-      justify-content: center;
-      width:           30px;
-      height:          30px;
-      border-radius:   var(--seed-radius-md);
-      border:          1px solid var(--calm-border-normal-default);
-      background:      var(--calm-bg-subtle-default);
-      color:           var(--soil-text-muted);
-      cursor:          pointer;
-      font-size:       var(--seed-text-sm);
-      transition:      background 120ms ease, color 120ms ease;
-    }
-
-    .icon-btn:hover {
-      background: var(--calm-bg-subtle-hover);
-      color:      var(--soil-text);
-    }
-
-    .nav-link-btn {
-      font-family:   var(--seed-font-ui);
-      font-size:     var(--seed-text-xs);
-      font-weight:   var(--seed-weight-medium);
-      color:         var(--soil-text-muted);
-      background:    transparent;
-      border:        none;
-      cursor:        pointer;
-      padding:       0.3em 0.6em;
-      border-radius: var(--seed-radius-full);
-      white-space:   nowrap;
-      text-decoration: none;
-      transition:    color 120ms ease;
-    }
-
-    .nav-link-btn:hover { color: var(--soil-text); }
-
-    /* ── Page wrap ──────────────────────────────────── */
-    .layout-wrap {
-      padding-top: 48px;
-      height:      100vh;
-    }
-
     /* ── Left panel internals ───────────────────────── */
+
     .left-header {
       display:      flex;
       align-items:  center;
       gap:          var(--seed-space-2);
-      padding:      var(--seed-space-3) var(--seed-space-3);
+      padding:      var(--seed-space-3);
       flex-shrink:  0;
     }
 
@@ -168,25 +37,27 @@
       width:           32px;
       height:          32px;
       border-radius:   var(--seed-radius-md);
-      background:      var(--good-bg-bold-default);
+      background:      var(--calm-bg-bold-default);
       display:         flex;
       align-items:     center;
       justify-content: center;
       font-family:     var(--seed-font-brand);
       font-size:       var(--seed-text-xs);
       font-weight:     var(--seed-weight-semibold);
-      color:           var(--selected-text-bold-default);
+      color:           var(--soil-bg-canvas);
       flex-shrink:     0;
     }
 
     .company-name {
-      font-family:   var(--seed-font-brand);
-      font-size:     var(--seed-text-sm);
-      font-weight:   var(--seed-weight-semibold);
-      color:         var(--soil-text);
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-sm);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-text);
       letter-spacing: -0.01em;
-      white-space:   nowrap;
-      overflow:      hidden;
+      white-space:    nowrap;
+      overflow:       hidden;
+      transition:     max-width 200ms ease, opacity 200ms ease;
+      max-width:      160px;
     }
 
     .left-nav {
@@ -198,15 +69,13 @@
       display:       flex;
       align-items:   center;
       gap:           var(--seed-space-2);
-      padding:       var(--seed-space-2) var(--seed-space-2);
+      padding:       var(--seed-space-2);
       border-radius: var(--seed-radius-md);
       font-size:     var(--seed-text-sm);
       color:         var(--soil-text-muted);
       cursor:        pointer;
-      transition:    background 120ms ease, color 120ms ease;
       user-select:   none;
-      position:      relative;
-      border-left:   2px solid transparent;
+      transition:    background 120ms ease, color 120ms ease;
     }
 
     .nav-item:hover {
@@ -214,42 +83,36 @@
       color:      var(--soil-text);
     }
 
+    /* Active: background shift only, no colored border */
     .nav-item--active {
-      background:  var(--selected-bg-subtle-default);
-      color:       var(--selected-text-normal-default);
+      background:  var(--calm-bg-subtle-hover);
+      color:       var(--soil-text);
       font-weight: var(--seed-weight-medium);
-      border-left-color: var(--selected-border-bold-default);
-    }
-
-    .nav-item--active:hover {
-      background: var(--selected-bg-subtle-hover);
-      color:      var(--selected-text-normal-hover);
     }
 
     .nav-icon {
-      font-size:   15px;
+      font-size:   14px;
       width:       20px;
       text-align:  center;
       flex-shrink: 0;
       line-height: 1;
     }
 
-    /* Label slides out on collapse */
     .nav-label {
-      max-width:  160px;
-      overflow:   hidden;
+      max-width:   160px;
+      overflow:    hidden;
       white-space: nowrap;
-      transition: max-width 200ms ease, opacity 200ms ease;
+      transition:  max-width 200ms ease, opacity 200ms ease;
     }
 
     .left-footer {
-      display:       flex;
-      align-items:   center;
-      gap:           var(--seed-space-2);
-      padding:       var(--seed-space-3);
-      border-top:    1px solid var(--soil-border-subtle);
-      flex-shrink:   0;
-      overflow:      hidden;
+      display:    flex;
+      align-items: center;
+      gap:         var(--seed-space-2);
+      padding:     var(--seed-space-3);
+      border-top:  1px solid var(--soil-border-subtle);
+      flex-shrink: 0;
+      overflow:    hidden;
     }
 
     .user-avatar {
@@ -267,47 +130,74 @@
     }
 
     .user-name {
-      font-size:   var(--seed-text-sm);
-      color:       var(--soil-text-muted);
-      white-space: nowrap;
-      overflow:    hidden;
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      white-space:   nowrap;
+      overflow:      hidden;
       text-overflow: ellipsis;
-      flex:        1;
-      min-width:   0;
-      transition:  max-width 200ms ease, opacity 200ms ease;
-      max-width:   160px;
+      flex:          1;
+      min-width:     0;
+      max-width:     120px;
+      transition:    max-width 200ms ease, opacity 200ms ease;
     }
 
-    .gear-icon {
-      font-size:   14px;
-      color:       var(--soil-text-muted);
-      cursor:      pointer;
-      flex-shrink: 0;
-      transition:  color 120ms ease, max-width 200ms ease, opacity 200ms ease;
-      max-width:   24px;
-      overflow:    hidden;
+    /* Theme toggle button — moon/sun in pure CSS */
+    .theme-toggle {
+      display:       flex;
+      align-items:   center;
+      justify-content: center;
+      width:         22px;
+      height:        22px;
+      padding:       0;
+      border:        none;
+      background:    transparent;
+      border-radius: var(--seed-radius-sm);
+      cursor:        pointer;
+      color:         var(--soil-text-muted);
+      flex-shrink:   0;
+      transition:    background 120ms ease, color 120ms ease,
+                     max-width 200ms ease, opacity 200ms ease;
+      max-width:     22px;
+      overflow:      hidden;
     }
 
-    .gear-icon:hover { color: var(--soil-text); }
+    .theme-toggle:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
 
-    /* Collapsed icon-only state — labels slide away */
+    /* Sun: outlined circle */
+    [data-theme="light"] .theme-toggle::before {
+      content:       '';
+      display:       block;
+      width:         10px;
+      height:        10px;
+      border-radius: 50%;
+      border:        2px solid currentColor;
+    }
+
+    /* Moon: filled circle with a shadow bite */
+    [data-theme="dark"] .theme-toggle::before {
+      content:       '';
+      display:       block;
+      width:         10px;
+      height:        10px;
+      border-radius: 50%;
+      background:    currentColor;
+      box-shadow:    3px -3px 0 0 var(--soil-bg-surface);
+    }
+
+    /* Collapsed: labels slide away, icons stay */
     .seed-layout--collapsed-left .nav-label,
     .seed-layout--collapsed-left .company-name,
     .seed-layout--collapsed-left .user-name,
-    .seed-layout--collapsed-left .gear-icon {
+    .seed-layout--collapsed-left .theme-toggle {
       max-width: 0;
       opacity:   0;
     }
 
     .seed-layout--collapsed-left .nav-item {
       justify-content: center;
-      padding-left:    0;
-      padding-right:   0;
-      border-left:     2px solid transparent;
-    }
-
-    .seed-layout--collapsed-left .nav-item--active {
-      border-left-color: var(--selected-border-bold-default);
     }
 
     .seed-layout--collapsed-left .left-header,
@@ -315,34 +205,29 @@
       justify-content: center;
     }
 
-    /* Also apply at 768px breakpoint */
     @media (max-width: 768px) {
-      .nav-label, .company-name, .user-name, .gear-icon {
+      .nav-label, .company-name, .user-name, .theme-toggle {
         max-width: 0;
         opacity:   0;
       }
-
-      .nav-item {
-        justify-content: center;
-        padding-left:    0;
-        padding-right:   0;
-      }
-
-      .left-header, .left-footer { justify-content: center; }
+      .nav-item        { justify-content: center; }
+      .left-header,
+      .left-footer     { justify-content: center; }
     }
 
     /* ── Center panel internals ─────────────────────── */
+
     .center-inner {
       padding:   var(--seed-space-8);
-      max-width: 760px;
+      max-width: 720px;
     }
 
-    .content-eyebrow {
+    .content-label {
       font-size:      var(--seed-text-xs);
       font-weight:    var(--seed-weight-semibold);
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color:          var(--good-text-bold-default);
+      color:          var(--soil-text-muted);
       margin-bottom:  var(--seed-space-2);
     }
 
@@ -369,34 +254,10 @@
       margin-bottom: var(--seed-space-8);
     }
 
-    .content-callout {
-      background:    var(--good-bg-subtle-default);
-      border:        1px solid var(--good-border-subtle-default);
-      border-radius: var(--seed-radius-md);
-      padding:       var(--seed-space-4);
-      margin-bottom: var(--seed-space-6);
-    }
-
-    .callout-title {
-      font-size:     var(--seed-text-sm);
-      font-weight:   var(--seed-weight-semibold);
-      color:         var(--good-text-bold-default);
-      margin-bottom: var(--seed-space-1);
-    }
-
-    .callout-body {
-      font-size:   var(--seed-text-sm);
-      color:       var(--good-text-normal-default);
-      line-height: var(--seed-leading-normal);
-    }
-
     /* ── Right panel internals ──────────────────────── */
+
     .right-inner {
       padding: var(--seed-space-4);
-    }
-
-    .aside-section {
-      margin-bottom: var(--seed-space-5);
     }
 
     .aside-label {
@@ -406,6 +267,10 @@
       text-transform: uppercase;
       color:          var(--soil-text-muted);
       margin-bottom:  var(--seed-space-3);
+    }
+
+    .aside-section {
+      margin-bottom: var(--seed-space-5);
     }
 
     .meta-row {
@@ -425,32 +290,15 @@
       font-weight: var(--seed-weight-medium);
     }
 
-    .meta-badge {
+    .meta-pill {
       display:       inline-flex;
-      align-items:   center;
-      gap:           4px;
       font-size:     var(--seed-text-xs);
       font-weight:   var(--seed-weight-medium);
       padding:       2px 8px;
       border-radius: var(--seed-radius-full);
-    }
-
-    .meta-badge--good {
-      background:   var(--good-bg-subtle-default);
-      color:        var(--good-text-bold-default);
-      border:       1px solid var(--good-border-subtle-default);
-    }
-
-    .meta-badge--calm {
-      background:   var(--calm-bg-subtle-default);
-      color:        var(--calm-text-bold-default);
-      border:       1px solid var(--calm-border-subtle-default);
-    }
-
-    .meta-badge--warn {
-      background:   var(--warn-bg-subtle-default);
-      color:        var(--warn-text-bold-default);
-      border:       1px solid var(--warn-border-subtle-default);
+      background:    var(--calm-bg-subtle-default);
+      color:         var(--calm-text-bold-default);
+      border:        1px solid var(--calm-border-subtle-default);
     }
 
     .activity-item {
@@ -460,265 +308,232 @@
       font-size:     var(--seed-text-xs);
       color:         var(--soil-text-muted);
       border-bottom: 1px solid var(--soil-border-subtle);
+      line-height:   var(--seed-leading-snug);
     }
 
     .activity-item:last-child { border-bottom: none; }
 
     .activity-dot {
-      width:         6px;
-      height:        6px;
+      width:         5px;
+      height:        5px;
       border-radius: 50%;
+      background:    var(--calm-border-bold-default);
       flex-shrink:   0;
       margin-top:    4px;
     }
-
-    .activity-dot--good     { background: var(--good-bg-bold-default); }
-    .activity-dot--calm     { background: var(--calm-bg-bold-default); }
-    .activity-dot--selected { background: var(--selected-bg-bold-default); }
   </style>
 </head>
 <body>
 
-  <!-- ── Control bar ───────────────────────────────────────── -->
-  <div class="topbar">
+  <!-- Hamburger — shown when left panel is fully hidden -->
+  <button class="seed-layout__hamburger" id="hamburger" aria-label="Open sidebar" title="Open sidebar"></button>
 
-    <div class="topbar-brand">
-      <div class="brand-mark">F</div>
-      <span class="brand-name">Lime</span>
-    </div>
+  <!-- Three-panel layout — fills full viewport -->
+  <div class="seed-layout" id="layout">
 
-    <div class="topbar-sep"></div>
+    <!-- ── Left panel ─────────────────────────────── -->
+    <aside class="seed-layout__left" id="left-panel">
 
-    <!-- Mode toggle pills -->
-    <div class="topbar-controls" role="toolbar" aria-label="Panel controls">
+      <!-- Resize handle -->
+      <div class="seed-layout__resize-handle" id="left-resize"></div>
 
-      <!-- Left panel mode -->
-      <div class="control-group">
-        <span class="control-label">Left</span>
-        <span class="seed-badge seed-badge--selected seed-badge--sm seed-badge--interactive"
-              id="pill-left-docked" onclick="setLeftMode('docked')" role="button" tabindex="0">Docked</span>
-        <span class="seed-badge seed-badge--neutral seed-badge--sm seed-badge--interactive"
-              id="pill-left-float" onclick="setLeftMode('floating')" role="button" tabindex="0">Float</span>
+      <!-- Context menu -->
+      <div class="seed-layout__menu-wrap">
+        <button class="seed-layout__menu-trigger" id="left-menu-btn"
+                aria-label="Left panel options" aria-expanded="false"></button>
+        <div class="seed-layout__menu" id="left-menu" role="menu">
+          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+               id="left-opt-docked" role="menuitem">Docked</div>
+          <div class="seed-layout__menu-item"
+               id="left-opt-float"  role="menuitem">Floating</div>
+          <div class="seed-layout__menu-divider"></div>
+          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+               id="left-opt-expanded"  role="menuitem">Expanded</div>
+          <div class="seed-layout__menu-item"
+               id="left-opt-collapsed" role="menuitem">Collapsed</div>
+          <div class="seed-layout__menu-divider"></div>
+          <div class="seed-layout__menu-item seed-layout__menu-item--muted"
+               id="left-opt-hide" role="menuitem">Hide panel</div>
+        </div>
       </div>
 
-      <div class="topbar-sep"></div>
-
-      <!-- Center panel mode -->
-      <div class="control-group">
-        <span class="control-label">Center</span>
-        <span class="seed-badge seed-badge--selected seed-badge--sm seed-badge--interactive"
-              id="pill-center-flush" onclick="setCenterMode('flush')" role="button" tabindex="0">Flush</span>
-        <span class="seed-badge seed-badge--neutral seed-badge--sm seed-badge--interactive"
-              id="pill-center-float" onclick="setCenterMode('floated')" role="button" tabindex="0">Float</span>
+      <!-- Company header -->
+      <div class="left-header">
+        <div class="company-avatar">FA</div>
+        <span class="company-name">FAM</span>
       </div>
 
-      <div class="topbar-sep"></div>
+      <hr class="seed-divider seed-divider--flush">
 
-      <!-- Right panel mode -->
-      <div class="control-group">
-        <span class="control-label">Right</span>
-        <span class="seed-badge seed-badge--selected seed-badge--sm seed-badge--interactive"
-              id="pill-right-docked" onclick="setRightMode('docked')" role="button" tabindex="0">Docked</span>
-        <span class="seed-badge seed-badge--neutral seed-badge--sm seed-badge--interactive"
-              id="pill-right-float" onclick="setRightMode('floating')" role="button" tabindex="0">Float</span>
+      <!-- Nav -->
+      <nav class="left-nav" aria-label="Main navigation">
+        <div class="nav-item nav-item--active" role="button" tabindex="0">
+          <span class="nav-icon">⌂</span>
+          <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item" role="button" tabindex="0">
+          <span class="nav-icon">◻</span>
+          <span class="nav-label">Messages</span>
+        </div>
+        <div class="nav-item" role="button" tabindex="0">
+          <span class="nav-icon">◈</span>
+          <span class="nav-label">Projects</span>
+        </div>
+        <div class="nav-item" role="button" tabindex="0">
+          <span class="nav-icon">⊞</span>
+          <span class="nav-label">Files</span>
+        </div>
+        <div class="nav-item" role="button" tabindex="0">
+          <span class="nav-icon">⚙</span>
+          <span class="nav-label">Settings</span>
+        </div>
+      </nav>
+
+      <!-- User footer + theme toggle -->
+      <div class="left-footer">
+        <div class="user-avatar">U</div>
+        <span class="user-name">User Name</span>
+        <button class="theme-toggle" id="theme-btn"
+                aria-label="Toggle dark mode" title="Toggle dark mode"></button>
       </div>
 
-      <div class="topbar-sep"></div>
+    </aside>
 
-      <!-- Collapse toggles -->
-      <div class="control-group">
-        <span class="seed-badge seed-badge--neutral seed-badge--sm seed-badge--interactive"
-              id="pill-collapse-left" onclick="toggleCollapseLeft()" role="button" tabindex="0">⇤ Left</span>
-        <span class="seed-badge seed-badge--neutral seed-badge--sm seed-badge--interactive"
-              id="pill-collapse-right" onclick="toggleCollapseRight()" role="button" tabindex="0">Right ⇥</span>
+
+    <!-- ── Center panel ────────────────────────────── -->
+    <main class="seed-layout__center" id="center-panel">
+
+      <!-- Context menu -->
+      <div class="seed-layout__menu-wrap">
+        <button class="seed-layout__menu-trigger" id="center-menu-btn"
+                aria-label="Center panel options" aria-expanded="false"></button>
+        <div class="seed-layout__menu" id="center-menu" role="menu">
+          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+               id="center-opt-flush" role="menuitem">Flush</div>
+          <div class="seed-layout__menu-item"
+               id="center-opt-float" role="menuitem">Floating</div>
+        </div>
       </div>
 
-    </div>
+      <div class="center-inner">
 
-    <div class="topbar-right">
-      <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">◑</button>
-      <a class="nav-link-btn" href="../../index.html">← Preview</a>
-    </div>
+        <p class="content-label">Workspace</p>
+        <h1 class="content-heading">Good morning.</h1>
 
-  </div>
+        <p class="content-body">
+          This is the main content area. It fills all remaining horizontal space,
+          scrolls independently, and adapts as side panels open, close, or change modes.
+        </p>
 
-
-  <!-- ── Three-panel layout ───────────────────────────────── -->
-  <div class="layout-wrap">
-    <div class="seed-layout" id="layout">
-
-      <!-- ── Left panel — FAM nav ── -->
-      <aside class="seed-layout__left" id="left-panel">
-
-        <!-- Resize handle -->
-        <div class="seed-layout__resize-handle" id="left-resize"></div>
-
-        <!-- Company header -->
-        <div class="left-header">
-          <div class="company-avatar">FA</div>
-          <span class="company-name">FAM</span>
+        <div class="content-actions">
+          <button class="seed-button seed-button--primary seed-button--md">New document</button>
+          <button class="seed-button seed-button--secondary seed-button--md">Browse</button>
         </div>
 
-        <hr class="seed-divider seed-divider--flush">
+        <hr class="seed-divider">
 
-        <!-- Nav -->
-        <nav class="left-nav" aria-label="Main navigation">
-          <div class="nav-item nav-item--active" role="button" tabindex="0">
-            <span class="nav-icon">💬</span>
-            <span class="nav-label">Link</span>
-          </div>
-          <div class="nav-item" role="button" tabindex="0">
-            <span class="nav-icon">🎵</span>
-            <span class="nav-label">Jam</span>
-          </div>
-          <div class="nav-item" role="button" tabindex="0">
-            <span class="nav-icon">📁</span>
-            <span class="nav-label">Files</span>
-          </div>
-          <div class="nav-item" role="button" tabindex="0">
-            <span class="nav-icon">⚙</span>
-            <span class="nav-label">Settings</span>
-          </div>
-        </nav>
+        <p class="content-body" style="margin-top: var(--seed-space-6);">
+          Each panel has a three-dot menu in its top-right corner — hover a panel to reveal it.
+          From the menu you can switch between docked and floating modes, collapse the sidebar
+          to an icon strip, or hide a panel entirely.
+        </p>
 
-        <!-- User footer -->
-        <div class="left-footer">
-          <div class="user-avatar">A</div>
-          <span class="user-name">Ada Lace</span>
-          <span class="gear-icon" title="Settings">⚙</span>
+        <p class="content-body">
+          Drag the thin strip on the inner edge of either side panel to resize it between
+          180px and 400px. The resize handle highlights on hover and darkens on drag.
+        </p>
+
+      </div>
+    </main>
+
+
+    <!-- ── Right panel ─────────────────────────────── -->
+    <aside class="seed-layout__right" id="right-panel">
+
+      <!-- Resize handle -->
+      <div class="seed-layout__resize-handle" id="right-resize"></div>
+
+      <!-- Context menu -->
+      <div class="seed-layout__menu-wrap">
+        <button class="seed-layout__menu-trigger" id="right-menu-btn"
+                aria-label="Right panel options" aria-expanded="false"></button>
+        <div class="seed-layout__menu" id="right-menu" role="menu">
+          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+               id="right-opt-docked" role="menuitem">Docked</div>
+          <div class="seed-layout__menu-item"
+               id="right-opt-float" role="menuitem">Floating</div>
+          <div class="seed-layout__menu-divider"></div>
+          <div class="seed-layout__menu-item seed-layout__menu-item--muted"
+               id="right-opt-hide" role="menuitem">Hide panel</div>
+        </div>
+      </div>
+
+      <div class="right-inner">
+
+        <div class="aside-section">
+          <p class="aside-label">Details</p>
+          <div class="meta-row">
+            <span>Status</span>
+            <span class="meta-value">Active</span>
+          </div>
+          <div class="meta-row">
+            <span>Version</span>
+            <span class="meta-value">v0.2</span>
+          </div>
+          <div class="meta-row">
+            <span>Updated</span>
+            <span class="meta-value">Today</span>
+          </div>
+          <div class="meta-row">
+            <span>Visibility</span>
+            <span class="meta-pill">Public</span>
+          </div>
         </div>
 
-      </aside>
+        <hr class="seed-divider seed-divider--spaced-sm">
 
-
-      <!-- ── Center panel — main content ── -->
-      <main class="seed-layout__center" id="center-panel">
-        <div class="center-inner">
-
-          <p class="content-eyebrow">Workspace</p>
-          <h1 class="content-heading">Welcome to Lime.</h1>
-
-          <p class="content-body">
-            Lime is your creative workspace — built on Seed, designed for artists,
-            musicians, and builders who move fast and care about how things feel.
-            Everything here is composable, intentional, and yours to shape.
-          </p>
-
-          <div class="content-actions">
-            <button class="seed-button seed-button--primary seed-button--md">Open project</button>
-            <button class="seed-button seed-button--secondary seed-button--md">Browse files</button>
+        <div class="aside-section">
+          <p class="aside-label">Team</p>
+          <div class="meta-row">
+            <span>User A</span>
+            <span class="meta-pill">Owner</span>
           </div>
-
-          <div class="content-callout">
-            <p class="callout-title">Layout demo</p>
-            <p class="callout-body">
-              Use the controls above to switch panels between docked and floating modes,
-              collapse the sidebars, or drag the resize handles on panel edges.
-              Everything transitions at 200ms ease — no layout jumps.
-            </p>
+          <div class="meta-row">
+            <span>User B</span>
+            <span class="meta-pill">Editor</span>
           </div>
-
-          <hr class="seed-divider">
-
-          <p class="content-body" style="margin-top: var(--seed-space-6);">
-            The left panel collapses to an icon strip — labels slide away, icons stay.
-            The right panel hides completely. In floating mode, panels detach from the edge
-            with rounded corners and a shadow, sitting as cards over the canvas background.
-          </p>
-
-          <p class="content-body">
-            Resize handles live on the inner edges. Drag them to adjust panel widths
-            between 180px and 400px. The handle turns lime when you grab it.
-          </p>
-
+          <div class="meta-row">
+            <span>User C</span>
+            <span class="meta-pill">Viewer</span>
+          </div>
         </div>
-      </main>
 
+        <hr class="seed-divider seed-divider--spaced-sm">
 
-      <!-- ── Right panel — details ── -->
-      <aside class="seed-layout__right" id="right-panel">
-
-        <!-- Resize handle -->
-        <div class="seed-layout__resize-handle" id="right-resize"></div>
-
-        <div class="right-inner">
-
-          <div class="aside-section">
-            <p class="aside-label">Project</p>
-            <div class="meta-row">
-              <span>Status</span>
-              <span class="meta-badge meta-badge--good">● Active</span>
-            </div>
-            <div class="meta-row">
-              <span>Version</span>
-              <span class="meta-value">v0.2</span>
-            </div>
-            <div class="meta-row">
-              <span>Updated</span>
-              <span class="meta-value">Today</span>
-            </div>
-            <div class="meta-row">
-              <span>Visibility</span>
-              <span class="meta-badge meta-badge--calm">Public</span>
-            </div>
+        <div class="aside-section">
+          <p class="aside-label">Activity</p>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <span>Layout component updated · 2m ago</span>
           </div>
-
-          <hr class="seed-divider seed-divider--spaced-sm">
-
-          <div class="aside-section">
-            <p class="aside-label">Team</p>
-            <div class="meta-row">
-              <span>Ada Lace</span>
-              <span class="meta-badge meta-badge--good">Owner</span>
-            </div>
-            <div class="meta-row">
-              <span>Shem Magnezi</span>
-              <span class="meta-badge meta-badge--calm">Editor</span>
-            </div>
-            <div class="meta-row">
-              <span>Kai Okonkwo</span>
-              <span class="meta-badge meta-badge--calm">Viewer</span>
-            </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <span>Input component merged · 1h ago</span>
           </div>
-
-          <hr class="seed-divider seed-divider--spaced-sm">
-
-          <div class="aside-section">
-            <p class="aside-label">Activity</p>
-            <div class="activity-item">
-              <div class="activity-dot activity-dot--selected"></div>
-              <span>Ada pushed layout v2 · 2m ago</span>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot activity-dot--good"></div>
-              <span>Input component merged · 1h ago</span>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot activity-dot--calm"></div>
-              <span>Card component shipped · 3h ago</span>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot activity-dot--calm"></div>
-              <span>Token system updated · yesterday</span>
-            </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <span>Card component shipped · 3h ago</span>
           </div>
-
-          <hr class="seed-divider seed-divider--spaced-sm">
-
-          <div class="aside-section">
-            <p class="aside-label">Labels</p>
-            <div style="display: flex; flex-wrap: wrap; gap: var(--seed-space-1); margin-top: var(--seed-space-1);">
-              <span class="seed-badge seed-badge--good seed-badge--sm">design-system</span>
-              <span class="seed-badge seed-badge--neutral seed-badge--sm">open-source</span>
-              <span class="seed-badge seed-badge--warn seed-badge--sm">in-progress</span>
-            </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <span>Token system updated · yesterday</span>
           </div>
-
         </div>
-      </aside>
 
-    </div>
-  </div>
+      </div>
+    </aside>
+
+  </div><!-- .seed-layout -->
 
 
   <script>
@@ -726,56 +541,134 @@
     const leftPanel   = document.getElementById('left-panel');
     const centerPanel = document.getElementById('center-panel');
     const rightPanel  = document.getElementById('right-panel');
+    const hamburger   = document.getElementById('hamburger');
 
     // ── Theme ──────────────────────────────────────────────
-    function toggleTheme() {
+    document.getElementById('theme-btn').addEventListener('click', () => {
       document.documentElement.dataset.theme =
         document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    });
+
+    // ── Panel menus ────────────────────────────────────────
+
+    const menus = {
+      left:   document.getElementById('left-menu'),
+      center: document.getElementById('center-menu'),
+      right:  document.getElementById('right-menu'),
+    };
+
+    function openMenu(which) {
+      // Close any other open menu first
+      Object.entries(menus).forEach(([key, el]) => {
+        if (key !== which) closeMenu(key);
+      });
+      menus[which].classList.add('seed-layout__menu--open');
+      document.getElementById(which + '-menu-btn').setAttribute('aria-expanded', 'true');
     }
 
-    // ── Panel mode toggles ─────────────────────────────────
+    function closeMenu(which) {
+      menus[which].classList.remove('seed-layout__menu--open');
+      document.getElementById(which + '-menu-btn').setAttribute('aria-expanded', 'false');
+    }
+
+    function closeAllMenus() {
+      Object.keys(menus).forEach(closeMenu);
+    }
+
+    // Trigger clicks
+    document.getElementById('left-menu-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      menus.left.classList.contains('seed-layout__menu--open')
+        ? closeMenu('left') : openMenu('left');
+    });
+
+    document.getElementById('center-menu-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      menus.center.classList.contains('seed-layout__menu--open')
+        ? closeMenu('center') : openMenu('center');
+    });
+
+    document.getElementById('right-menu-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      menus.right.classList.contains('seed-layout__menu--open')
+        ? closeMenu('right') : openMenu('right');
+    });
+
+    // Close on outside click
+    document.addEventListener('click', closeAllMenus);
+
+    // Prevent menu clicks from closing the menu
+    Object.values(menus).forEach(m => m.addEventListener('click', e => e.stopPropagation()));
+
+    // ── Helper: set checked state for a group of items ─────
+    function setChecked(ids, activeId) {
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.toggle('seed-layout__menu-item--checked', id === activeId);
+      });
+    }
+
+    // ── Left panel actions ─────────────────────────────────
     function setLeftMode(mode) {
-      leftPanel.classList.toggle('seed-layout__left--floating', mode === 'floating');
-      setPillActive('pill-left-docked', mode === 'docked');
-      setPillActive('pill-left-float',  mode === 'floating');
+      leftPanel.classList.toggle('seed-layout__left--floating', mode === 'float');
+      setChecked(['left-opt-docked', 'left-opt-float'],
+                 mode === 'float' ? 'left-opt-float' : 'left-opt-docked');
+      closeMenu('left');
     }
 
+    function setLeftCollapse(state) {
+      layout.classList.toggle('seed-layout--collapsed-left', state === 'collapsed');
+      setChecked(['left-opt-expanded', 'left-opt-collapsed'],
+                 state === 'collapsed' ? 'left-opt-collapsed' : 'left-opt-expanded');
+      closeMenu('left');
+    }
+
+    function hideLeft() {
+      leftPanel.classList.add('seed-layout__left--hidden');
+      hamburger.classList.add('seed-layout__hamburger--visible');
+      closeMenu('left');
+    }
+
+    document.getElementById('left-opt-docked').addEventListener('click', () => setLeftMode('docked'));
+    document.getElementById('left-opt-float').addEventListener('click',  () => setLeftMode('float'));
+    document.getElementById('left-opt-expanded').addEventListener('click',  () => setLeftCollapse('expanded'));
+    document.getElementById('left-opt-collapsed').addEventListener('click', () => setLeftCollapse('collapsed'));
+    document.getElementById('left-opt-hide').addEventListener('click', hideLeft);
+
+    // ── Center panel actions ───────────────────────────────
     function setCenterMode(mode) {
-      centerPanel.classList.toggle('seed-layout__center--floated', mode === 'floated');
-      setPillActive('pill-center-flush', mode === 'flush');
-      setPillActive('pill-center-float', mode === 'floated');
+      centerPanel.classList.toggle('seed-layout__center--floated', mode === 'float');
+      setChecked(['center-opt-flush', 'center-opt-float'],
+                 mode === 'float' ? 'center-opt-float' : 'center-opt-flush');
+      closeMenu('center');
     }
 
+    document.getElementById('center-opt-flush').addEventListener('click', () => setCenterMode('flush'));
+    document.getElementById('center-opt-float').addEventListener('click', () => setCenterMode('float'));
+
+    // ── Right panel actions ────────────────────────────────
     function setRightMode(mode) {
-      rightPanel.classList.toggle('seed-layout__right--floating', mode === 'floating');
-      setPillActive('pill-right-docked', mode === 'docked');
-      setPillActive('pill-right-float',  mode === 'floating');
+      rightPanel.classList.toggle('seed-layout__right--floating', mode === 'float');
+      setChecked(['right-opt-docked', 'right-opt-float'],
+                 mode === 'float' ? 'right-opt-float' : 'right-opt-docked');
+      closeMenu('right');
     }
 
-    // Set badge pill active/inactive
-    function setPillActive(id, isActive) {
-      const pill = document.getElementById(id);
-      if (!pill) return;
-      pill.classList.toggle('seed-badge--selected', isActive);
-      pill.classList.toggle('seed-badge--neutral',  !isActive);
+    function hideRight() {
+      layout.classList.add('seed-layout--collapsed-right');
+      closeMenu('right');
     }
 
-    // ── Collapse toggles ───────────────────────────────────
-    function toggleCollapseLeft() {
-      const collapsed = layout.classList.toggle('seed-layout--collapsed-left');
-      const pill = document.getElementById('pill-collapse-left');
-      pill.classList.toggle('seed-badge--selected', collapsed);
-      pill.classList.toggle('seed-badge--neutral',  !collapsed);
-      pill.textContent = collapsed ? '⇥ Left' : '⇤ Left';
-    }
+    document.getElementById('right-opt-docked').addEventListener('click', () => setRightMode('docked'));
+    document.getElementById('right-opt-float').addEventListener('click',  () => setRightMode('float'));
+    document.getElementById('right-opt-hide').addEventListener('click',  hideRight);
 
-    function toggleCollapseRight() {
-      const collapsed = layout.classList.toggle('seed-layout--collapsed-right');
-      const pill = document.getElementById('pill-collapse-right');
-      pill.classList.toggle('seed-badge--selected', collapsed);
-      pill.classList.toggle('seed-badge--neutral',  !collapsed);
-      pill.textContent = collapsed ? '⇤ Right' : 'Right ⇥';
-    }
+    // ── Hamburger — restore left panel ────────────────────
+    hamburger.addEventListener('click', () => {
+      leftPanel.classList.remove('seed-layout__left--hidden');
+      hamburger.classList.remove('seed-layout__hamburger--visible');
+    });
 
     // ── Panel resize ───────────────────────────────────────
     function initResize(handleEl, panelEl, side) {
@@ -786,7 +679,7 @@
         startX     = e.clientX;
         startWidth = panelEl.offsetWidth;
         handleEl.classList.add('is-dragging');
-        document.body.style.cursor    = 'col-resize';
+        document.body.style.cursor     = 'col-resize';
         document.body.style.userSelect = 'none';
         document.addEventListener('mousemove', onMove);
         document.addEventListener('mouseup',   onUp);
@@ -800,7 +693,7 @@
 
       function onUp() {
         handleEl.classList.remove('is-dragging');
-        document.body.style.cursor    = '';
+        document.body.style.cursor     = '';
         document.body.style.userSelect = '';
         document.removeEventListener('mousemove', onMove);
         document.removeEventListener('mouseup',   onUp);
@@ -810,9 +703,9 @@
     initResize(document.getElementById('left-resize'),  leftPanel,  'left');
     initResize(document.getElementById('right-resize'), rightPanel, 'right');
 
-    // Clear inline resize widths when responsive breakpoints kick in
+    // Clear inline widths at responsive breakpoints
     window.addEventListener('resize', () => {
-      if (window.innerWidth <= 768) leftPanel.style.width  = '';
+      if (window.innerWidth <= 768)  leftPanel.style.width  = '';
       if (window.innerWidth <= 1024) rightPanel.style.width = '';
     });
   </script>

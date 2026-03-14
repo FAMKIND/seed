@@ -5,14 +5,15 @@
    Three-panel app shell — left sidebar · main canvas · right aside.
    Panels scroll independently. All three support docked/floating modes.
    Left and right are user-resizable via drag handles.
-   Collapses responsively; also togglable via modifier classes.
+   Collapses responsively; also togglable via panel context menus.
 
-   Modifier classes (applied to .seed-layout):
+   Modifier classes (on .seed-layout):
      .seed-layout--collapsed-left   → left collapses to 56px icon strip
      .seed-layout--collapsed-right  → right panel hides
 
-   Floating panel modifiers (applied to the panel itself):
+   Floating modifiers (on the panel element):
      .seed-layout__left--floating
+     .seed-layout__left--hidden
      .seed-layout__center--floated
      .seed-layout__right--floating
 
@@ -55,12 +56,15 @@
                     border-color 200ms ease;
 }
 
-/* Floating — detached card, sits over canvas */
 .seed-layout__left--floating {
     margin:        var(--seed-space-2);
     border-right:  none;
     border-radius: var(--seed-radius-lg);
     box-shadow:    var(--seed-shadow-md);
+}
+
+.seed-layout__left--hidden {
+    display: none;
 }
 
 
@@ -71,6 +75,7 @@
 .seed-layout__center {
     flex:           1;
     min-width:      0;
+    position:       relative;
     display:        flex;
     flex-direction: column;
     background:     var(--soil-bg-surface);
@@ -79,7 +84,6 @@
                     box-shadow 200ms ease, background 200ms ease;
 }
 
-/* Floated — card on the canvas */
 .seed-layout__center--floated {
     margin:        var(--seed-space-2);
     border-radius: var(--seed-radius-lg);
@@ -109,7 +113,6 @@
                     border-color 200ms ease;
 }
 
-/* Floating — detached card */
 .seed-layout__right--floating {
     margin:        var(--seed-space-2);
     border-left:   none;
@@ -120,8 +123,8 @@
 
 /* ─────────────────────────────────────────────────────
    RESIZE HANDLES
-   Positioned on the inner edge of each side panel.
-   4px strip: transparent → calm border on hover → lime on drag.
+   4px strip on the inner edge of each side panel.
+   transparent → subtle on hover → soil border on drag.
 ───────────────────────────────────────────────────── */
 
 .seed-layout__resize-handle {
@@ -144,7 +147,173 @@
 }
 
 .seed-layout__resize-handle.is-dragging {
-    background: var(--selected-border-bold-default);
+    background: var(--soil-border);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   PANEL CONTEXT MENU
+   Three-dot trigger + dropdown, positioned top-right of each panel.
+   Trigger fades in on panel hover. Menu opens on click.
+───────────────────────────────────────────────────── */
+
+.seed-layout__menu-wrap {
+    position: absolute;
+    top:      10px;
+    right:    10px;
+    z-index:  var(--seed-z-dropdown);
+}
+
+/* Three-dot button */
+.seed-layout__menu-trigger {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    width:           22px;
+    height:          22px;
+    padding:         0;
+    border:          none;
+    background:      transparent;
+    border-radius:   var(--seed-radius-sm);
+    cursor:          pointer;
+    color:           var(--soil-text-muted);
+    opacity:         0;
+    transition:      background 120ms ease, color 120ms ease,
+                     opacity 120ms ease;
+}
+
+/* Show trigger when panel is hovered or menu is open */
+.seed-layout__left:hover   .seed-layout__menu-trigger,
+.seed-layout__center:hover .seed-layout__menu-trigger,
+.seed-layout__right:hover  .seed-layout__menu-trigger,
+.seed-layout__menu-wrap:has(.seed-layout__menu--open) .seed-layout__menu-trigger {
+    opacity: 1;
+}
+
+.seed-layout__menu-trigger:hover {
+    background: var(--calm-bg-subtle-hover);
+    color:      var(--soil-text);
+}
+
+/* Three dots via single ::before + box-shadow */
+.seed-layout__menu-trigger::before {
+    content:       '';
+    display:       block;
+    width:         3px;
+    height:        3px;
+    border-radius: 50%;
+    background:    currentColor;
+    box-shadow:    0 -6px 0 currentColor, 0 6px 0 currentColor;
+    flex-shrink:   0;
+}
+
+/* Dropdown */
+.seed-layout__menu {
+    display:       none;
+    position:      absolute;
+    top:           28px;
+    right:         0;
+    min-width:     160px;
+    background:    var(--soil-bg-elevated);
+    border:        1px solid var(--soil-border-subtle);
+    border-radius: var(--seed-radius-md);
+    box-shadow:    var(--seed-shadow-md);
+    padding:       var(--seed-space-1) 0;
+    z-index:       var(--seed-z-dropdown);
+}
+
+.seed-layout__menu--open {
+    display: block;
+}
+
+/* Menu items */
+.seed-layout__menu-item {
+    position:    relative;
+    display:     flex;
+    align-items: center;
+    padding:     var(--seed-space-2) var(--seed-space-4);
+    padding-left: 28px;
+    font-family: var(--seed-font-ui);
+    font-size:   var(--seed-text-sm);
+    color:       var(--soil-text);
+    cursor:      pointer;
+    user-select: none;
+    white-space: nowrap;
+    transition:  background 120ms ease;
+}
+
+.seed-layout__menu-item:hover {
+    background: var(--calm-bg-subtle-hover);
+}
+
+.seed-layout__menu-item--muted {
+    color: var(--soil-text-muted);
+}
+
+/* Checkmark — rotated L-shape border */
+.seed-layout__menu-item--checked::before {
+    content:       '';
+    position:      absolute;
+    left:          11px;
+    top:           50%;
+    transform:     translateY(-65%) rotate(45deg);
+    width:         4px;
+    height:        8px;
+    border-right:  1.5px solid var(--soil-text);
+    border-bottom: 1.5px solid var(--soil-text);
+}
+
+/* Divider line */
+.seed-layout__menu-divider {
+    height:     1px;
+    background: var(--soil-border-subtle);
+    margin:     var(--seed-space-1) 0;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   HAMBURGER TRIGGER
+   Fixed top-left. Shown when left panel is fully hidden.
+   Three horizontal lines via ::before + box-shadow.
+───────────────────────────────────────────────────── */
+
+.seed-layout__hamburger {
+    display:         none;
+    position:        fixed;
+    top:             12px;
+    left:            12px;
+    align-items:     center;
+    justify-content: center;
+    width:           32px;
+    height:          32px;
+    padding:         0;
+    border:          1px solid var(--soil-border-subtle);
+    background:      var(--soil-bg-elevated);
+    border-radius:   var(--seed-radius-md);
+    cursor:          pointer;
+    color:           var(--soil-text-muted);
+    z-index:         var(--seed-z-overlay);
+    box-shadow:      var(--seed-shadow-sm);
+    transition:      background 120ms ease, color 120ms ease;
+}
+
+.seed-layout__hamburger:hover {
+    background: var(--calm-bg-subtle-hover);
+    color:      var(--soil-text);
+}
+
+/* Three lines */
+.seed-layout__hamburger::before {
+    content:    '';
+    display:    block;
+    width:      16px;
+    height:     2px;
+    background: currentColor;
+    box-shadow: 0 -5px 0 currentColor, 0 5px 0 currentColor;
+}
+
+.seed-layout__hamburger--visible {
+    display: flex;
 }
 
 
@@ -152,28 +321,16 @@
    COLLAPSE MODIFIERS
 ───────────────────────────────────────────────────── */
 
-/* Left → icon-only strip */
 .seed-layout--collapsed-left .seed-layout__left {
     width:     56px;
     min-width: 56px;
 }
 
-/* Right → fully hidden */
 .seed-layout--collapsed-right .seed-layout__right {
     width:     0;
     min-width: 0;
     overflow:  hidden;
     border:    none;
-}
-
-
-/* ─────────────────────────────────────────────────────
-   HAMBURGER TRIGGER
-   Hidden by default. Shown only below 480px.
-───────────────────────────────────────────────────── */
-
-.seed-layout__hamburger {
-    display: none;
 }
 
 
