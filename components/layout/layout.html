@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../tokens/tokens.css">
   <link rel="stylesheet" href="../../components/button/button.css">
-  <link rel="stylesheet" href="../../components/divider/divider.css">
   <link rel="stylesheet" href="layout.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,14 +24,13 @@
 
     /* ── Left panel ──────────────────────────────────── */
 
-    /* Company header: left/right padding matches nav indentation (space-2 + space-2 = 16px).
-       Gap matches nav-item gap so avatar+name feel part of the same rhythm. */
+    /* Company header: padding matches nav indentation pattern */
     .left-header {
-      display:      flex;
-      align-items:  center;
-      gap:          var(--seed-space-2);
-      padding:      var(--seed-space-3) var(--seed-space-4);
-      flex-shrink:  0;
+      display:     flex;
+      align-items: center;
+      gap:         var(--seed-space-2);
+      padding:     var(--seed-space-3) var(--seed-space-4);
+      flex-shrink: 0;
     }
 
     .company-avatar {
@@ -62,14 +60,123 @@
       transition:     max-width 200ms ease, opacity 200ms ease;
     }
 
-    /* Nav: stacks items from top, grows to fill space, pushes footer down */
+    /* ── Search field ─────────────────────────────────
+       Compact input with CSS magnifying glass.
+       In collapsed mode: input hides, icon button shows. */
+    .left-search {
+      position:    relative;
+      display:     flex;
+      align-items: center;
+      padding:     0 var(--seed-space-2) var(--seed-space-1);
+      flex-shrink: 0;
+    }
+
+    /* Magnifying glass circle */
+    .left-search::before {
+      content:        '';
+      position:       absolute;
+      left:           14px;
+      top:            calc(50% - 6px);
+      width:          10px;
+      height:         10px;
+      border-radius:  50%;
+      border:         1.5px solid var(--soil-text-muted);
+      pointer-events: none;
+      z-index:        1;
+    }
+
+    /* Magnifying glass handle */
+    .left-search::after {
+      content:          '';
+      position:         absolute;
+      left:             23px;
+      top:              calc(50% + 2px);
+      width:            5px;
+      height:           1.5px;
+      background:       var(--soil-text-muted);
+      transform:        rotate(45deg);
+      transform-origin: left center;
+      border-radius:    1px;
+      pointer-events:   none;
+      z-index:          1;
+    }
+
+    .search-input {
+      width:         100%;
+      padding:       var(--seed-space-2) var(--seed-space-2) var(--seed-space-2) 28px;
+      background:    var(--soil-bg-elevated);
+      border:        1px solid var(--calm-border-subtle-default);
+      border-radius: var(--seed-radius-md);
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-xs);
+      color:         var(--soil-text);
+      outline:       none;
+      transition:    border-color 120ms ease, background 120ms ease,
+                     max-width 200ms ease, opacity 200ms ease;
+    }
+
+    .search-input::placeholder { color: var(--soil-text-muted); }
+
+    .search-input:focus {
+      border-color: var(--calm-border-bold-default);
+      background:   var(--soil-bg-surface);
+    }
+
+    /* Icon-only button — hidden in expanded, shown in collapsed */
+    .search-icon-btn {
+      position:        relative;
+      display:         none;
+      align-items:     center;
+      justify-content: center;
+      width:           36px;
+      height:          32px;
+      padding:         0;
+      border:          none;
+      background:      transparent;
+      border-radius:   var(--seed-radius-md);
+      cursor:          pointer;
+      color:           var(--soil-text-muted);
+      flex-shrink:     0;
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .search-icon-btn:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .search-icon-btn::before {
+      content:       '';
+      position:      absolute;
+      top:           calc(50% - 7px);
+      left:          calc(50% - 8px);
+      width:         10px;
+      height:        10px;
+      border-radius: 50%;
+      border:        1.5px solid currentColor;
+    }
+
+    .search-icon-btn::after {
+      content:          '';
+      position:         absolute;
+      top:              calc(50% + 1px);
+      left:             calc(50% + 1px);
+      width:            5px;
+      height:           1.5px;
+      background:       currentColor;
+      transform:        rotate(45deg);
+      transform-origin: left center;
+      border-radius:    1px;
+    }
+
+    /* ── Nav ────────────────────────────────────────── */
+
     .left-nav {
-      flex:    1;
-      padding: var(--seed-space-1) var(--seed-space-2);
+      flex:       1;
+      padding:    var(--seed-space-1) var(--seed-space-2);
       align-self: stretch;
     }
 
-    /* Nav item — position: relative needed for ::after tooltip */
     .nav-item {
       position:      relative;
       display:       flex;
@@ -89,22 +196,12 @@
       color:      var(--soil-text);
     }
 
-    /* Active: background shift only — no colored border */
     .nav-item--active {
       background:  var(--calm-bg-subtle-hover);
       color:       var(--soil-text);
       font-weight: var(--seed-weight-medium);
     }
 
-    .nav-icon {
-      font-size:   14px;
-      width:       20px;
-      flex-shrink: 0;
-      text-align:  center;
-      line-height: 1;
-    }
-
-    /* Label slides away on collapse via max-width transition */
     .nav-label {
       max-width:   160px;
       overflow:    hidden;
@@ -113,9 +210,8 @@
     }
 
     /* ── Collapsed nav tooltips ──
-       Pure CSS. data-label attr drives content.
-       Only visible in icon-only mode (collapsed left panel).
-       The collapsed panel has overflow: visible, allowing ::after to escape. */
+       data-label attr drives content. Only visible in icon-only mode.
+       Panel has overflow: visible so tooltip escapes into center area. */
     .nav-item::after {
       content:        attr(data-label);
       position:       absolute;
@@ -137,19 +233,12 @@
       transition:     opacity 120ms ease;
     }
 
-    /* Show tooltip only when collapsed and hovering */
-    .seed-layout--collapsed-left .nav-item:hover::after {
-      opacity: 1;
-    }
+    .seed-layout--collapsed-left .nav-item:hover::after { opacity: 1; }
 
-    /* Also at 768px responsive collapse */
-    @media (max-width: 768px) {
-      .nav-item:hover::after {
-        opacity: 1;
-      }
-    }
+    @media (max-width: 768px) { .nav-item:hover::after { opacity: 1; } }
 
-    /* User footer */
+    /* ── User footer ──────────────────────────────────── */
+
     .left-footer {
       display:     flex;
       align-items: center;
@@ -186,10 +275,10 @@
       transition:    max-width 200ms ease, opacity 200ms ease;
     }
 
-    /* ── Theme toggle: 40×22px sliding track switch ──
-       Track shifts background per theme.
-       Thumb (::before): 16×16px circle slides left ↔ right.
-       Icon (::after): sun dot (light) or moon crescent (dark) moves with thumb. */
+    /* ── Theme toggle: sliding track switch ──
+       Track: 40×22px, pill border-radius.
+       Thumb (::before): 16×16px circle, slides left ↔ right.
+       Icon (::after): sun dot (light) or moon crescent (dark). */
     .theme-toggle {
       position:    relative;
       width:       40px;
@@ -211,7 +300,6 @@
       border-color: var(--soil-border);
     }
 
-    /* Sliding thumb */
     .theme-toggle::before {
       content:       '';
       position:      absolute;
@@ -224,7 +312,6 @@
       transition:    transform 200ms ease;
     }
 
-    /* Thumb icon — travels with thumb via matching translateX */
     .theme-toggle::after {
       content:        '';
       position:       absolute;
@@ -232,7 +319,6 @@
       transition:     transform 200ms ease;
     }
 
-    /* Light mode: sun — 4px dot on thumb */
     [data-theme="light"] .theme-toggle::after {
       top:           50%;
       left:          8px;
@@ -243,177 +329,50 @@
       transform:     translateY(-50%);
     }
 
-    /* Dark mode: thumb slides right, moon crescent on thumb */
-    [data-theme="dark"] .theme-toggle::before {
-      transform: translateX(18px);
-    }
+    [data-theme="dark"] .theme-toggle::before { transform: translateX(18px); }
 
     [data-theme="dark"] .theme-toggle::after {
-      top:           50%;
-      left:          8px;
-      width:         8px;
-      height:        8px;
-      border-radius: 50%;
-      border:        1.5px solid var(--soil-bg-surface);
+      top:                50%;
+      left:               8px;
+      width:              8px;
+      height:             8px;
+      border-radius:      50%;
+      border:             1.5px solid var(--soil-bg-surface);
       border-right-color: transparent;
-      background:    transparent;
-      transform:     translateX(18px) translateY(-50%) rotate(45deg);
+      background:         transparent;
+      transform:          translateX(18px) translateY(-50%) rotate(45deg);
     }
 
-    /* ── Search field ────────────────────────────────── */
+    /* ── Collapse states ──────────────────────────────── */
 
-    /* Wrapper: relative so ::before/::after can overlay the input as a magnifying glass */
-    .left-search {
-      position:    relative;
-      display:     flex;
-      align-items: center;
-      padding:     0 var(--seed-space-2) var(--seed-space-1);
-      flex-shrink: 0;
-    }
-
-    /* Magnifying glass circle */
-    .left-search::before {
-      content:       '';
-      position:      absolute;
-      left:          14px;
-      top:           calc(50% - 5px);
-      width:         10px;
-      height:        10px;
-      border-radius: 50%;
-      border:        1.5px solid var(--soil-text-muted);
-      pointer-events: none;
-      z-index:       1;
-    }
-
-    /* Magnifying glass handle */
-    .left-search::after {
-      content:          '';
-      position:         absolute;
-      left:             23px;
-      top:              calc(50% + 3px);
-      width:            5px;
-      height:           1.5px;
-      background:       var(--soil-text-muted);
-      transform:        rotate(45deg);
-      transform-origin: left center;
-      border-radius:    1px;
-      pointer-events:   none;
-      z-index:          1;
-    }
-
-    .search-input {
-      width:         100%;
-      padding:       var(--seed-space-2) var(--seed-space-2) var(--seed-space-2) 28px;
-      background:    var(--soil-bg-elevated);
-      border:        1px solid var(--calm-border-subtle-default);
-      border-radius: var(--seed-radius-md);
-      font-family:   var(--seed-font-ui);
-      font-size:     var(--seed-text-xs);
-      color:         var(--soil-text);
-      outline:       none;
-      max-width:     100%;
-      transition:    border-color 120ms ease, background 120ms ease,
-                     max-width 200ms ease, opacity 200ms ease;
-    }
-
-    .search-input::placeholder {
-      color: var(--soil-text-muted);
-    }
-
-    .search-input:focus {
-      border-color: var(--calm-border-bold-default);
-      background:   var(--soil-bg-surface);
-    }
-
-    /* Icon-only button — shown in collapsed mode, hidden otherwise */
-    .search-icon-btn {
-      position:      relative;
-      display:       none;
-      align-items:   center;
-      justify-content: center;
-      width:         36px;
-      height:        32px;
-      padding:       0;
-      border:        none;
-      background:    transparent;
-      border-radius: var(--seed-radius-md);
-      cursor:        pointer;
-      color:         var(--soil-text-muted);
-      flex-shrink:   0;
-      transition:    background 120ms ease, color 120ms ease;
-    }
-
-    .search-icon-btn:hover {
-      background: var(--calm-bg-subtle-hover);
-      color:      var(--soil-text);
-    }
-
-    /* Magnifying glass on icon button */
-    .search-icon-btn::before {
-      content:       '';
-      position:      absolute;
-      top:           calc(50% - 7px);
-      left:          calc(50% - 8px);
-      width:         10px;
-      height:        10px;
-      border-radius: 50%;
-      border:        1.5px solid currentColor;
-    }
-
-    .search-icon-btn::after {
-      content:          '';
-      position:         absolute;
-      top:              calc(50% + 1px);
-      left:             calc(50% + 1px);
-      width:            5px;
-      height:           1.5px;
-      background:       currentColor;
-      transform:        rotate(45deg);
-      transform-origin: left center;
-      border-radius:    1px;
-    }
-
-    /* ── Collapse states — labels and extras slide away ── */
     .seed-layout--collapsed-left .nav-label,
     .seed-layout--collapsed-left .company-name,
     .seed-layout--collapsed-left .user-name,
-    .seed-layout--collapsed-left .theme-toggle {
-      max-width: 0;
-      opacity:   0;
-    }
+    .seed-layout--collapsed-left .theme-toggle { max-width: 0; opacity: 0; }
 
-    /* Search: hide input + glass, show icon button */
     .seed-layout--collapsed-left .search-input {
-      max-width:      0;
-      opacity:        0;
-      padding:        0;
-      border-width:   0;
-      pointer-events: none;
+      max-width: 0; opacity: 0; padding: 0; border-width: 0; pointer-events: none;
     }
     .seed-layout--collapsed-left .left-search::before,
     .seed-layout--collapsed-left .left-search::after { display: none; }
-    .seed-layout--collapsed-left .search-icon-btn  { display: flex; }
-    .seed-layout--collapsed-left .left-search      { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
-
-    .seed-layout--collapsed-left .nav-item    { justify-content: center; }
-    .seed-layout--collapsed-left .left-header { justify-content: center; }
-    .seed-layout--collapsed-left .left-footer { justify-content: center; }
+    .seed-layout--collapsed-left .search-icon-btn    { display: flex; }
+    .seed-layout--collapsed-left .left-search    { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
+    .seed-layout--collapsed-left .nav-item       { justify-content: center; }
+    .seed-layout--collapsed-left .left-header    { justify-content: center; }
+    .seed-layout--collapsed-left .left-footer    { justify-content: center; }
 
     @media (max-width: 768px) {
-      .nav-label, .company-name, .user-name, .theme-toggle {
-        max-width: 0;
-        opacity:   0;
-      }
+      .nav-label, .company-name, .user-name, .theme-toggle { max-width: 0; opacity: 0; }
       .search-input { max-width: 0; opacity: 0; padding: 0; border-width: 0; pointer-events: none; }
       .left-search::before, .left-search::after { display: none; }
-      .search-icon-btn  { display: flex; }
-      .left-search      { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
-      .nav-item    { justify-content: center; }
-      .left-header { justify-content: center; }
-      .left-footer { justify-content: center; }
+      .search-icon-btn { display: flex; }
+      .left-search  { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
+      .nav-item     { justify-content: center; }
+      .left-header  { justify-content: center; }
+      .left-footer  { justify-content: center; }
     }
 
-    /* ── Center panel ────────────────────────────────── */
+    /* ── Center panel ─────────────────────────────────── */
 
     .center-inner {
       padding:   var(--seed-space-8);
@@ -452,11 +411,15 @@
       margin-bottom: var(--seed-space-8);
     }
 
-    /* ── Right panel ─────────────────────────────────── */
-
-    .right-inner {
-      padding: var(--seed-space-4);
+    .content-divider {
+      height:     1px;
+      background: var(--soil-border-subtle);
+      margin:     0 0 var(--seed-space-6);
     }
+
+    /* ── Right panel ──────────────────────────────────── */
+
+    .right-inner { padding: var(--seed-space-4); }
 
     .aside-label {
       font-size:      var(--seed-text-xs);
@@ -467,9 +430,7 @@
       margin-bottom:  var(--seed-space-3);
     }
 
-    .aside-section {
-      margin-bottom: var(--seed-space-5);
-    }
+    .aside-section { margin-bottom: var(--seed-space-5); }
 
     .meta-row {
       display:         flex;
@@ -483,10 +444,7 @@
 
     .meta-row:last-child { border-bottom: none; }
 
-    .meta-value {
-      color:       var(--soil-text);
-      font-weight: var(--seed-weight-medium);
-    }
+    .meta-value { color: var(--soil-text); font-weight: var(--seed-weight-medium); }
 
     .meta-pill {
       display:       inline-flex;
@@ -523,24 +481,14 @@
 </head>
 <body>
 
-  <!-- Hamburger — shown when left panel is fully hidden -->
+  <!-- Hamburger — shown when left panel is fully hidden on mobile -->
   <button class="seed-layout__hamburger" id="hamburger"
           aria-label="Open sidebar" title="Open sidebar"></button>
-
-  <!-- Reveal triggers — shown when respective panel is hidden -->
-  <div class="seed-layout__reveal-left"  id="reveal-left"
-       role="button" tabindex="0" aria-label="Show left panel"></div>
-  <div class="seed-layout__reveal-right" id="reveal-right"
-       role="button" tabindex="0" aria-label="Show right panel"></div>
 
   <!-- Three-panel layout — fills full viewport -->
   <div class="seed-layout" id="layout">
 
-    <!-- Resize handles — on parent container, positioned by JS at panel borders -->
-    <div class="seed-layout__resize-handle" id="left-resize"></div>
-    <div class="seed-layout__resize-handle" id="right-resize"></div>
-
-    <!-- ── Left panel ──────────────────────────────── -->
+    <!-- Grid col 1: Left sidebar -->
     <aside class="seed-layout__left" id="left-panel">
 
       <!-- Context menu -->
@@ -563,15 +511,13 @@
         </div>
       </div>
 
-      <!-- Company header: var(--seed-space-4) padding, var(--seed-space-3) gap -->
+      <!-- Company header -->
       <div class="left-header">
         <div class="company-avatar">FA</div>
         <span class="company-name">FAM</span>
       </div>
 
-      <hr class="seed-divider seed-divider--flush">
-
-      <!-- Search: compact input with CSS magnifying glass, collapses to icon in icon-only mode -->
+      <!-- Search field -->
       <div class="left-search">
         <button class="search-icon-btn" id="search-expand-btn"
                 aria-label="Expand sidebar to search"></button>
@@ -579,48 +525,44 @@
                aria-label="Search" autocomplete="off">
       </div>
 
-      <!-- Nav: items stack from top, flex: 1 pushes footer to bottom -->
+      <!-- Nav -->
       <nav class="left-nav" aria-label="Main navigation">
-        <div class="nav-item nav-item--active"
-             data-label="Home" role="button" tabindex="0">
-          <span class="nav-icon">⌂</span>
+        <div class="nav-item nav-item--active" data-label="Home" role="button" tabindex="0">
+          <span class="seed-icon seed-icon--home" aria-hidden="true"></span>
           <span class="nav-label">Home</span>
         </div>
-        <div class="nav-item"
-             data-label="Messages" role="button" tabindex="0">
-          <span class="nav-icon">◻</span>
+        <div class="nav-item" data-label="Messages" role="button" tabindex="0">
+          <span class="seed-icon seed-icon--messages" aria-hidden="true"></span>
           <span class="nav-label">Messages</span>
         </div>
-        <div class="nav-item"
-             data-label="Projects" role="button" tabindex="0">
-          <span class="nav-icon">◈</span>
+        <div class="nav-item" data-label="Projects" role="button" tabindex="0">
+          <span class="seed-icon seed-icon--projects" aria-hidden="true"></span>
           <span class="nav-label">Projects</span>
         </div>
-        <div class="nav-item"
-             data-label="Files" role="button" tabindex="0">
-          <span class="nav-icon">⊞</span>
+        <div class="nav-item" data-label="Files" role="button" tabindex="0">
+          <span class="seed-icon seed-icon--files" aria-hidden="true"></span>
           <span class="nav-label">Files</span>
         </div>
-        <div class="nav-item"
-             data-label="Settings" role="button" tabindex="0">
-          <span class="nav-icon">⚙</span>
+        <div class="nav-item" data-label="Settings" role="button" tabindex="0">
+          <span class="seed-icon seed-icon--settings" aria-hidden="true"></span>
           <span class="nav-label">Settings</span>
         </div>
       </nav>
 
-      <!-- User footer: avatar + name + theme toggle -->
+      <!-- User footer -->
       <div class="left-footer">
         <div class="user-avatar">U</div>
         <span class="user-name">User Name</span>
         <button class="theme-toggle" id="theme-btn"
-                aria-label="Switch to dark mode"
-                title="Switch to dark mode"></button>
+                aria-label="Switch to dark mode"></button>
       </div>
 
     </aside>
 
+    <!-- Grid col 2: Left resize handle -->
+    <div class="seed-layout__handle" id="left-handle" aria-hidden="true"></div>
 
-    <!-- ── Center panel ────────────────────────────── -->
+    <!-- Grid col 3: Center panel -->
     <main class="seed-layout__center" id="center-panel">
 
       <!-- Context menu -->
@@ -650,25 +592,27 @@
           <button class="seed-button seed-button--secondary seed-button--md">Browse</button>
         </div>
 
-        <hr class="seed-divider">
+        <div class="content-divider"></div>
 
-        <p class="content-body" style="margin-top: var(--seed-space-6);">
+        <p class="content-body">
           Hover any panel to reveal its three-dot menu in the top-right corner.
           From the menu you can switch between docked and floating modes, collapse
           the left sidebar to an icon strip, or hide a panel entirely.
         </p>
 
         <p class="content-body">
-          When a panel is hidden, a thin tab appears on that edge of the viewport —
-          click it to bring the panel back. Drag the hairline between panels to resize.
-          Hover a collapsed nav icon to see its label in a tooltip.
+          When a panel is hidden, a circle button with a chevron appears at that
+          viewport edge — click it to bring the panel back. Drag the hairline between
+          panels to resize. Hover a collapsed nav icon to see its label in a tooltip.
         </p>
 
       </div>
     </main>
 
+    <!-- Grid col 4: Right resize handle -->
+    <div class="seed-layout__handle" id="right-handle" aria-hidden="true"></div>
 
-    <!-- ── Right panel ─────────────────────────────── -->
+    <!-- Grid col 5: Right sidebar -->
     <aside class="seed-layout__right" id="right-panel">
 
       <!-- Context menu -->
@@ -690,49 +634,28 @@
 
         <div class="aside-section">
           <p class="aside-label">Details</p>
-          <div class="meta-row">
-            <span>Status</span>
-            <span class="meta-value">Active</span>
-          </div>
-          <div class="meta-row">
-            <span>Version</span>
-            <span class="meta-value">v0.2</span>
-          </div>
-          <div class="meta-row">
-            <span>Updated</span>
-            <span class="meta-value">Today</span>
-          </div>
-          <div class="meta-row">
-            <span>Visibility</span>
-            <span class="meta-pill">Public</span>
-          </div>
+          <div class="meta-row"><span>Status</span><span class="meta-value">Active</span></div>
+          <div class="meta-row"><span>Version</span><span class="meta-value">v0.3</span></div>
+          <div class="meta-row"><span>Updated</span><span class="meta-value">Today</span></div>
+          <div class="meta-row"><span>Visibility</span><span class="meta-pill">Public</span></div>
         </div>
 
-        <hr class="seed-divider seed-divider--spaced-sm">
+        <div class="content-divider"></div>
 
         <div class="aside-section">
           <p class="aside-label">Team</p>
-          <div class="meta-row">
-            <span>User A</span>
-            <span class="meta-pill">Owner</span>
-          </div>
-          <div class="meta-row">
-            <span>User B</span>
-            <span class="meta-pill">Editor</span>
-          </div>
-          <div class="meta-row">
-            <span>User C</span>
-            <span class="meta-pill">Viewer</span>
-          </div>
+          <div class="meta-row"><span>User A</span><span class="meta-pill">Owner</span></div>
+          <div class="meta-row"><span>User B</span><span class="meta-pill">Editor</span></div>
+          <div class="meta-row"><span>User C</span><span class="meta-pill">Viewer</span></div>
         </div>
 
-        <hr class="seed-divider seed-divider--spaced-sm">
+        <div class="content-divider"></div>
 
         <div class="aside-section">
           <p class="aside-label">Activity</p>
           <div class="activity-item">
             <div class="activity-dot"></div>
-            <span>Layout component updated · 2m ago</span>
+            <span>Grid layout shipped · just now</span>
           </div>
           <div class="activity-item">
             <div class="activity-dot"></div>
@@ -754,98 +677,87 @@
   </div><!-- .seed-layout -->
 
 
+  <!-- Chevron reveal buttons — outside grid, position: fixed -->
+  <button class="seed-layout__reveal-left"  id="reveal-left"
+          aria-label="Show left panel"></button>
+  <button class="seed-layout__reveal-right" id="reveal-right"
+          aria-label="Show right panel"></button>
+
+
   <script>
     const layout      = document.getElementById('layout');
     const leftPanel   = document.getElementById('left-panel');
     const centerPanel = document.getElementById('center-panel');
     const rightPanel  = document.getElementById('right-panel');
+    const leftHandle  = document.getElementById('left-handle');
+    const rightHandle = document.getElementById('right-handle');
     const hamburger   = document.getElementById('hamburger');
     const revealLeft  = document.getElementById('reveal-left');
     const revealRight = document.getElementById('reveal-right');
-    const leftHandle  = document.getElementById('left-resize');
-    const rightHandle = document.getElementById('right-resize');
-    const themeBtn         = document.getElementById('theme-btn');
-    const searchExpandBtn  = document.getElementById('search-expand-btn');
+    const themeBtn    = document.getElementById('theme-btn');
+    const searchExpandBtn = document.getElementById('search-expand-btn');
+
+    // ── Helpers ────────────────────────────────────────────
+    function setProp(name, val) { layout.style.setProperty(name, val); }
+    function removeProp(name)   { layout.style.removeProperty(name); }
 
     // ── Theme ──────────────────────────────────────────────
     themeBtn.addEventListener('click', () => {
-      const html    = document.documentElement;
-      const isDark  = html.dataset.theme === 'dark';
-      html.dataset.theme  = isDark ? 'light' : 'dark';
-      themeBtn.setAttribute('aria-label',  isDark ? 'Switch to dark mode'  : 'Switch to light mode');
-      themeBtn.setAttribute('title',       isDark ? 'Switch to dark mode'  : 'Switch to light mode');
+      const html   = document.documentElement;
+      const isDark = html.dataset.theme === 'dark';
+      html.dataset.theme = isDark ? 'light' : 'dark';
+      themeBtn.setAttribute('aria-label', isDark ? 'Switch to dark mode' : 'Switch to light mode');
     });
 
-    // ── Resize handle positions ────────────────────────────
-    // Handles live on .seed-layout, centered on the border between panels.
-    // Called after any panel state change and during drag.
-    function updateHandlePositions() {
-      const leftCollapsed = layout.classList.contains('seed-layout--collapsed-left');
-      const leftHidden    = leftPanel.classList.contains('seed-layout__left--hidden');
-      const leftFloating  = leftPanel.classList.contains('seed-layout__left--floating');
-
-      const rightCollapsed = layout.classList.contains('seed-layout--collapsed-right');
-      const rightHidden    = getComputedStyle(rightPanel).display === 'none';
-      const rightFloating  = rightPanel.classList.contains('seed-layout__right--floating');
-
-      // Left handle: sits on the right edge of the left panel.
-      // Hidden when left is floating, hidden, or collapsed (icon strip not resizable).
-      if (leftHidden || leftFloating || leftCollapsed) {
-        leftHandle.style.display = 'none';
-      } else {
-        leftHandle.style.display = '';
-        leftHandle.style.left = leftPanel.offsetWidth + 'px';
-      }
-
-      // Right handle: sits on the left edge of the right panel.
-      // Hidden when right is floating, hidden, or not in DOM (responsive).
-      if (rightCollapsed || rightHidden || rightFloating) {
-        rightHandle.style.display = 'none';
-      } else {
-        rightHandle.style.display = '';
-        rightHandle.style.left = (layout.offsetWidth - rightPanel.offsetWidth) + 'px';
-      }
-    }
-
-    // ── Panel resize ───────────────────────────────────────
-    function initResize(handleEl, panelEl, side) {
-      let startX, startWidth;
+    // ── Fluid panel resize ─────────────────────────────────
+    // JS updates CSS custom properties on .seed-layout in real-time.
+    // No snapping — frame-by-frame following the cursor.
+    function initResize(handleEl, side) {
+      const prop  = side === 'left' ? '--left-width' : '--right-width';
+      const minW  = side === 'left' ? 180 : 200;
+      const defW  = side === 'left' ? 240 : 280;
 
       handleEl.addEventListener('mousedown', (e) => {
         e.preventDefault();
-        startX     = e.clientX;
-        startWidth = panelEl.offsetWidth;
+        const startX     = e.clientX;
+        const startWidth = parseFloat(
+          getComputedStyle(layout).getPropertyValue(prop)
+        ) || defW;
+
         handleEl.classList.add('is-dragging');
+        layout.style.willChange = 'grid-template-columns';
         document.body.style.cursor     = 'col-resize';
         document.body.style.userSelect = 'none';
+
+        function onMove(e) {
+          const delta    = side === 'left' ? e.clientX - startX : startX - e.clientX;
+          const newWidth = Math.max(minW, Math.min(400, startWidth + delta));
+          setProp(prop, newWidth + 'px');
+        }
+
+        function onUp() {
+          handleEl.classList.remove('is-dragging');
+          layout.style.willChange     = '';
+          document.body.style.cursor     = '';
+          document.body.style.userSelect = '';
+          document.removeEventListener('mousemove', onMove);
+          document.removeEventListener('mouseup',   onUp);
+        }
+
         document.addEventListener('mousemove', onMove);
         document.addEventListener('mouseup',   onUp);
       });
-
-      function onMove(e) {
-        const delta    = side === 'left' ? e.clientX - startX : startX - e.clientX;
-        const newWidth = Math.max(180, Math.min(400, startWidth + delta));
-        panelEl.style.width = newWidth + 'px';
-        updateHandlePositions();
-      }
-
-      function onUp() {
-        handleEl.classList.remove('is-dragging');
-        document.body.style.cursor     = '';
-        document.body.style.userSelect = '';
-        document.removeEventListener('mousemove', onMove);
-        document.removeEventListener('mouseup',   onUp);
-      }
     }
 
-    initResize(leftHandle,  leftPanel,  'left');
-    initResize(rightHandle, rightPanel, 'right');
+    initResize(leftHandle,  'left');
+    initResize(rightHandle, 'right');
 
-    // Clear inline widths at responsive breakpoints, reposition handles
+    // Clear JS overrides at responsive breakpoints so CSS media queries take over
     window.addEventListener('resize', () => {
-      if (window.innerWidth <= 768)  leftPanel.style.width  = '';
-      if (window.innerWidth <= 1024) rightPanel.style.width = '';
-      updateHandlePositions();
+      const w = window.innerWidth;
+      if (w <= 480) { removeProp('--left-width'); removeProp('--left-handle'); }
+      else if (w <= 768) { removeProp('--left-width'); }
+      if (w <= 1024) { removeProp('--right-width'); removeProp('--right-handle'); }
     });
 
     // ── Panel menus ────────────────────────────────────────
@@ -856,9 +768,7 @@
     };
 
     function openMenu(which) {
-      Object.entries(menus).forEach(([key, el]) => {
-        if (key !== which) closeMenu(key);
-      });
+      Object.keys(menus).forEach(k => { if (k !== which) closeMenu(k); });
       menus[which].classList.add('seed-layout__menu--open');
       document.getElementById(which + '-menu-btn').setAttribute('aria-expanded', 'true');
     }
@@ -894,31 +804,31 @@
       leftPanel.classList.toggle('seed-layout__left--floating', mode === 'float');
       setChecked(['left-opt-docked', 'left-opt-float'],
                  mode === 'float' ? 'left-opt-float' : 'left-opt-docked');
-      updateHandlePositions();
       closeMenu('left');
     }
 
     function setLeftCollapse(state) {
-      layout.classList.toggle('seed-layout--collapsed-left', state === 'collapsed');
+      const isCollapsed = state === 'collapsed';
+      layout.classList.toggle('seed-layout--collapsed-left', isCollapsed);
+      setProp('--left-width', isCollapsed ? '56px' : '240px');
       setChecked(['left-opt-expanded', 'left-opt-collapsed'],
-                 state === 'collapsed' ? 'left-opt-collapsed' : 'left-opt-expanded');
-      updateHandlePositions();
+                 isCollapsed ? 'left-opt-collapsed' : 'left-opt-expanded');
       closeMenu('left');
     }
 
     function hideLeft() {
-      leftPanel.classList.add('seed-layout__left--hidden');
-      hamburger.classList.add('seed-layout__hamburger--visible');
-      revealLeft.classList.add('seed-layout__reveal-left--visible');
-      updateHandlePositions();
+      setProp('--left-width',  '0px');
+      setProp('--left-handle', '0px');
+      layout.classList.add('seed-layout--left-hidden');
       closeMenu('left');
     }
 
     function restoreLeft() {
-      leftPanel.classList.remove('seed-layout__left--hidden');
-      hamburger.classList.remove('seed-layout__hamburger--visible');
-      revealLeft.classList.remove('seed-layout__reveal-left--visible');
-      updateHandlePositions();
+      setProp('--left-width',  '240px');
+      setProp('--left-handle', '4px');
+      layout.classList.remove('seed-layout--left-hidden');
+      layout.classList.remove('seed-layout--collapsed-left');
+      setChecked(['left-opt-expanded', 'left-opt-collapsed'], 'left-opt-expanded');
     }
 
     document.getElementById('left-opt-docked').addEventListener('click',    () => setLeftMode('docked'));
@@ -927,12 +837,9 @@
     document.getElementById('left-opt-collapsed').addEventListener('click', () => setLeftCollapse('collapsed'));
     document.getElementById('left-opt-hide').addEventListener('click',      hideLeft);
 
-    // Expand panel when search icon is clicked in collapsed mode
+    hamburger.addEventListener('click',  restoreLeft);
+    revealLeft.addEventListener('click', restoreLeft);
     searchExpandBtn.addEventListener('click', () => setLeftCollapse('expanded'));
-
-    hamburger.addEventListener('click',   restoreLeft);
-    revealLeft.addEventListener('click',  restoreLeft);
-    revealLeft.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') restoreLeft(); });
 
     // ── Center panel actions ───────────────────────────────
     function setCenterMode(mode) {
@@ -950,32 +857,27 @@
       rightPanel.classList.toggle('seed-layout__right--floating', mode === 'float');
       setChecked(['right-opt-docked', 'right-opt-float'],
                  mode === 'float' ? 'right-opt-float' : 'right-opt-docked');
-      updateHandlePositions();
       closeMenu('right');
     }
 
     function hideRight() {
-      layout.classList.add('seed-layout--collapsed-right');
-      revealRight.classList.add('seed-layout__reveal-right--visible');
-      updateHandlePositions();
+      setProp('--right-width',  '0px');
+      setProp('--right-handle', '0px');
+      layout.classList.add('seed-layout--right-hidden');
       closeMenu('right');
     }
 
     function restoreRight() {
-      layout.classList.remove('seed-layout--collapsed-right');
-      revealRight.classList.remove('seed-layout__reveal-right--visible');
-      updateHandlePositions();
+      setProp('--right-width',  '280px');
+      setProp('--right-handle', '4px');
+      layout.classList.remove('seed-layout--right-hidden');
     }
 
     document.getElementById('right-opt-docked').addEventListener('click', () => setRightMode('docked'));
     document.getElementById('right-opt-float').addEventListener('click',  () => setRightMode('float'));
     document.getElementById('right-opt-hide').addEventListener('click',   hideRight);
 
-    revealRight.addEventListener('click',  restoreRight);
-    revealRight.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') restoreRight(); });
-
-    // ── Initial handle positions ───────────────────────────
-    updateHandlePositions();
+    revealRight.addEventListener('click', restoreRight);
   </script>
 
 </body>

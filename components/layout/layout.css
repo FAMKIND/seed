@@ -1,19 +1,19 @@
 /* ═══════════════════════════════════════════════════════
-   SEED LAYOUT v2
+   SEED LAYOUT v3
    Requires: tokens/tokens.css
 
-   Three-panel app shell — left sidebar · main canvas · right aside.
-   Panels scroll independently. All three support docked/floating modes.
-   Left and right are user-resizable via drag handles on the parent container.
-   Collapses responsively; also togglable via panel context menus.
+   Three-panel app shell — left · center · right.
+   Layout engine: CSS Grid. Panels are grid children.
+   Column widths driven by CSS custom properties on
+   .seed-layout, updated in real-time by JS on drag.
 
    Modifier classes (on .seed-layout):
-     .seed-layout--collapsed-left   → left collapses to 56px icon strip
-     .seed-layout--collapsed-right  → right panel hides
+     .seed-layout--collapsed-left  → left = 56px icon strip
+     .seed-layout--left-hidden     → left + handle collapse to 0
+     .seed-layout--right-hidden    → right + handle collapse to 0
 
    Floating modifiers (on the panel element):
      .seed-layout__left--floating
-     .seed-layout__left--hidden
      .seed-layout__center--floated
      .seed-layout__right--floating
 
@@ -22,49 +22,43 @@
 
 
 /* ─────────────────────────────────────────────────────
-   CONTAINER
+   CONTAINER — CSS Grid
 ───────────────────────────────────────────────────── */
 
 .seed-layout {
-    position:   relative;
-    display:    flex;
-    height:     100%;
-    width:      100%;
-    overflow:   hidden;
-    background: var(--soil-bg-canvas);
+    display:               grid;
+    grid-template-columns: var(--left-width, 240px) var(--left-handle, 4px) 1fr var(--right-handle, 4px) var(--right-width, 280px);
+    grid-template-rows:    1fr;
+    width:                 100vw;
+    height:                100vh;
+    overflow:              hidden;
+    background:            var(--soil-bg-canvas);
 }
 
 
 /* ─────────────────────────────────────────────────────
    LEFT PANEL — sidebar nav
+   Transparent by default — canvas shows through.
+   Gets background + shadow only when floating.
 ───────────────────────────────────────────────────── */
 
 .seed-layout__left {
-    width:          240px;
-    min-width:      180px;
-    max-width:      400px;
-    flex-shrink:    0;
     position:       relative;
     display:        flex;
     flex-direction: column;
-    background:     var(--soil-bg-surface);
-    border-right:   1px solid var(--soil-border-subtle);
+    background:     transparent;
     overflow-y:     auto;
-    /* No overflow-x: hidden — labels handle their own clipping via max-width */
-    transition:     width 200ms ease, margin 200ms ease,
-                    border-radius 200ms ease, box-shadow 200ms ease,
-                    border-color 200ms ease;
+    min-width:      0;
+    transition:     background 200ms ease, border-radius 200ms ease,
+                    box-shadow 200ms ease, margin 200ms ease;
 }
 
 .seed-layout__left--floating {
     margin:        var(--seed-space-2);
-    border-right:  none;
     border-radius: var(--seed-radius-lg);
     box-shadow:    var(--seed-shadow-md);
-}
-
-.seed-layout__left--hidden {
-    display: none;
+    background:    var(--soil-bg-surface);
+    overflow:      hidden;
 }
 
 
@@ -73,15 +67,14 @@
 ───────────────────────────────────────────────────── */
 
 .seed-layout__center {
-    flex:           1;
-    min-width:      0;
     position:       relative;
     display:        flex;
     flex-direction: column;
-    background:     var(--soil-bg-surface);
+    background:     transparent;
     overflow-y:     auto;
-    transition:     margin 200ms ease, border-radius 200ms ease,
-                    box-shadow 200ms ease, background 200ms ease;
+    min-width:      0;
+    transition:     background 200ms ease, border-radius 200ms ease,
+                    box-shadow 200ms ease, margin 200ms ease;
 }
 
 .seed-layout__center--floated {
@@ -97,66 +90,49 @@
 ───────────────────────────────────────────────────── */
 
 .seed-layout__right {
-    width:          280px;
-    min-width:      180px;
-    max-width:      400px;
-    flex-shrink:    0;
     position:       relative;
     display:        flex;
     flex-direction: column;
-    background:     var(--soil-bg-surface);
-    border-left:    1px solid var(--soil-border-subtle);
+    background:     transparent;
     overflow-y:     auto;
-    transition:     width 200ms ease, margin 200ms ease,
-                    border-radius 200ms ease, box-shadow 200ms ease,
-                    border-color 200ms ease;
+    min-width:      0;
+    transition:     background 200ms ease, border-radius 200ms ease,
+                    box-shadow 200ms ease, margin 200ms ease;
 }
 
 .seed-layout__right--floating {
     margin:        var(--seed-space-2);
-    border-left:   none;
     border-radius: var(--seed-radius-lg);
     box-shadow:    var(--seed-shadow-md);
+    background:    var(--soil-bg-surface);
+    overflow:      hidden;
 }
 
 
 /* ─────────────────────────────────────────────────────
-   RESIZE HANDLES
-   Positioned on .seed-layout (the parent), not inside panels.
-   Each handle straddles the border between two panels.
-   `left` is set by JS to match the panel boundary.
-   transform: translateX(-50%) centers the 8px hit area on that boundary.
-   Visible center line via ::after — 2px, appears on hover/drag.
+   RESIZE HANDLES — grid column cells (4px wide)
+   Hairline appears centered in the 4px zone on hover/drag.
+   No visible line at rest — the canvas provides separation.
 ───────────────────────────────────────────────────── */
 
-.seed-layout__resize-handle {
-    position:  absolute;
-    top:       0;
-    bottom:    0;
-    width:     8px;
-    cursor:    col-resize;
-    z-index:   var(--seed-z-raised);
-    transform: translateX(-50%);
-    /* left set dynamically by JS */
+.seed-layout__handle {
+    position: relative;
+    cursor:   col-resize;
+    z-index:  var(--seed-z-raised);
 }
 
-/* Visible 2px center line */
-.seed-layout__resize-handle::after {
+.seed-layout__handle::after {
     content:    '';
     position:   absolute;
-    top:        0;
-    bottom:     0;
-    left:       3px; /* center of the 8px hit area */
-    width:      2px;
+    inset:      0;
+    width:      1px;
+    margin:     0 auto;
     background: transparent;
     transition: background 120ms ease;
 }
 
-.seed-layout__resize-handle:hover::after {
-    background: var(--soil-border-subtle);
-}
-
-.seed-layout__resize-handle.is-dragging::after {
+.seed-layout__handle:hover::after,
+.seed-layout__handle.is-dragging::after {
     background: var(--soil-border);
 }
 
@@ -229,32 +205,26 @@
     z-index:       var(--seed-z-dropdown);
 }
 
-.seed-layout__menu--open {
-    display: block;
-}
+.seed-layout__menu--open { display: block; }
 
 .seed-layout__menu-item {
-    position:    relative;
-    display:     flex;
-    align-items: center;
-    padding:     var(--seed-space-2) var(--seed-space-4);
+    position:     relative;
+    display:      flex;
+    align-items:  center;
+    padding:      var(--seed-space-2) var(--seed-space-4);
     padding-left: 28px;
-    font-family: var(--seed-font-ui);
-    font-size:   var(--seed-text-sm);
-    color:       var(--soil-text);
-    cursor:      pointer;
-    user-select: none;
-    white-space: nowrap;
-    transition:  background 120ms ease;
+    font-family:  var(--seed-font-ui);
+    font-size:    var(--seed-text-sm);
+    color:        var(--soil-text);
+    cursor:       pointer;
+    user-select:  none;
+    white-space:  nowrap;
+    transition:   background 120ms ease;
 }
 
-.seed-layout__menu-item:hover {
-    background: var(--calm-bg-subtle-hover);
-}
+.seed-layout__menu-item:hover { background: var(--calm-bg-subtle-hover); }
 
-.seed-layout__menu-item--muted {
-    color: var(--soil-text-muted);
-}
+.seed-layout__menu-item--muted { color: var(--soil-text-muted); }
 
 /* Checkmark — rotated L border */
 .seed-layout__menu-item--checked::before {
@@ -277,50 +247,78 @@
 
 
 /* ─────────────────────────────────────────────────────
-   REVEAL TRIGGERS
-   Thin edge tabs — appear when a panel is hidden.
-   Click restores the hidden panel.
-   Border-radius on the inward side only, giving a pill tab look.
+   CHEVRON REVEAL BUTTONS
+   Circle buttons at viewport edges. Appear when a panel
+   is hidden. Click restores the panel.
+   Left edge  → > chevron  (left panel hidden)
+   Right edge → < chevron  (right panel hidden)
 ───────────────────────────────────────────────────── */
 
 .seed-layout__reveal-left,
 .seed-layout__reveal-right {
-    display:    none;
-    position:   fixed;
-    top:        50%;
-    transform:  translateY(-50%);
-    width:      6px;
-    height:     40px;
-    background: var(--soil-border-subtle);
-    cursor:     pointer;
-    z-index:    var(--seed-z-sticky);
-    transition: width 120ms ease, background 120ms ease;
+    display:         none;
+    position:        fixed;
+    top:             50%;
+    transform:       translateY(-50%);
+    align-items:     center;
+    justify-content: center;
+    width:           28px;
+    height:          28px;
+    padding:         0;
+    border:          1px solid var(--soil-border-subtle);
+    border-radius:   50%;
+    background:      var(--soil-bg-surface);
+    box-shadow:      var(--seed-shadow-sm);
+    cursor:          pointer;
+    z-index:         var(--seed-z-sticky);
+    transition:      background 120ms ease;
 }
 
-.seed-layout__reveal-left {
-    left:          0;
-    border-radius: 0 var(--seed-radius-sm) var(--seed-radius-sm) 0;
-}
-
-.seed-layout__reveal-right {
-    right:         0;
-    border-radius: var(--seed-radius-sm) 0 0 var(--seed-radius-sm);
-}
+.seed-layout__reveal-left  { left:  8px; }
+.seed-layout__reveal-right { right: 8px; }
 
 .seed-layout__reveal-left:hover,
 .seed-layout__reveal-right:hover {
-    width:      10px;
-    background: var(--soil-border);
+    background: var(--calm-bg-subtle-hover);
 }
 
-.seed-layout__reveal-left--visible  { display: block; }
-.seed-layout__reveal-right--visible { display: block; }
+/* Chevron via L-shaped border, rotated */
+.seed-layout__reveal-left::before,
+.seed-layout__reveal-right::before {
+    content:      '';
+    position:     absolute;
+    top:          50%;
+    width:        7px;
+    height:       7px;
+    border-top:   1.5px solid var(--soil-text-muted);
+    border-right: 1.5px solid var(--soil-text-muted);
+}
+
+/* > pointing right — left panel hidden, click to restore */
+.seed-layout__reveal-left::before {
+    left:      50%;
+    transform: translate(-70%, -50%) rotate(45deg);
+}
+
+/* < pointing left — right panel hidden, click to restore */
+.seed-layout__reveal-right::before {
+    left:      50%;
+    transform: translate(-30%, -50%) rotate(225deg);
+}
+
+.seed-layout__reveal-left:hover::before,
+.seed-layout__reveal-right:hover::before {
+    border-color: var(--soil-text);
+}
+
+/* Shown via container modifier */
+.seed-layout--left-hidden  .seed-layout__reveal-left  { display: flex; }
+.seed-layout--right-hidden .seed-layout__reveal-right { display: flex; }
 
 
 /* ─────────────────────────────────────────────────────
    HAMBURGER TRIGGER
    Fixed top-left. Shown when left panel is fully hidden.
-   Three horizontal lines via ::before + box-shadow.
 ───────────────────────────────────────────────────── */
 
 .seed-layout__hamburger {
@@ -357,58 +355,194 @@
     box-shadow: 0 -5px 0 currentColor, 0 5px 0 currentColor;
 }
 
-.seed-layout__hamburger--visible {
-    display: flex;
+.seed-layout--left-hidden .seed-layout__hamburger { display: flex; }
+
+
+/* ─────────────────────────────────────────────────────
+   COLLAPSE MODIFIER
+   Left → 56px icon strip. overflow: visible lets
+   nav tooltips escape into the center panel area.
+───────────────────────────────────────────────────── */
+
+.seed-layout--collapsed-left .seed-layout__left {
+    overflow: visible;
 }
 
 
 /* ─────────────────────────────────────────────────────
-   COLLAPSE MODIFIERS
+   CSS ICON SYSTEM
+   Each icon: span.seed-icon, 16×16px, position: relative.
+   Drawn with borders, ::before, ::after, box-shadow.
+   Color inherits from parent via currentColor.
 ───────────────────────────────────────────────────── */
 
-/* Left → 56px icon strip. overflow: visible lets nav tooltips escape. */
-.seed-layout--collapsed-left .seed-layout__left {
-    width:     56px;
-    min-width: 56px;
-    overflow:  visible;
+.seed-icon {
+    display:     inline-flex;
+    width:       16px;
+    height:      16px;
+    position:    relative;
+    flex-shrink: 0;
+    color:       currentColor;
 }
 
-/* Right → fully hidden */
-.seed-layout--collapsed-right .seed-layout__right {
-    width:     0;
-    min-width: 0;
-    overflow:  hidden;
-    border:    none;
+/* Home — triangle roof + rectangular base */
+.seed-icon--home::before {
+    content:      '';
+    position:     absolute;
+    top:          1px;
+    left:         1px;
+    width:        0;
+    height:       0;
+    border-left:  7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid currentColor;
+}
+
+.seed-icon--home::after {
+    content:       '';
+    position:      absolute;
+    bottom:        1px;
+    left:          3px;
+    width:         10px;
+    height:        7px;
+    border:        1.5px solid currentColor;
+    border-top:    none;
+}
+
+/* Messages — rounded rectangle bubble + tail */
+.seed-icon--messages::before {
+    content:       '';
+    position:      absolute;
+    top:           1px;
+    left:          0;
+    right:         0;
+    height:        10px;
+    border:        1.5px solid currentColor;
+    border-radius: 3px;
+}
+
+.seed-icon--messages::after {
+    content:      '';
+    position:     absolute;
+    bottom:       2px;
+    left:         3px;
+    width:        0;
+    height:       0;
+    border-right: 4px solid transparent;
+    border-top:   4px solid currentColor;
+}
+
+/* Projects — diamond (rotated square) */
+.seed-icon--projects::before {
+    content:       '';
+    position:      absolute;
+    top:           50%;
+    left:          50%;
+    width:         10px;
+    height:        10px;
+    border:        1.5px solid currentColor;
+    transform:     translate(-50%, -50%) rotate(45deg);
+}
+
+/* Files — document rectangle with folded corner */
+.seed-icon--files::before {
+    content:       '';
+    position:      absolute;
+    top:           0;
+    left:          2px;
+    width:         11px;
+    height:        14px;
+    border:        1.5px solid currentColor;
+    border-radius: 2px 0 2px 2px;
+}
+
+.seed-icon--files::after {
+    content:       '';
+    position:      absolute;
+    top:           0;
+    right:         2px;
+    width:         4px;
+    height:        4px;
+    border-left:   1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+}
+
+/* Settings — circle with center dot */
+.seed-icon--settings::before {
+    content:       '';
+    position:      absolute;
+    top:           50%;
+    left:          50%;
+    width:         11px;
+    height:        11px;
+    border:        1.5px solid currentColor;
+    border-radius: 50%;
+    transform:     translate(-50%, -50%);
+}
+
+.seed-icon--settings::after {
+    content:       '';
+    position:      absolute;
+    top:           50%;
+    left:          50%;
+    width:         3px;
+    height:        3px;
+    background:    currentColor;
+    border-radius: 50%;
+    transform:     translate(-50%, -50%);
+}
+
+/* Search — circle + angled handle */
+.seed-icon--search::before {
+    content:       '';
+    position:      absolute;
+    top:           1px;
+    left:          1px;
+    width:         9px;
+    height:        9px;
+    border:        1.5px solid currentColor;
+    border-radius: 50%;
+}
+
+.seed-icon--search::after {
+    content:          '';
+    position:         absolute;
+    bottom:           2px;
+    right:            1px;
+    width:            5px;
+    height:           1.5px;
+    background:       currentColor;
+    border-radius:    1px;
+    transform:        rotate(45deg);
+    transform-origin: right center;
 }
 
 
 /* ─────────────────────────────────────────────────────
    RESPONSIVE BREAKPOINTS
    ≤ 1024px  right panel hides
-   ≤  768px  left panel collapses to icon strip
-   ≤  480px  left panel fully hidden, hamburger shows
+   ≤  768px  left collapses to icon strip
+   ≤  480px  left fully hidden, hamburger shows
 ───────────────────────────────────────────────────── */
 
 @media (max-width: 1024px) {
-    .seed-layout__right {
-        display: none;
+    .seed-layout {
+        grid-template-columns: var(--left-width, 240px) var(--left-handle, 4px) 1fr 0px 0px;
     }
+    .seed-layout__right { overflow: hidden; }
 }
 
 @media (max-width: 768px) {
-    .seed-layout__left {
-        width:     56px !important;
-        min-width: 56px !important;
-        overflow:  visible !important;
+    .seed-layout {
+        grid-template-columns: 56px var(--left-handle, 4px) 1fr 0px 0px;
     }
+    .seed-layout__left { overflow: visible; }
 }
 
 @media (max-width: 480px) {
-    .seed-layout__left {
-        display: none;
+    .seed-layout {
+        grid-template-columns: 0px 0px 1fr 0px 0px;
     }
-
-    .seed-layout__hamburger {
-        display: flex;
-    }
+    .seed-layout__hamburger { display: flex; }
+    .seed-layout__left { overflow: hidden; }
 }
