@@ -134,9 +134,9 @@
 
 .seed-layout--left-float .seed-layout__left {
     position:   fixed;
-    top:        var(--seed-space-4);
-    left:       var(--seed-space-4);
-    bottom:     var(--seed-space-4);
+    top:        32px;
+    left:       32px;
+    bottom:     32px;
     width:      var(--left-width, 240px);
     z-index:    var(--seed-z-overlay);
     box-shadow: var(--seed-shadow-md);
@@ -144,9 +144,9 @@
 
 .seed-layout--right-float .seed-layout__right {
     position:   fixed;
-    top:        var(--seed-space-4);
-    right:      var(--seed-space-4);
-    bottom:     var(--seed-space-4);
+    top:        32px;
+    right:      32px;
+    bottom:     32px;
     width:      var(--right-width, 280px);
     z-index:    var(--seed-z-overlay);
     box-shadow: var(--seed-shadow-md);
