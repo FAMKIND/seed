@@ -508,12 +508,17 @@
                   aria-label="Left panel options" aria-expanded="false"></button>
           <div class="seed-layout__menu" id="left-menu" role="menu">
             <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-                 id="left-opt-bg"        role="menuitem">Show background</div>
+                 id="left-opt-docked"    role="menuitem">Docked</div>
+            <div class="seed-layout__menu-item"
+                 id="left-opt-float"     role="menuitem">Float</div>
             <div class="seed-layout__menu-divider"></div>
             <div class="seed-layout__menu-item seed-layout__menu-item--checked"
                  id="left-opt-expanded"  role="menuitem">Expanded</div>
             <div class="seed-layout__menu-item"
                  id="left-opt-collapsed" role="menuitem">Collapsed</div>
+            <div class="seed-layout__menu-divider"></div>
+            <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+                 id="left-opt-bg"        role="menuitem">Show background</div>
             <div class="seed-layout__menu-divider"></div>
             <div class="seed-layout__menu-item seed-layout__menu-item--muted"
                  id="left-opt-hide"      role="menuitem">Hide panel</div>
@@ -616,10 +621,15 @@
                 aria-label="Right panel options" aria-expanded="false"></button>
         <div class="seed-layout__menu" id="right-menu" role="menu">
           <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-               id="right-opt-bg" role="menuitem">Show background</div>
+               id="right-opt-docked" role="menuitem">Docked</div>
+          <div class="seed-layout__menu-item"
+               id="right-opt-float"  role="menuitem">Float</div>
+          <div class="seed-layout__menu-divider"></div>
+          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+               id="right-opt-bg"    role="menuitem">Show background</div>
           <div class="seed-layout__menu-divider"></div>
           <div class="seed-layout__menu-item seed-layout__menu-item--muted"
-               id="right-opt-hide" role="menuitem">Hide panel</div>
+               id="right-opt-hide"  role="menuitem">Hide panel</div>
         </div>
       </div>
 
@@ -698,6 +708,10 @@
     let savedLeftWidth  = 240;
     let savedRightWidth = 280;
 
+    // Float state tracking
+    let leftIsFloat  = false;
+    let rightIsFloat = false;
+
     // ── Theme ──────────────────────────────────────────────
     themeBtn.addEventListener('click', () => {
       const html   = document.documentElement;
@@ -707,8 +721,6 @@
     });
 
     // ── Free-form panel resize ─────────────────────────────
-    // Panels resize fluidly at 60fps via requestAnimationFrame.
-    // Only hard floor: 48px per side panel. Center gets at least 200px.
     function initResize(handleEl, side) {
       const prop    = side === 'left' ? '--left-width'  : '--right-width';
       const other   = side === 'left' ? '--right-width' : '--left-width';
@@ -724,7 +736,7 @@
         let   rafId      = null;
 
         handleEl.classList.add('is-dragging');
-        layout.style.willChange     = 'contents';
+        layout.style.willChange        = 'contents';
         document.body.style.cursor     = 'col-resize';
         document.body.style.userSelect = 'none';
 
@@ -747,7 +759,7 @@
         function onUp() {
           if (rafId) cancelAnimationFrame(rafId);
           handleEl.classList.remove('is-dragging');
-          layout.style.willChange     = '';
+          layout.style.willChange        = '';
           document.body.style.cursor     = '';
           document.body.style.userSelect = '';
           document.removeEventListener('mousemove', onMove);
@@ -785,14 +797,12 @@
 
     function openMenu(which) {
       Object.keys(menus).forEach(k => { if (k !== which) closeMenu(k); });
-      // Left panel: opens to the right of the trigger (dropdown escapes overflow:hidden)
       if (which === 'left') {
         const btn  = document.getElementById('left-menu-btn');
         const rect = btn.getBoundingClientRect();
         menus.left.style.top  = rect.top  + 'px';
         menus.left.style.left = (rect.right + 4) + 'px';
       }
-      // Center panel: drops below the trigger (same escape for overflow:hidden)
       if (which === 'center') {
         const btn  = document.getElementById('center-menu-btn');
         const rect = btn.getBoundingClientRect();
@@ -850,6 +860,45 @@
       toggleBg(rightPanel, 'right-opt-bg'); closeMenu('right');
     });
 
+    // ── Float mode ─────────────────────────────────────────
+    function setLeftFloat(isFloat) {
+      leftIsFloat = isFloat;
+      if (isFloat) {
+        // Start at offset so the transition has somewhere to animate from
+        leftPanel.classList.add('is-entering');
+        layout.classList.add('seed-layout--left-float');
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          leftPanel.classList.remove('is-entering');
+        }));
+      } else {
+        layout.classList.remove('seed-layout--left-float');
+      }
+      setChecked(['left-opt-docked', 'left-opt-float'],
+                 isFloat ? 'left-opt-float' : 'left-opt-docked');
+      closeMenu('left');
+    }
+
+    function setRightFloat(isFloat) {
+      rightIsFloat = isFloat;
+      if (isFloat) {
+        rightPanel.classList.add('is-entering');
+        layout.classList.add('seed-layout--right-float');
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          rightPanel.classList.remove('is-entering');
+        }));
+      } else {
+        layout.classList.remove('seed-layout--right-float');
+      }
+      setChecked(['right-opt-docked', 'right-opt-float'],
+                 isFloat ? 'right-opt-float' : 'right-opt-docked');
+      closeMenu('right');
+    }
+
+    document.getElementById('left-opt-docked').addEventListener('click',  () => setLeftFloat(false));
+    document.getElementById('left-opt-float').addEventListener('click',   () => setLeftFloat(true));
+    document.getElementById('right-opt-docked').addEventListener('click', () => setRightFloat(false));
+    document.getElementById('right-opt-float').addEventListener('click',  () => setRightFloat(true));
+
     // ── Left panel ─────────────────────────────────────────
     function setLeftCollapse(state) {
       const collapsed = state === 'collapsed';
@@ -862,25 +911,30 @@
     }
 
     function hideLeft() {
+      // Clear float first — hiding a floating panel restores to docked on next show
+      if (leftIsFloat) {
+        layout.classList.remove('seed-layout--left-float');
+        leftIsFloat = false;
+      }
       savedLeftWidth = getWidth('--left-width', 240);
       layout.classList.add('seed-layout--left-hidden');
       closeMenu('left');
     }
 
     function restoreLeft() {
+      leftIsFloat = false;
       layout.classList.remove('seed-layout--left-hidden');
+      layout.classList.remove('seed-layout--left-float');
       layout.classList.remove('seed-layout--collapsed-left');
       setProp('--left-width', savedLeftWidth + 'px');
       setChecked(['left-opt-expanded', 'left-opt-collapsed'], 'left-opt-expanded');
+      setChecked(['left-opt-docked', 'left-opt-float'], 'left-opt-docked');
     }
 
     document.getElementById('left-opt-expanded').addEventListener('click',  () => setLeftCollapse('expanded'));
     document.getElementById('left-opt-collapsed').addEventListener('click', () => setLeftCollapse('collapsed'));
     document.getElementById('left-opt-hide').addEventListener('click',      hideLeft);
 
-    // Reveal left: on mobile opens left overlay; on desktop restores panel.
-    // stopPropagation prevents the click from bubbling to centerPanel's
-    // closeMobileOverlays handler, which would immediately undo the open.
     revealLeft.addEventListener('click', (e) => {
       e.stopPropagation();
       if (window.innerWidth <= 768) {
@@ -891,7 +945,6 @@
       }
     });
 
-    // Backdrop and center panel click close any open mobile overlay
     function closeMobileOverlays() {
       layout.classList.remove('seed-layout--mobile-open');
       layout.classList.remove('seed-layout--mobile-right-open');
@@ -908,20 +961,25 @@
 
     // ── Right panel ────────────────────────────────────────
     function hideRight() {
+      if (rightIsFloat) {
+        layout.classList.remove('seed-layout--right-float');
+        rightIsFloat = false;
+      }
       savedRightWidth = getWidth('--right-width', 280);
       layout.classList.add('seed-layout--right-hidden');
       closeMenu('right');
     }
 
     function restoreRight() {
+      rightIsFloat = false;
       layout.classList.remove('seed-layout--right-hidden');
+      layout.classList.remove('seed-layout--right-float');
       setProp('--right-width', savedRightWidth + 'px');
+      setChecked(['right-opt-docked', 'right-opt-float'], 'right-opt-docked');
     }
 
     document.getElementById('right-opt-hide').addEventListener('click', hideRight);
 
-    // Reveal right: on mobile opens right overlay; on desktop restores panel.
-    // stopPropagation prevents bubbling to centerPanel's closeMobileOverlays.
     revealRight.addEventListener('click', (e) => {
       e.stopPropagation();
       if (window.innerWidth <= 768) {
@@ -940,7 +998,6 @@
       actionSheet.classList.remove('seed-layout__sheet--open');
     }
 
-    // Tap outside (on scrim) closes sheet
     actionSheet.addEventListener('click', (e) => {
       if (e.target === actionSheet) closeSheet();
     });
@@ -953,20 +1010,31 @@
 
       const specs = {
         left: [
-          { label: 'Show background', checked: hasBgLeft,   action: () => toggleBg(leftPanel, 'left-opt-bg') },
-          { divider: true },
+          // Docked/Float hidden on touch devices
+          ...(!isMobile() ? [
+            { label: 'Docked', checked: !leftIsFloat, action: () => setLeftFloat(false) },
+            { label: 'Float',  checked:  leftIsFloat, action: () => setLeftFloat(true)  },
+            { divider: true },
+          ] : []),
           { label: 'Expanded',  checked: !isCollapsed, action: () => setLeftCollapse('expanded') },
           { label: 'Collapsed', checked:  isCollapsed, action: () => setLeftCollapse('collapsed') },
           { divider: true },
-          { label: 'Hide panel', muted: true,          action: hideLeft },
+          { label: 'Show background', checked: hasBgLeft, action: () => toggleBg(leftPanel, 'left-opt-bg') },
+          { divider: true },
+          { label: 'Hide panel', muted: true, action: hideLeft },
         ],
         center: [
           { label: 'Show background', checked: hasBgCenter, action: () => toggleBg(centerPanel, 'center-opt-bg') },
         ],
         right: [
-          { label: 'Show background', checked: hasBgRight,  action: () => toggleBg(rightPanel, 'right-opt-bg') },
+          ...(!isMobile() ? [
+            { label: 'Docked', checked: !rightIsFloat, action: () => setRightFloat(false) },
+            { label: 'Float',  checked:  rightIsFloat, action: () => setRightFloat(true)  },
+            { divider: true },
+          ] : []),
+          { label: 'Show background', checked: hasBgRight, action: () => toggleBg(rightPanel, 'right-opt-bg') },
           { divider: true },
-          { label: 'Hide panel', muted: true,               action: hideRight },
+          { label: 'Hide panel', muted: true, action: hideRight },
         ],
       };
       return specs[which] || [];
@@ -985,14 +1053,13 @@
         }
         const el = document.createElement('div');
         el.className = 'seed-layout__sheet-item'
-          + (spec.muted   ? ' seed-layout__sheet-item--muted'    : '')
-          + (spec.checked ? ' seed-layout__sheet-item--checked'  : '');
+          + (spec.muted   ? ' seed-layout__sheet-item--muted'   : '')
+          + (spec.checked ? ' seed-layout__sheet-item--checked' : '');
         el.textContent = spec.label;
         el.addEventListener('click', () => { closeSheet(); spec.action(); });
         sheetInner.appendChild(el);
       });
 
-      // Cancel row
       const cancel = document.createElement('div');
       cancel.className = 'seed-layout__sheet-cancel';
       cancel.textContent = 'Cancel';

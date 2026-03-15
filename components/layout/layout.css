@@ -12,6 +12,8 @@
      .seed-layout--collapsed-left  → left panel = 56px icon strip
      .seed-layout--left-hidden     → left panel hidden, chevron shown
      .seed-layout--right-hidden    → right panel hidden, chevron shown
+     .seed-layout--left-float      → left panel floats over center as fixed overlay
+     .seed-layout--right-float     → right panel floats over center as fixed overlay
 
    All color values from Seed semantic tokens — zero hardcoded colors.
 ═══════════════════════════════════════════════════════ */
@@ -54,6 +56,22 @@
 
 .seed-layout--left-hidden  .seed-layout__left  { display: none; }
 .seed-layout--right-hidden .seed-layout__right { display: none; }
+
+/* Float states: column collapses just like hidden so center expands to fill the
+   vacated space, but the panel stays visible as a fixed overlay card. */
+.seed-layout--left-float {
+    grid-template-columns: 1fr var(--right-width, 280px);
+}
+
+.seed-layout--right-float {
+    grid-template-columns: var(--left-width, 240px) 1fr;
+}
+
+.seed-layout--left-float.seed-layout--right-float,
+.seed-layout--left-float.seed-layout--right-hidden,
+.seed-layout--left-hidden.seed-layout--right-float {
+    grid-template-columns: 1fr;
+}
 
 
 
@@ -98,6 +116,47 @@
     overflow: visible;
 }
 
+/* ─────────────────────────────────────────────────────
+   FLOAT MODE
+   Panel detaches from the grid and becomes a fixed-
+   position overlay card. The grid column collapses so
+   the center panel expands. Elevated shadow distinguishes
+   the floating card from docked panels.
+   Entry animation: starts at opacity 0 + translateX offset,
+   transitions in over 200ms. Applied via .is-entering class
+   added briefly by JS before removing it one rAF later.
+───────────────────────────────────────────────────── */
+
+.seed-layout__left,
+.seed-layout__right {
+    transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.seed-layout--left-float .seed-layout__left {
+    position:   fixed;
+    top:        var(--seed-space-4);
+    left:       var(--seed-space-4);
+    bottom:     var(--seed-space-4);
+    width:      var(--left-width, 240px);
+    z-index:    var(--seed-z-overlay);
+    box-shadow: var(--seed-shadow-md);
+}
+
+.seed-layout--right-float .seed-layout__right {
+    position:   fixed;
+    top:        var(--seed-space-4);
+    right:      var(--seed-space-4);
+    bottom:     var(--seed-space-4);
+    width:      var(--right-width, 280px);
+    z-index:    var(--seed-z-overlay);
+    box-shadow: var(--seed-shadow-md);
+}
+
+/* Float entry: JS adds .is-entering before adding the float class,
+   removes it one rAF later to trigger the opacity/transform transition. */
+.seed-layout__left.is-entering  { opacity: 0; transform: translateX(-8px); }
+.seed-layout__right.is-entering { opacity: 0; transform: translateX(8px); }
+
 
 /* ─────────────────────────────────────────────────────
    RESIZE HANDLES
@@ -139,9 +198,11 @@
     background: var(--soil-border);
 }
 
-/* Hide handles when the adjacent panel is hidden */
+/* Hide handles when the adjacent panel is hidden or floating */
 .seed-layout--left-hidden  .seed-layout__handle--left,
-.seed-layout--right-hidden .seed-layout__handle--right {
+.seed-layout--right-hidden .seed-layout__handle--right,
+.seed-layout--left-float   .seed-layout__handle--left,
+.seed-layout--right-float  .seed-layout__handle--right {
     display: none;
 }
 
