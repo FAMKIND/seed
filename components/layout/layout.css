@@ -73,7 +73,7 @@
     background:     var(--soil-bg-surface);
     border-radius:  var(--seed-radius-lg);
     box-shadow:     var(--seed-shadow-sm);
-    overflow:       clip;
+    overflow:       hidden;
     min-width:      0;
 }
 
@@ -83,6 +83,14 @@
 .seed-layout__right {
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+/* Center panel: hard clip so nothing bleeds past the rounded corners.
+   Double declaration: hidden as fallback, clip for browsers that support it
+   (clip is a stricter geometric boundary with no scroll-container side effects). */
+.seed-layout__center {
+    overflow: hidden;
+    overflow: clip;
 }
 
 /* Collapsed left panel: overflow visible lets nav tooltips escape */
@@ -359,7 +367,7 @@
 .seed-layout__center-controls {
     position:       absolute;
     top:            8px;
-    right:          12px;
+    right:          16px;
     display:        flex;
     flex-direction: row;
     align-items:    center;
@@ -373,9 +381,10 @@
 }
 
 .seed-layout__center-controls .seed-layout__reveal-right {
-    position: static;
-    top:      auto;
-    right:    auto;
+    position:   static;
+    top:        auto;
+    right:      auto;
+    box-shadow: none; /* shadow paints outside border-box; remove to prevent bleed past card edge */
 }
 
 
