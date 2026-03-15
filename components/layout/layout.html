@@ -40,10 +40,7 @@
       display:         flex;
       align-items:     center;
       justify-content: center;
-      font-family:     var(--seed-font-brand);
-      font-size:       var(--seed-text-xs);
-      font-weight:     var(--seed-weight-semibold);
-      color:           var(--soil-bg-canvas);
+      font-size:       16px;
       flex-shrink:     0;
     }
 
@@ -64,64 +61,45 @@
     /* ── Search ───────────────────────────────────────── */
 
     .left-search {
-      position:    relative;
       display:     flex;
       align-items: center;
-      padding:     0 var(--seed-space-2) var(--seed-space-1);
+      padding:     var(--seed-space-1) var(--seed-space-4);
       flex-shrink: 0;
     }
 
-    .left-search::before {
-      content:        '';
-      position:       absolute;
-      left:           14px;
-      top:            calc(50% - 6px);
-      width:          10px;
-      height:         10px;
-      border-radius:  50%;
-      border:         1.5px solid var(--soil-text-muted);
-      pointer-events: none;
-      z-index:        1;
-    }
-
-    .left-search::after {
-      content:          '';
-      position:         absolute;
-      left:             23px;
-      top:              calc(50% + 2px);
-      width:            5px;
-      height:           1.5px;
-      background:       var(--soil-text-muted);
-      transform:        rotate(45deg);
-      transform-origin: left center;
-      border-radius:    1px;
-      pointer-events:   none;
-      z-index:          1;
-    }
-
-    .search-input {
+    /* Expanded mode: button styled as a subtle search field */
+    .search-trigger {
+      display:       flex;
+      align-items:   center;
+      gap:           var(--seed-space-2);
       width:         100%;
-      padding:       var(--seed-space-2) var(--seed-space-2) var(--seed-space-2) 28px;
+      padding:       var(--seed-space-2);
       background:    var(--soil-bg-elevated);
       border:        1px solid var(--calm-border-subtle-default);
       border-radius: var(--seed-radius-md);
       font-family:   var(--seed-font-ui);
       font-size:     var(--seed-text-xs);
-      color:         var(--soil-text);
-      outline:       none;
+      color:         var(--soil-text-muted);
+      cursor:        pointer;
+      text-align:    left;
       transition:    border-color 120ms ease, background 120ms ease,
                      max-width 200ms ease, opacity 200ms ease;
     }
 
-    .search-input::placeholder { color: var(--soil-text-muted); }
-
-    .search-input:focus {
+    .search-trigger:hover {
+      background:   var(--calm-bg-subtle-hover);
       border-color: var(--calm-border-bold-default);
-      background:   var(--soil-bg-surface);
     }
 
+    .search-trigger-text {
+      max-width:   160px;
+      overflow:    hidden;
+      white-space: nowrap;
+      transition:  max-width 200ms ease, opacity 200ms ease;
+    }
+
+    /* Collapsed mode: icon-only search button */
     .search-icon-btn {
-      position:        relative;
       display:         none;
       align-items:     center;
       justify-content: center;
@@ -134,28 +112,11 @@
       cursor:          pointer;
       color:           var(--soil-text-muted);
       flex-shrink:     0;
+      font-size:       14px;
       transition:      background 120ms ease, color 120ms ease;
     }
 
     .search-icon-btn:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
-
-    .search-icon-btn::before {
-      content: '';
-      position: absolute;
-      top: calc(50% - 7px); left: calc(50% - 8px);
-      width: 10px; height: 10px;
-      border-radius: 50%; border: 1.5px solid currentColor;
-    }
-
-    .search-icon-btn::after {
-      content: '';
-      position: absolute;
-      top: calc(50% + 1px); left: calc(50% + 1px);
-      width: 5px; height: 1.5px;
-      background: currentColor;
-      transform: rotate(45deg); transform-origin: left center;
-      border-radius: 1px;
-    }
 
     /* ── Nav ──────────────────────────────────────────── */
 
@@ -224,12 +185,27 @@
     .left-footer {
       display:     flex;
       align-items: center;
-      gap:         var(--seed-space-2);
-      padding:     var(--seed-space-3) var(--seed-space-4);
+      padding:     var(--seed-space-2) var(--seed-space-4);
       border-top:  1px solid var(--soil-border-subtle);
       flex-shrink: 0;
       overflow:    hidden;
     }
+
+    /* Hoverable row: avatar + name */
+    .user-row {
+      display:       flex;
+      align-items:   center;
+      gap:           var(--seed-space-2);
+      flex:          1;
+      min-width:     0;
+      padding:       var(--seed-space-2);
+      border-radius: var(--seed-radius-md);
+      cursor:        pointer;
+      overflow:      hidden;
+      transition:    background 120ms ease;
+    }
+
+    .user-row:hover { background: var(--calm-bg-subtle-hover); }
 
     .user-avatar {
       width:           28px;
@@ -257,61 +233,28 @@
       transition:    max-width 200ms ease, opacity 200ms ease;
     }
 
-    /* Theme toggle: 40×22px sliding track */
+    /* Theme toggle: 28×28 circle with sun/moon emoji */
     .theme-toggle {
-      position:    relative;
-      width:       40px;
-      height:      22px;
-      padding:     0;
-      border:      1px solid var(--soil-border-subtle);
-      border-radius: var(--seed-radius-full);
-      background:  var(--calm-bg-subtle-default);
-      cursor:      pointer;
-      flex-shrink: 0;
-      overflow:    hidden;
-      max-width:   40px;
-      transition:  background 200ms ease, border-color 200ms ease,
-                   max-width 200ms ease, opacity 200ms ease;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      width:           28px;
+      height:          28px;
+      padding:         0;
+      border:          1px solid var(--soil-border-subtle);
+      border-radius:   50%;
+      background:      transparent;
+      cursor:          pointer;
+      flex-shrink:     0;
+      font-size:       14px;
+      line-height:     1;
+      overflow:        hidden;
+      max-width:       28px;
+      transition:      background 200ms ease, border-color 200ms ease,
+                       max-width 200ms ease, opacity 200ms ease;
     }
 
     .theme-toggle:hover { background: var(--calm-bg-subtle-hover); border-color: var(--soil-border); }
-
-    .theme-toggle::before {
-      content: '';
-      position: absolute;
-      top: 2px; left: 2px;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      background: var(--soil-text-muted);
-      transition: transform 200ms ease;
-    }
-
-    .theme-toggle::after {
-      content: '';
-      position: absolute;
-      pointer-events: none;
-      transition: transform 200ms ease;
-    }
-
-    [data-theme="light"] .theme-toggle::after {
-      top: 50%; left: 8px;
-      width: 4px; height: 4px;
-      border-radius: 50%;
-      background: var(--soil-bg-surface);
-      transform: translateY(-50%);
-    }
-
-    [data-theme="dark"] .theme-toggle::before { transform: translateX(18px); }
-
-    [data-theme="dark"] .theme-toggle::after {
-      top: 50%; left: 8px;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      border: 1.5px solid var(--soil-bg-surface);
-      border-right-color: transparent;
-      background: transparent;
-      transform: translateX(18px) translateY(-50%) rotate(45deg);
-    }
 
     /* ── Collapse states ──────────────────────────────── */
 
@@ -320,11 +263,10 @@
     .seed-layout--collapsed-left .user-name,
     .seed-layout--collapsed-left .theme-toggle { max-width: 0; opacity: 0; }
 
-    .seed-layout--collapsed-left .search-input {
+    .seed-layout--collapsed-left .search-trigger {
       max-width: 0; opacity: 0; padding: 0; border-width: 0; pointer-events: none;
     }
-    .seed-layout--collapsed-left .left-search::before,
-    .seed-layout--collapsed-left .left-search::after { display: none; }
+    .seed-layout--collapsed-left .search-trigger-text { max-width: 0; opacity: 0; }
     .seed-layout--collapsed-left .search-icon-btn { display: flex; }
     .seed-layout--collapsed-left .left-search  { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
     .seed-layout--collapsed-left .nav-item     { justify-content: center; }
@@ -333,29 +275,27 @@
 
     @media (max-width: 768px) {
       .nav-label, .company-name, .user-name, .theme-toggle { max-width: 0; opacity: 0; }
-      .search-input { max-width: 0; opacity: 0; padding: 0; border-width: 0; pointer-events: none; }
-      .left-search::before, .left-search::after { display: none; }
+      .search-trigger { max-width: 0; opacity: 0; padding: 0; border-width: 0; pointer-events: none; }
       .search-icon-btn { display: flex; }
       .left-search  { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
       .nav-item     { justify-content: center; }
       .left-header  { justify-content: center; }
       .left-footer  { justify-content: center; }
 
-      /* Mobile overlay: restore full expanded view — icon + label rows */
+      /* Mobile overlay: restore full expanded view */
       .seed-layout--mobile-open .nav-label,
       .seed-layout--mobile-open .company-name,
       .seed-layout--mobile-open .user-name,
       .seed-layout--mobile-open .theme-toggle { max-width: 160px; opacity: 1; }
 
-      .seed-layout--mobile-open .search-input {
+      .seed-layout--mobile-open .search-trigger {
         max-width: 100%; opacity: 1;
-        padding: var(--seed-space-2) var(--seed-space-2) var(--seed-space-2) 28px;
+        padding: var(--seed-space-2);
         border-width: 1px; pointer-events: auto;
       }
-      .seed-layout--mobile-open .left-search::before,
-      .seed-layout--mobile-open .left-search::after { display: block; }
+      .seed-layout--mobile-open .search-trigger-text { max-width: 160px; opacity: 1; }
       .seed-layout--mobile-open .search-icon-btn { display: none; }
-      .seed-layout--mobile-open .left-search  { justify-content: flex-start; padding-left: var(--seed-space-2); padding-right: var(--seed-space-2); }
+      .seed-layout--mobile-open .left-search  { justify-content: flex-start; padding-left: var(--seed-space-4); padding-right: var(--seed-space-4); }
       .seed-layout--mobile-open .nav-item     { justify-content: flex-start; }
       .seed-layout--mobile-open .left-header  { justify-content: flex-start; }
       .seed-layout--mobile-open .left-footer  { justify-content: flex-start; }
@@ -482,6 +422,85 @@
       flex-shrink:   0;
       margin-top:    4px;
     }
+
+    /* ── Search Modal ──────────────────────────────────── */
+
+    .search-backdrop {
+      display:    none;
+      position:   fixed;
+      inset:      0;
+      background: rgba(19, 27, 23, 0.3);
+      z-index:    var(--seed-z-overlay);
+    }
+
+    .search-backdrop.is-open { display: block; }
+
+    .search-modal {
+      display:        none;
+      position:       fixed;
+      top:            20%;
+      left:           50%;
+      transform:      translateX(-50%);
+      width:          min(560px, 90vw);
+      max-height:     60vh;
+      background:     var(--soil-bg-elevated);
+      border-radius:  var(--seed-radius-lg);
+      box-shadow:     var(--seed-shadow-xl);
+      z-index:        var(--seed-z-modal);
+      overflow:       hidden;
+      flex-direction: column;
+    }
+
+    .search-modal.is-open { display: flex; }
+
+    .search-modal__input {
+      width:         100%;
+      padding:       var(--seed-space-4) var(--seed-space-6);
+      background:    transparent;
+      border:        none;
+      border-bottom: 1px solid var(--soil-border-subtle);
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-lg);
+      color:         var(--soil-text);
+      outline:       none;
+      flex-shrink:   0;
+    }
+
+    .search-modal__input::placeholder { color: var(--soil-text-muted); }
+
+    .search-modal__results {
+      flex:       1;
+      overflow-y: auto;
+      padding:    var(--seed-space-2) 0;
+      min-height: 0;
+    }
+
+    .search-modal__section-label {
+      padding:        var(--seed-space-2) var(--seed-space-4);
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+    }
+
+    .search-modal__item {
+      display:     flex;
+      align-items: center;
+      gap:         var(--seed-space-3);
+      padding:     var(--seed-space-2) var(--seed-space-4);
+      font-size:   var(--seed-text-sm);
+      color:       var(--soil-text);
+      cursor:      pointer;
+      transition:  background 120ms ease;
+    }
+
+    .search-modal__item:hover { background: var(--calm-bg-subtle-hover); }
+
+    .search-modal__item-icon {
+      font-size:   14px;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -500,8 +519,8 @@
     <aside class="seed-layout__left" id="left-panel">
 
       <div class="left-header">
-        <div class="company-avatar">FA</div>
-        <span class="company-name">FAM</span>
+        <div class="company-avatar">🌱</div>
+        <span class="company-name">seed</span>
 
         <div class="seed-layout__menu-wrap">
           <button class="seed-layout__menu-trigger" id="left-menu-btn"
@@ -527,10 +546,14 @@
       </div>
 
       <div class="left-search">
-        <button class="search-icon-btn" id="search-expand-btn"
-                aria-label="Expand sidebar to search"></button>
-        <input class="search-input" type="search" placeholder="Search..."
-               aria-label="Search" autocomplete="off">
+        <!-- Collapsed mode: icon-only button opens search modal -->
+        <button class="search-icon-btn" id="search-icon-btn"
+                aria-label="Search">🔍</button>
+        <!-- Expanded mode: fake input trigger opens search modal -->
+        <button class="search-trigger" id="search-trigger-btn" aria-label="Search">
+          <span class="seed-icon" aria-hidden="true">🔍</span>
+          <span class="search-trigger-text">Search...</span>
+        </button>
       </div>
 
       <nav class="left-nav" aria-label="Main navigation">
@@ -557,12 +580,14 @@
       </nav>
 
       <div class="left-footer">
-        <div class="user-avatar">
-          <span class="seed-icon" aria-hidden="true" style="font-size:13px">👤</span>
+        <div class="user-row" id="user-row" role="button" tabindex="0" aria-label="User profile">
+          <div class="user-avatar">
+            <span class="seed-icon" aria-hidden="true" style="font-size:13px">👤</span>
+          </div>
+          <span class="user-name">User Name</span>
         </div>
-        <span class="user-name">User Name</span>
         <button class="theme-toggle" id="theme-btn"
-                aria-label="Switch to dark mode"></button>
+                aria-label="Switch to dark mode">☀️</button>
       </div>
 
     </aside>
@@ -684,6 +709,36 @@
     <div class="seed-layout__sheet-inner" id="sheet-inner"></div>
   </div>
 
+  <!-- Search modal -->
+  <div class="search-backdrop" id="search-backdrop"></div>
+  <div class="search-modal" id="search-modal" role="dialog" aria-label="Search" aria-modal="true">
+    <input class="search-modal__input" id="search-modal-input" type="search"
+           placeholder="Search..." autocomplete="off" aria-label="Search">
+    <div class="search-modal__results" role="listbox">
+      <div class="search-modal__section-label">Recent</div>
+      <div class="search-modal__item" role="option">
+        <span class="search-modal__item-icon">🏠</span>
+        <span>Home</span>
+      </div>
+      <div class="search-modal__item" role="option">
+        <span class="search-modal__item-icon">📐</span>
+        <span>Projects</span>
+      </div>
+      <div class="search-modal__item" role="option">
+        <span class="search-modal__item-icon">📁</span>
+        <span>Files</span>
+      </div>
+      <div class="search-modal__item" role="option">
+        <span class="search-modal__item-icon">💬</span>
+        <span>Messages</span>
+      </div>
+      <div class="search-modal__item" role="option">
+        <span class="search-modal__item-icon">⚙️</span>
+        <span>Settings</span>
+      </div>
+    </div>
+  </div>
+
   <script>
     const layout      = document.getElementById('layout');
     const leftPanel   = document.getElementById('left-panel');
@@ -695,7 +750,13 @@
     const revealLeft  = document.getElementById('reveal-left');
     const revealRight = document.getElementById('reveal-right');
     const themeBtn    = document.getElementById('theme-btn');
-    const searchExpandBtn = document.getElementById('search-expand-btn');
+
+    // Search modal elements
+    const searchTriggerBtn = document.getElementById('search-trigger-btn');
+    const searchIconBtn    = document.getElementById('search-icon-btn');
+    const searchBackdrop   = document.getElementById('search-backdrop');
+    const searchModal      = document.getElementById('search-modal');
+    const searchModalInput = document.getElementById('search-modal-input');
 
     // ── Helpers ────────────────────────────────────────────
     function setProp(name, val) { layout.style.setProperty(name, val); }
@@ -716,8 +777,32 @@
     themeBtn.addEventListener('click', () => {
       const html   = document.documentElement;
       const isDark = html.dataset.theme === 'dark';
-      html.dataset.theme = isDark ? 'light' : 'dark';
+      html.dataset.theme  = isDark ? 'light' : 'dark';
+      themeBtn.textContent = isDark ? '☀️' : '🌙';
       themeBtn.setAttribute('aria-label', isDark ? 'Switch to dark mode' : 'Switch to light mode');
+    });
+
+    // ── Search modal ───────────────────────────────────────
+    function openSearchModal() {
+      searchBackdrop.classList.add('is-open');
+      searchModal.classList.add('is-open');
+      searchModalInput.focus();
+    }
+
+    function closeSearchModal() {
+      searchBackdrop.classList.remove('is-open');
+      searchModal.classList.remove('is-open');
+      searchModalInput.value = '';
+    }
+
+    searchTriggerBtn.addEventListener('click', openSearchModal);
+    searchIconBtn.addEventListener('click',    openSearchModal);
+    searchBackdrop.addEventListener('click',   closeSearchModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && searchModal.classList.contains('is-open')) {
+        closeSearchModal();
+      }
     });
 
     // ── Free-form panel resize ─────────────────────────────
@@ -864,7 +949,6 @@
     function setLeftFloat(isFloat) {
       leftIsFloat = isFloat;
       if (isFloat) {
-        // Start at offset so the transition has somewhere to animate from
         leftPanel.classList.add('is-entering');
         layout.classList.add('seed-layout--left-float');
         requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -911,7 +995,6 @@
     }
 
     function hideLeft() {
-      // Clear float first — hiding a floating panel restores to docked on next show
       if (leftIsFloat) {
         layout.classList.remove('seed-layout--left-float');
         leftIsFloat = false;
@@ -956,8 +1039,6 @@
         closeMobileOverlays();
       }
     });
-
-    searchExpandBtn.addEventListener('click', () => setLeftCollapse('expanded'));
 
     // ── Right panel ────────────────────────────────────────
     function hideRight() {
@@ -1010,7 +1091,6 @@
 
       const specs = {
         left: [
-          // Docked/Float hidden on touch devices
           ...(!isMobile() ? [
             { label: 'Docked', checked: !leftIsFloat, action: () => setLeftFloat(false) },
             { label: 'Float',  checked:  leftIsFloat, action: () => setLeftFloat(true)  },
