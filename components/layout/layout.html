@@ -2448,6 +2448,334 @@
           </div>
         </div>
 
+        <!-- ── forms ─────────────────────────────────── -->
+        <div class="ds-section" data-section="forms" style="display:none">
+          <style>
+            .form-card {
+              max-width: 480px;
+            }
+            .form-section-title {
+              font-size:     var(--seed-text-base);
+              font-weight:   var(--seed-weight-semibold);
+              color:         var(--soil-text);
+              margin-bottom: var(--seed-space-1);
+            }
+            .form-section-desc {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              line-height:   var(--seed-leading-normal);
+              margin-bottom: var(--seed-space-6);
+            }
+            .form-body {
+              display:        flex;
+              flex-direction: column;
+              gap:            var(--seed-space-4);
+            }
+            .form-row {
+              display:   flex;
+              gap:       var(--seed-space-3);
+              flex-wrap: wrap;
+            }
+            .form-row > .seed-input-group {
+              flex: 1;
+              min-width: 140px;
+            }
+            .form-actions {
+              display:     flex;
+              gap:         var(--seed-space-2);
+              align-items: center;
+              padding-top: var(--seed-space-2);
+            }
+          </style>
+
+          <div class="seed-card form-card">
+            <div class="seed-card__header">
+              <p class="form-section-title">Create project</p>
+              <p style="font-size:var(--seed-text-xs);color:var(--soil-text-muted);margin-top:var(--seed-space-1)">All fields marked * are required.</p>
+            </div>
+            <div class="seed-card__body">
+              <div class="form-body">
+
+                <!-- Name row — two columns -->
+                <div class="form-row">
+                  <div class="seed-input-group">
+                    <label class="seed-label" for="pf-first">First name *</label>
+                    <input class="seed-input" type="text" id="pf-first" placeholder="Ada">
+                  </div>
+                  <div class="seed-input-group">
+                    <label class="seed-label" for="pf-last">Last name *</label>
+                    <input class="seed-input" type="text" id="pf-last" placeholder="Lovelace">
+                  </div>
+                </div>
+
+                <!-- Email — error state -->
+                <div class="seed-input-group">
+                  <label class="seed-label" for="pf-email">Email address *</label>
+                  <input class="seed-input seed-input--error" type="email" id="pf-email" value="not-valid">
+                  <p class="seed-input-error">Enter a valid email address.</p>
+                </div>
+
+                <!-- Project name — success state -->
+                <div class="seed-input-group">
+                  <label class="seed-label" for="pf-project">Project name *</label>
+                  <input class="seed-input seed-input--success" type="text" id="pf-project" value="Seed v1.0">
+                  <p class="seed-input-success">Name is available.</p>
+                </div>
+
+                <!-- Category select -->
+                <div class="seed-input-group">
+                  <label class="seed-label" for="pf-category">Category</label>
+                  <select class="seed-input" id="pf-category">
+                    <option value="">Select a category…</option>
+                    <option selected>Design system</option>
+                    <option>Component library</option>
+                    <option>Documentation</option>
+                  </select>
+                  <p class="seed-input-hint">This helps organise your workspace.</p>
+                </div>
+
+                <!-- Textarea -->
+                <div class="seed-input-group">
+                  <label class="seed-label" for="pf-desc">Description</label>
+                  <textarea class="seed-input" id="pf-desc" rows="3" placeholder="What is this project about?"></textarea>
+                  <p class="seed-input-hint">Markdown supported. Keep it under 280 characters.</p>
+                </div>
+
+                <!-- Disabled field -->
+                <div class="seed-input-group">
+                  <label class="seed-label" for="pf-owner">Owner</label>
+                  <input class="seed-input" type="text" id="pf-owner" value="FAM" disabled>
+                  <p class="seed-input-hint">Set automatically from your account.</p>
+                </div>
+
+              </div>
+            </div>
+            <div class="seed-card__footer">
+              <div class="form-actions">
+                <button class="seed-button seed-button--primary seed-button--md">Create project</button>
+                <button class="seed-button seed-button--secondary seed-button--md">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── navigation ─────────────────────────────── -->
+        <div class="ds-section" data-section="navigation" style="display:none">
+          <style>
+            .nav-demo-wrap {
+              max-width:   260px;
+            }
+            .nav-demo-note {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              line-height:   var(--seed-leading-normal);
+              margin-bottom: var(--seed-space-6);
+              max-width:     480px;
+            }
+            /* Standalone nav-demo search box */
+            .nav-demo-search {
+              display:       flex;
+              align-items:   center;
+              gap:           var(--seed-space-2);
+              background:    var(--calm-bg-subtle-default);
+              border:        1px solid var(--soil-border-subtle);
+              border-radius: var(--seed-radius-md);
+              padding:       var(--seed-space-2) var(--seed-space-3);
+              margin-bottom: var(--seed-space-3);
+            }
+            .nav-demo-search input {
+              border:     none;
+              background: transparent;
+              outline:    none;
+              font-size:  var(--seed-text-sm);
+              color:      var(--soil-text);
+              width:      100%;
+            }
+            .nav-demo-search input::placeholder { color: var(--soil-text-muted); }
+            .nav-demo-search-icon {
+              font-size:   12px;
+              color:       var(--soil-text-muted);
+              flex-shrink: 0;
+            }
+            /* Nav items inside demo */
+            .nav-demo-item {
+              display:       flex;
+              align-items:   center;
+              gap:           var(--seed-space-2);
+              padding:       var(--seed-space-2) var(--seed-space-2);
+              border-radius: var(--seed-radius-md);
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              cursor:        pointer;
+              transition:    background 120ms ease;
+            }
+            .nav-demo-item:hover            { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+            .nav-demo-item.is-active        { background: var(--calm-bg-subtle-default); color: var(--soil-text); font-weight: var(--seed-weight-medium); }
+            .nav-demo-item__icon            { font-size: 14px; flex-shrink: 0; }
+            .nav-demo-children              { padding-left: var(--seed-space-5); }
+            .nav-demo-section               { font-size: var(--seed-text-xs); font-weight: var(--seed-weight-semibold); letter-spacing: 0.07em; text-transform: uppercase; color: var(--soil-text-muted); padding: var(--seed-space-3) var(--seed-space-2) var(--seed-space-1); }
+            .nav-demo-user {
+              display:     flex;
+              align-items: center;
+              gap:         var(--seed-space-2);
+              padding:     var(--seed-space-3) var(--seed-space-2) 0;
+              margin-top:  var(--seed-space-2);
+              border-top:  1px solid var(--soil-border-subtle);
+            }
+            .nav-demo-avatar {
+              width:           28px;
+              height:          28px;
+              border-radius:   var(--seed-radius-full);
+              background:      var(--selected-bg-bold-default);
+              display:         flex;
+              align-items:     center;
+              justify-content: center;
+              font-size:       11px;
+              color:           var(--selected-text-bold-default);
+              font-weight:     var(--seed-weight-semibold);
+              flex-shrink:     0;
+            }
+            .nav-demo-username { font-size: var(--seed-text-sm); color: var(--soil-text); font-weight: var(--seed-weight-medium); }
+            .nav-demo-role     { font-size: var(--seed-text-xs); color: var(--soil-text-muted); }
+          </style>
+
+          <p class="nav-demo-note">The panel nav pattern — used by the left panel in the layout system. A vertical tree with collapsible sections, search, and a pinned user row at the bottom. Compose with <code style="font-size:var(--seed-text-xs);background:var(--calm-bg-subtle-default);padding:1px 5px;border-radius:var(--seed-radius-sm)">seed-card</code> as the container.</p>
+
+          <div class="seed-card nav-demo-wrap">
+            <div class="seed-card__body" style="padding:var(--seed-space-3)">
+
+              <!-- Search -->
+              <div class="nav-demo-search">
+                <span class="nav-demo-search-icon">⌕</span>
+                <input type="text" placeholder="Search…" tabindex="-1">
+              </div>
+
+              <!-- Main nav -->
+              <div class="nav-demo-section">Main</div>
+              <div class="nav-demo-item is-active"><span class="nav-demo-item__icon">⌂</span> Home</div>
+              <div class="nav-demo-item"><span class="nav-demo-item__icon">✉</span> Inbox <span style="margin-left:auto"><span class="seed-badge seed-badge--bad seed-badge--sm">3</span></span></div>
+              <div class="nav-demo-item"><span class="nav-demo-item__icon">◫</span> Projects</div>
+
+              <!-- Section with children -->
+              <div class="nav-demo-section">Library</div>
+              <div class="nav-demo-item"><span class="nav-demo-item__icon">▸</span><span class="nav-demo-item__icon">📁</span> Design system</div>
+              <div class="nav-demo-children">
+                <div class="nav-demo-item"><span class="nav-demo-item__icon">🎨</span> Tokens</div>
+                <div class="nav-demo-item"><span class="nav-demo-item__icon">⬜</span> Components</div>
+                <div class="nav-demo-item"><span class="nav-demo-item__icon">⧉</span> Patterns</div>
+              </div>
+              <div class="nav-demo-item"><span class="nav-demo-item__icon">▸</span><span class="nav-demo-item__icon">📁</span> Assets</div>
+
+              <div class="nav-demo-section">Settings</div>
+              <div class="nav-demo-item"><span class="nav-demo-item__icon">⚙</span> Preferences</div>
+
+              <!-- User row -->
+              <div class="nav-demo-user">
+                <div class="nav-demo-avatar">FA</div>
+                <div>
+                  <div class="nav-demo-username">FAM</div>
+                  <div class="nav-demo-role">Owner</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ── layout ─────────────────────────────────── -->
+        <div class="ds-section" data-section="layout" style="display:none">
+          <style>
+            .layout-note {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              line-height:   var(--seed-leading-normal);
+              margin-bottom: var(--seed-space-6);
+              max-width:     560px;
+            }
+            .layout-diagram {
+              display:       flex;
+              gap:           var(--seed-space-2);
+              align-items:   stretch;
+              height:        160px;
+              margin-bottom: var(--seed-space-6);
+              max-width:     560px;
+            }
+            .layout-panel {
+              display:         flex;
+              align-items:     center;
+              justify-content: center;
+              border-radius:   var(--seed-radius-md);
+              font-size:       var(--seed-text-xs);
+              font-weight:     var(--seed-weight-medium);
+              color:           var(--soil-text-muted);
+              writing-mode:    horizontal-tb;
+            }
+            .layout-panel--left  { flex: 0 0 80px;  background: var(--calm-bg-subtle-default);    border: 1px solid var(--soil-border-subtle); }
+            .layout-panel--center{ flex: 1;          background: var(--soil-bg-surface);           border: 1px solid var(--soil-border-subtle); box-shadow: var(--seed-shadow-xs); }
+            .layout-panel--right { flex: 0 0 72px;  background: var(--calm-bg-subtle-default);    border: 1px solid var(--soil-border-subtle); }
+            .layout-canvas       { background: var(--soil-bg-canvas); border-radius: var(--seed-radius-lg); padding: var(--seed-space-3); display: flex; gap: var(--seed-space-2); align-items: stretch; height: 160px; max-width: 560px; margin-bottom: var(--seed-space-6); }
+            .layout-features {
+              display:   flex;
+              flex-wrap: wrap;
+              gap:       var(--seed-space-3);
+              margin-bottom: var(--seed-space-6);
+            }
+            .layout-feature {
+              display:       flex;
+              flex-direction: column;
+              gap:           var(--seed-space-1);
+              flex:          1;
+              min-width:     160px;
+              max-width:     220px;
+              padding:       var(--seed-space-4);
+              background:    var(--soil-bg-surface);
+              border:        1px solid var(--soil-border-subtle);
+              border-radius: var(--seed-radius-md);
+            }
+            .layout-feature-title {
+              font-size:   var(--seed-text-sm);
+              font-weight: var(--seed-weight-semibold);
+              color:       var(--soil-text);
+            }
+            .layout-feature-desc {
+              font-size:  var(--seed-text-xs);
+              color:      var(--soil-text-muted);
+              line-height: var(--seed-leading-normal);
+            }
+          </style>
+
+          <p class="layout-note">The Seed layout is a three-panel app shell built on CSS Grid. Each panel is a card. The left panel holds navigation, the center panel holds content, and the right panel holds context or details. Panels can be docked, hidden, or floated as overlays.</p>
+
+          <!-- Diagram -->
+          <div class="layout-canvas">
+            <div class="layout-panel layout-panel--left">Left</div>
+            <div class="layout-panel layout-panel--center">Center</div>
+            <div class="layout-panel layout-panel--right">Right</div>
+          </div>
+
+          <!-- Feature cards -->
+          <div class="layout-features">
+            <div class="layout-feature">
+              <span class="layout-feature-title">Resize</span>
+              <span class="layout-feature-desc">Drag the column handles to resize left and right panels. Width is stored as a CSS custom property.</span>
+            </div>
+            <div class="layout-feature">
+              <span class="layout-feature-title">Hide &amp; float</span>
+              <span class="layout-feature-desc">Each panel can be hidden or detached into a floating overlay card via the ··· context menu.</span>
+            </div>
+            <div class="layout-feature">
+              <span class="layout-feature-title">Responsive</span>
+              <span class="layout-feature-desc">Right panel hides at ≤ 1024px. Left panel hides at ≤ 768px and becomes a slide-in overlay.</span>
+            </div>
+            <div class="layout-feature">
+              <span class="layout-feature-title">Dark mode</span>
+              <span class="layout-feature-desc">Toggle via the theme switcher. All colors use Seed semantic tokens — zero hardcoded values.</span>
+            </div>
+          </div>
+
+          <p style="font-size:var(--seed-text-sm);color:var(--soil-text-muted)">You are viewing this pattern right now. The full layout demo is this page.</p>
+        </div>
+
       </div>
     </main>
 
