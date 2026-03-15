@@ -73,7 +73,7 @@
     background:     var(--soil-bg-surface);
     border-radius:  var(--seed-radius-lg);
     box-shadow:     var(--seed-shadow-sm);
-    overflow:       hidden;
+    overflow:       clip;
     min-width:      0;
 }
 
@@ -307,7 +307,7 @@
                      box-shadow 120ms ease, opacity 150ms ease;
 }
 
-.seed-layout__reveal-left  { left:  8px; }
+.seed-layout__reveal-left  { left:  12px; }
 .seed-layout__reveal-right { right: 8px; }
 
 .seed-layout__reveal-left:hover,
@@ -359,12 +359,12 @@
 .seed-layout__center-controls {
     position:       absolute;
     top:            8px;
-    right:          8px;
+    right:          12px;
     display:        flex;
     flex-direction: row;
     align-items:    center;
     gap:            var(--seed-space-2);
-    z-index:        var(--seed-z-dropdown);
+    z-index:        1;
 }
 
 /* Inside the wrapper, menu-wrap and reveal-right are inline flex items */
