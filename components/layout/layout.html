@@ -1076,28 +1076,122 @@
 
         <!-- ── buttons ────────────────────────────────── -->
         <div class="ds-section" data-section="buttons" style="display:none">
-          <p class="content-body">
-            Four variants cover the full range of action priority. Combine
-            <code style="font-family:monospace;font-size:13px;background:var(--calm-bg-subtle-default);padding:1px 5px;border-radius:4px">--danger</code>
-            with <code style="font-family:monospace;font-size:13px;background:var(--calm-bg-subtle-default);padding:1px 5px;border-radius:4px">--secondary</code>
-            for a destructive outlined style.
-          </p>
-          <div class="content-actions" style="flex-wrap:wrap">
-            <button class="seed-button seed-button--primary   seed-button--md">Primary</button>
-            <button class="seed-button seed-button--secondary seed-button--md">Secondary</button>
-            <button class="seed-button seed-button--link      seed-button--md">Link</button>
-            <button class="seed-button seed-button--danger    seed-button--md">Danger</button>
+          <style>
+            .btn-grid {
+              display:               grid;
+              grid-template-columns: max-content repeat(3, max-content);
+              align-items:           center;
+              gap:                   var(--seed-space-4);
+            }
+            .btn-grid__header {
+              font-size:   var(--seed-text-xs);
+              font-weight: var(--seed-weight-semibold);
+              color:       var(--soil-text-muted);
+              padding:     0 var(--seed-space-2);
+              text-align:  center;
+            }
+            .btn-grid__label {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              padding-right: var(--seed-space-6);
+              white-space:   nowrap;
+            }
+            .btn-grid__cell {
+              display:         flex;
+              align-items:     center;
+              justify-content: center;
+              padding:         var(--seed-space-2);
+            }
+            .btn-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-4);
+            }
+            .btn-section { margin-bottom: var(--seed-space-8); }
+            .btn-divider {
+              border:     none;
+              border-top: 1px solid var(--soil-border-subtle);
+              margin:     var(--seed-space-6) 0;
+            }
+          </style>
+
+          <!-- Variants × Sizes -->
+          <div class="btn-section">
+            <p class="btn-section-label">Variants × Sizes</p>
+            <div class="btn-grid">
+              <div></div>
+              <div class="btn-grid__header">sm</div>
+              <div class="btn-grid__header">md</div>
+              <div class="btn-grid__header">lg</div>
+
+              <div class="btn-grid__label">primary</div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--primary seed-button--sm">Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--primary seed-button--md">Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--primary seed-button--lg">Button</button></div>
+
+              <div class="btn-grid__label">secondary</div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--secondary seed-button--sm">Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--secondary seed-button--md">Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--secondary seed-button--lg">Button</button></div>
+
+              <div class="btn-grid__label">link</div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--link seed-button--sm">Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--link seed-button--md">Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--link seed-button--lg">Button</button></div>
+
+              <div class="btn-grid__label">danger</div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--sm">Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--md">Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--lg">Button</button></div>
+
+              <div class="btn-grid__label">danger outlined</div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--sm">Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--md">Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--lg">Button</button></div>
+            </div>
           </div>
-          <div class="content-actions" style="flex-wrap:wrap">
-            <button class="seed-button seed-button--primary   seed-button--sm">Small</button>
-            <button class="seed-button seed-button--primary   seed-button--md">Medium</button>
-            <button class="seed-button seed-button--primary   seed-button--lg">Large</button>
+
+          <hr class="btn-divider">
+
+          <!-- Disabled -->
+          <div class="btn-section">
+            <p class="btn-section-label">Disabled</p>
+            <div class="btn-grid">
+              <div></div>
+              <div class="btn-grid__header">sm</div>
+              <div class="btn-grid__header">md</div>
+              <div class="btn-grid__header">lg</div>
+
+              <div class="btn-grid__label">primary</div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--primary seed-button--sm" disabled>Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--primary seed-button--md" disabled>Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--primary seed-button--lg" disabled>Button</button></div>
+
+              <div class="btn-grid__label">secondary</div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--secondary seed-button--sm" disabled>Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--secondary seed-button--md" disabled>Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--secondary seed-button--lg" disabled>Button</button></div>
+
+              <div class="btn-grid__label">link</div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--link seed-button--sm" disabled>Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--link seed-button--md" disabled>Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--link seed-button--lg" disabled>Button</button></div>
+
+              <div class="btn-grid__label">danger</div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--sm" disabled>Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--md" disabled>Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--lg" disabled>Button</button></div>
+
+              <div class="btn-grid__label">danger outlined</div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--sm" disabled>Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--md" disabled>Button</button></div>
+              <div class="btn-grid__cell"><button class="seed-button seed-button--danger seed-button--secondary seed-button--lg" disabled>Button</button></div>
+            </div>
           </div>
-          <div class="content-actions" style="flex-wrap:wrap">
-            <button class="seed-button seed-button--primary   seed-button--md" disabled>Disabled</button>
-            <button class="seed-button seed-button--secondary seed-button--md" disabled>Disabled</button>
-            <button class="seed-button seed-button--danger    seed-button--secondary seed-button--md">Danger outlined</button>
-          </div>
+
         </div>
 
       </div>
