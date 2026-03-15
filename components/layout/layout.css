@@ -112,6 +112,15 @@
     overflow: clip;
 }
 
+/* Center scrollable inner — fills the panel, scrolls its own content.
+   min-height: 0 is required: without it a flex child won't shrink below
+   its content height and the overflow-y: auto scroll never activates. */
+.center-inner {
+    flex:       1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
 /* Collapsed left panel: overflow visible lets nav tooltips escape */
 .seed-layout--collapsed-left .seed-layout__left {
     overflow: visible;
