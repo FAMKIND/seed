@@ -1070,6 +1070,291 @@
 
         </div>
 
+        <!-- ── typography ────────────────────────────── -->
+        <div class="ds-section" data-section="typography" style="display:none">
+          <style>
+            .type-section { margin-bottom: var(--seed-space-8); }
+            .type-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-4);
+            }
+            .type-divider {
+              height:        1px;
+              background:    var(--soil-border-subtle);
+              margin-bottom: var(--seed-space-6);
+            }
+
+            /* Font families */
+            .type-family-row {
+              display:       flex;
+              flex-direction: column;
+              gap:           var(--seed-space-4);
+            }
+            .type-family-item {
+              display:        flex;
+              align-items:    baseline;
+              gap:            var(--seed-space-4);
+              flex-wrap:      wrap;
+            }
+            .type-family-meta {
+              flex-shrink:  0;
+              width:        120px;
+            }
+            .type-family-name {
+              font-size:   var(--seed-text-xs);
+              font-weight: var(--seed-weight-semibold);
+              color:       var(--soil-text-muted);
+              white-space: nowrap;
+            }
+            .type-family-token {
+              font-size:   var(--seed-text-xs);
+              color:       var(--soil-text-muted);
+              opacity:     0.6;
+              white-space: nowrap;
+            }
+            .type-family-sample {
+              font-size:   var(--seed-text-xl);
+              color:       var(--soil-text);
+              line-height: var(--seed-leading-tight);
+            }
+
+            /* Size scale */
+            .type-scale-row {
+              display:     flex;
+              align-items: baseline;
+              gap:         var(--seed-space-4);
+              flex-wrap:   wrap;
+              padding:     var(--seed-space-2) 0;
+              border-bottom: 1px solid var(--soil-border-subtle);
+            }
+            .type-scale-row:last-child { border-bottom: none; }
+            .type-scale-meta {
+              display:     flex;
+              gap:         var(--seed-space-3);
+              flex-shrink: 0;
+              width:       160px;
+              align-items: baseline;
+            }
+            .type-scale-token {
+              font-size:   var(--seed-text-xs);
+              font-weight: var(--seed-weight-medium);
+              color:       var(--soil-text-muted);
+              font-family: var(--seed-font-ui);
+              white-space: nowrap;
+            }
+            .type-scale-px {
+              font-size: var(--seed-text-xs);
+              color:     var(--soil-text-muted);
+              opacity:   0.5;
+            }
+            .type-scale-sample {
+              color:      var(--soil-text);
+              line-height: var(--seed-leading-tight);
+            }
+
+            /* Weight scale */
+            .type-weight-row {
+              display:       flex;
+              align-items:   baseline;
+              gap:           var(--seed-space-4);
+              flex-wrap:     wrap;
+              padding:       var(--seed-space-2) 0;
+              border-bottom: 1px solid var(--soil-border-subtle);
+            }
+            .type-weight-row:last-child { border-bottom: none; }
+            .type-weight-meta {
+              flex-shrink: 0;
+              width:       160px;
+            }
+            .type-weight-token {
+              font-size:   var(--seed-text-xs);
+              font-weight: var(--seed-weight-medium);
+              color:       var(--soil-text-muted);
+              white-space: nowrap;
+            }
+            .type-weight-value {
+              font-size: var(--seed-text-xs);
+              color:     var(--soil-text-muted);
+              opacity:   0.5;
+            }
+            .type-weight-sample {
+              font-size:  var(--seed-text-lg);
+              color:      var(--soil-text);
+              font-family: var(--seed-font-ui);
+            }
+
+            /* Line heights */
+            .type-leading-grid {
+              display:   flex;
+              gap:       var(--seed-space-6);
+              flex-wrap: wrap;
+            }
+            .type-leading-item {
+              flex:       1;
+              min-width:  180px;
+            }
+            .type-leading-token {
+              font-size:     var(--seed-text-xs);
+              font-weight:   var(--seed-weight-medium);
+              color:         var(--soil-text-muted);
+              margin-bottom: var(--seed-space-2);
+            }
+            .type-leading-value {
+              font-size:   var(--seed-text-xs);
+              color:       var(--soil-text-muted);
+              opacity:     0.5;
+              margin-bottom: var(--seed-space-3);
+            }
+            .type-leading-sample {
+              font-size:   var(--seed-text-sm);
+              color:       var(--soil-text);
+              font-family: var(--seed-font-ui);
+              max-width:   240px;
+            }
+          </style>
+
+          <!-- Font Families -->
+          <div class="type-section">
+            <p class="type-section-label">Font Families</p>
+            <div class="type-family-row">
+              <div class="type-family-item">
+                <div class="type-family-meta">
+                  <div class="type-family-name">Montserrat</div>
+                  <div class="type-family-token">--seed-font-brand</div>
+                </div>
+                <span class="type-family-sample" style="font-family:var(--seed-font-brand);font-weight:var(--seed-weight-semibold)">The quick brown fox</span>
+              </div>
+              <div class="type-family-item">
+                <div class="type-family-meta">
+                  <div class="type-family-name">Lora</div>
+                  <div class="type-family-token">--seed-font-serif</div>
+                </div>
+                <span class="type-family-sample" style="font-family:var(--seed-font-serif)">The quick brown fox</span>
+              </div>
+              <div class="type-family-item">
+                <div class="type-family-meta">
+                  <div class="type-family-name">Inter</div>
+                  <div class="type-family-token">--seed-font-ui</div>
+                </div>
+                <span class="type-family-sample" style="font-family:var(--seed-font-ui)">The quick brown fox</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="type-divider"></div>
+
+          <!-- Size Scale -->
+          <div class="type-section">
+            <p class="type-section-label">Size Scale</p>
+            <div class="type-scale-row">
+              <div class="type-scale-meta">
+                <span class="type-scale-token">--seed-text-xs</span>
+                <span class="type-scale-px">12px</span>
+              </div>
+              <span class="type-scale-sample" style="font-size:var(--seed-text-xs)">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-scale-row">
+              <div class="type-scale-meta">
+                <span class="type-scale-token">--seed-text-sm</span>
+                <span class="type-scale-px">14px</span>
+              </div>
+              <span class="type-scale-sample" style="font-size:var(--seed-text-sm)">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-scale-row">
+              <div class="type-scale-meta">
+                <span class="type-scale-token">--seed-text-base</span>
+                <span class="type-scale-px">16px</span>
+              </div>
+              <span class="type-scale-sample" style="font-size:var(--seed-text-base)">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-scale-row">
+              <div class="type-scale-meta">
+                <span class="type-scale-token">--seed-text-lg</span>
+                <span class="type-scale-px">20px</span>
+              </div>
+              <span class="type-scale-sample" style="font-size:var(--seed-text-lg)">The quick brown fox jumps</span>
+            </div>
+            <div class="type-scale-row">
+              <div class="type-scale-meta">
+                <span class="type-scale-token">--seed-text-xl</span>
+                <span class="type-scale-px">24px</span>
+              </div>
+              <span class="type-scale-sample" style="font-size:var(--seed-text-xl)">The quick brown fox</span>
+            </div>
+            <div class="type-scale-row">
+              <div class="type-scale-meta">
+                <span class="type-scale-token">--seed-text-2xl</span>
+                <span class="type-scale-px">32px</span>
+              </div>
+              <span class="type-scale-sample" style="font-size:var(--seed-text-2xl)">The quick brown fox</span>
+            </div>
+            <div class="type-scale-row">
+              <div class="type-scale-meta">
+                <span class="type-scale-token">--seed-text-3xl</span>
+                <span class="type-scale-px">48px</span>
+              </div>
+              <span class="type-scale-sample" style="font-size:var(--seed-text-3xl)">Seed</span>
+            </div>
+          </div>
+
+          <div class="type-divider"></div>
+
+          <!-- Weight Scale -->
+          <div class="type-section">
+            <p class="type-section-label">Weight Scale</p>
+            <div class="type-weight-row">
+              <div class="type-weight-meta">
+                <div class="type-weight-token">--seed-weight-regular</div>
+                <div class="type-weight-value">400</div>
+              </div>
+              <span class="type-weight-sample" style="font-weight:var(--seed-weight-regular)">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-weight-row">
+              <div class="type-weight-meta">
+                <div class="type-weight-token">--seed-weight-medium</div>
+                <div class="type-weight-value">500</div>
+              </div>
+              <span class="type-weight-sample" style="font-weight:var(--seed-weight-medium)">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-weight-row">
+              <div class="type-weight-meta">
+                <div class="type-weight-token">--seed-weight-semibold</div>
+                <div class="type-weight-value">600</div>
+              </div>
+              <span class="type-weight-sample" style="font-weight:var(--seed-weight-semibold)">The quick brown fox jumps over the lazy dog</span>
+            </div>
+          </div>
+
+          <div class="type-divider"></div>
+
+          <!-- Line Heights -->
+          <div class="type-section">
+            <p class="type-section-label">Line Heights</p>
+            <div class="type-leading-grid">
+              <div class="type-leading-item">
+                <div class="type-leading-token">--seed-leading-tight</div>
+                <div class="type-leading-value">1.2</div>
+                <p class="type-leading-sample" style="line-height:var(--seed-leading-tight)">Seed grows from a solid foundation of tokens. Every value earns its place. No decoration for its own sake.</p>
+              </div>
+              <div class="type-leading-item">
+                <div class="type-leading-token">--seed-leading-snug</div>
+                <div class="type-leading-value">1.4</div>
+                <p class="type-leading-sample" style="line-height:var(--seed-leading-snug)">Seed grows from a solid foundation of tokens. Every value earns its place. No decoration for its own sake.</p>
+              </div>
+              <div class="type-leading-item">
+                <div class="type-leading-token">--seed-leading-normal</div>
+                <div class="type-leading-value">1.6</div>
+                <p class="type-leading-sample" style="line-height:var(--seed-leading-normal)">Seed grows from a solid foundation of tokens. Every value earns its place. No decoration for its own sake.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
         <!-- ── buttons ────────────────────────────────── -->
         <div class="ds-section" data-section="buttons" style="display:none">
           <style>
