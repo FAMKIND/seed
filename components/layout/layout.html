@@ -134,8 +134,8 @@
       display:       flex;
       align-items:   center;
       gap:           4px;
-      /* 8px margin + 8px padding-left = 16px from card edge for icon */
-      padding:       4px var(--seed-space-2) 4px var(--seed-space-2);
+      /* margin: 8px insets the highlight; padding-left: 0 so the arrow is first */
+      padding:       4px var(--seed-space-2) 4px 0;
       margin:        0 var(--seed-space-2);
       border-radius: var(--seed-radius-md);
       font-size:     var(--seed-text-sm);
@@ -147,8 +147,8 @@
       transition:    background 120ms ease, color 120ms ease;
     }
 
-    /* Children: 8px margin + 24px padding = 32px from card for icon */
-    .nav-children .nav-item { padding-left: 24px; }
+    /* Children: 8px margin + 16px padding + 12px arrow = indent one level from parent */
+    .nav-children .nav-item { padding-left: var(--seed-space-4); }
 
     .nav-item:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
 
@@ -163,22 +163,20 @@
 
     /* ── Expand arrow ─────────────────────────────────── */
 
-    /* Arrow: absolutely positioned in the left padding zone.
-       left: -4px → 4px from card edge (item starts at 8px margin, -4 = 4px from card).
-       Children: left: 12px → 20px from card (matches previous visual position). */
+    /* Arrow: inline flex item — first child in the nav-item row.
+       Sits at the item's left edge (8px from card, inside the margin).
+       opacity: 0 for leaves keeps spacing identical; parent items show it on hover. */
     .nav-item__arrow {
-      position:  absolute;
-      left:      -4px;
-      top:       50%;
-      transform: translateY(-50%);
-      width:     12px;
-      height:    12px;
-      display:   flex;
+      width:           12px;
+      min-width:       12px;
+      height:          16px;
+      display:         flex;
       align-items:     center;
       justify-content: center;
-      font-size: 9px;
-      color:     var(--soil-text-muted);
-      opacity:   0;
+      flex-shrink:     0;
+      font-size:       9px;
+      color:           var(--soil-text-muted);
+      opacity:         0;
     }
 
     .nav-item__arrow::before {
@@ -186,9 +184,6 @@
       display:    block;
       transition: transform 150ms ease;
     }
-
-    /* Child arrow: left: 12px from item → 20px from card (item at 8px margin) */
-    .nav-children .nav-item .nav-item__arrow { left: 12px; }
 
     /* Show on parent items when hovered or expanded */
     .nav-item--has-children:hover > .nav-item__arrow,
@@ -444,8 +439,8 @@
       .seed-layout--mobile-open .search-trigger-text { max-width: 160px; opacity: 1; }
       .seed-layout--mobile-open .search-icon-btn { display: none; }
       .seed-layout--mobile-open .left-search  { justify-content: flex-start; padding-left: var(--seed-space-4); padding-right: var(--seed-space-4); }
-      .seed-layout--mobile-open .nav-item     { justify-content: flex-start; padding-left: var(--seed-space-2); padding-right: var(--seed-space-2); margin: 0 var(--seed-space-2); }
-      .seed-layout--mobile-open .nav-children .nav-item { padding-left: 24px; }
+      .seed-layout--mobile-open .nav-item     { justify-content: flex-start; padding-left: 0; padding-right: var(--seed-space-2); margin: 0 var(--seed-space-2); }
+      .seed-layout--mobile-open .nav-children .nav-item { padding-left: var(--seed-space-4); }
       .seed-layout--mobile-open .nav-item__arrow,
       .seed-layout--mobile-open .nav-item__more,
       .seed-layout--mobile-open .nav-item__add { display: flex; }
