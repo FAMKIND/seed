@@ -121,6 +121,13 @@
     min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
+    width:      100%;
+    box-sizing: border-box;
+}
+
+.ds-section {
+    width:      100%;
+    box-sizing: border-box;
 }
 
 /* Collapsed left panel: overflow visible lets nav tooltips escape */
