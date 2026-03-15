@@ -933,17 +933,14 @@
         <!-- ── color-palette ──────────────────────────── -->
         <div class="ds-section" data-section="color-palette" style="display:none">
           <style>
-            .cp-note {
+            .pal-note {
               font-size:     var(--seed-text-xs);
               color:         var(--soil-text-muted);
               margin-bottom: var(--seed-space-6);
               line-height:   var(--seed-leading-normal);
             }
-            .cp-group {
-              margin-bottom: var(--seed-space-8);
-            }
-            .cp-group:last-child { margin-bottom: 0; }
-            .cp-group-label {
+            .pal-group { margin-bottom: var(--seed-space-8); }
+            .pal-group-label {
               font-size:      var(--seed-text-xs);
               font-weight:    var(--seed-weight-semibold);
               letter-spacing: 0.08em;
@@ -951,184 +948,221 @@
               color:          var(--soil-text-muted);
               margin-bottom:  var(--seed-space-4);
             }
-            /* grid: row-label col + one col per root */
-            .cp-grid {
-              display:               grid;
-              grid-template-columns: 52px repeat(5, 56px);
-              gap:                   var(--seed-space-3);
-              align-items:           start;
+            .pal-row {
+              display:     flex;
+              flex-wrap:   wrap;
+              gap:         var(--seed-space-3);
+              align-items: flex-end;
             }
-            .cp-grid--4 {
-              grid-template-columns: 52px repeat(4, 56px);
-            }
-            .cp-grid--soil {
-              grid-template-columns: 52px repeat(3, 56px);
-            }
-            .cp-row-label {
-              font-size:   var(--seed-text-xs);
-              font-weight: var(--seed-weight-medium);
-              color:       var(--soil-text-muted);
-              padding-top: 12px; /* vertically centre against 48px swatch */
-              white-space: nowrap;
-            }
-            .cp-col-header {
-              font-size:   var(--seed-text-xs);
-              font-weight: var(--seed-weight-semibold);
-              color:       var(--soil-text-muted);
-              text-align:  center;
-              padding-bottom: var(--seed-space-1);
-            }
-            .cp-swatch {
+            .pal-swatch {
               display:        flex;
               flex-direction: column;
               align-items:    center;
-              gap:            var(--seed-space-1);
+              gap:            var(--seed-space-2);
             }
-            .cp-block {
-              width:         48px;
-              height:        48px;
-              border-radius: var(--seed-radius-sm);
+            .pal-block {
+              width:         64px;
+              height:        64px;
+              border-radius: var(--seed-radius-md);
               border:        1px solid var(--soil-border-subtle);
               flex-shrink:   0;
             }
-            .cp-divider {
+            .pal-block--primary { width: 80px; height: 80px; }
+            .pal-label {
+              font-size:  var(--seed-text-xs);
+              color:      var(--soil-text-muted);
+              text-align: center;
+            }
+            .pal-label--primary {
+              font-weight: var(--seed-weight-semibold);
+              color:       var(--soil-text);
+            }
+            .pal-hex {
+              font-size:  var(--seed-text-xs);
+              color:      var(--soil-text-muted);
+              opacity:    0.6;
+              text-align: center;
+            }
+            .pal-strip { display: flex; gap: 2px; }
+            .pal-strip-block {
+              width:         32px;
+              height:        32px;
+              border-radius: var(--seed-radius-sm);
+              flex-shrink:   0;
+            }
+            .pal-surfaces { display: flex; flex-wrap: wrap; gap: var(--seed-space-3); }
+            .pal-surface-wrap {
+              display:        flex;
+              flex-direction: column;
+              gap:            var(--seed-space-2);
+              flex:           1;
+              min-width:      100px;
+            }
+            .pal-surface {
+              height:        64px;
+              border-radius: var(--seed-radius-md);
+              border:        1px solid var(--soil-border-subtle);
+            }
+            .pal-divider {
               height:        1px;
               background:    var(--soil-border-subtle);
               margin-bottom: var(--seed-space-8);
-              grid-column:   1 / -1;
+            }
+            .pal-footer {
+              font-size:  var(--seed-text-xs);
+              color:      var(--soil-text-muted);
+              margin-top: var(--seed-space-4);
+              opacity:    0.7;
             }
           </style>
 
-          <p class="cp-note">Every swatch is a live CSS variable — toggle dark mode to see them adapt.</p>
+          <p class="pal-note">Every color is a live CSS variable — toggle dark mode to see them adapt.</p>
 
-          <!-- BACKGROUNDS -->
-          <div class="cp-group">
-            <p class="cp-group-label">Backgrounds</p>
-            <div class="cp-grid">
-              <!-- headers -->
-              <div></div>
-              <div class="cp-col-header">calm</div>
-              <div class="cp-col-header">good</div>
-              <div class="cp-col-header">warn</div>
-              <div class="cp-col-header">bad</div>
-              <div class="cp-col-header">selected</div>
-              <!-- subtle -->
-              <div class="cp-row-label">Subtle</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--calm-bg-subtle-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--good-bg-subtle-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--warn-bg-subtle-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--bad-bg-subtle-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--selected-bg-subtle-default)"></div></div>
-              <!-- normal -->
-              <div class="cp-row-label">Normal</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--calm-bg-normal-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--good-bg-normal-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--warn-bg-normal-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--bad-bg-normal-default)"></div></div>
-              <div></div>
-              <!-- bold -->
-              <div class="cp-row-label">Bold</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--calm-bg-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--good-bg-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--warn-bg-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--bad-bg-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--selected-bg-bold-default)"></div></div>
+          <!-- PRIMARY — LIME -->
+          <div class="pal-group">
+            <p class="pal-group-label">Primary — Lime</p>
+            <div class="pal-row">
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-lime-100)"></div>
+                <span class="pal-label">Light</span>
+                <span class="pal-hex">#E4F9BE</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-lime-300)"></div>
+                <span class="pal-label">Tint</span>
+                <span class="pal-hex">#A3E18A</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block pal-block--primary" style="background:var(--seed-lime-500)"></div>
+                <span class="pal-label pal-label--primary">Primary</span>
+                <span class="pal-hex">#09A950</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-lime-600)"></div>
+                <span class="pal-label">Dark</span>
+                <span class="pal-hex">#078040</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-lime-700)"></div>
+                <span class="pal-label">Deeper</span>
+                <span class="pal-hex">#055C2E</span>
+              </div>
             </div>
           </div>
 
-          <!-- TEXT -->
-          <div class="cp-group">
-            <p class="cp-group-label">Text</p>
-            <div class="cp-grid">
-              <div></div>
-              <div class="cp-col-header">calm</div>
-              <div class="cp-col-header">good</div>
-              <div class="cp-col-header">warn</div>
-              <div class="cp-col-header">bad</div>
-              <div class="cp-col-header">selected</div>
-              <!-- normal -->
-              <div class="cp-row-label">Normal</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--calm-text-normal-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--good-text-normal-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--warn-text-normal-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--bad-text-normal-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--selected-text-normal-default)"></div></div>
-              <!-- bold -->
-              <div class="cp-row-label">Bold</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--calm-text-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--good-text-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--warn-text-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--bad-text-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--selected-text-bold-default)"></div></div>
+          <div class="pal-divider"></div>
+
+          <!-- SECONDARY — YELLOW -->
+          <div class="pal-group">
+            <p class="pal-group-label">Secondary — Yellow</p>
+            <div class="pal-row">
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-yellow-100)"></div>
+                <span class="pal-label">Light</span>
+                <span class="pal-hex">#FEFEF0</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-yellow-300)"></div>
+                <span class="pal-label">Tint</span>
+                <span class="pal-hex">#FEF8A0</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block pal-block--primary" style="background:var(--seed-yellow-500)"></div>
+                <span class="pal-label pal-label--primary">Secondary</span>
+                <span class="pal-hex">#FCEE23</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-yellow-600)"></div>
+                <span class="pal-label">Dark</span>
+                <span class="pal-hex">#D4C800</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-yellow-700)"></div>
+                <span class="pal-label">Deeper</span>
+                <span class="pal-hex">#A89E00</span>
+              </div>
             </div>
           </div>
 
-          <!-- BORDERS -->
-          <div class="cp-group">
-            <p class="cp-group-label">Borders</p>
-            <div class="cp-grid">
-              <div></div>
-              <div class="cp-col-header">calm</div>
-              <div class="cp-col-header">good</div>
-              <div class="cp-col-header">warn</div>
-              <div class="cp-col-header">bad</div>
-              <div class="cp-col-header">selected</div>
-              <!-- subtle -->
-              <div class="cp-row-label">Subtle</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--calm-border-subtle-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--good-border-subtle-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--warn-border-subtle-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--bad-border-subtle-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--selected-border-subtle-default)"></div></div>
-              <!-- normal — no selected -->
-              <div class="cp-row-label">Normal</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--calm-border-normal-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--good-border-normal-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--warn-border-normal-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--bad-border-normal-default)"></div></div>
-              <div></div>
-              <!-- bold -->
-              <div class="cp-row-label">Bold</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--calm-border-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--good-border-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--warn-border-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--bad-border-bold-default)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--selected-border-bold-default)"></div></div>
+          <div class="pal-divider"></div>
+
+          <!-- ACCENT — BRICK -->
+          <div class="pal-group">
+            <p class="pal-group-label">Accent — Brick</p>
+            <div class="pal-row">
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-brick-100)"></div>
+                <span class="pal-label">Light</span>
+                <span class="pal-hex">#FAEEEC</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-brick-300)"></div>
+                <span class="pal-label">Tint</span>
+                <span class="pal-hex">#E0A89A</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block pal-block--primary" style="background:var(--seed-brick-500)"></div>
+                <span class="pal-label pal-label--primary">Accent</span>
+                <span class="pal-hex">#A84B3C</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-brick-600)"></div>
+                <span class="pal-label">Dark</span>
+                <span class="pal-hex">#8A3228</span>
+              </div>
+              <div class="pal-swatch">
+                <div class="pal-block" style="background:var(--seed-brick-700)"></div>
+                <span class="pal-label">Deeper</span>
+                <span class="pal-hex">#6A2018</span>
+              </div>
             </div>
           </div>
 
-          <!-- SOIL -->
-          <div class="cp-group">
-            <p class="cp-group-label">Soil — Neutrals</p>
-            <div class="cp-grid cp-grid--soil" style="margin-bottom:var(--seed-space-3)">
-              <div></div>
-              <div class="cp-col-header">canvas</div>
-              <div class="cp-col-header">surface</div>
-              <div class="cp-col-header">elevated</div>
-              <div class="cp-row-label">Backgrounds</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--soil-bg-canvas)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--soil-bg-surface)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--soil-bg-elevated)"></div></div>
-            </div>
-            <div class="cp-grid cp-grid--soil" style="margin-bottom:var(--seed-space-3)">
-              <div></div>
-              <div class="cp-col-header">text</div>
-              <div class="cp-col-header">muted</div>
-              <div class="cp-col-header">disabled</div>
-              <div class="cp-row-label">Text</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--soil-text)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--soil-text-muted)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--soil-text-disabled)"></div></div>
-            </div>
-            <div class="cp-grid" style="grid-template-columns:52px repeat(2,56px)">
-              <div></div>
-              <div class="cp-col-header">border</div>
-              <div class="cp-col-header">subtle</div>
-              <div class="cp-row-label">Borders</div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--soil-border)"></div></div>
-              <div class="cp-swatch"><div class="cp-block" style="background:var(--soil-border-subtle)"></div></div>
+          <div class="pal-divider"></div>
+
+          <!-- NEUTRALS — SOIL -->
+          <div class="pal-group">
+            <p class="pal-group-label">Neutrals — Soil</p>
+            <div class="pal-strip">
+              <div class="pal-strip-block" style="background:var(--seed-soil-0)"   title="soil-0 \u00B7 #F9F8F4"></div>
+              <div class="pal-strip-block" style="background:var(--seed-soil-100)" title="soil-100 \u00B7 #E8E4DB"></div>
+              <div class="pal-strip-block" style="background:var(--seed-soil-200)" title="soil-200 \u00B7 #D8D3C8"></div>
+              <div class="pal-strip-block" style="background:var(--seed-soil-300)" title="soil-300 \u00B7 #C0BAB0"></div>
+              <div class="pal-strip-block" style="background:var(--seed-soil-400)" title="soil-400 \u00B7 #A09890"></div>
+              <div class="pal-strip-block" style="background:var(--seed-soil-500)" title="soil-500 \u00B7 #787068"></div>
+              <div class="pal-strip-block" style="background:var(--seed-soil-600)" title="soil-600 \u00B7 #504840"></div>
+              <div class="pal-strip-block" style="background:var(--seed-soil-700)" title="soil-700 \u00B7 #342E28"></div>
+              <div class="pal-strip-block" style="background:var(--seed-soil-800)" title="soil-800 \u00B7 #221E18"></div>
+              <div class="pal-strip-block" style="background:var(--seed-soil-900)" title="soil-900 \u00B7 #141210"></div>
+              <div class="pal-strip-block" style="background:var(--seed-soil-950)" title="soil-950 \u00B7 #1C1B18"></div>
             </div>
           </div>
+
+          <div class="pal-divider"></div>
+
+          <!-- CANVAS & SURFACES -->
+          <div class="pal-group">
+            <p class="pal-group-label">Canvas &amp; Surfaces</p>
+            <div class="pal-surfaces">
+              <div class="pal-surface-wrap">
+                <div class="pal-surface" style="background:var(--soil-bg-canvas)"></div>
+                <span class="pal-label">Canvas</span>
+                <span class="pal-hex">--soil-bg-canvas</span>
+              </div>
+              <div class="pal-surface-wrap">
+                <div class="pal-surface" style="background:var(--soil-bg-surface)"></div>
+                <span class="pal-label">Surface / Cards</span>
+                <span class="pal-hex">--soil-bg-surface</span>
+              </div>
+              <div class="pal-surface-wrap">
+                <div class="pal-surface" style="background:var(--soil-bg-elevated)"></div>
+                <span class="pal-label">Elevated / Modals</span>
+                <span class="pal-hex">--soil-bg-elevated</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="pal-footer">For detailed semantic token mapping, see Tokens &#x2192; Semantic Colors.</p>
 
         </div>
 
