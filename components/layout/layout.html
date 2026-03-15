@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../../tokens/tokens.css">
   <link rel="stylesheet" href="../../components/button/button.css">
   <link rel="stylesheet" href="../../components/badge/badge.css">
+  <link rel="stylesheet" href="../../components/card/card.css">
   <link rel="stylesheet" href="layout.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1808,6 +1809,157 @@
                 <div class="badge-grid__cell"><span class="seed-badge seed-badge--selected seed-badge--sm seed-badge--interactive">Selected</span></div>
                 <div class="badge-grid__cell"><span class="seed-badge seed-badge--selected seed-badge--md seed-badge--interactive">Selected</span></div>
                 <div class="badge-grid__cell"><span class="seed-badge seed-badge--selected seed-badge--lg seed-badge--interactive">Selected</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── cards ─────────────────────────────────── -->
+        <div class="ds-section" data-section="cards" style="display:none">
+          <style>
+            .card-row {
+              display:   flex;
+              flex-wrap: wrap;
+              gap:       var(--seed-space-4);
+              margin-bottom: var(--seed-space-8);
+            }
+            .card-row > .seed-card {
+              flex: 1;
+              min-width: 200px;
+              max-width: 300px;
+            }
+            .card-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-4);
+            }
+            .card-divider {
+              height:        1px;
+              background:    var(--soil-border-subtle);
+              margin-bottom: var(--seed-space-6);
+            }
+            .card-body-text {
+              font-size:   var(--seed-text-sm);
+              color:       var(--soil-text-muted);
+              line-height: var(--seed-leading-normal);
+            }
+            .card-footer-actions {
+              display:     flex;
+              gap:         var(--seed-space-2);
+              align-items: center;
+            }
+            .card-media-placeholder {
+              width:      100%;
+              height:     160px;
+              background: var(--calm-bg-subtle-default);
+              display:    flex;
+              align-items:     center;
+              justify-content: center;
+              font-size:  var(--seed-text-xs);
+              color:      var(--soil-text-muted);
+            }
+            .card-flush-inner {
+              padding:     var(--seed-space-4);
+              border-top:  1px solid var(--soil-border-subtle);
+              font-size:   var(--seed-text-sm);
+              color:       var(--soil-text-muted);
+              line-height: var(--seed-leading-normal);
+            }
+            .card-flush-header {
+              padding:    var(--seed-space-4);
+              font-size:  var(--seed-text-sm);
+              font-weight: var(--seed-weight-medium);
+              color:      var(--soil-text);
+            }
+          </style>
+
+          <!-- Basic -->
+          <p class="card-section-label">Basic</p>
+          <div class="card-row">
+            <div class="seed-card">
+              <div class="seed-card__header">
+                <p style="font-size:var(--seed-text-sm);font-weight:var(--seed-weight-semibold);color:var(--soil-text)">Card Title</p>
+                <p style="font-size:var(--seed-text-xs);color:var(--soil-text-muted);margin-top:var(--seed-space-1)">Supporting label</p>
+              </div>
+              <div class="seed-card__body">
+                <p class="card-body-text">Cards are the universal container in Seed. Mix and match header, body, footer, and media slots freely.</p>
+              </div>
+              <div class="seed-card__footer">
+                <div class="card-footer-actions">
+                  <button class="seed-button seed-button--primary seed-button--sm">Confirm</button>
+                  <button class="seed-button seed-button--secondary seed-button--sm">Cancel</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="seed-card">
+              <div class="seed-card__body">
+                <p style="font-size:var(--seed-text-sm);font-weight:var(--seed-weight-semibold);color:var(--soil-text);margin-bottom:var(--seed-space-2)">Body only</p>
+                <p class="card-body-text">A card with just a body slot — no header or footer. Clean and minimal.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-divider"></div>
+
+          <!-- Media -->
+          <p class="card-section-label">Media</p>
+          <div class="card-row">
+            <div class="seed-card">
+              <div class="seed-card__media">
+                <div class="card-media-placeholder">160 × media</div>
+              </div>
+              <div class="seed-card__body">
+                <p style="font-size:var(--seed-text-sm);font-weight:var(--seed-weight-semibold);color:var(--soil-text);margin-bottom:var(--seed-space-2)">Media card</p>
+                <p class="card-body-text">The media slot sits above the body with no padding, letting images bleed to the card edges.</p>
+              </div>
+            </div>
+
+            <div class="seed-card">
+              <div class="seed-card__body">
+                <p class="card-body-text">Card body first — media can follow below, or be omitted entirely.</p>
+              </div>
+              <div class="seed-card__media">
+                <div class="card-media-placeholder">media at bottom</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-divider"></div>
+
+          <!-- Interactive & Elevated -->
+          <p class="card-section-label">Interactive &amp; Elevated</p>
+          <div class="card-row">
+            <div class="seed-card seed-card--interactive">
+              <div class="seed-card__body">
+                <p style="font-size:var(--seed-text-sm);font-weight:var(--seed-weight-semibold);color:var(--soil-text);margin-bottom:var(--seed-space-2)">Interactive</p>
+                <p class="card-body-text">Hover to see the lift effect. Uses <code style="font-size:var(--seed-text-xs);background:var(--calm-bg-subtle-default);padding:1px 4px;border-radius:var(--seed-radius-sm)">seed-card--interactive</code>.</p>
+              </div>
+            </div>
+
+            <div class="seed-card seed-card--elevated">
+              <div class="seed-card__body">
+                <p style="font-size:var(--seed-text-sm);font-weight:var(--seed-weight-semibold);color:var(--soil-text);margin-bottom:var(--seed-space-2)">Elevated</p>
+                <p class="card-body-text">Stronger resting shadow. Uses <code style="font-size:var(--seed-text-xs);background:var(--calm-bg-subtle-default);padding:1px 4px;border-radius:var(--seed-radius-sm)">seed-card--elevated</code>.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-divider"></div>
+
+          <!-- Flush -->
+          <p class="card-section-label">Flush</p>
+          <div class="card-row">
+            <div class="seed-card seed-card--flush">
+              <div class="seed-card__header">
+                <p style="font-size:var(--seed-text-sm);font-weight:var(--seed-weight-semibold);color:var(--soil-text)">Flush card</p>
+              </div>
+              <div class="seed-card__body">
+                <div class="card-media-placeholder" style="height:80px;border-radius:0">edge to edge</div>
+                <div class="card-flush-inner">Content fills to the card edge. No body padding — great for tables, code blocks, or custom inner layouts.</div>
               </div>
             </div>
           </div>
