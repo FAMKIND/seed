@@ -35,6 +35,7 @@
     box-sizing:            border-box;
     overflow:              hidden;
     background:            var(--soil-bg-canvas);
+    transition:            grid-template-columns 200ms ease;
 }
 
 /* Hidden states: drop the hidden panel's column to eliminate the trailing gap.
@@ -54,10 +55,6 @@
 .seed-layout--left-hidden  .seed-layout__left  { display: none; }
 .seed-layout--right-hidden .seed-layout__right { display: none; }
 
-/* When a panel is hidden its reveal button overlaps the center card corner.
-   Shift the center card away by button-width (32px) + gap (16px) = 48px. */
-.seed-layout--left-hidden  .seed-layout__center { margin-left:  48px; }
-.seed-layout--right-hidden .seed-layout__center { margin-right: 48px; }
 
 
 /* ─────────────────────────────────────────────────────
@@ -294,9 +291,10 @@
     box-shadow:      var(--seed-shadow-sm);
     cursor:          pointer;
     color:           var(--soil-text-muted);
-    z-index:         var(--seed-z-sticky);
+    opacity:         0;
+    z-index:         var(--seed-z-raised);
     transition:      background 120ms ease, color 120ms ease,
-                     box-shadow 120ms ease;
+                     box-shadow 120ms ease, opacity 150ms ease;
 }
 
 .seed-layout__reveal-left  { left:  8px; }
@@ -335,8 +333,8 @@
     transform:    translate(-30%, -50%) rotate(-45deg);
 }
 
-.seed-layout--left-hidden  .seed-layout__reveal-left  { display: flex; }
-.seed-layout--right-hidden .seed-layout__reveal-right { display: flex; }
+.seed-layout--left-hidden  .seed-layout__reveal-left  { display: flex; opacity: 1; }
+.seed-layout--right-hidden .seed-layout__reveal-right { display: flex; opacity: 1; }
 
 
 /* ─────────────────────────────────────────────────────
@@ -504,11 +502,8 @@
     .seed-layout__left           { display: none; }
     .seed-layout__handle--left   { display: none; }
     /* Both reveal buttons always visible on mobile */
-    .seed-layout__reveal-left    { display: flex !important; }
-    .seed-layout__reveal-right   { display: flex !important; }
-
-    /* Center card avoids both reveal buttons */
-    .seed-layout__center { margin-left: 48px; margin-right: 48px; }
+    .seed-layout__reveal-left    { display: flex !important; opacity: 1 !important; }
+    .seed-layout__reveal-right   { display: flex !important; opacity: 1 !important; }
 
     /* Left panel opens as floating overlay from left edge */
     .seed-layout--mobile-open .seed-layout__left {
