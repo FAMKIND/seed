@@ -297,7 +297,7 @@
 .seed-layout__reveal-right {
     display:         none;
     position:        absolute;
-    top:             8px;
+    top:             12px;
     align-items:     center;
     justify-content: center;
     width:           32px;
@@ -316,7 +316,7 @@
 }
 
 .seed-layout__reveal-left  { left:  12px; }
-.seed-layout__reveal-right { right: 8px; }
+.seed-layout__reveal-right { right: 12px; }
 
 .seed-layout__reveal-left:hover,
 .seed-layout__reveal-right:hover {
@@ -357,17 +357,17 @@
 
 /* ─────────────────────────────────────────────────────
    CENTER CONTROLS WRAPPER
-   Positions the three-dot menu and right reveal button
-   as a horizontal row in the top-right corner of the
-   center card. Order: [three-dot] [8px gap] [< reveal].
-   The right reveal is inline here so it grows the row
-   rightward rather than stacking vertically.
+   Holds only the three-dot context menu for the center
+   panel. position:absolute, top-right of the card.
+   When the right panel is hidden the right reveal button
+   appears at right:12px, so the controls shift left to
+   make room: 12px + 32px (button) + 8px (gap) = 52px.
 ───────────────────────────────────────────────────── */
 
 .seed-layout__center-controls {
     position:       absolute;
-    top:            8px;
-    right:          16px;
+    top:            12px;
+    right:          12px;
     display:        flex;
     flex-direction: row;
     align-items:    center;
@@ -375,16 +375,14 @@
     z-index:        1;
 }
 
-/* Inside the wrapper, menu-wrap and reveal-right are inline flex items */
+/* menu-wrap is an inline flex item inside the wrapper */
 .seed-layout__center-controls .seed-layout__menu-wrap {
     position: static;
 }
 
-.seed-layout__center-controls .seed-layout__reveal-right {
-    position:   static;
-    top:        auto;
-    right:      auto;
-    box-shadow: none; /* shadow paints outside border-box; remove to prevent bleed past card edge */
+/* Shift controls left when right reveal button is visible */
+.seed-layout--right-hidden .seed-layout__center .seed-layout__center-controls {
+    right: 52px;
 }
 
 

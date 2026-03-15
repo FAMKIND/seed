@@ -561,10 +561,11 @@
     <!-- Center panel -->
     <main class="seed-layout__center" id="center-panel">
 
-      <!-- Left reveal: absolute, top-left corner of center card -->
-      <button class="seed-layout__reveal-left" id="reveal-left" aria-label="Show left panel"></button>
+      <!-- Reveal buttons: direct children of center card, position:absolute -->
+      <button class="seed-layout__reveal-left"  id="reveal-left"  aria-label="Show left panel"></button>
+      <button class="seed-layout__reveal-right" id="reveal-right" aria-label="Show right panel"></button>
 
-      <!-- Top-right controls: three-dot menu + right reveal in a horizontal row -->
+      <!-- Top-right controls: three-dot context menu only -->
       <div class="seed-layout__center-controls">
         <div class="seed-layout__menu-wrap">
           <button class="seed-layout__menu-trigger" id="center-menu-btn"
@@ -574,7 +575,6 @@
                  id="center-opt-bg" role="menuitem">Show background</div>
           </div>
         </div>
-        <button class="seed-layout__reveal-right" id="reveal-right" aria-label="Show right panel"></button>
       </div>
 
       <div class="center-inner">
