@@ -73,15 +73,16 @@
     background:     var(--soil-bg-surface);
     border-radius:  var(--seed-radius-lg);
     box-shadow:     var(--seed-shadow-sm);
-    overflow-y:     auto;
-    overflow-x:     hidden;
+    overflow:       hidden;
     min-width:      0;
 }
 
-/* Center panel must not scroll itself — center-inner scrolls instead.
-   This keeps absolute-positioned reveal buttons pinned to the card corners. */
-.seed-layout__center {
-    overflow: hidden;
+/* Side panels scroll vertically — center does not (center-inner scrolls instead,
+   keeping the absolute reveal buttons pinned to the card corners). */
+.seed-layout__left,
+.seed-layout__right {
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Collapsed left panel: overflow visible lets nav tooltips escape */
@@ -169,12 +170,14 @@
     margin-left: 0;
 }
 
-/* Left panel dropdown: position:fixed so it clears overflow bounds.
-   top/left are set by JS at open time. */
-.seed-layout__left .seed-layout__menu {
+/* Left and center dropdowns: position:fixed so they clear overflow:hidden bounds.
+   top/left/right are set by JS at open time. */
+.seed-layout__left   .seed-layout__menu,
+.seed-layout__center .seed-layout__menu {
     position: fixed;
-    right:    auto;
     top:      auto;
+    right:    auto;
+    left:     auto;
 }
 
 .seed-layout__menu-trigger {

@@ -781,12 +781,19 @@
 
     function openMenu(which) {
       Object.keys(menus).forEach(k => { if (k !== which) closeMenu(k); });
-      // Left panel dropdown uses position:fixed — compute from trigger's screen rect
+      // Left panel: opens to the right of the trigger (dropdown escapes overflow:hidden)
       if (which === 'left') {
         const btn  = document.getElementById('left-menu-btn');
         const rect = btn.getBoundingClientRect();
         menus.left.style.top  = rect.top  + 'px';
         menus.left.style.left = (rect.right + 4) + 'px';
+      }
+      // Center panel: drops below the trigger (same escape for overflow:hidden)
+      if (which === 'center') {
+        const btn  = document.getElementById('center-menu-btn');
+        const rect = btn.getBoundingClientRect();
+        menus.center.style.top   = (rect.bottom + 4) + 'px';
+        menus.center.style.right = (window.innerWidth - rect.right) + 'px';
       }
       menus[which].classList.add('seed-layout__menu--open');
       document.getElementById(which + '-menu-btn').setAttribute('aria-expanded', 'true');
