@@ -2138,6 +2138,212 @@
           </div>
         </div>
 
+        <!-- ── modals ────────────────────────────────── -->
+        <div class="ds-section" data-section="modals" style="display:none">
+          <style>
+            /* ── Backdrop ── */
+            .seed-modal-backdrop {
+              display:    none;
+              position:   fixed;
+              inset:      0;
+              background: rgba(19, 27, 23, 0.4);
+              z-index:    var(--seed-z-modal);
+              align-items:     center;
+              justify-content: center;
+              padding:    var(--seed-space-4);
+            }
+            .seed-modal-backdrop.is-open {
+              display: flex;
+            }
+
+            /* ── Modal shell ── */
+            .seed-modal {
+              position:       relative;
+              display:        flex;
+              flex-direction: column;
+              width:          100%;
+              max-height:     calc(100vh - var(--seed-space-8));
+              background:     var(--soil-bg-elevated);
+              border:         1px solid var(--soil-border-subtle);
+              border-radius:  var(--seed-radius-lg);
+              box-shadow:     var(--seed-shadow-xl);
+              overflow:       hidden;
+            }
+            .seed-modal--sm { max-width: 360px; }
+            .seed-modal--md { max-width: 520px; }
+            .seed-modal--lg { max-width: 720px; }
+
+            /* ── Slots ── */
+            .seed-modal__header {
+              display:         flex;
+              align-items:     center;
+              justify-content: space-between;
+              padding:         var(--seed-space-4) var(--seed-space-6);
+              border-bottom:   1px solid var(--soil-border-subtle);
+              flex-shrink:     0;
+              gap:             var(--seed-space-4);
+            }
+            .seed-modal__title {
+              font-size:   var(--seed-text-base);
+              font-weight: var(--seed-weight-semibold);
+              color:       var(--soil-text);
+              line-height: var(--seed-leading-tight);
+            }
+            .seed-modal__close {
+              display:         flex;
+              align-items:     center;
+              justify-content: center;
+              flex-shrink:     0;
+              width:           28px;
+              height:          28px;
+              padding:         0;
+              border:          none;
+              background:      transparent;
+              border-radius:   var(--seed-radius-sm);
+              color:           var(--soil-text-muted);
+              cursor:          pointer;
+              transition:      background 120ms ease, color 120ms ease;
+            }
+            .seed-modal__close:hover {
+              background: var(--calm-bg-subtle-hover);
+              color:      var(--soil-text);
+            }
+            .seed-modal__close::before,
+            .seed-modal__close::after {
+              content:    '';
+              position:   absolute;
+              width:      12px;
+              height:     1.5px;
+              background: currentColor;
+              border-radius: 1px;
+            }
+            .seed-modal__close::before { transform: rotate(45deg); }
+            .seed-modal__close::after  { transform: rotate(-45deg); }
+
+            .seed-modal__body {
+              padding:    var(--seed-space-6);
+              overflow-y: auto;
+              flex:       1;
+              font-size:  var(--seed-text-sm);
+              color:      var(--soil-text-muted);
+              line-height: var(--seed-leading-normal);
+            }
+            .seed-modal__footer {
+              display:         flex;
+              align-items:     center;
+              justify-content: flex-end;
+              gap:             var(--seed-space-2);
+              padding:         var(--seed-space-4) var(--seed-space-6);
+              border-top:      1px solid var(--soil-border-subtle);
+              flex-shrink:     0;
+              background:      var(--calm-bg-subtle-default);
+            }
+
+            /* ── Trigger row ── */
+            .modal-triggers {
+              display:   flex;
+              flex-wrap: wrap;
+              gap:       var(--seed-space-3);
+            }
+          </style>
+
+          <!-- Trigger buttons -->
+          <div class="modal-triggers">
+            <button class="seed-button seed-button--secondary seed-button--md"
+                    onclick="document.getElementById('modal-sm').classList.add('is-open')">Open small modal</button>
+            <button class="seed-button seed-button--secondary seed-button--md"
+                    onclick="document.getElementById('modal-md').classList.add('is-open')">Open default modal</button>
+            <button class="seed-button seed-button--secondary seed-button--md"
+                    onclick="document.getElementById('modal-lg').classList.add('is-open')">Open large modal</button>
+            <button class="seed-button seed-button--danger seed-button--secondary seed-button--md"
+                    onclick="document.getElementById('modal-danger').classList.add('is-open')">Delete item…</button>
+          </div>
+
+          <!-- Small modal -->
+          <div class="seed-modal-backdrop" id="modal-sm"
+               onclick="if(event.target===this)this.classList.remove('is-open')">
+            <div class="seed-modal seed-modal--sm" role="dialog" aria-modal="true" aria-labelledby="modal-sm-title">
+              <div class="seed-modal__header">
+                <span class="seed-modal__title" id="modal-sm-title">Small modal</span>
+                <button class="seed-modal__close" aria-label="Close"
+                        onclick="document.getElementById('modal-sm').classList.remove('is-open')"></button>
+              </div>
+              <div class="seed-modal__body">
+                <p>A compact modal for quick confirmations or short messages. Keeps focus tight without overwhelming the viewport.</p>
+              </div>
+              <div class="seed-modal__footer">
+                <button class="seed-button seed-button--secondary seed-button--sm"
+                        onclick="document.getElementById('modal-sm').classList.remove('is-open')">Cancel</button>
+                <button class="seed-button seed-button--primary seed-button--sm"
+                        onclick="document.getElementById('modal-sm').classList.remove('is-open')">Confirm</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Default modal -->
+          <div class="seed-modal-backdrop" id="modal-md"
+               onclick="if(event.target===this)this.classList.remove('is-open')">
+            <div class="seed-modal seed-modal--md" role="dialog" aria-modal="true" aria-labelledby="modal-md-title">
+              <div class="seed-modal__header">
+                <span class="seed-modal__title" id="modal-md-title">Default modal</span>
+                <button class="seed-modal__close" aria-label="Close"
+                        onclick="document.getElementById('modal-md').classList.remove('is-open')"></button>
+              </div>
+              <div class="seed-modal__body">
+                <p>The standard modal size — enough room for a form, a detail view, or a multi-step flow. Header and footer stay pinned while the body scrolls if content grows tall.</p>
+              </div>
+              <div class="seed-modal__footer">
+                <button class="seed-button seed-button--secondary seed-button--sm"
+                        onclick="document.getElementById('modal-md').classList.remove('is-open')">Cancel</button>
+                <button class="seed-button seed-button--primary seed-button--sm"
+                        onclick="document.getElementById('modal-md').classList.remove('is-open')">Save changes</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Large modal -->
+          <div class="seed-modal-backdrop" id="modal-lg"
+               onclick="if(event.target===this)this.classList.remove('is-open')">
+            <div class="seed-modal seed-modal--lg" role="dialog" aria-modal="true" aria-labelledby="modal-lg-title">
+              <div class="seed-modal__header">
+                <span class="seed-modal__title" id="modal-lg-title">Large modal</span>
+                <button class="seed-modal__close" aria-label="Close"
+                        onclick="document.getElementById('modal-lg').classList.remove('is-open')"></button>
+              </div>
+              <div class="seed-modal__body">
+                <p>A wide modal for content-heavy flows — image previews, data tables, or multi-column layouts. Still constrained to the viewport height with a scrollable body region.</p>
+              </div>
+              <div class="seed-modal__footer">
+                <button class="seed-button seed-button--secondary seed-button--sm"
+                        onclick="document.getElementById('modal-lg').classList.remove('is-open')">Cancel</button>
+                <button class="seed-button seed-button--primary seed-button--sm"
+                        onclick="document.getElementById('modal-lg').classList.remove('is-open')">Apply</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Danger modal -->
+          <div class="seed-modal-backdrop" id="modal-danger"
+               onclick="if(event.target===this)this.classList.remove('is-open')">
+            <div class="seed-modal seed-modal--sm" role="dialog" aria-modal="true" aria-labelledby="modal-danger-title">
+              <div class="seed-modal__header">
+                <span class="seed-modal__title" id="modal-danger-title">Delete item?</span>
+                <button class="seed-modal__close" aria-label="Close"
+                        onclick="document.getElementById('modal-danger').classList.remove('is-open')"></button>
+              </div>
+              <div class="seed-modal__body">
+                <p>This action cannot be undone. The item will be permanently removed and cannot be recovered.</p>
+              </div>
+              <div class="seed-modal__footer">
+                <button class="seed-button seed-button--secondary seed-button--sm"
+                        onclick="document.getElementById('modal-danger').classList.remove('is-open')">Cancel</button>
+                <button class="seed-button seed-button--danger seed-button--sm"
+                        onclick="document.getElementById('modal-danger').classList.remove('is-open')">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </main>
 
