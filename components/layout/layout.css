@@ -37,18 +37,22 @@
     background:            var(--soil-bg-canvas);
 }
 
-/* Hidden states collapse to 2- or 1-column grids to remove trailing gaps */
+/* Hidden states: drop the hidden panel's column to eliminate the trailing gap.
+   Panels themselves get display:none so they leave the grid flow entirely. */
 .seed-layout--right-hidden {
     grid-template-columns: var(--left-width, 240px) 1fr;
 }
 
 .seed-layout--left-hidden {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr var(--right-width, 280px);
 }
 
 .seed-layout--left-hidden.seed-layout--right-hidden {
     grid-template-columns: 1fr;
 }
+
+.seed-layout--left-hidden  .seed-layout__left  { display: none; }
+.seed-layout--right-hidden .seed-layout__right { display: none; }
 
 
 /* ─────────────────────────────────────────────────────
@@ -66,7 +70,7 @@
     flex-direction: column;
     background:     var(--soil-bg-surface);
     border-radius:  var(--seed-radius-lg);
-    box-shadow:     var(--seed-shadow-xs);
+    box-shadow:     var(--seed-shadow-sm);
     overflow-y:     auto;
     overflow-x:     hidden;
     min-width:      0;
@@ -234,22 +238,23 @@
 
 /* ─────────────────────────────────────────────────────
    REVEAL BUTTONS
-   Fixed 36px circles at the top corners of the viewport.
-   Appear when a panel is hidden. Live inside .seed-layout
-   so CSS descendant selectors work correctly.
-   Left: hamburger icon — restores/opens left panel.
-   Right: chevron ">" — restores right panel.
+   32px circles, vertically centered at the viewport edge.
+   Live inside .seed-layout so CSS descendant selectors
+   work — position: fixed makes them escape the grid.
+   Left:  > chevron (panel opens from the left).
+   Right: < chevron (panel opens from the right).
 ───────────────────────────────────────────────────── */
 
 .seed-layout__reveal-left,
 .seed-layout__reveal-right {
     display:         none;
     position:        fixed;
-    top:             var(--seed-space-4);
+    top:             50%;
+    transform:       translateY(-50%);
     align-items:     center;
     justify-content: center;
-    width:           36px;
-    height:          36px;
+    width:           32px;
+    height:          32px;
     padding:         0;
     border:          1px solid var(--soil-border-subtle);
     border-radius:   50%;
@@ -258,7 +263,8 @@
     cursor:          pointer;
     color:           var(--soil-text-muted);
     z-index:         var(--seed-z-sticky);
-    transition:      background 120ms ease, color 120ms ease;
+    transition:      background 120ms ease, color 120ms ease,
+                     box-shadow 120ms ease;
 }
 
 .seed-layout__reveal-left  { left:  var(--seed-space-4); }
@@ -268,30 +274,33 @@
 .seed-layout__reveal-right:hover {
     background: var(--calm-bg-subtle-hover);
     color:      var(--soil-text);
+    box-shadow: var(--seed-shadow-md);
 }
 
-/* Left: three-line hamburger */
+/* Left: ">" chevron — panel opens from the left edge */
 .seed-layout__reveal-left::before {
-    content:    '';
-    display:    block;
-    width:      16px;
-    height:     2px;
-    background: currentColor;
-    box-shadow: 0 -5px 0 currentColor, 0 5px 0 currentColor;
-    flex-shrink: 0;
+    content:      '';
+    position:     absolute;
+    top:          50%;
+    left:         50%;
+    width:        6px;
+    height:       6px;
+    border-top:   1.5px solid currentColor;
+    border-right: 1.5px solid currentColor;
+    transform:    translate(-70%, -50%) rotate(45deg);
 }
 
-/* Right: chevron pointing right ">" */
+/* Right: "<" chevron — panel opens from the right edge */
 .seed-layout__reveal-right::before {
     content:      '';
     position:     absolute;
     top:          50%;
     left:         50%;
-    width:        7px;
-    height:       7px;
+    width:        6px;
+    height:       6px;
     border-top:   1.5px solid currentColor;
-    border-right: 1.5px solid currentColor;
-    transform:    translate(-70%, -50%) rotate(45deg);
+    border-left:  1.5px solid currentColor;
+    transform:    translate(-30%, -50%) rotate(-45deg);
 }
 
 .seed-layout--left-hidden  .seed-layout__reveal-left  { display: flex; }
@@ -360,8 +369,7 @@
    !important overrides JS-set custom properties at
    breakpoints where user resize is not meaningful.
    ≤ 1024px  right panel hides
-   ≤  768px  left collapses to icon strip
-   ≤  480px  left fully hidden, reveal button always shown
+   ≤  768px  left panel hides, reveal button + overlay
 ───────────────────────────────────────────────────── */
 
 @media (max-width: 1024px) {
@@ -371,25 +379,22 @@
 }
 
 @media (max-width: 768px) {
-    .seed-layout { grid-template-columns: 56px 1fr !important; }
-    .seed-layout__left { overflow: visible; }
-}
+    /* Left panel hides entirely — reveal button always shown, overlay on tap */
+    .seed-layout                 { grid-template-columns: 1fr !important; }
+    .seed-layout__left           { display: none; }
+    .seed-layout__handle--left   { display: none; }
+    .seed-layout__reveal-left    { display: flex !important; }
 
-@media (max-width: 480px) {
-    .seed-layout { grid-template-columns: 1fr !important; }
-    .seed-layout__left               { display: none; }
-    .seed-layout__handle--left       { display: none; }
-    /* Always show left reveal on mobile — CSS hides the panel, not the --left-hidden class */
-    .seed-layout__reveal-left        { display: flex !important; }
-
-    /* Left panel slides in as a fixed overlay when triggered */
+    /* Left panel opens as a floating overlay card */
     .seed-layout--mobile-open .seed-layout__left {
-        display:  flex;
-        position: fixed;
-        top:      var(--seed-space-4);
-        left:     var(--seed-space-4);
-        bottom:   var(--seed-space-4);
-        width:    280px;
-        z-index:  var(--seed-z-overlay);
+        display:       flex;
+        position:      fixed;
+        top:           var(--seed-space-4);
+        left:          var(--seed-space-4);
+        bottom:        var(--seed-space-4);
+        width:         260px;
+        z-index:       var(--seed-z-overlay);
+        overflow-y:    auto;
+        overflow-x:    hidden;
     }
 }

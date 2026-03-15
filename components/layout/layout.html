@@ -652,6 +652,10 @@
       return parseFloat(getComputedStyle(layout).getPropertyValue(prop)) || def;
     }
 
+    // Saved widths — restored when a hidden panel is revealed
+    let savedLeftWidth  = 240;
+    let savedRightWidth = 280;
+
     // ── Theme ──────────────────────────────────────────────
     themeBtn.addEventListener('click', () => {
       const html   = document.documentElement;
@@ -719,9 +723,10 @@
     // Clear JS overrides at breakpoints so CSS media queries take over
     window.addEventListener('resize', () => {
       const w = window.innerWidth;
-      if (w <= 768) { removeProp('--left-width'); }
+      if (w <= 768)  { removeProp('--left-width'); }
       if (w <= 1024) { removeProp('--right-width'); }
-      if (w > 480) { layout.classList.remove('seed-layout--mobile-open'); }
+      // Close mobile overlay when viewport grows past the mobile breakpoint
+      if (w > 768) { layout.classList.remove('seed-layout--mobile-open'); }
     });
 
     // ── Panel menus ────────────────────────────────────────
@@ -784,13 +789,15 @@
     function setLeftCollapse(state) {
       const collapsed = state === 'collapsed';
       layout.classList.toggle('seed-layout--collapsed-left', collapsed);
-      setProp('--left-width', collapsed ? '56px' : '240px');
+      const w = collapsed ? 56 : savedLeftWidth;
+      setProp('--left-width', w + 'px');
       setChecked(['left-opt-expanded', 'left-opt-collapsed'],
                  collapsed ? 'left-opt-collapsed' : 'left-opt-expanded');
       closeMenu('left');
     }
 
     function hideLeft() {
+      savedLeftWidth = getWidth('--left-width', 240);
       layout.classList.add('seed-layout--left-hidden');
       closeMenu('left');
     }
@@ -798,7 +805,7 @@
     function restoreLeft() {
       layout.classList.remove('seed-layout--left-hidden');
       layout.classList.remove('seed-layout--collapsed-left');
-      setProp('--left-width', '240px');
+      setProp('--left-width', savedLeftWidth + 'px');
       setChecked(['left-opt-expanded', 'left-opt-collapsed'], 'left-opt-expanded');
     }
 
@@ -806,31 +813,37 @@
     document.getElementById('left-opt-collapsed').addEventListener('click', () => setLeftCollapse('collapsed'));
     document.getElementById('left-opt-hide').addEventListener('click',      hideLeft);
 
-    // Reveal left: on mobile opens as overlay; on desktop restores panel
+    // Reveal left: on mobile (≤768px) opens as overlay; on desktop restores panel
     revealLeft.addEventListener('click', () => {
-      if (window.innerWidth <= 480) {
+      if (window.innerWidth <= 768) {
         layout.classList.add('seed-layout--mobile-open');
       } else {
         restoreLeft();
       }
     });
 
-    // Mobile backdrop closes overlay
+    // Backdrop and center panel click close the mobile overlay
     backdrop.addEventListener('click', () => {
       layout.classList.remove('seed-layout--mobile-open');
+    });
+    centerPanel.addEventListener('click', () => {
+      if (layout.classList.contains('seed-layout--mobile-open')) {
+        layout.classList.remove('seed-layout--mobile-open');
+      }
     });
 
     searchExpandBtn.addEventListener('click', () => setLeftCollapse('expanded'));
 
     // ── Right panel ────────────────────────────────────────
     function hideRight() {
+      savedRightWidth = getWidth('--right-width', 280);
       layout.classList.add('seed-layout--right-hidden');
       closeMenu('right');
     }
 
     function restoreRight() {
       layout.classList.remove('seed-layout--right-hidden');
-      setProp('--right-width', '280px');
+      setProp('--right-width', savedRightWidth + 'px');
     }
 
     document.getElementById('right-opt-hide').addEventListener('click', hideRight);
