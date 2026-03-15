@@ -286,7 +286,7 @@
 .seed-layout__reveal-right {
     display:         none;
     position:        absolute;
-    top:             4px;
+    top:             8px;
     align-items:     center;
     justify-content: center;
     width:           32px;
@@ -304,8 +304,8 @@
                      box-shadow 120ms ease, opacity 150ms ease;
 }
 
-.seed-layout__reveal-left  { left:  4px; }
-.seed-layout__reveal-right { right: 4px; }
+.seed-layout__reveal-left  { left:  8px; }
+.seed-layout__reveal-right { right: 8px; }
 
 .seed-layout__reveal-left:hover,
 .seed-layout__reveal-right:hover {
@@ -355,8 +355,8 @@
 
 .seed-layout__center-controls {
     position:       absolute;
-    top:            4px;
-    right:          4px;
+    top:            8px;
+    right:          8px;
     display:        flex;
     flex-direction: row;
     align-items:    center;
