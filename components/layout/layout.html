@@ -1516,6 +1516,212 @@
 
         </div>
 
+        <!-- ── spacing-scale ─────────────────────────── -->
+        <div class="ds-section" data-section="spacing-scale" style="display:none">
+          <style>
+            .sp-row {
+              display:     flex;
+              align-items: center;
+              gap:         var(--seed-space-4);
+              padding:     var(--seed-space-2) 0;
+              border-bottom: 1px solid var(--soil-border-subtle);
+            }
+            .sp-row:last-child { border-bottom: none; }
+            .sp-meta {
+              display:     flex;
+              gap:         var(--seed-space-3);
+              align-items: baseline;
+              flex-shrink: 0;
+              width:       168px;
+            }
+            .sp-token {
+              font-size:   var(--seed-text-xs);
+              font-weight: var(--seed-weight-medium);
+              color:       var(--soil-text-muted);
+              white-space: nowrap;
+            }
+            .sp-px {
+              font-size: var(--seed-text-xs);
+              color:     var(--soil-text-muted);
+              opacity:   0.5;
+            }
+            .sp-bar {
+              height:        24px;
+              background:    var(--good-bg-subtle-default);
+              border-radius: var(--seed-radius-sm);
+              flex-shrink:   0;
+            }
+          </style>
+
+          <div class="sp-row">
+            <div class="sp-meta"><span class="sp-token">--seed-space-1</span><span class="sp-px">4px</span></div>
+            <div class="sp-bar" style="width:var(--seed-space-1)"></div>
+          </div>
+          <div class="sp-row">
+            <div class="sp-meta"><span class="sp-token">--seed-space-2</span><span class="sp-px">8px</span></div>
+            <div class="sp-bar" style="width:var(--seed-space-2)"></div>
+          </div>
+          <div class="sp-row">
+            <div class="sp-meta"><span class="sp-token">--seed-space-3</span><span class="sp-px">12px</span></div>
+            <div class="sp-bar" style="width:var(--seed-space-3)"></div>
+          </div>
+          <div class="sp-row">
+            <div class="sp-meta"><span class="sp-token">--seed-space-4</span><span class="sp-px">16px</span></div>
+            <div class="sp-bar" style="width:var(--seed-space-4)"></div>
+          </div>
+          <div class="sp-row">
+            <div class="sp-meta"><span class="sp-token">--seed-space-6</span><span class="sp-px">24px</span></div>
+            <div class="sp-bar" style="width:var(--seed-space-6)"></div>
+          </div>
+          <div class="sp-row">
+            <div class="sp-meta"><span class="sp-token">--seed-space-8</span><span class="sp-px">32px</span></div>
+            <div class="sp-bar" style="width:var(--seed-space-8)"></div>
+          </div>
+          <div class="sp-row">
+            <div class="sp-meta"><span class="sp-token">--seed-space-12</span><span class="sp-px">48px</span></div>
+            <div class="sp-bar" style="width:var(--seed-space-12)"></div>
+          </div>
+          <div class="sp-row">
+            <div class="sp-meta"><span class="sp-token">--seed-space-16</span><span class="sp-px">64px</span></div>
+            <div class="sp-bar" style="width:var(--seed-space-16)"></div>
+          </div>
+          <div class="sp-row">
+            <div class="sp-meta"><span class="sp-token">--seed-space-24</span><span class="sp-px">96px</span></div>
+            <div class="sp-bar" style="width:var(--seed-space-24)"></div>
+          </div>
+          <div class="sp-row">
+            <div class="sp-meta"><span class="sp-token">--seed-space-32</span><span class="sp-px">128px</span></div>
+            <div class="sp-bar" style="width:var(--seed-space-32)"></div>
+          </div>
+        </div>
+
+        <!-- ── radius-shadows ────────────────────────── -->
+        <div class="ds-section" data-section="radius-shadows" style="display:none">
+          <style>
+            .rs-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-4);
+            }
+            .rs-divider {
+              height:        1px;
+              background:    var(--soil-border-subtle);
+              margin-bottom: var(--seed-space-6);
+            }
+            .rs-group {
+              display:     flex;
+              flex-wrap:   wrap;
+              gap:         var(--seed-space-6);
+              margin-bottom: var(--seed-space-8);
+            }
+            .rs-item {
+              display:        flex;
+              flex-direction: column;
+              align-items:    flex-start;
+              gap:            var(--seed-space-3);
+            }
+            .rs-box {
+              width:      80px;
+              height:     80px;
+              border:     1px solid var(--soil-border);
+              background: transparent;
+              flex-shrink: 0;
+            }
+            .rs-shadow-box {
+              width:         120px;
+              height:        80px;
+              background:    var(--soil-bg-surface);
+              border-radius: var(--seed-radius-md);
+              flex-shrink:   0;
+            }
+            .rs-label {
+              font-size:  var(--seed-text-xs);
+              color:      var(--soil-text-muted);
+              white-space: nowrap;
+            }
+            .rs-value {
+              font-size: var(--seed-text-xs);
+              color:     var(--soil-text-muted);
+              opacity:   0.5;
+            }
+          </style>
+
+          <!-- Radius -->
+          <p class="rs-section-label">Border Radius</p>
+          <div class="rs-group">
+            <div class="rs-item">
+              <div class="rs-box" style="border-radius:var(--seed-radius-sm)"></div>
+              <div class="rs-label">--seed-radius-sm</div>
+              <div class="rs-value">4px</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-box" style="border-radius:var(--seed-radius-md)"></div>
+              <div class="rs-label">--seed-radius-md</div>
+              <div class="rs-value">8px</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-box" style="border-radius:var(--seed-radius-lg)"></div>
+              <div class="rs-label">--seed-radius-lg</div>
+              <div class="rs-value">16px</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-box" style="border-radius:var(--seed-radius-xl)"></div>
+              <div class="rs-label">--seed-radius-xl</div>
+              <div class="rs-value">24px</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-box" style="border-radius:var(--seed-radius-pill)"></div>
+              <div class="rs-label">--seed-radius-pill</div>
+              <div class="rs-value">48px</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-box" style="border-radius:var(--seed-radius-full)"></div>
+              <div class="rs-label">--seed-radius-full</div>
+              <div class="rs-value">9999px</div>
+            </div>
+          </div>
+
+          <div class="rs-divider"></div>
+
+          <!-- Shadows -->
+          <p class="rs-section-label">Shadows</p>
+          <div class="rs-group">
+            <div class="rs-item">
+              <div class="rs-shadow-box" style="box-shadow:var(--seed-shadow-none)"></div>
+              <div class="rs-label">--seed-shadow-none</div>
+              <div class="rs-value">none</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-shadow-box" style="box-shadow:var(--seed-shadow-xs)"></div>
+              <div class="rs-label">--seed-shadow-xs</div>
+              <div class="rs-value">0 1px 2px</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-shadow-box" style="box-shadow:var(--seed-shadow-sm)"></div>
+              <div class="rs-label">--seed-shadow-sm</div>
+              <div class="rs-value">0 2px 4px</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-shadow-box" style="box-shadow:var(--seed-shadow-md)"></div>
+              <div class="rs-label">--seed-shadow-md</div>
+              <div class="rs-value">0 4px 12px</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-shadow-box" style="box-shadow:var(--seed-shadow-lg)"></div>
+              <div class="rs-label">--seed-shadow-lg</div>
+              <div class="rs-value">0 8px 24px</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-shadow-box" style="box-shadow:var(--seed-shadow-xl)"></div>
+              <div class="rs-label">--seed-shadow-xl</div>
+              <div class="rs-value">0 16px 48px</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </main>
 
