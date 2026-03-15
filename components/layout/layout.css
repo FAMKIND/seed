@@ -297,7 +297,7 @@
 .seed-layout__reveal-right {
     display:         none;
     position:        absolute;
-    top:             20px;
+    top:             16px;
     align-items:     center;
     justify-content: center;
     width:           32px;
