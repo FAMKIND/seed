@@ -739,100 +739,138 @@
 
       <nav class="left-nav" aria-label="Main navigation">
 
-        <!-- Home (leaf) -->
-        <div class="nav-item nav-item--active" data-label="Home" role="button" tabindex="0">
-          <span class="nav-item__arrow" aria-hidden="true"></span>
-          <span class="nav-item__icon">🏠</span>
-          <span class="nav-label">Home</span>
-          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
-          <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
-        </div>
-
-        <!-- Messages (leaf) -->
-        <div class="nav-item" data-label="Messages" role="button" tabindex="0">
-          <span class="nav-item__arrow" aria-hidden="true"></span>
-          <span class="nav-item__icon">💬</span>
-          <span class="nav-label">Messages</span>
-          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
-          <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
-        </div>
-
-        <!-- Projects (expandable, starts expanded) -->
+        <!-- Brand (expandable, starts expanded) -->
         <div class="nav-item nav-item--has-children nav-item--expanded"
-             data-label="Projects" data-children="nav-projects" role="button" tabindex="0">
+             data-label="Brand" data-children="nav-brand" role="button" tabindex="0">
+          <span class="nav-item__arrow" aria-hidden="true"></span>
+          <span class="nav-item__icon">🎨</span>
+          <span class="nav-label">Brand</span>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+        </div>
+        <div class="nav-children" id="nav-brand">
+          <div class="nav-item nav-item--active" data-label="Name &amp; Logo" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🏷️</span>
+            <span class="nav-label">Name &amp; Logo</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+          <div class="nav-item" data-label="Color Palette" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🌈</span>
+            <span class="nav-label">Color Palette</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+          <div class="nav-item" data-label="Typography" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">Aa</span>
+            <span class="nav-label">Typography</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+        </div>
+
+        <!-- Tokens (expandable) -->
+        <div class="nav-item nav-item--has-children"
+             data-label="Tokens" data-children="nav-tokens" role="button" tabindex="0">
+          <span class="nav-item__arrow" aria-hidden="true"></span>
+          <span class="nav-item__icon">🔵</span>
+          <span class="nav-label">Tokens</span>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+        </div>
+        <div class="nav-children" id="nav-tokens" style="display:none">
+          <div class="nav-item" data-label="Semantic Colors" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🎯</span>
+            <span class="nav-label">Semantic Colors</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+          <div class="nav-item" data-label="Spacing Scale" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">↔️</span>
+            <span class="nav-label">Spacing Scale</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+          <div class="nav-item" data-label="Radius &amp; Shadows" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🔲</span>
+            <span class="nav-label">Radius &amp; Shadows</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+        </div>
+
+        <!-- Components (expandable) -->
+        <div class="nav-item nav-item--has-children"
+             data-label="Components" data-children="nav-components" role="button" tabindex="0">
+          <span class="nav-item__arrow" aria-hidden="true"></span>
+          <span class="nav-item__icon">🧩</span>
+          <span class="nav-label">Components</span>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+        </div>
+        <div class="nav-children" id="nav-components" style="display:none">
+          <div class="nav-item" data-label="Buttons" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🖱️</span>
+            <span class="nav-label">Buttons</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+          <div class="nav-item" data-label="Badges" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🏅</span>
+            <span class="nav-label">Badges</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+          <div class="nav-item" data-label="Cards" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🃏</span>
+            <span class="nav-label">Cards</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+          <div class="nav-item" data-label="Fields" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">✏️</span>
+            <span class="nav-label">Fields</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+          <div class="nav-item" data-label="Modals" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🪟</span>
+            <span class="nav-label">Modals</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+          <div class="nav-item" data-label="Dividers" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">➖</span>
+            <span class="nav-label">Dividers</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+        </div>
+
+        <!-- Patterns (expandable) -->
+        <div class="nav-item nav-item--has-children"
+             data-label="Patterns" data-children="nav-patterns" role="button" tabindex="0">
           <span class="nav-item__arrow" aria-hidden="true"></span>
           <span class="nav-item__icon">📐</span>
-          <span class="nav-label">Projects</span>
+          <span class="nav-label">Patterns</span>
           <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
-          <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
         </div>
-        <div class="nav-children" id="nav-projects">
-          <div class="nav-item" data-label="Seed" role="button" tabindex="0">
+        <div class="nav-children" id="nav-patterns" style="display:none">
+          <div class="nav-item" data-label="Forms" role="button" tabindex="0">
             <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🌱</span>
-            <span class="nav-label">Seed</span>
+            <span class="nav-item__icon">📋</span>
+            <span class="nav-label">Forms</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
-            <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
           </div>
-          <div class="nav-item" data-label="Lime" role="button" tabindex="0">
+          <div class="nav-item" data-label="Navigation" role="button" tabindex="0">
             <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🍋</span>
-            <span class="nav-label">Lime</span>
+            <span class="nav-item__icon">🗺️</span>
+            <span class="nav-label">Navigation</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
-            <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
           </div>
-          <div class="nav-item" data-label="Notes" role="button" tabindex="0">
+          <div class="nav-item" data-label="Layout" role="button" tabindex="0">
             <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">📝</span>
-            <span class="nav-label">Notes</span>
+            <span class="nav-item__icon">⬛</span>
+            <span class="nav-label">Layout</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
-            <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
           </div>
-          <div class="nav-item nav-item--add-new" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon nav-item__icon--muted" aria-hidden="true">+</span>
-            <span class="nav-label">Add new</span>
-          </div>
-        </div>
-
-        <!-- Files (expandable, starts expanded) -->
-        <div class="nav-item nav-item--has-children nav-item--expanded"
-             data-label="Files" data-children="nav-files" role="button" tabindex="0">
-          <span class="nav-item__arrow" aria-hidden="true"></span>
-          <span class="nav-item__icon">📁</span>
-          <span class="nav-label">Files</span>
-          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
-          <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
-        </div>
-        <div class="nav-children" id="nav-files">
-          <div class="nav-item" data-label="Design" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🎨</span>
-            <span class="nav-label">Design</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
-            <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
-          </div>
-          <div class="nav-item" data-label="Docs" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">📄</span>
-            <span class="nav-label">Docs</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
-            <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
-          </div>
-          <div class="nav-item nav-item--add-new" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon nav-item__icon--muted" aria-hidden="true">+</span>
-            <span class="nav-label">Add new</span>
-          </div>
-        </div>
-
-        <!-- Settings (leaf) -->
-        <div class="nav-item" data-label="Settings" role="button" tabindex="0">
-          <span class="nav-item__arrow" aria-hidden="true"></span>
-          <span class="nav-item__icon">⚙️</span>
-          <span class="nav-label">Settings</span>
-          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
-          <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
         </div>
 
       </nav>
