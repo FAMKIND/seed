@@ -561,17 +561,20 @@
     <!-- Center panel -->
     <main class="seed-layout__center" id="center-panel">
 
-      <!-- Reveal buttons: absolute inside center card, 4px from top/edge corners -->
-      <button class="seed-layout__reveal-left"  id="reveal-left"  aria-label="Show left panel"></button>
-      <button class="seed-layout__reveal-right" id="reveal-right" aria-label="Show right panel"></button>
+      <!-- Left reveal: absolute, top-left corner of center card -->
+      <button class="seed-layout__reveal-left" id="reveal-left" aria-label="Show left panel"></button>
 
-      <div class="seed-layout__menu-wrap">
-        <button class="seed-layout__menu-trigger" id="center-menu-btn"
-                aria-label="Center panel options" aria-expanded="false"></button>
-        <div class="seed-layout__menu" id="center-menu" role="menu">
-          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-               id="center-opt-bg" role="menuitem">Show background</div>
+      <!-- Top-right controls: three-dot menu + right reveal in a horizontal row -->
+      <div class="seed-layout__center-controls">
+        <div class="seed-layout__menu-wrap">
+          <button class="seed-layout__menu-trigger" id="center-menu-btn"
+                  aria-label="Center panel options" aria-expanded="false"></button>
+          <div class="seed-layout__menu" id="center-menu" role="menu">
+            <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+                 id="center-opt-bg" role="menuitem">Show background</div>
+          </div>
         </div>
+        <button class="seed-layout__reveal-right" id="reveal-right" aria-label="Show right panel"></button>
       </div>
 
       <div class="center-inner">
@@ -864,8 +867,11 @@
     document.getElementById('left-opt-collapsed').addEventListener('click', () => setLeftCollapse('collapsed'));
     document.getElementById('left-opt-hide').addEventListener('click',      hideLeft);
 
-    // Reveal left: on mobile opens left overlay; on desktop restores panel
-    revealLeft.addEventListener('click', () => {
+    // Reveal left: on mobile opens left overlay; on desktop restores panel.
+    // stopPropagation prevents the click from bubbling to centerPanel's
+    // closeMobileOverlays handler, which would immediately undo the open.
+    revealLeft.addEventListener('click', (e) => {
+      e.stopPropagation();
       if (window.innerWidth <= 768) {
         layout.classList.remove('seed-layout--mobile-right-open');
         layout.classList.add('seed-layout--mobile-open');
@@ -903,8 +909,10 @@
 
     document.getElementById('right-opt-hide').addEventListener('click', hideRight);
 
-    // Reveal right: on mobile opens right overlay; on desktop restores panel
-    revealRight.addEventListener('click', () => {
+    // Reveal right: on mobile opens right overlay; on desktop restores panel.
+    // stopPropagation prevents bubbling to centerPanel's closeMobileOverlays.
+    revealRight.addEventListener('click', (e) => {
+      e.stopPropagation();
       if (window.innerWidth <= 768) {
         layout.classList.remove('seed-layout--mobile-open');
         layout.classList.add('seed-layout--mobile-right-open');

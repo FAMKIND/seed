@@ -343,9 +343,37 @@
 .seed-layout--left-hidden  .seed-layout__reveal-left  { display: flex; opacity: 1; }
 .seed-layout--right-hidden .seed-layout__reveal-right { display: flex; opacity: 1; }
 
-/* When right panel hidden, shift center context menu left to clear the reveal button.
-   right: 4px (button edge) + 32px (button) + 8px (gap) = 44px */
-.seed-layout--right-hidden .seed-layout__center .seed-layout__menu-wrap { right: 44px; }
+
+/* ─────────────────────────────────────────────────────
+   CENTER CONTROLS WRAPPER
+   Positions the three-dot menu and right reveal button
+   as a horizontal row in the top-right corner of the
+   center card. Order: [three-dot] [8px gap] [< reveal].
+   The right reveal is inline here so it grows the row
+   rightward rather than stacking vertically.
+───────────────────────────────────────────────────── */
+
+.seed-layout__center-controls {
+    position:       absolute;
+    top:            4px;
+    right:          4px;
+    display:        flex;
+    flex-direction: row;
+    align-items:    center;
+    gap:            var(--seed-space-2);
+    z-index:        var(--seed-z-dropdown);
+}
+
+/* Inside the wrapper, menu-wrap and reveal-right are inline flex items */
+.seed-layout__center-controls .seed-layout__menu-wrap {
+    position: static;
+}
+
+.seed-layout__center-controls .seed-layout__reveal-right {
+    position: static;
+    top:      auto;
+    right:    auto;
+}
 
 
 /* ─────────────────────────────────────────────────────
@@ -544,7 +572,17 @@
 }
 
 /* On coarse-pointer (touch) devices, menu triggers are always visible —
-   hover state is meaningless, so opacity should not hide them. */
+   hover state is meaningless, so opacity should not hide them.
+   Reveal buttons get a 44px touch target via ::after even though the
+   visual circle stays 32px. (44 − 32) / 2 = 6px inset expansion. */
 @media (pointer: coarse) {
     .seed-layout__menu-trigger { opacity: 1; }
+
+    .seed-layout__reveal-left::after,
+    .seed-layout__reveal-right::after {
+        content:        '';
+        position:       absolute;
+        inset:          -6px;
+        pointer-events: auto;
+    }
 }
