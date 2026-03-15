@@ -104,12 +104,13 @@
     padding:    var(--seed-space-4);
 }
 
-/* Center panel: hard clip so nothing bleeds past the rounded corners.
-   Double declaration: hidden as fallback, clip for browsers that support it
-   (clip is a stricter geometric boundary with no scroll-container side effects). */
+/* Center panel: overflow: hidden clips content at the card boundary and
+   establishes a scroll container — required so the inner .center-inner
+   scroll container gets correct scroll-event routing in all browsers.
+   (overflow: clip was previously used here but does not create a scroll
+   container, which breaks child overflow-y: auto in some browsers.) */
 .seed-layout__center {
     overflow: hidden;
-    overflow: clip;
 }
 
 /* Center scrollable inner — fills the panel, scrolls its own content.
@@ -119,6 +120,7 @@
     flex:       1;
     min-height: 0;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Collapsed left panel: overflow visible lets nav tooltips escape */
