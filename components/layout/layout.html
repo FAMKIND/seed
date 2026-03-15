@@ -340,6 +340,25 @@
       .nav-item     { justify-content: center; }
       .left-header  { justify-content: center; }
       .left-footer  { justify-content: center; }
+
+      /* Mobile overlay: restore full expanded view — icon + label rows */
+      .seed-layout--mobile-open .nav-label,
+      .seed-layout--mobile-open .company-name,
+      .seed-layout--mobile-open .user-name,
+      .seed-layout--mobile-open .theme-toggle { max-width: 160px; opacity: 1; }
+
+      .seed-layout--mobile-open .search-input {
+        max-width: 100%; opacity: 1;
+        padding: var(--seed-space-2) var(--seed-space-2) var(--seed-space-2) 28px;
+        border-width: 1px; pointer-events: auto;
+      }
+      .seed-layout--mobile-open .left-search::before,
+      .seed-layout--mobile-open .left-search::after { display: block; }
+      .seed-layout--mobile-open .search-icon-btn { display: none; }
+      .seed-layout--mobile-open .left-search  { justify-content: flex-start; padding-left: var(--seed-space-2); padding-right: var(--seed-space-2); }
+      .seed-layout--mobile-open .nav-item     { justify-content: flex-start; }
+      .seed-layout--mobile-open .left-header  { justify-content: flex-start; }
+      .seed-layout--mobile-open .left-footer  { justify-content: flex-start; }
     }
 
     /* ── Center panel ─────────────────────────────────── */
@@ -634,6 +653,11 @@
 
   </div><!-- .seed-layout -->
 
+  <!-- Mobile action sheet — replaces dropdown menus on touch devices -->
+  <div class="seed-layout__sheet" id="action-sheet">
+    <div class="seed-layout__sheet-inner" id="sheet-inner"></div>
+  </div>
+
   <script>
     const layout      = document.getElementById('layout');
     const leftPanel   = document.getElementById('left-panel');
@@ -727,8 +751,10 @@
       const w = window.innerWidth;
       if (w <= 768)  { removeProp('--left-width'); }
       if (w <= 1024) { removeProp('--right-width'); }
-      // Close mobile overlay when viewport grows past the mobile breakpoint
-      if (w > 768) { layout.classList.remove('seed-layout--mobile-open'); }
+      if (w > 768) {
+        layout.classList.remove('seed-layout--mobile-open');
+        layout.classList.remove('seed-layout--mobile-right-open');
+      }
     });
 
     // ── Panel menus ────────────────────────────────────────
@@ -737,6 +763,9 @@
       center: document.getElementById('center-menu'),
       right:  document.getElementById('right-menu'),
     };
+
+    // ── Mobile helpers ──────────────────────────────────────
+    const isMobile = () => window.matchMedia('(pointer: coarse)').matches;
 
     function openMenu(which) {
       Object.keys(menus).forEach(k => { if (k !== which) closeMenu(k); });
@@ -761,8 +790,12 @@
     ['left', 'center', 'right'].forEach(which => {
       document.getElementById(which + '-menu-btn').addEventListener('click', (e) => {
         e.stopPropagation();
-        menus[which].classList.contains('seed-layout__menu--open')
-          ? closeMenu(which) : openMenu(which);
+        if (isMobile()) {
+          openSheet(which);
+        } else {
+          menus[which].classList.contains('seed-layout__menu--open')
+            ? closeMenu(which) : openMenu(which);
+        }
       });
     });
 
@@ -822,22 +855,26 @@
     document.getElementById('left-opt-collapsed').addEventListener('click', () => setLeftCollapse('collapsed'));
     document.getElementById('left-opt-hide').addEventListener('click',      hideLeft);
 
-    // Reveal left: on mobile (≤768px) opens as overlay; on desktop restores panel
+    // Reveal left: on mobile opens left overlay; on desktop restores panel
     revealLeft.addEventListener('click', () => {
       if (window.innerWidth <= 768) {
+        layout.classList.remove('seed-layout--mobile-right-open');
         layout.classList.add('seed-layout--mobile-open');
       } else {
         restoreLeft();
       }
     });
 
-    // Backdrop and center panel click close the mobile overlay
-    backdrop.addEventListener('click', () => {
+    // Backdrop and center panel click close any open mobile overlay
+    function closeMobileOverlays() {
       layout.classList.remove('seed-layout--mobile-open');
-    });
+      layout.classList.remove('seed-layout--mobile-right-open');
+    }
+    backdrop.addEventListener('click', closeMobileOverlays);
     centerPanel.addEventListener('click', () => {
-      if (layout.classList.contains('seed-layout--mobile-open')) {
-        layout.classList.remove('seed-layout--mobile-open');
+      if (layout.classList.contains('seed-layout--mobile-open') ||
+          layout.classList.contains('seed-layout--mobile-right-open')) {
+        closeMobileOverlays();
       }
     });
 
@@ -856,7 +893,86 @@
     }
 
     document.getElementById('right-opt-hide').addEventListener('click', hideRight);
-    revealRight.addEventListener('click', restoreRight);
+
+    // Reveal right: on mobile opens right overlay; on desktop restores panel
+    revealRight.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        layout.classList.remove('seed-layout--mobile-open');
+        layout.classList.add('seed-layout--mobile-right-open');
+      } else {
+        restoreRight();
+      }
+    });
+
+    // ── Mobile action sheet ────────────────────────────────
+    const actionSheet = document.getElementById('action-sheet');
+    const sheetInner  = document.getElementById('sheet-inner');
+
+    function closeSheet() {
+      actionSheet.classList.remove('seed-layout__sheet--open');
+    }
+
+    // Tap outside (on scrim) closes sheet
+    actionSheet.addEventListener('click', (e) => {
+      if (e.target === actionSheet) closeSheet();
+    });
+
+    function buildSheetItems(which) {
+      const hasBgLeft   = !leftPanel.classList.contains('seed-layout__panel--no-bg');
+      const hasBgCenter = !centerPanel.classList.contains('seed-layout__panel--no-bg');
+      const hasBgRight  = !rightPanel.classList.contains('seed-layout__panel--no-bg');
+      const isCollapsed = layout.classList.contains('seed-layout--collapsed-left');
+
+      const specs = {
+        left: [
+          { label: 'Show background', checked: hasBgLeft,   action: () => toggleBg(leftPanel, 'left-opt-bg') },
+          { divider: true },
+          { label: 'Expanded',  checked: !isCollapsed, action: () => setLeftCollapse('expanded') },
+          { label: 'Collapsed', checked:  isCollapsed, action: () => setLeftCollapse('collapsed') },
+          { divider: true },
+          { label: 'Hide panel', muted: true,          action: hideLeft },
+        ],
+        center: [
+          { label: 'Show background', checked: hasBgCenter, action: () => toggleBg(centerPanel, 'center-opt-bg') },
+        ],
+        right: [
+          { label: 'Show background', checked: hasBgRight,  action: () => toggleBg(rightPanel, 'right-opt-bg') },
+          { divider: true },
+          { label: 'Hide panel', muted: true,               action: hideRight },
+        ],
+      };
+      return specs[which] || [];
+    }
+
+    function openSheet(which) {
+      closeAllMenus();
+      sheetInner.innerHTML = '';
+
+      buildSheetItems(which).forEach(spec => {
+        if (spec.divider) {
+          const el = document.createElement('div');
+          el.className = 'seed-layout__sheet-divider';
+          sheetInner.appendChild(el);
+          return;
+        }
+        const el = document.createElement('div');
+        el.className = 'seed-layout__sheet-item'
+          + (spec.muted   ? ' seed-layout__sheet-item--muted'    : '')
+          + (spec.checked ? ' seed-layout__sheet-item--checked'  : '');
+        el.textContent = spec.label;
+        el.addEventListener('click', () => { closeSheet(); spec.action(); });
+        sheetInner.appendChild(el);
+      });
+
+      // Cancel row
+      const cancel = document.createElement('div');
+      cancel.className = 'seed-layout__sheet-cancel';
+      cancel.textContent = 'Cancel';
+      cancel.addEventListener('click', closeSheet);
+      sheetInner.appendChild(cancel);
+
+      actionSheet.classList.add('seed-layout__sheet--open');
+    }
   </script>
 
 </body>

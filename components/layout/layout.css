@@ -54,6 +54,11 @@
 .seed-layout--left-hidden  .seed-layout__left  { display: none; }
 .seed-layout--right-hidden .seed-layout__right { display: none; }
 
+/* When a panel is hidden its reveal button overlaps the center card corner.
+   Shift the center card away by button-width (32px) + gap (16px) = 48px. */
+.seed-layout--left-hidden  .seed-layout__center { margin-left:  48px; }
+.seed-layout--right-hidden .seed-layout__center { margin-right: 48px; }
+
 
 /* ─────────────────────────────────────────────────────
    PANELS — every panel is a card
@@ -335,9 +340,96 @@
 
 
 /* ─────────────────────────────────────────────────────
+   MOBILE ACTION SHEET
+   Bottom sheet replaces dropdown menus on touch devices.
+   Full-screen scrim as backdrop; inner card anchored to
+   bottom with rounded top corners. Items are 44px tall
+   for comfortable thumb tapping.
+───────────────────────────────────────────────────── */
+
+.seed-layout__sheet {
+    display:    none;
+    position:   fixed;
+    inset:      0;
+    background: rgba(19, 27, 23, 0.3);
+    z-index:    var(--seed-z-modal);
+}
+
+.seed-layout__sheet--open { display: block; }
+
+.seed-layout__sheet-inner {
+    position:      absolute;
+    bottom:        0;
+    left:          var(--seed-space-4);
+    right:         var(--seed-space-4);
+    background:    var(--soil-bg-surface);
+    border-radius: var(--seed-radius-lg) var(--seed-radius-lg) 0 0;
+    box-shadow:    var(--seed-shadow-lg);
+    padding:       var(--seed-space-4) var(--seed-space-2);
+    overflow-y:    auto;
+    max-height:    70vh;
+}
+
+.seed-layout__sheet-item {
+    position:      relative;
+    display:       flex;
+    align-items:   center;
+    min-height:    44px;
+    padding:       0 var(--seed-space-4) 0 36px;
+    font-family:   var(--seed-font-ui);
+    font-size:     var(--seed-text-base);
+    color:         var(--soil-text);
+    cursor:        pointer;
+    border-radius: var(--seed-radius-md);
+    user-select:   none;
+    transition:    background 120ms ease;
+}
+
+.seed-layout__sheet-item:active      { background: var(--calm-bg-subtle-hover); }
+.seed-layout__sheet-item--muted      { color: var(--soil-text-muted); }
+
+.seed-layout__sheet-item--checked::before {
+    content:       '';
+    position:      absolute;
+    left:          14px;
+    top:           50%;
+    transform:     translateY(-65%) rotate(45deg);
+    width:         4px;
+    height:        8px;
+    border-right:  1.5px solid var(--soil-text);
+    border-bottom: 1.5px solid var(--soil-text);
+}
+
+.seed-layout__sheet-divider {
+    height:     1px;
+    background: var(--soil-border-subtle);
+    margin:     var(--seed-space-1) 0;
+}
+
+.seed-layout__sheet-cancel {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    min-height:      44px;
+    margin-top:      var(--seed-space-2);
+    border-top:      1px solid var(--soil-border-subtle);
+    padding-top:     var(--seed-space-2);
+    font-family:     var(--seed-font-ui);
+    font-size:       var(--seed-text-base);
+    font-weight:     var(--seed-weight-medium);
+    color:           var(--soil-text-muted);
+    cursor:          pointer;
+    border-radius:   var(--seed-radius-md);
+    user-select:     none;
+    transition:      background 120ms ease;
+}
+
+.seed-layout__sheet-cancel:active { background: var(--calm-bg-subtle-hover); }
+
+
+/* ─────────────────────────────────────────────────────
    MOBILE OVERLAY BACKDROP
-   Semi-transparent scrim shown behind the left panel
-   when it opens as an overlay at ≤ 480px.
+   Shared scrim for left, right, and both mobile overlays.
 ───────────────────────────────────────────────────── */
 
 .seed-layout__backdrop {
@@ -349,7 +441,8 @@
     cursor:     default;
 }
 
-.seed-layout--mobile-open .seed-layout__backdrop { display: block; }
+.seed-layout--mobile-open       .seed-layout__backdrop,
+.seed-layout--mobile-right-open .seed-layout__backdrop { display: block; }
 
 
 /* ─────────────────────────────────────────────────────
@@ -406,22 +499,46 @@
 }
 
 @media (max-width: 768px) {
-    /* Left panel hides entirely — reveal button always shown, overlay on tap */
+    /* Both side panels hide — only center card remains */
     .seed-layout                 { grid-template-columns: 1fr !important; }
     .seed-layout__left           { display: none; }
     .seed-layout__handle--left   { display: none; }
+    /* Both reveal buttons always visible on mobile */
     .seed-layout__reveal-left    { display: flex !important; }
+    .seed-layout__reveal-right   { display: flex !important; }
 
-    /* Left panel opens as a floating overlay card */
+    /* Center card avoids both reveal buttons */
+    .seed-layout__center { margin-left: 48px; margin-right: 48px; }
+
+    /* Left panel opens as floating overlay from left edge */
     .seed-layout--mobile-open .seed-layout__left {
         display:       flex;
         position:      fixed;
         top:           var(--seed-space-4);
         left:          var(--seed-space-4);
         bottom:        var(--seed-space-4);
-        width:         260px;
+        width:         min(260px, 75vw);
         z-index:       var(--seed-z-overlay);
         overflow-y:    auto;
         overflow-x:    hidden;
     }
+
+    /* Right panel opens as floating overlay from right edge */
+    .seed-layout--mobile-right-open .seed-layout__right {
+        display:       flex;
+        position:      fixed;
+        top:           var(--seed-space-4);
+        right:         var(--seed-space-4);
+        bottom:        var(--seed-space-4);
+        width:         min(280px, 80vw);
+        z-index:       var(--seed-z-overlay);
+        overflow-y:    auto;
+        overflow-x:    hidden;
+    }
+}
+
+/* On coarse-pointer (touch) devices, menu triggers are always visible —
+   hover state is meaningless, so opacity should not hide them. */
+@media (pointer: coarse) {
+    .seed-layout__menu-trigger { opacity: 1; }
 }
