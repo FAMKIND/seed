@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../tokens/tokens.css">
   <link rel="stylesheet" href="../../components/button/button.css">
+  <link rel="stylesheet" href="../../components/badge/badge.css">
   <link rel="stylesheet" href="layout.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1718,6 +1719,96 @@
               <div class="rs-shadow-box" style="box-shadow:var(--seed-shadow-xl)"></div>
               <div class="rs-label">--seed-shadow-xl</div>
               <div class="rs-value">0 16px 48px</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── badges ────────────────────────────────── -->
+        <div class="ds-section" data-section="badges" style="display:none">
+          <style>
+            .badge-grid {
+              display:               grid;
+              grid-template-columns: max-content 1fr 1fr 1fr;
+              gap:                   var(--seed-space-4) var(--seed-space-6);
+              align-items:           center;
+            }
+            .badge-grid__row,
+            .badge-grid__sizes {
+              display: contents;
+            }
+            .badge-grid__header {
+              font-size:   var(--seed-text-xs);
+              font-weight: var(--seed-weight-semibold);
+              color:       var(--soil-text-muted);
+              text-align:  center;
+            }
+            .badge-grid__label {
+              font-size:    var(--seed-text-sm);
+              color:        var(--soil-text-muted);
+              white-space:  nowrap;
+              padding-right: var(--seed-space-2);
+            }
+            .badge-grid__cell {
+              display:         flex;
+              align-items:     center;
+              justify-content: center;
+            }
+          </style>
+
+          <div class="badge-grid">
+            <!-- Header row -->
+            <div class="badge-grid__row">
+              <div class="badge-grid__label"></div>
+              <div class="badge-grid__sizes">
+                <div class="badge-grid__header">sm</div>
+                <div class="badge-grid__header">md</div>
+                <div class="badge-grid__header">lg</div>
+              </div>
+            </div>
+            <!-- neutral -->
+            <div class="badge-grid__row">
+              <div class="badge-grid__label">neutral</div>
+              <div class="badge-grid__sizes">
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--neutral seed-badge--sm seed-badge--interactive">Neutral</span></div>
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--neutral seed-badge--md seed-badge--interactive">Neutral</span></div>
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--neutral seed-badge--lg seed-badge--interactive">Neutral</span></div>
+              </div>
+            </div>
+            <!-- good -->
+            <div class="badge-grid__row">
+              <div class="badge-grid__label">good</div>
+              <div class="badge-grid__sizes">
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--good seed-badge--sm seed-badge--interactive">Good</span></div>
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--good seed-badge--md seed-badge--interactive">Good</span></div>
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--good seed-badge--lg seed-badge--interactive">Good</span></div>
+              </div>
+            </div>
+            <!-- warn -->
+            <div class="badge-grid__row">
+              <div class="badge-grid__label">warn</div>
+              <div class="badge-grid__sizes">
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--warn seed-badge--sm seed-badge--interactive">Warn</span></div>
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--warn seed-badge--md seed-badge--interactive">Warn</span></div>
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--warn seed-badge--lg seed-badge--interactive">Warn</span></div>
+              </div>
+            </div>
+            <!-- bad -->
+            <div class="badge-grid__row">
+              <div class="badge-grid__label">bad</div>
+              <div class="badge-grid__sizes">
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--bad seed-badge--sm seed-badge--interactive">Bad</span></div>
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--bad seed-badge--md seed-badge--interactive">Bad</span></div>
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--bad seed-badge--lg seed-badge--interactive">Bad</span></div>
+              </div>
+            </div>
+            <!-- selected -->
+            <div class="badge-grid__row">
+              <div class="badge-grid__label">selected</div>
+              <div class="badge-grid__sizes">
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--selected seed-badge--sm seed-badge--interactive">Selected</span></div>
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--selected seed-badge--md seed-badge--interactive">Selected</span></div>
+                <div class="badge-grid__cell"><span class="seed-badge seed-badge--selected seed-badge--lg seed-badge--interactive">Selected</span></div>
+              </div>
             </div>
           </div>
         </div>
