@@ -364,8 +364,16 @@
     /* ── Center panel ─────────────────────────────────── */
 
     .center-inner {
-      padding:   var(--seed-space-8);
-      max-width: 720px;
+      flex:       1;
+      min-height: 0;
+      overflow-y: auto;
+      padding:    var(--seed-space-8);
+      max-width:  720px;
+    }
+
+    /* When left panel hidden, pad content clear of the left reveal button */
+    .seed-layout--left-hidden .center-inner {
+      padding-left: 48px;
     }
 
     /* Headings use Lora serif for editorial warmth */
@@ -480,11 +488,6 @@
     <!-- Backdrop: mobile overlay scrim, closes left panel on tap -->
     <div class="seed-layout__backdrop" id="backdrop"></div>
 
-    <!-- Reveal buttons: siblings inside .seed-layout so descendant selectors work.
-         Position: fixed so they escape the grid visually. -->
-    <button class="seed-layout__reveal-left"  id="reveal-left"  aria-label="Show left panel"></button>
-    <button class="seed-layout__reveal-right" id="reveal-right" aria-label="Show right panel"></button>
-
     <!-- Resize handles: absolutely positioned on column gaps -->
     <div class="seed-layout__handle seed-layout__handle--left"  id="left-handle"  aria-hidden="true"></div>
     <div class="seed-layout__handle seed-layout__handle--right" id="right-handle" aria-hidden="true"></div>
@@ -557,6 +560,10 @@
 
     <!-- Center panel -->
     <main class="seed-layout__center" id="center-panel">
+
+      <!-- Reveal buttons: absolute inside center card, 4px from top/edge corners -->
+      <button class="seed-layout__reveal-left"  id="reveal-left"  aria-label="Show left panel"></button>
+      <button class="seed-layout__reveal-right" id="reveal-right" aria-label="Show right panel"></button>
 
       <div class="seed-layout__menu-wrap">
         <button class="seed-layout__menu-trigger" id="center-menu-btn"
