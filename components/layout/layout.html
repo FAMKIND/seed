@@ -82,13 +82,14 @@
       color:         var(--soil-text-muted);
       cursor:        pointer;
       text-align:    left;
+      box-sizing:    border-box;
+      max-width:     100%;
       transition:    border-color 120ms ease, background 120ms ease,
                      max-width 200ms ease, opacity 200ms ease;
     }
 
     .search-trigger:hover {
-      background:   var(--calm-bg-subtle-hover);
-      border-color: var(--calm-border-bold-default);
+      border-color: var(--calm-border-normal-default);
     }
 
     .search-trigger-text {
@@ -125,6 +126,7 @@
       padding:    var(--seed-space-1) 0;
       align-self: stretch;
       overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .nav-item {
@@ -132,18 +134,21 @@
       display:       flex;
       align-items:   center;
       gap:           4px;
-      padding:       4px var(--seed-space-2);
-      margin:        0 var(--seed-space-2);
+      /* padding-left: 16px → icon aligns with header/search/footer */
+      padding:       4px var(--seed-space-2) 4px var(--seed-space-4);
+      margin:        0;
       border-radius: var(--seed-radius-md);
       font-size:     var(--seed-text-sm);
       color:         var(--soil-text-muted);
       cursor:        pointer;
       user-select:   none;
+      box-sizing:    border-box;
+      max-width:     100%;
       transition:    background 120ms ease, color 120ms ease;
     }
 
-    /* Children indented 20px deeper than top-level */
-    .nav-children .nav-item { padding-left: 28px; }
+    /* Children: +16px indent — arrow sits at parent's icon position (16px) */
+    .nav-children .nav-item { padding-left: 32px; }
 
     .nav-item:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
 
@@ -158,17 +163,22 @@
 
     /* ── Expand arrow ─────────────────────────────────── */
 
+    /* Arrow: absolutely positioned in the left padding zone.
+       Top-level: left: 4px (4px from card edge).
+       Children:  left: 20px (within 32px padding, sits at ~parent icon zone). */
     .nav-item__arrow {
-      min-width:       12px;
-      width:           12px;
-      height:          16px;
-      display:         flex;
+      position:  absolute;
+      left:      4px;
+      top:       50%;
+      transform: translateY(-50%);
+      width:     12px;
+      height:    12px;
+      display:   flex;
       align-items:     center;
       justify-content: center;
-      flex-shrink:     0;
-      font-size:       9px;
-      color:           var(--soil-text-muted);
-      opacity:         0;  /* invisible placeholder for leaves */
+      font-size: 9px;
+      color:     var(--soil-text-muted);
+      opacity:   0;
     }
 
     .nav-item__arrow::before {
@@ -176,6 +186,9 @@
       display:    block;
       transition: transform 150ms ease;
     }
+
+    /* Child arrow sits at 20px (within 32px left padding) */
+    .nav-children .nav-item .nav-item__arrow { left: 20px; }
 
     /* Show on parent items when hovered or expanded */
     .nav-item--has-children:hover > .nav-item__arrow,
@@ -277,10 +290,9 @@
       flex-shrink:   0;
     }
 
-    /* Add new row styling */
+    /* Add new row — same size as other nav items, just muted */
     .nav-item--add-new {
-      font-size: var(--seed-text-xs);
-      color:     var(--soil-text-muted);
+      color: var(--soil-text-muted);
     }
 
     .nav-item--add-new:hover { color: var(--soil-text); }
@@ -399,7 +411,7 @@
     .seed-layout--collapsed-left .search-trigger-text { max-width: 0; opacity: 0; }
     .seed-layout--collapsed-left .search-icon-btn { display: flex; }
     .seed-layout--collapsed-left .left-search  { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
-    .seed-layout--collapsed-left .nav-item     { justify-content: center; padding-left: 0; padding-right: 0; }
+    .seed-layout--collapsed-left .nav-item     { justify-content: center; padding-left: 0; padding-right: 0; margin: 0; }
     .seed-layout--collapsed-left .nav-item__arrow,
     .seed-layout--collapsed-left .nav-item__more,
     .seed-layout--collapsed-left .nav-item__add { display: none; }
@@ -412,7 +424,7 @@
       .search-trigger { max-width: 0; opacity: 0; padding: 0; border-width: 0; pointer-events: none; }
       .search-icon-btn { display: flex; }
       .left-search  { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
-      .nav-item     { justify-content: center; padding-left: 0; padding-right: 0; }
+      .nav-item     { justify-content: center; padding-left: 0; padding-right: 0; margin: 0; }
       .nav-item__arrow, .nav-item__more, .nav-item__add { display: none; }
       .nav-children { display: none; }
       .left-header  { justify-content: center; }
@@ -432,8 +444,8 @@
       .seed-layout--mobile-open .search-trigger-text { max-width: 160px; opacity: 1; }
       .seed-layout--mobile-open .search-icon-btn { display: none; }
       .seed-layout--mobile-open .left-search  { justify-content: flex-start; padding-left: var(--seed-space-4); padding-right: var(--seed-space-4); }
-      .seed-layout--mobile-open .nav-item     { justify-content: flex-start; padding-left: var(--seed-space-2); padding-right: var(--seed-space-2); }
-      .seed-layout--mobile-open .nav-children .nav-item { padding-left: 28px; }
+      .seed-layout--mobile-open .nav-item     { justify-content: flex-start; padding-left: var(--seed-space-4); padding-right: var(--seed-space-2); }
+      .seed-layout--mobile-open .nav-children .nav-item { padding-left: 32px; }
       .seed-layout--mobile-open .nav-item__arrow,
       .seed-layout--mobile-open .nav-item__more,
       .seed-layout--mobile-open .nav-item__add { display: flex; }
@@ -594,20 +606,52 @@
 
     .search-modal.is-open { display: flex; }
 
-    .search-modal__input {
-      width:         100%;
-      padding:       var(--seed-space-4) var(--seed-space-6);
-      background:    transparent;
-      border:        none;
+    /* Input row wraps the text input and the ESC badge together */
+    .search-modal__input-row {
+      display:      flex;
+      align-items:  center;
+      flex-shrink:  0;
       border-bottom: 1px solid var(--soil-border-subtle);
-      font-family:   var(--seed-font-ui);
-      font-size:     var(--seed-text-lg);
-      color:         var(--soil-text);
-      outline:       none;
-      flex-shrink:   0;
+    }
+
+    .search-modal__input {
+      flex:        1;
+      min-width:   0;
+      padding:     var(--seed-space-4) var(--seed-space-6);
+      background:  transparent;
+      border:      none;
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-lg);
+      color:       var(--soil-text);
+      outline:     none;
     }
 
     .search-modal__input::placeholder { color: var(--soil-text-muted); }
+
+    /* ESC keyboard hint pill */
+    .search-modal__esc {
+      display:       inline-flex;
+      align-items:   center;
+      margin-right:  var(--seed-space-4);
+      padding:       2px 6px;
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-subtle-default);
+      border-radius: var(--seed-radius-sm);
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-xs);
+      font-style:    normal;
+      color:         var(--soil-text-muted);
+      white-space:   nowrap;
+      cursor:        pointer;
+      user-select:   none;
+      flex-shrink:   0;
+      transition:    background 120ms ease, border-color 120ms ease;
+    }
+
+    .search-modal__esc:hover {
+      background:   var(--calm-bg-subtle-hover);
+      border-color: var(--calm-border-normal-default);
+    }
 
     .search-modal__results {
       flex:       1;
@@ -930,8 +974,11 @@
   <!-- Search modal -->
   <div class="search-backdrop" id="search-backdrop"></div>
   <div class="search-modal" id="search-modal" role="dialog" aria-label="Search" aria-modal="true">
-    <input class="search-modal__input" id="search-modal-input" type="search"
-           placeholder="Search..." autocomplete="off" aria-label="Search">
+    <div class="search-modal__input-row">
+      <input class="search-modal__input" id="search-modal-input" type="search"
+             placeholder="Search..." autocomplete="off" aria-label="Search">
+      <kbd class="search-modal__esc" id="search-modal-esc">ESC</kbd>
+    </div>
     <div class="search-modal__results" role="listbox">
       <div class="search-modal__section-label">Recent</div>
       <div class="search-modal__item" role="option">
@@ -1013,9 +1060,12 @@
       searchModalInput.value = '';
     }
 
+    const searchModalEsc = document.getElementById('search-modal-esc');
+
     searchTriggerBtn.addEventListener('click', openSearchModal);
     searchIconBtn.addEventListener('click',    openSearchModal);
     searchBackdrop.addEventListener('click',   closeSearchModal);
+    searchModalEsc.addEventListener('click',   closeSearchModal);
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && searchModal.classList.contains('is-open')) {
