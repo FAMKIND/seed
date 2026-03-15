@@ -364,16 +364,20 @@
     /* ── Center panel ─────────────────────────────────── */
 
     .center-inner {
-      flex:       1;
-      min-height: 0;
-      overflow-y: auto;
-      padding:    var(--seed-space-8);
-      max-width:  720px;
+      flex:           1;
+      min-height:     0;
+      overflow-y:     auto;
+      padding-top:    56px; /* 12px button top + 32px button + 12px gap */
+      padding-right:  var(--seed-space-6);
+      padding-bottom: var(--seed-space-8);
+      padding-left:   var(--seed-space-6);
+      max-width:      720px;
     }
 
-    /* When left panel hidden, pad content clear of the left reveal button */
+    /* When left panel hidden, pad content clear of the left reveal button:
+       12px inset + 32px button + 12px gap = 56px */
     .seed-layout--left-hidden .center-inner {
-      padding-left: 48px;
+      padding-left: 56px;
     }
 
     /* Headings use Lora serif for editorial warmth */
