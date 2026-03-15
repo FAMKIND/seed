@@ -1074,6 +1074,179 @@
 
         </div>
 
+        <!-- ── semantic-colors ───────────────────────── -->
+        <div class="ds-section" data-section="semantic-colors" style="display:none">
+          <style>
+            .sc-group { margin-bottom: var(--seed-space-6); }
+            .sc-group:last-child { margin-bottom: 0; }
+            .sc-group-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-3);
+            }
+            .sc-group-desc {
+              font-size:     var(--seed-text-xs);
+              color:         var(--soil-text-muted);
+              margin-bottom: var(--seed-space-3);
+              opacity:       0.7;
+            }
+            .sc-row {
+              display:   flex;
+              flex-wrap: wrap;
+              gap:       var(--seed-space-3);
+            }
+            .sc-swatch {
+              display:        flex;
+              flex-direction: column;
+              align-items:    center;
+              gap:            var(--seed-space-1);
+            }
+            .sc-block {
+              width:         40px;
+              height:        40px;
+              border-radius: var(--seed-radius-sm);
+              border:        1px solid var(--soil-border-subtle);
+              flex-shrink:   0;
+            }
+            .sc-name {
+              font-size:    var(--seed-text-xs);
+              color:        var(--soil-text-muted);
+              text-align:   center;
+              max-width:    60px;
+              word-break:   break-word;
+              line-height:  var(--seed-leading-snug);
+            }
+            .sc-divider {
+              height:        1px;
+              background:    var(--soil-border-subtle);
+              margin-bottom: var(--seed-space-6);
+            }
+          </style>
+
+          <!-- SOIL -->
+          <div class="sc-group">
+            <p class="sc-group-label">Soil — Neutral ground</p>
+            <div class="sc-row">
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--soil-bg-canvas)"></div><span class="sc-name">bg-canvas</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--soil-bg-surface)"></div><span class="sc-name">bg-surface</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--soil-bg-elevated)"></div><span class="sc-name">bg-elevated</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--soil-text)"></div><span class="sc-name">text</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--soil-text-muted)"></div><span class="sc-name">text-muted</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--soil-text-disabled)"></div><span class="sc-name">text-disabled</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--soil-border)"></div><span class="sc-name">border</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--soil-border-subtle)"></div><span class="sc-name">border-subtle</span></div>
+            </div>
+          </div>
+
+          <div class="sc-divider"></div>
+
+          <!-- CALM -->
+          <div class="sc-group">
+            <p class="sc-group-label">Calm — Neutral, informational, resting</p>
+            <div class="sc-row">
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-bg-subtle-default)"></div><span class="sc-name">bg-subtle default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-bg-subtle-hover)"></div><span class="sc-name">bg-subtle hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-bg-subtle-active)"></div><span class="sc-name">bg-subtle active</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-bg-normal-default)"></div><span class="sc-name">bg-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-bg-normal-hover)"></div><span class="sc-name">bg-normal hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-bg-bold-default)"></div><span class="sc-name">bg-bold default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-bg-bold-hover)"></div><span class="sc-name">bg-bold hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-text-normal-default)"></div><span class="sc-name">text-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-text-bold-default)"></div><span class="sc-name">text-bold default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-border-subtle-default)"></div><span class="sc-name">border-subtle default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-border-normal-default)"></div><span class="sc-name">border-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--calm-border-bold-default)"></div><span class="sc-name">border-bold default</span></div>
+            </div>
+          </div>
+
+          <div class="sc-divider"></div>
+
+          <!-- GOOD -->
+          <div class="sc-group">
+            <p class="sc-group-label">Good — Success, growth, positive</p>
+            <div class="sc-row">
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-bg-subtle-default)"></div><span class="sc-name">bg-subtle default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-bg-subtle-hover)"></div><span class="sc-name">bg-subtle hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-bg-subtle-active)"></div><span class="sc-name">bg-subtle active</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-bg-normal-default)"></div><span class="sc-name">bg-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-bg-normal-hover)"></div><span class="sc-name">bg-normal hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-bg-bold-default)"></div><span class="sc-name">bg-bold default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-bg-bold-hover)"></div><span class="sc-name">bg-bold hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-bg-bold-active)"></div><span class="sc-name">bg-bold active</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-text-normal-default)"></div><span class="sc-name">text-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-text-bold-default)"></div><span class="sc-name">text-bold default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-border-subtle-default)"></div><span class="sc-name">border-subtle default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-border-normal-default)"></div><span class="sc-name">border-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--good-border-bold-default)"></div><span class="sc-name">border-bold default</span></div>
+            </div>
+          </div>
+
+          <div class="sc-divider"></div>
+
+          <!-- WARN -->
+          <div class="sc-group">
+            <p class="sc-group-label">Warn — Caution, attention, energy</p>
+            <div class="sc-row">
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-bg-subtle-default)"></div><span class="sc-name">bg-subtle default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-bg-subtle-hover)"></div><span class="sc-name">bg-subtle hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-bg-subtle-active)"></div><span class="sc-name">bg-subtle active</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-bg-normal-default)"></div><span class="sc-name">bg-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-bg-normal-hover)"></div><span class="sc-name">bg-normal hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-bg-bold-default)"></div><span class="sc-name">bg-bold default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-bg-bold-hover)"></div><span class="sc-name">bg-bold hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-text-normal-default)"></div><span class="sc-name">text-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-text-bold-default)"></div><span class="sc-name">text-bold default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-border-subtle-default)"></div><span class="sc-name">border-subtle default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-border-normal-default)"></div><span class="sc-name">border-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--warn-border-bold-default)"></div><span class="sc-name">border-bold default</span></div>
+            </div>
+          </div>
+
+          <div class="sc-divider"></div>
+
+          <!-- BAD -->
+          <div class="sc-group">
+            <p class="sc-group-label">Bad — Error, destructive, urgent</p>
+            <div class="sc-row">
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-bg-subtle-default)"></div><span class="sc-name">bg-subtle default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-bg-subtle-hover)"></div><span class="sc-name">bg-subtle hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-bg-subtle-active)"></div><span class="sc-name">bg-subtle active</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-bg-normal-default)"></div><span class="sc-name">bg-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-bg-normal-hover)"></div><span class="sc-name">bg-normal hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-bg-bold-default)"></div><span class="sc-name">bg-bold default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-bg-bold-hover)"></div><span class="sc-name">bg-bold hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-bg-bold-active)"></div><span class="sc-name">bg-bold active</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-text-normal-default)"></div><span class="sc-name">text-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-text-bold-default)"></div><span class="sc-name">text-bold default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-border-subtle-default)"></div><span class="sc-name">border-subtle default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-border-normal-default)"></div><span class="sc-name">border-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--bad-border-bold-default)"></div><span class="sc-name">border-bold default</span></div>
+            </div>
+          </div>
+
+          <div class="sc-divider"></div>
+
+          <!-- SELECTED -->
+          <div class="sc-group">
+            <p class="sc-group-label">Selected — Chosen, active, on</p>
+            <div class="sc-row">
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--selected-bg-subtle-default)"></div><span class="sc-name">bg-subtle default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--selected-bg-subtle-hover)"></div><span class="sc-name">bg-subtle hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--selected-bg-subtle-active)"></div><span class="sc-name">bg-subtle active</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--selected-bg-bold-default)"></div><span class="sc-name">bg-bold default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--selected-bg-bold-hover)"></div><span class="sc-name">bg-bold hover</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--selected-bg-bold-active)"></div><span class="sc-name">bg-bold active</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--selected-text-normal-default)"></div><span class="sc-name">text-normal default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--selected-text-bold-default)"></div><span class="sc-name">text-bold default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--selected-border-subtle-default)"></div><span class="sc-name">border-subtle default</span></div>
+              <div class="sc-swatch"><div class="sc-block" style="background:var(--selected-border-bold-default)"></div><span class="sc-name">border-bold default</span></div>
+            </div>
+          </div>
+        </div>
+
         <!-- ── typography ────────────────────────────── -->
         <div class="ds-section" data-section="typography" style="display:none">
           <style>
