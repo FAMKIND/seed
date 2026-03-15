@@ -142,6 +142,33 @@
     z-index:  var(--seed-z-dropdown);
 }
 
+/* Left panel: menu-wrap lives inline in the header row.
+   Dropdown uses position:fixed positioned by JS so it
+   escapes the panel's overflow-x:hidden. */
+.seed-layout__left .seed-layout__menu-wrap {
+    position:    relative;
+    top:         auto;
+    right:       auto;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* Collapsed mode: absolutely position trigger at top-right of icon strip */
+.seed-layout--collapsed-left .seed-layout__left .seed-layout__menu-wrap {
+    position:    absolute;
+    top:         8px;
+    right:       4px;
+    margin-left: 0;
+}
+
+/* Left panel dropdown: position:fixed so it clears overflow bounds.
+   top/left are set by JS at open time. */
+.seed-layout__left .seed-layout__menu {
+    position: fixed;
+    right:    auto;
+    top:      auto;
+}
+
 .seed-layout__menu-trigger {
     display:         flex;
     align-items:     center;
@@ -249,8 +276,8 @@
 .seed-layout__reveal-right {
     display:         none;
     position:        fixed;
-    top:             50%;
-    transform:       translateY(-50%);
+    top:             var(--seed-space-4);
+    transform:       none;
     align-items:     center;
     justify-content: center;
     width:           32px;

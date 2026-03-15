@@ -55,6 +55,8 @@
       letter-spacing: -0.01em;
       white-space:    nowrap;
       overflow:       hidden;
+      flex:           1;
+      min-width:      0;
       max-width:      160px;
       transition:     max-width 200ms ease, opacity 200ms ease;
     }
@@ -469,26 +471,26 @@
     <!-- Left sidebar -->
     <aside class="seed-layout__left" id="left-panel">
 
-      <div class="seed-layout__menu-wrap">
-        <button class="seed-layout__menu-trigger" id="left-menu-btn"
-                aria-label="Left panel options" aria-expanded="false"></button>
-        <div class="seed-layout__menu" id="left-menu" role="menu">
-          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-               id="left-opt-bg"        role="menuitem">Show background</div>
-          <div class="seed-layout__menu-divider"></div>
-          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-               id="left-opt-expanded"  role="menuitem">Expanded</div>
-          <div class="seed-layout__menu-item"
-               id="left-opt-collapsed" role="menuitem">Collapsed</div>
-          <div class="seed-layout__menu-divider"></div>
-          <div class="seed-layout__menu-item seed-layout__menu-item--muted"
-               id="left-opt-hide"      role="menuitem">Hide panel</div>
-        </div>
-      </div>
-
       <div class="left-header">
         <div class="company-avatar">FA</div>
         <span class="company-name">FAM</span>
+
+        <div class="seed-layout__menu-wrap">
+          <button class="seed-layout__menu-trigger" id="left-menu-btn"
+                  aria-label="Left panel options" aria-expanded="false"></button>
+          <div class="seed-layout__menu" id="left-menu" role="menu">
+            <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+                 id="left-opt-bg"        role="menuitem">Show background</div>
+            <div class="seed-layout__menu-divider"></div>
+            <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+                 id="left-opt-expanded"  role="menuitem">Expanded</div>
+            <div class="seed-layout__menu-item"
+                 id="left-opt-collapsed" role="menuitem">Collapsed</div>
+            <div class="seed-layout__menu-divider"></div>
+            <div class="seed-layout__menu-item seed-layout__menu-item--muted"
+                 id="left-opt-hide"      role="menuitem">Hide panel</div>
+          </div>
+        </div>
       </div>
 
       <div class="left-search">
@@ -738,6 +740,13 @@
 
     function openMenu(which) {
       Object.keys(menus).forEach(k => { if (k !== which) closeMenu(k); });
+      // Left panel dropdown uses position:fixed — compute from trigger's screen rect
+      if (which === 'left') {
+        const btn  = document.getElementById('left-menu-btn');
+        const rect = btn.getBoundingClientRect();
+        menus.left.style.top  = rect.top  + 'px';
+        menus.left.style.left = (rect.right + 4) + 'px';
+      }
       menus[which].classList.add('seed-layout__menu--open');
       document.getElementById(which + '-menu-btn').setAttribute('aria-expanded', 'true');
     }
