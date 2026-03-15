@@ -101,6 +101,7 @@
 .seed-layout__right {
     overflow-y: auto;
     overflow-x: hidden;
+    padding:    var(--seed-space-2);
 }
 
 /* Center panel: hard clip so nothing bleeds past the rounded corners.
