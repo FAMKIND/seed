@@ -933,14 +933,145 @@
         <!-- ── color-palette ──────────────────────────── -->
         <div class="ds-section" data-section="color-palette" style="display:none">
           <p class="content-body">
-            Four color families. Soil is the neutral ground. Lime is growth and
-            success. Yellow is energy and caution. Brick is error and urgency.
+            Semantic color tokens — theme-responsive. Every token is live: switch
+            to dark mode and all swatches update automatically.
           </p>
-          <div class="content-divider"></div>
-          <p class="content-body" style="font-family: var(--seed-font-ui); font-size: var(--seed-text-sm); color: var(--soil-text-muted);">
-            Tier 1 raw palette — never reference these directly in components. Use
-            semantic tokens instead (Tier 2).
-          </p>
+
+          <!-- shared swatch styles via a local helper class in inline style -->
+          <style>
+            .ds-swatch-group { margin-bottom: var(--seed-space-6); }
+            .ds-swatch-group__label {
+              font-family: monospace; font-size: 11px;
+              font-weight: var(--seed-weight-semibold);
+              letter-spacing: 0.06em; text-transform: uppercase;
+              color: var(--soil-text-muted);
+              margin-bottom: var(--seed-space-3);
+            }
+            .ds-swatch-row { display: flex; flex-wrap: wrap; gap: var(--seed-space-3); }
+            .ds-swatch {
+              display: flex; flex-direction: column; align-items: center; gap: 4px;
+              width: 52px;
+            }
+            .ds-swatch__block {
+              width: 32px; height: 32px;
+              border-radius: var(--seed-radius-sm);
+              border: 1px solid var(--soil-border-subtle);
+              flex-shrink: 0;
+            }
+            .ds-swatch__name {
+              font-family: monospace; font-size: 9px; line-height: 1.3;
+              color: var(--soil-text-muted); text-align: center;
+              word-break: break-all; max-width: 52px;
+            }
+          </style>
+
+          <!-- soil -->
+          <div class="ds-swatch-group">
+            <div class="ds-swatch-group__label">soil — neutral ground</div>
+            <div class="ds-swatch-row">
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--soil-bg-canvas)"></div><div class="ds-swatch__name">bg-canvas</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--soil-bg-surface)"></div><div class="ds-swatch__name">bg-surface</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--soil-bg-elevated)"></div><div class="ds-swatch__name">bg-elevated</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--soil-text)"></div><div class="ds-swatch__name">text</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--soil-text-muted)"></div><div class="ds-swatch__name">text-muted</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--soil-text-disabled)"></div><div class="ds-swatch__name">text-disabled</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--soil-border)"></div><div class="ds-swatch__name">border</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--soil-border-subtle)"></div><div class="ds-swatch__name">border-subtle</div></div>
+            </div>
+          </div>
+
+          <!-- calm -->
+          <div class="ds-swatch-group">
+            <div class="ds-swatch-group__label">calm — neutral, informational, resting</div>
+            <div class="ds-swatch-row">
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-bg-subtle-default)"></div><div class="ds-swatch__name">bg-subtle-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-bg-subtle-hover)"></div><div class="ds-swatch__name">bg-subtle-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-bg-subtle-active)"></div><div class="ds-swatch__name">bg-subtle-active</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-bg-normal-default)"></div><div class="ds-swatch__name">bg-normal-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-bg-normal-hover)"></div><div class="ds-swatch__name">bg-normal-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-bg-bold-default)"></div><div class="ds-swatch__name">bg-bold-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-bg-bold-hover)"></div><div class="ds-swatch__name">bg-bold-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-text-normal-default)"></div><div class="ds-swatch__name">text-normal</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-text-bold-default)"></div><div class="ds-swatch__name">text-bold</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-border-subtle-default)"></div><div class="ds-swatch__name">border-subtle</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-border-normal-default)"></div><div class="ds-swatch__name">border-normal</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--calm-border-bold-default)"></div><div class="ds-swatch__name">border-bold</div></div>
+            </div>
+          </div>
+
+          <!-- good -->
+          <div class="ds-swatch-group">
+            <div class="ds-swatch-group__label">good — success, growth, positive</div>
+            <div class="ds-swatch-row">
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-bg-subtle-default)"></div><div class="ds-swatch__name">bg-subtle-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-bg-subtle-hover)"></div><div class="ds-swatch__name">bg-subtle-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-bg-subtle-active)"></div><div class="ds-swatch__name">bg-subtle-active</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-bg-normal-default)"></div><div class="ds-swatch__name">bg-normal-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-bg-bold-default)"></div><div class="ds-swatch__name">bg-bold-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-bg-bold-hover)"></div><div class="ds-swatch__name">bg-bold-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-bg-bold-active)"></div><div class="ds-swatch__name">bg-bold-active</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-text-normal-default)"></div><div class="ds-swatch__name">text-normal</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-text-bold-default)"></div><div class="ds-swatch__name">text-bold</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-border-subtle-default)"></div><div class="ds-swatch__name">border-subtle</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-border-normal-default)"></div><div class="ds-swatch__name">border-normal</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--good-border-bold-default)"></div><div class="ds-swatch__name">border-bold</div></div>
+            </div>
+          </div>
+
+          <!-- warn -->
+          <div class="ds-swatch-group">
+            <div class="ds-swatch-group__label">warn — caution, attention, energy</div>
+            <div class="ds-swatch-row">
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-bg-subtle-default)"></div><div class="ds-swatch__name">bg-subtle-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-bg-subtle-hover)"></div><div class="ds-swatch__name">bg-subtle-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-bg-subtle-active)"></div><div class="ds-swatch__name">bg-subtle-active</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-bg-normal-default)"></div><div class="ds-swatch__name">bg-normal-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-bg-bold-default)"></div><div class="ds-swatch__name">bg-bold-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-bg-bold-hover)"></div><div class="ds-swatch__name">bg-bold-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-text-normal-default)"></div><div class="ds-swatch__name">text-normal</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-text-bold-default)"></div><div class="ds-swatch__name">text-bold</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-border-subtle-default)"></div><div class="ds-swatch__name">border-subtle</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-border-normal-default)"></div><div class="ds-swatch__name">border-normal</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--warn-border-bold-default)"></div><div class="ds-swatch__name">border-bold</div></div>
+            </div>
+          </div>
+
+          <!-- bad -->
+          <div class="ds-swatch-group">
+            <div class="ds-swatch-group__label">bad — error, destructive, urgent</div>
+            <div class="ds-swatch-row">
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-bg-subtle-default)"></div><div class="ds-swatch__name">bg-subtle-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-bg-subtle-hover)"></div><div class="ds-swatch__name">bg-subtle-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-bg-subtle-active)"></div><div class="ds-swatch__name">bg-subtle-active</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-bg-normal-default)"></div><div class="ds-swatch__name">bg-normal-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-bg-bold-default)"></div><div class="ds-swatch__name">bg-bold-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-bg-bold-hover)"></div><div class="ds-swatch__name">bg-bold-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-bg-bold-active)"></div><div class="ds-swatch__name">bg-bold-active</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-text-normal-default)"></div><div class="ds-swatch__name">text-normal</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-text-bold-default)"></div><div class="ds-swatch__name">text-bold</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-border-subtle-default)"></div><div class="ds-swatch__name">border-subtle</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-border-normal-default)"></div><div class="ds-swatch__name">border-normal</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--bad-border-bold-default)"></div><div class="ds-swatch__name">border-bold</div></div>
+            </div>
+          </div>
+
+          <!-- selected -->
+          <div class="ds-swatch-group">
+            <div class="ds-swatch-group__label">selected — chosen, active, on</div>
+            <div class="ds-swatch-row">
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--selected-bg-subtle-default)"></div><div class="ds-swatch__name">bg-subtle-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--selected-bg-subtle-hover)"></div><div class="ds-swatch__name">bg-subtle-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--selected-bg-subtle-active)"></div><div class="ds-swatch__name">bg-subtle-active</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--selected-bg-bold-default)"></div><div class="ds-swatch__name">bg-bold-default</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--selected-bg-bold-hover)"></div><div class="ds-swatch__name">bg-bold-hover</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--selected-bg-bold-active)"></div><div class="ds-swatch__name">bg-bold-active</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--selected-text-normal-default)"></div><div class="ds-swatch__name">text-normal</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--selected-text-bold-default)"></div><div class="ds-swatch__name">text-bold</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--selected-border-subtle-default)"></div><div class="ds-swatch__name">border-subtle</div></div>
+              <div class="ds-swatch"><div class="ds-swatch__block" style="background:var(--selected-border-bold-default)"></div><div class="ds-swatch__name">border-bold</div></div>
+            </div>
+          </div>
+
         </div>
 
         <!-- ── buttons ────────────────────────────────── -->
