@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../../components/button/button.css">
   <link rel="stylesheet" href="../../components/badge/badge.css">
   <link rel="stylesheet" href="../../components/card/card.css">
+  <link rel="stylesheet" href="../../components/input/input.css">
   <link rel="stylesheet" href="layout.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1961,6 +1962,178 @@
                 <div class="card-media-placeholder" style="height:80px;border-radius:0">edge to edge</div>
                 <div class="card-flush-inner">Content fills to the card edge. No body padding — great for tables, code blocks, or custom inner layouts.</div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── fields ────────────────────────────────── -->
+        <div class="ds-section" data-section="fields" style="display:none">
+          <style>
+            .field-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-4);
+            }
+            .field-divider {
+              height:        1px;
+              background:    var(--soil-border-subtle);
+              margin-bottom: var(--seed-space-6);
+            }
+            .field-row {
+              display:   flex;
+              flex-wrap: wrap;
+              gap:       var(--seed-space-4);
+              margin-bottom: var(--seed-space-8);
+            }
+            .field-col {
+              flex:      1;
+              min-width: 160px;
+              max-width: 260px;
+            }
+            .field-col-label {
+              font-size:     var(--seed-text-xs);
+              font-weight:   var(--seed-weight-medium);
+              color:         var(--soil-text-muted);
+              margin-bottom: var(--seed-space-3);
+            }
+            .field-form {
+              display:        flex;
+              flex-direction: column;
+              gap:            var(--seed-space-4);
+              max-width:      360px;
+            }
+          </style>
+
+          <!-- States -->
+          <p class="field-section-label">States</p>
+          <div class="field-row">
+            <div class="field-col">
+              <p class="field-col-label">Default</p>
+              <div class="seed-input-group">
+                <label class="seed-label">Email address</label>
+                <input class="seed-input" type="email" placeholder="you@example.com">
+                <p class="seed-input-hint">We'll never share your email.</p>
+              </div>
+            </div>
+            <div class="field-col">
+              <p class="field-col-label">Error</p>
+              <div class="seed-input-group">
+                <label class="seed-label">Email address</label>
+                <input class="seed-input seed-input--error" type="email" value="not-an-email">
+                <p class="seed-input-error">Enter a valid email address.</p>
+              </div>
+            </div>
+            <div class="field-col">
+              <p class="field-col-label">Success</p>
+              <div class="seed-input-group">
+                <label class="seed-label">Email address</label>
+                <input class="seed-input seed-input--success" type="email" value="hello@famkind.com">
+                <p class="seed-input-success">Looks good.</p>
+              </div>
+            </div>
+            <div class="field-col">
+              <p class="field-col-label">Disabled</p>
+              <div class="seed-input-group">
+                <label class="seed-label">Email address</label>
+                <input class="seed-input" type="email" value="locked@famkind.com" disabled>
+                <p class="seed-input-hint">This field cannot be edited.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-divider"></div>
+
+          <!-- Types -->
+          <p class="field-section-label">Types</p>
+          <div class="field-row">
+            <div class="field-col">
+              <p class="field-col-label">Text input</p>
+              <div class="seed-input-group">
+                <label class="seed-label">Project name</label>
+                <input class="seed-input" type="text" placeholder="My project">
+              </div>
+            </div>
+            <div class="field-col">
+              <p class="field-col-label">Select</p>
+              <div class="seed-input-group">
+                <label class="seed-label">Status</label>
+                <select class="seed-input">
+                  <option>Active</option>
+                  <option>Draft</option>
+                  <option>Archived</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-col" style="max-width:340px">
+              <p class="field-col-label">Textarea</p>
+              <div class="seed-input-group">
+                <label class="seed-label">Description</label>
+                <textarea class="seed-input" rows="3" placeholder="Describe your project…"></textarea>
+                <p class="seed-input-hint">Markdown is supported.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-divider"></div>
+
+          <!-- Sizes -->
+          <p class="field-section-label">Sizes</p>
+          <div class="field-row">
+            <div class="field-col">
+              <p class="field-col-label">sm</p>
+              <div class="seed-input-group">
+                <label class="seed-label">Label</label>
+                <input class="seed-input seed-input--sm" type="text" placeholder="Small input">
+              </div>
+            </div>
+            <div class="field-col">
+              <p class="field-col-label">md (default)</p>
+              <div class="seed-input-group">
+                <label class="seed-label">Label</label>
+                <input class="seed-input" type="text" placeholder="Medium input">
+              </div>
+            </div>
+            <div class="field-col">
+              <p class="field-col-label">lg</p>
+              <div class="seed-input-group">
+                <label class="seed-label">Label</label>
+                <input class="seed-input seed-input--lg" type="text" placeholder="Large input">
+              </div>
+            </div>
+          </div>
+
+          <div class="field-divider"></div>
+
+          <!-- Mini form -->
+          <p class="field-section-label">Mini form</p>
+          <div class="field-form">
+            <div class="seed-input-group">
+              <label class="seed-label" for="form-name">Full name</label>
+              <input class="seed-input" type="text" id="form-name" placeholder="Ada Lovelace">
+            </div>
+            <div class="seed-input-group">
+              <label class="seed-label" for="form-email">Email</label>
+              <input class="seed-input" type="email" id="form-email" placeholder="ada@example.com">
+              <p class="seed-input-hint">Used for account notifications only.</p>
+            </div>
+            <div class="seed-input-group">
+              <label class="seed-label" for="form-role">Role</label>
+              <select class="seed-input" id="form-role">
+                <option value="">Select a role…</option>
+                <option>Designer</option>
+                <option>Engineer</option>
+                <option>Product</option>
+              </select>
+            </div>
+            <div class="seed-input-group">
+              <label class="seed-label" for="form-bio">Bio</label>
+              <textarea class="seed-input" id="form-bio" rows="3" placeholder="Tell us a bit about yourself…"></textarea>
+            </div>
+            <div>
+              <button class="seed-button seed-button--primary seed-button--md">Save profile</button>
             </div>
           </div>
         </div>
