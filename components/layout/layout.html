@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="../../components/badge/badge.css">
   <link rel="stylesheet" href="../../components/card/card.css">
   <link rel="stylesheet" href="../../components/input/input.css">
+  <link rel="stylesheet" href="../../components/divider/divider.css">
   <link rel="stylesheet" href="layout.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -2339,6 +2340,109 @@
                         onclick="document.getElementById('modal-danger').classList.remove('is-open')">Cancel</button>
                 <button class="seed-button seed-button--danger seed-button--sm"
                         onclick="document.getElementById('modal-danger').classList.remove('is-open')">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── dividers ──────────────────────────────── -->
+        <div class="ds-section" data-section="dividers" style="display:none">
+          <style>
+            .div-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-4);
+            }
+            .div-gap { margin-bottom: var(--seed-space-8); }
+            .div-row-label {
+              font-size:     var(--seed-text-xs);
+              color:         var(--soil-text-muted);
+              margin-bottom: var(--seed-space-2);
+            }
+            .div-block { margin-bottom: var(--seed-space-6); }
+            .div-block:last-child { margin-bottom: 0; }
+            .div-vert-row {
+              display:     flex;
+              align-items: center;
+              gap:         0;
+              height:      40px;
+            }
+            .div-vert-text {
+              font-size:  var(--seed-text-sm);
+              color:      var(--soil-text-muted);
+              padding:    0 var(--seed-space-3);
+            }
+            .div-card-text {
+              font-size:   var(--seed-text-sm);
+              color:       var(--soil-text-muted);
+              line-height: var(--seed-leading-normal);
+            }
+          </style>
+
+          <!-- Horizontal -->
+          <div class="div-gap">
+            <p class="div-section-label">Horizontal</p>
+
+            <div class="div-block">
+              <p class="div-row-label">Default — <code style="font-size:var(--seed-text-xs)">seed-divider</code></p>
+              <p style="font-size:var(--seed-text-sm);color:var(--soil-text-muted)">Content above the divider</p>
+              <hr class="seed-divider">
+              <p style="font-size:var(--seed-text-sm);color:var(--soil-text-muted)">Content below the divider</p>
+            </div>
+
+            <div class="div-block">
+              <p class="div-row-label">Bold — <code style="font-size:var(--seed-text-xs)">seed-divider--bold</code></p>
+              <p style="font-size:var(--seed-text-sm);color:var(--soil-text-muted)">Content above</p>
+              <hr class="seed-divider seed-divider--bold">
+              <p style="font-size:var(--seed-text-sm);color:var(--soil-text-muted)">Content below</p>
+            </div>
+
+            <div class="div-block">
+              <p class="div-row-label">Spacing variants</p>
+              <p style="font-size:var(--seed-text-xs);color:var(--soil-text-muted);margin-bottom:var(--seed-space-1)">spaced-sm (12px)</p>
+              <hr class="seed-divider seed-divider--spaced-sm">
+              <p style="font-size:var(--seed-text-xs);color:var(--soil-text-muted);margin-bottom:var(--seed-space-1)">default (24px)</p>
+              <hr class="seed-divider">
+              <p style="font-size:var(--seed-text-xs);color:var(--soil-text-muted);margin-bottom:var(--seed-space-1)">spaced-lg (32px)</p>
+              <hr class="seed-divider seed-divider--spaced-lg">
+              <p style="font-size:var(--seed-text-xs);color:var(--soil-text-muted)">flush (0)</p>
+              <hr class="seed-divider seed-divider--flush" style="margin-top:var(--seed-space-1)">
+            </div>
+          </div>
+
+          <!-- Vertical -->
+          <div class="div-gap">
+            <p class="div-section-label">Vertical</p>
+            <p class="div-row-label">Inside a flex row — <code style="font-size:var(--seed-text-xs)">seed-divider--vertical</code></p>
+            <div class="div-vert-row">
+              <span class="div-vert-text">Home</span>
+              <div class="seed-divider seed-divider--vertical"></div>
+              <span class="div-vert-text">About</span>
+              <div class="seed-divider seed-divider--vertical"></div>
+              <span class="div-vert-text">Work</span>
+              <div class="seed-divider seed-divider--vertical"></div>
+              <span class="div-vert-text">Contact</span>
+            </div>
+          </div>
+
+          <!-- Inside a card -->
+          <div class="div-gap">
+            <p class="div-section-label">Inside a card</p>
+            <div class="seed-card" style="max-width:360px">
+              <div class="seed-card__body">
+                <p style="font-size:var(--seed-text-sm);font-weight:var(--seed-weight-semibold);color:var(--soil-text);margin-bottom:var(--seed-space-2)">Section one</p>
+                <p class="div-card-text">Dividers help group related content within a card without needing separate header or footer slots.</p>
+                <hr class="seed-divider">
+                <p style="font-size:var(--seed-text-sm);font-weight:var(--seed-weight-semibold);color:var(--soil-text);margin-bottom:var(--seed-space-2)">Section two</p>
+                <p class="div-card-text">A second block of content, cleanly separated. The divider inherits the card's surface color context.</p>
+                <hr class="seed-divider">
+                <div style="display:flex;gap:var(--seed-space-2)">
+                  <button class="seed-button seed-button--primary seed-button--sm">Confirm</button>
+                  <button class="seed-button seed-button--secondary seed-button--sm">Cancel</button>
+                </div>
               </div>
             </div>
           </div>
