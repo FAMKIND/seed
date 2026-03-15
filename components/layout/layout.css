@@ -99,9 +99,15 @@
    keeping the absolute reveal buttons pinned to the card corners). */
 .seed-layout__left,
 .seed-layout__right {
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding:    var(--seed-space-4);
+    overflow-y:      auto;
+    overflow-x:      hidden;
+    padding:         var(--seed-space-4);
+    scrollbar-width: none;
+}
+
+.seed-layout__left::-webkit-scrollbar,
+.seed-layout__right::-webkit-scrollbar {
+    display: none;
 }
 
 /* Center panel: overflow: hidden clips content at the card boundary and
@@ -117,12 +123,17 @@
    min-height: 0 is required: without it a flex child won't shrink below
    its content height and the overflow-y: auto scroll never activates. */
 .center-inner {
-    flex:       1;
-    min-height: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width:      100%;
-    box-sizing: border-box;
+    flex:            1;
+    min-height:      0;
+    overflow-y:      auto;
+    overflow-x:      hidden;
+    width:           100%;
+    box-sizing:      border-box;
+    scrollbar-width: none;
+}
+
+.center-inner::-webkit-scrollbar {
+    display: none;
 }
 
 .ds-section {
