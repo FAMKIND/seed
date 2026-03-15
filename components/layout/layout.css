@@ -299,8 +299,8 @@
                      box-shadow 120ms ease;
 }
 
-.seed-layout__reveal-left  { left:  var(--seed-space-4); }
-.seed-layout__reveal-right { right: var(--seed-space-4); }
+.seed-layout__reveal-left  { left:  8px; }
+.seed-layout__reveal-right { right: 8px; }
 
 .seed-layout__reveal-left:hover,
 .seed-layout__reveal-right:hover {
