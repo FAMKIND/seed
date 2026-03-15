@@ -124,14 +124,15 @@
       flex:       1;
       padding:    var(--seed-space-1) 0;
       align-self: stretch;
+      overflow-y: auto;
     }
 
     .nav-item {
       position:      relative;
       display:       flex;
       align-items:   center;
-      gap:           var(--seed-space-2);
-      padding:       6px var(--seed-space-2);
+      gap:           4px;
+      padding:       4px var(--seed-space-2);
       margin:        0 var(--seed-space-2);
       border-radius: var(--seed-radius-md);
       font-size:     var(--seed-text-sm);
@@ -141,6 +142,9 @@
       transition:    background 120ms ease, color 120ms ease;
     }
 
+    /* Children indented 20px deeper than top-level */
+    .nav-children .nav-item { padding-left: 28px; }
+
     .nav-item:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
 
     .nav-item--active {
@@ -149,12 +153,137 @@
       font-weight: var(--seed-weight-medium);
     }
 
+    /* Children container */
+    .nav-children { display: block; }
+
+    /* ── Expand arrow ─────────────────────────────────── */
+
+    .nav-item__arrow {
+      min-width:       12px;
+      width:           12px;
+      height:          16px;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      flex-shrink:     0;
+      font-size:       9px;
+      color:           var(--soil-text-muted);
+      opacity:         0;  /* invisible placeholder for leaves */
+    }
+
+    .nav-item__arrow::before {
+      content:    '▸';
+      display:    block;
+      transition: transform 150ms ease;
+    }
+
+    /* Show on parent items when hovered or expanded */
+    .nav-item--has-children:hover > .nav-item__arrow,
+    .nav-item--has-children.nav-item--expanded > .nav-item__arrow { opacity: 1; }
+
+    .nav-item--expanded > .nav-item__arrow::before { transform: rotate(90deg); }
+
+    /* ── Emoji icon wrapper ────────────────────────────── */
+
+    .nav-item__icon {
+      width:           24px;
+      height:          24px;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      border-radius:   var(--seed-radius-sm);
+      font-size:       14px;
+      flex-shrink:     0;
+      position:        relative;
+      line-height:     1;
+      transition:      background 120ms ease;
+    }
+
+    .nav-item__icon:hover { background: var(--calm-bg-subtle-hover); }
+
+    /* Tiny dropdown hint on icon hover — suggests icon is swappable */
+    .nav-item__icon::after {
+      content:        '▾';
+      position:       absolute;
+      bottom:         0;
+      right:          0;
+      font-size:      7px;
+      color:          var(--soil-text-disabled);
+      opacity:        0;
+      line-height:    1;
+      pointer-events: none;
+      transition:     opacity 120ms ease;
+    }
+
+    .nav-item__icon:hover::after { opacity: 1; }
+
+    /* Muted + icon for "Add new" items */
+    .nav-item__icon--muted {
+      color:     var(--soil-text-muted);
+      font-size: 12px;
+    }
+
+    /* ── Label ────────────────────────────────────────── */
+
     .nav-label {
-      max-width:   160px;
+      flex:        1;
+      min-width:   0;
       overflow:    hidden;
       white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width:   160px;
       transition:  max-width 200ms ease, opacity 200ms ease;
     }
+
+    /* ── Right action buttons (more / add) ────────────── */
+
+    .nav-item__more,
+    .nav-item__add {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      width:           20px;
+      height:          20px;
+      padding:         0;
+      border:          none;
+      background:      transparent;
+      border-radius:   var(--seed-radius-sm);
+      cursor:          pointer;
+      color:           var(--soil-text-muted);
+      flex-shrink:     0;
+      font-size:       13px;
+      opacity:         0;
+      transition:      opacity 100ms ease, background 120ms ease, color 120ms ease;
+    }
+
+    .nav-item:hover .nav-item__more,
+    .nav-item:hover .nav-item__add  { opacity: 1; }
+
+    .nav-item__more:hover,
+    .nav-item__add:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* Three-dot via CSS box-shadow (matches layout.css menu trigger style) */
+    .nav-item__more::before {
+      content:       '';
+      display:       block;
+      width:         3px;
+      height:        3px;
+      border-radius: 50%;
+      background:    currentColor;
+      box-shadow:    5px 0 0 currentColor, -5px 0 0 currentColor;
+      flex-shrink:   0;
+    }
+
+    /* Add new row styling */
+    .nav-item--add-new {
+      font-size: var(--seed-text-xs);
+      color:     var(--soil-text-muted);
+    }
+
+    .nav-item--add-new:hover { color: var(--soil-text); }
 
     /* Tooltip in collapsed mode */
     .nav-item::after {
@@ -270,7 +399,11 @@
     .seed-layout--collapsed-left .search-trigger-text { max-width: 0; opacity: 0; }
     .seed-layout--collapsed-left .search-icon-btn { display: flex; }
     .seed-layout--collapsed-left .left-search  { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
-    .seed-layout--collapsed-left .nav-item     { justify-content: center; }
+    .seed-layout--collapsed-left .nav-item     { justify-content: center; padding-left: 0; padding-right: 0; }
+    .seed-layout--collapsed-left .nav-item__arrow,
+    .seed-layout--collapsed-left .nav-item__more,
+    .seed-layout--collapsed-left .nav-item__add { display: none; }
+    .seed-layout--collapsed-left .nav-children  { display: none; }
     .seed-layout--collapsed-left .left-header  { justify-content: center; }
     .seed-layout--collapsed-left .left-footer  { justify-content: center; }
 
@@ -279,7 +412,9 @@
       .search-trigger { max-width: 0; opacity: 0; padding: 0; border-width: 0; pointer-events: none; }
       .search-icon-btn { display: flex; }
       .left-search  { justify-content: center; padding-left: var(--seed-space-1); padding-right: var(--seed-space-1); }
-      .nav-item     { justify-content: center; }
+      .nav-item     { justify-content: center; padding-left: 0; padding-right: 0; }
+      .nav-item__arrow, .nav-item__more, .nav-item__add { display: none; }
+      .nav-children { display: none; }
       .left-header  { justify-content: center; }
       .left-footer  { justify-content: center; }
 
@@ -297,7 +432,12 @@
       .seed-layout--mobile-open .search-trigger-text { max-width: 160px; opacity: 1; }
       .seed-layout--mobile-open .search-icon-btn { display: none; }
       .seed-layout--mobile-open .left-search  { justify-content: flex-start; padding-left: var(--seed-space-4); padding-right: var(--seed-space-4); }
-      .seed-layout--mobile-open .nav-item     { justify-content: flex-start; }
+      .seed-layout--mobile-open .nav-item     { justify-content: flex-start; padding-left: var(--seed-space-2); padding-right: var(--seed-space-2); }
+      .seed-layout--mobile-open .nav-children .nav-item { padding-left: 28px; }
+      .seed-layout--mobile-open .nav-item__arrow,
+      .seed-layout--mobile-open .nav-item__more,
+      .seed-layout--mobile-open .nav-item__add { display: flex; }
+      .seed-layout--mobile-open .nav-children  { display: block; }
       .seed-layout--mobile-open .left-header  { justify-content: flex-start; }
       .seed-layout--mobile-open .left-footer  { justify-content: flex-start; }
     }
@@ -558,26 +698,103 @@
       </div>
 
       <nav class="left-nav" aria-label="Main navigation">
+
+        <!-- Home (leaf) -->
         <div class="nav-item nav-item--active" data-label="Home" role="button" tabindex="0">
-          <span class="seed-icon" aria-hidden="true">🏠</span>
+          <span class="nav-item__arrow" aria-hidden="true"></span>
+          <span class="nav-item__icon">🏠</span>
           <span class="nav-label">Home</span>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
         </div>
+
+        <!-- Messages (leaf) -->
         <div class="nav-item" data-label="Messages" role="button" tabindex="0">
-          <span class="seed-icon" aria-hidden="true">💬</span>
+          <span class="nav-item__arrow" aria-hidden="true"></span>
+          <span class="nav-item__icon">💬</span>
           <span class="nav-label">Messages</span>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
         </div>
-        <div class="nav-item" data-label="Projects" role="button" tabindex="0">
-          <span class="seed-icon" aria-hidden="true">📐</span>
+
+        <!-- Projects (expandable, starts expanded) -->
+        <div class="nav-item nav-item--has-children nav-item--expanded"
+             data-label="Projects" data-children="nav-projects" role="button" tabindex="0">
+          <span class="nav-item__arrow" aria-hidden="true"></span>
+          <span class="nav-item__icon">📐</span>
           <span class="nav-label">Projects</span>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
         </div>
-        <div class="nav-item" data-label="Files" role="button" tabindex="0">
-          <span class="seed-icon" aria-hidden="true">📁</span>
+        <div class="nav-children" id="nav-projects">
+          <div class="nav-item" data-label="Seed" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🌱</span>
+            <span class="nav-label">Seed</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
+          </div>
+          <div class="nav-item" data-label="Lime" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🍋</span>
+            <span class="nav-label">Lime</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
+          </div>
+          <div class="nav-item" data-label="Notes" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">📝</span>
+            <span class="nav-label">Notes</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
+          </div>
+          <div class="nav-item nav-item--add-new" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon nav-item__icon--muted" aria-hidden="true">+</span>
+            <span class="nav-label">Add new</span>
+          </div>
+        </div>
+
+        <!-- Files (expandable, starts expanded) -->
+        <div class="nav-item nav-item--has-children nav-item--expanded"
+             data-label="Files" data-children="nav-files" role="button" tabindex="0">
+          <span class="nav-item__arrow" aria-hidden="true"></span>
+          <span class="nav-item__icon">📁</span>
           <span class="nav-label">Files</span>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
         </div>
+        <div class="nav-children" id="nav-files">
+          <div class="nav-item" data-label="Design" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">🎨</span>
+            <span class="nav-label">Design</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
+          </div>
+          <div class="nav-item" data-label="Docs" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">📄</span>
+            <span class="nav-label">Docs</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
+          </div>
+          <div class="nav-item nav-item--add-new" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon nav-item__icon--muted" aria-hidden="true">+</span>
+            <span class="nav-label">Add new</span>
+          </div>
+        </div>
+
+        <!-- Settings (leaf) -->
         <div class="nav-item" data-label="Settings" role="button" tabindex="0">
-          <span class="seed-icon" aria-hidden="true">⚙️</span>
+          <span class="nav-item__arrow" aria-hidden="true"></span>
+          <span class="nav-item__icon">⚙️</span>
           <span class="nav-label">Settings</span>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          <button class="nav-item__add"  tabindex="-1" aria-label="Add">+</button>
         </div>
+
       </nav>
 
       <div class="left-footer">
@@ -805,6 +1022,37 @@
         closeSearchModal();
       }
     });
+
+    // ── Nav tree ───────────────────────────────────────────
+    // Expand/collapse folder items
+    document.querySelectorAll('.nav-item--has-children').forEach(item => {
+      const childrenId = item.dataset.children;
+
+      function toggleExpand(e) {
+        // Don't toggle when clicking action buttons
+        if (e.target.closest('.nav-item__more, .nav-item__add')) return;
+        e.stopPropagation();
+        const expanded = item.classList.toggle('nav-item--expanded');
+        const children = document.getElementById(childrenId);
+        if (children) children.style.display = expanded ? 'block' : 'none';
+      }
+
+      // Arrow click or row double-click
+      const arrow = item.querySelector('.nav-item__arrow');
+      if (arrow) arrow.addEventListener('click', toggleExpand);
+      item.addEventListener('dblclick', toggleExpand);
+    });
+
+    // Set active item on click (leaf items and add-new excluded from active)
+    document.querySelectorAll('.left-nav .nav-item:not(.nav-item--has-children):not(.nav-item--add-new)')
+      .forEach(item => {
+        item.addEventListener('click', (e) => {
+          if (e.target.closest('.nav-item__more, .nav-item__add')) return;
+          document.querySelectorAll('.left-nav .nav-item--active')
+            .forEach(el => el.classList.remove('nav-item--active'));
+          item.classList.add('nav-item--active');
+        });
+      });
 
     // ── Free-form panel resize ─────────────────────────────
     function initResize(handleEl, side) {
