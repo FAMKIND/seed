@@ -233,100 +233,99 @@
 
 
 /* ─────────────────────────────────────────────────────
-   CHEVRON REVEAL BUTTONS
-   Circle buttons at viewport edges. Appear when a panel
-   is hidden. > on left edge, < on right edge.
+   REVEAL BUTTONS
+   Fixed 36px circles at the top corners of the viewport.
+   Appear when a panel is hidden. Live inside .seed-layout
+   so CSS descendant selectors work correctly.
+   Left: hamburger icon — restores/opens left panel.
+   Right: chevron ">" — restores right panel.
 ───────────────────────────────────────────────────── */
 
 .seed-layout__reveal-left,
 .seed-layout__reveal-right {
     display:         none;
     position:        fixed;
-    top:             50%;
-    transform:       translateY(-50%);
+    top:             var(--seed-space-4);
     align-items:     center;
     justify-content: center;
-    width:           28px;
-    height:          28px;
+    width:           36px;
+    height:          36px;
     padding:         0;
     border:          1px solid var(--soil-border-subtle);
     border-radius:   50%;
     background:      var(--soil-bg-surface);
     box-shadow:      var(--seed-shadow-sm);
     cursor:          pointer;
+    color:           var(--soil-text-muted);
     z-index:         var(--seed-z-sticky);
-    transition:      background 120ms ease;
+    transition:      background 120ms ease, color 120ms ease;
 }
 
-.seed-layout__reveal-left  { left:  8px; }
-.seed-layout__reveal-right { right: 8px; }
+.seed-layout__reveal-left  { left:  var(--seed-space-4); }
+.seed-layout__reveal-right { right: var(--seed-space-4); }
 
 .seed-layout__reveal-left:hover,
 .seed-layout__reveal-right:hover {
     background: var(--calm-bg-subtle-hover);
-}
-
-.seed-layout__reveal-left::before,
-.seed-layout__reveal-right::before {
-    content:      '';
-    position:     absolute;
-    top:          50%;
-    width:        7px;
-    height:       7px;
-    border-top:   1.5px solid var(--soil-text-muted);
-    border-right: 1.5px solid var(--soil-text-muted);
-}
-
-.seed-layout__reveal-left::before  { left:  50%; transform: translate(-70%, -50%) rotate(45deg);  }
-.seed-layout__reveal-right::before { left:  50%; transform: translate(-30%, -50%) rotate(225deg); }
-
-.seed-layout__reveal-left:hover::before,
-.seed-layout__reveal-right:hover::before { border-color: var(--soil-text); }
-
-.seed-layout--left-hidden  .seed-layout__reveal-left  { display: flex; }
-.seed-layout--right-hidden .seed-layout__reveal-right { display: flex; }
-
-
-/* ─────────────────────────────────────────────────────
-   HAMBURGER TRIGGER
-   Shown when left panel is fully hidden on mobile.
-───────────────────────────────────────────────────── */
-
-.seed-layout__hamburger {
-    display:         none;
-    position:        fixed;
-    top:             12px;
-    left:            12px;
-    align-items:     center;
-    justify-content: center;
-    width:           32px;
-    height:          32px;
-    padding:         0;
-    border:          1px solid var(--soil-border-subtle);
-    background:      var(--soil-bg-surface);
-    border-radius:   var(--seed-radius-md);
-    cursor:          pointer;
-    color:           var(--soil-text-muted);
-    z-index:         var(--seed-z-overlay);
-    box-shadow:      var(--seed-shadow-sm);
-    transition:      background 120ms ease, color 120ms ease;
-}
-
-.seed-layout__hamburger:hover {
-    background: var(--calm-bg-subtle-hover);
     color:      var(--soil-text);
 }
 
-.seed-layout__hamburger::before {
+/* Left: three-line hamburger */
+.seed-layout__reveal-left::before {
     content:    '';
     display:    block;
     width:      16px;
     height:     2px;
     background: currentColor;
     box-shadow: 0 -5px 0 currentColor, 0 5px 0 currentColor;
+    flex-shrink: 0;
 }
 
-.seed-layout--left-hidden .seed-layout__hamburger { display: flex; }
+/* Right: chevron pointing right ">" */
+.seed-layout__reveal-right::before {
+    content:      '';
+    position:     absolute;
+    top:          50%;
+    left:         50%;
+    width:        7px;
+    height:       7px;
+    border-top:   1.5px solid currentColor;
+    border-right: 1.5px solid currentColor;
+    transform:    translate(-70%, -50%) rotate(45deg);
+}
+
+.seed-layout--left-hidden  .seed-layout__reveal-left  { display: flex; }
+.seed-layout--right-hidden .seed-layout__reveal-right { display: flex; }
+
+
+/* ─────────────────────────────────────────────────────
+   MOBILE OVERLAY BACKDROP
+   Semi-transparent scrim shown behind the left panel
+   when it opens as an overlay at ≤ 480px.
+───────────────────────────────────────────────────── */
+
+.seed-layout__backdrop {
+    display:    none;
+    position:   fixed;
+    inset:      0;
+    background: rgba(19, 27, 23, 0.3);
+    z-index:    calc(var(--seed-z-overlay) - 1);
+    cursor:     default;
+}
+
+.seed-layout--mobile-open .seed-layout__backdrop { display: block; }
+
+
+/* ─────────────────────────────────────────────────────
+   PANEL BACKGROUND TOGGLE
+   .seed-layout__panel--no-bg: transparent panel.
+   Shadow is coupled to background — hidden together.
+───────────────────────────────────────────────────── */
+
+.seed-layout__panel--no-bg {
+    background: transparent !important;
+    box-shadow: none !important;
+}
 
 
 /* ─────────────────────────────────────────────────────
@@ -362,7 +361,7 @@
    breakpoints where user resize is not meaningful.
    ≤ 1024px  right panel hides
    ≤  768px  left collapses to icon strip
-   ≤  480px  left fully hidden, hamburger shows
+   ≤  480px  left fully hidden, reveal button always shown
 ───────────────────────────────────────────────────── */
 
 @media (max-width: 1024px) {
@@ -380,5 +379,17 @@
     .seed-layout { grid-template-columns: 1fr !important; }
     .seed-layout__left               { display: none; }
     .seed-layout__handle--left       { display: none; }
-    .seed-layout__hamburger          { display: flex; }
+    /* Always show left reveal on mobile — CSS hides the panel, not the --left-hidden class */
+    .seed-layout__reveal-left        { display: flex !important; }
+
+    /* Left panel slides in as a fixed overlay when triggered */
+    .seed-layout--mobile-open .seed-layout__left {
+        display:  flex;
+        position: fixed;
+        top:      var(--seed-space-4);
+        left:     var(--seed-space-4);
+        bottom:   var(--seed-space-4);
+        width:    280px;
+        z-index:  var(--seed-z-overlay);
+    }
 }

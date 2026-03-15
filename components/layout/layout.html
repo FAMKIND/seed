@@ -451,12 +451,16 @@
 </head>
 <body>
 
-  <!-- Hamburger — shown when left panel is fully hidden on mobile -->
-  <button class="seed-layout__hamburger" id="hamburger"
-          aria-label="Open sidebar"></button>
-
   <!-- Three-panel layout — fills full viewport with 16px breathing room -->
   <div class="seed-layout" id="layout">
+
+    <!-- Backdrop: mobile overlay scrim, closes left panel on tap -->
+    <div class="seed-layout__backdrop" id="backdrop"></div>
+
+    <!-- Reveal buttons: siblings inside .seed-layout so descendant selectors work.
+         Position: fixed so they escape the grid visually. -->
+    <button class="seed-layout__reveal-left"  id="reveal-left"  aria-label="Show left panel"></button>
+    <button class="seed-layout__reveal-right" id="reveal-right" aria-label="Show right panel"></button>
 
     <!-- Resize handles: absolutely positioned on column gaps -->
     <div class="seed-layout__handle seed-layout__handle--left"  id="left-handle"  aria-hidden="true"></div>
@@ -469,6 +473,9 @@
         <button class="seed-layout__menu-trigger" id="left-menu-btn"
                 aria-label="Left panel options" aria-expanded="false"></button>
         <div class="seed-layout__menu" id="left-menu" role="menu">
+          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+               id="left-opt-bg"        role="menuitem">Show background</div>
+          <div class="seed-layout__menu-divider"></div>
           <div class="seed-layout__menu-item seed-layout__menu-item--checked"
                id="left-opt-expanded"  role="menuitem">Expanded</div>
           <div class="seed-layout__menu-item"
@@ -532,8 +539,8 @@
         <button class="seed-layout__menu-trigger" id="center-menu-btn"
                 aria-label="Center panel options" aria-expanded="false"></button>
         <div class="seed-layout__menu" id="center-menu" role="menu">
-          <div class="seed-layout__menu-item seed-layout__menu-item--muted"
-               id="center-opt-hide" role="menuitem">Hide panel</div>
+          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+               id="center-opt-bg" role="menuitem">Show background</div>
         </div>
       </div>
 
@@ -571,6 +578,9 @@
         <button class="seed-layout__menu-trigger" id="right-menu-btn"
                 aria-label="Right panel options" aria-expanded="false"></button>
         <div class="seed-layout__menu" id="right-menu" role="menu">
+          <div class="seed-layout__menu-item seed-layout__menu-item--checked"
+               id="right-opt-bg" role="menuitem">Show background</div>
+          <div class="seed-layout__menu-divider"></div>
           <div class="seed-layout__menu-item seed-layout__menu-item--muted"
                id="right-opt-hide" role="menuitem">Hide panel</div>
         </div>
@@ -622,11 +632,6 @@
 
   </div><!-- .seed-layout -->
 
-  <!-- Chevron reveal buttons — outside grid, position: fixed -->
-  <button class="seed-layout__reveal-left"  id="reveal-left"  aria-label="Show left panel"></button>
-  <button class="seed-layout__reveal-right" id="reveal-right" aria-label="Show right panel"></button>
-
-
   <script>
     const layout      = document.getElementById('layout');
     const leftPanel   = document.getElementById('left-panel');
@@ -634,7 +639,7 @@
     const rightPanel  = document.getElementById('right-panel');
     const leftHandle  = document.getElementById('left-handle');
     const rightHandle = document.getElementById('right-handle');
-    const hamburger   = document.getElementById('hamburger');
+    const backdrop    = document.getElementById('backdrop');
     const revealLeft  = document.getElementById('reveal-left');
     const revealRight = document.getElementById('reveal-right');
     const themeBtn    = document.getElementById('theme-btn');
@@ -714,9 +719,9 @@
     // Clear JS overrides at breakpoints so CSS media queries take over
     window.addEventListener('resize', () => {
       const w = window.innerWidth;
-      if (w <= 480) { removeProp('--left-width'); }
-      else if (w <= 768) { removeProp('--left-width'); }
+      if (w <= 768) { removeProp('--left-width'); }
       if (w <= 1024) { removeProp('--right-width'); }
+      if (w > 480) { layout.classList.remove('seed-layout--mobile-open'); }
     });
 
     // ── Panel menus ────────────────────────────────────────
@@ -758,6 +763,23 @@
       });
     }
 
+    // ── Panel background toggle ────────────────────────────
+    function toggleBg(panel, optId) {
+      panel.classList.toggle('seed-layout__panel--no-bg');
+      const hasBg = !panel.classList.contains('seed-layout__panel--no-bg');
+      document.getElementById(optId).classList.toggle('seed-layout__menu-item--checked', hasBg);
+    }
+
+    document.getElementById('left-opt-bg').addEventListener('click', () => {
+      toggleBg(leftPanel, 'left-opt-bg'); closeMenu('left');
+    });
+    document.getElementById('center-opt-bg').addEventListener('click', () => {
+      toggleBg(centerPanel, 'center-opt-bg'); closeMenu('center');
+    });
+    document.getElementById('right-opt-bg').addEventListener('click', () => {
+      toggleBg(rightPanel, 'right-opt-bg'); closeMenu('right');
+    });
+
     // ── Left panel ─────────────────────────────────────────
     function setLeftCollapse(state) {
       const collapsed = state === 'collapsed';
@@ -784,15 +806,21 @@
     document.getElementById('left-opt-collapsed').addEventListener('click', () => setLeftCollapse('collapsed'));
     document.getElementById('left-opt-hide').addEventListener('click',      hideLeft);
 
-    hamburger.addEventListener('click',       restoreLeft);
-    revealLeft.addEventListener('click',      restoreLeft);
-    searchExpandBtn.addEventListener('click', () => setLeftCollapse('expanded'));
-
-    // ── Center panel ───────────────────────────────────────
-    document.getElementById('center-opt-hide').addEventListener('click', () => {
-      // Center hiding is unusual but wired up for completeness
-      closeMenu('center');
+    // Reveal left: on mobile opens as overlay; on desktop restores panel
+    revealLeft.addEventListener('click', () => {
+      if (window.innerWidth <= 480) {
+        layout.classList.add('seed-layout--mobile-open');
+      } else {
+        restoreLeft();
+      }
     });
+
+    // Mobile backdrop closes overlay
+    backdrop.addEventListener('click', () => {
+      layout.classList.remove('seed-layout--mobile-open');
+    });
+
+    searchExpandBtn.addEventListener('click', () => setLeftCollapse('expanded'));
 
     // ── Right panel ────────────────────────────────────────
     function hideRight() {
