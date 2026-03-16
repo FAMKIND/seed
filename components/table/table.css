@@ -1,0 +1,328 @@
+/* ═══════════════════════════════════════════════════════
+   SEED TABLE
+   Requires: tokens/tokens.css
+   Usage:    <div class="seed-table__wrapper">
+               <table class="seed-table">
+                 <thead>...</thead>
+                 <tbody>...</tbody>
+               </table>
+             </div>
+
+   Variants: seed-table--striped, seed-table--borderless
+   Sizes:    seed-table--sm, seed-table--lg
+   All values from Seed tokens. Dark mode automatic.
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   WRAPPER — scrollable card container
+   overflow-x: auto handles narrow screens gracefully.
+───────────────────────────────────────────────────── */
+
+.seed-table__wrapper {
+    overflow-x:    auto;
+    border-radius: var(--seed-radius-lg);
+    border:        1px solid var(--soil-border-subtle);
+    background:    var(--soil-bg-surface);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   BASE TABLE
+───────────────────────────────────────────────────── */
+
+.seed-table {
+    width:           100%;
+    border-collapse: separate;
+    border-spacing:  0;
+    font-family:     var(--seed-font-ui);
+    font-size:       var(--seed-text-sm);
+    color:           var(--soil-text);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   HEADER ROW
+   sticky so it remains visible when the wrapper scrolls.
+───────────────────────────────────────────────────── */
+
+.seed-table thead th {
+    padding:        var(--seed-space-2) var(--seed-space-4);
+    text-align:     left;
+    font-weight:    var(--seed-weight-medium);
+    font-size:      var(--seed-text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color:          var(--soil-text-muted);
+    background:     var(--calm-bg-subtle-default);
+    border-bottom:  1px solid var(--soil-border-subtle);
+    white-space:    nowrap;
+    user-select:    none;
+    position:       sticky;
+    top:            0;
+    z-index:        1;
+}
+
+/* Match wrapper's border-radius on the outer header corners */
+.seed-table thead th:first-child { border-top-left-radius:  var(--seed-radius-lg); }
+.seed-table thead th:last-child  { border-top-right-radius: var(--seed-radius-lg); }
+
+
+/* ─────────────────────────────────────────────────────
+   BODY ROWS
+───────────────────────────────────────────────────── */
+
+.seed-table tbody tr {
+    transition: background 80ms ease;
+}
+
+.seed-table tbody td {
+    padding:        var(--seed-space-2) var(--seed-space-4);
+    border-bottom:  1px solid var(--soil-border-subtle);
+    vertical-align: middle;
+}
+
+/* No trailing hairline below the last row */
+.seed-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.seed-table tbody tr:hover td {
+    background: var(--calm-bg-subtle-hover);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SELECTED ROW
+───────────────────────────────────────────────────── */
+
+.seed-table tbody tr.seed-table__row--selected td {
+    background: var(--good-bg-subtle-default);
+}
+
+.seed-table tbody tr.seed-table__row--selected:hover td {
+    background: var(--good-bg-subtle-hover);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   CHECKBOX COLUMN
+───────────────────────────────────────────────────── */
+
+.seed-table th.seed-table__col--check,
+.seed-table td.seed-table__col--check {
+    width:      40px;
+    text-align: center;
+    padding:    var(--seed-space-2);
+}
+
+.seed-table__check {
+    -webkit-appearance: none;
+    appearance:         none;
+    display:            inline-block;
+    width:              16px;
+    height:             16px;
+    border:             1.5px solid var(--calm-border-normal-default);
+    border-radius:      var(--seed-radius-sm);
+    background:         var(--soil-bg-elevated);
+    cursor:             pointer;
+    vertical-align:     middle;
+    position:           relative;
+    flex-shrink:        0;
+    transition:         background 120ms ease, border-color 120ms ease;
+}
+
+.seed-table__check:hover {
+    border-color: var(--calm-border-bold-default);
+}
+
+.seed-table__check:checked {
+    background:   var(--selected-bg-bold-default);
+    border-color: var(--selected-border-bold-default);
+}
+
+.seed-table__check:checked::after {
+    content:      '';
+    position:     absolute;
+    left:         4px;
+    top:          1px;
+    width:        4px;
+    height:       8px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform:    rotate(45deg);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   CELL TYPES
+───────────────────────────────────────────────────── */
+
+/* Avatar + name */
+.seed-table__cell--avatar {
+    display:     flex;
+    align-items: center;
+    gap:         var(--seed-space-2);
+}
+
+.seed-table__avatar {
+    width:           28px;
+    height:          28px;
+    border-radius:   50%;
+    background:      var(--calm-bg-subtle-default);
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    font-size:       var(--seed-text-xs);
+    font-weight:     var(--seed-weight-medium);
+    color:           var(--soil-text-muted);
+    flex-shrink:     0;
+}
+
+.seed-table__cell--avatar .seed-table__name {
+    font-weight: var(--seed-weight-medium);
+    color:       var(--soil-text);
+}
+
+/* Muted text — email, dates, secondary metadata */
+.seed-table__cell--muted {
+    color:     var(--soil-text-muted);
+    font-size: var(--seed-text-xs);
+}
+
+/* Numeric — right-aligned with tabular figures */
+.seed-table__cell--number {
+    font-variant-numeric: tabular-nums;
+    text-align:           right;
+}
+
+/* Actions — hidden until row hover */
+.seed-table__cell--actions {
+    text-align: right;
+}
+
+.seed-table__action-btn {
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    width:           28px;
+    height:          28px;
+    padding:         0;
+    border:          none;
+    background:      transparent;
+    border-radius:   var(--seed-radius-sm);
+    cursor:          pointer;
+    color:           var(--soil-text-muted);
+    opacity:         0;
+    transition:      background 120ms ease, color 120ms ease,
+                     opacity 120ms ease;
+}
+
+.seed-table tbody tr:hover .seed-table__action-btn {
+    opacity: 1;
+}
+
+.seed-table__action-btn:hover {
+    background: var(--calm-bg-subtle-hover);
+    color:      var(--soil-text);
+}
+
+/* Three-dot icon drawn with box-shadow */
+.seed-table__action-btn::before {
+    content:       '';
+    display:       block;
+    width:         3px;
+    height:        3px;
+    border-radius: 50%;
+    background:    currentColor;
+    box-shadow:    -6px 0 0 currentColor, 6px 0 0 currentColor;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SORTABLE HEADERS
+   Visual-only sort indicator. JS toggles --asc / --desc
+   classes on the .seed-table__sortable element.
+───────────────────────────────────────────────────── */
+
+.seed-table__sortable {
+    cursor:      pointer;
+    display:     inline-flex;
+    align-items: center;
+    gap:         4px;
+}
+
+.seed-table__sortable:hover {
+    color: var(--soil-text);
+}
+
+/* Up-triangle drawn with CSS borders */
+.seed-table__sort-icon {
+    display:      inline-block;
+    width:        0;
+    height:       0;
+    border-left:  4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 5px solid currentColor;
+    opacity:      0.25;
+    transition:   opacity 120ms ease, transform 120ms ease;
+}
+
+.seed-table__sortable:hover .seed-table__sort-icon {
+    opacity: 0.5;
+}
+
+.seed-table__sortable--asc .seed-table__sort-icon {
+    opacity:   1;
+    transform: rotate(0deg);
+}
+
+.seed-table__sortable--desc .seed-table__sort-icon {
+    opacity:   1;
+    transform: rotate(180deg);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SIZES
+───────────────────────────────────────────────────── */
+
+.seed-table--sm thead th,
+.seed-table--sm tbody td {
+    padding:   var(--seed-space-1) var(--seed-space-3);
+    font-size: var(--seed-text-xs);
+}
+
+.seed-table--lg thead th,
+.seed-table--lg tbody td {
+    padding:   var(--seed-space-3) var(--seed-space-4);
+    font-size: var(--seed-text-base);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   STRIPED VARIANT
+───────────────────────────────────────────────────── */
+
+.seed-table--striped tbody tr:nth-child(even) td {
+    background: var(--calm-bg-subtle-default);
+}
+
+.seed-table--striped tbody tr:nth-child(even):hover td {
+    background: var(--calm-bg-subtle-hover);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   BORDERLESS VARIANT
+   Apply seed-table--borderless to the table.
+   Apply seed-table__wrapper--borderless to the wrapper.
+───────────────────────────────────────────────────── */
+
+.seed-table--borderless tbody td {
+    border-bottom: none;
+}
+
+.seed-table__wrapper--borderless {
+    border: none;
+}
