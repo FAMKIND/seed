@@ -130,6 +130,23 @@
     width:           100%;
     box-sizing:      border-box;
     scrollbar-width: none;
+    transition:      padding 200ms ease;
+}
+
+/* Float mode: content steps aside to avoid being hidden behind the overlay panel.
+   calc() references the same custom property JS uses when resizing, so padding
+   tracks panel width in real time during a drag. */
+.seed-layout--left-float .center-inner {
+    padding-left: calc(var(--left-width, 240px) + 32px);
+}
+
+.seed-layout--right-float .center-inner {
+    padding-right: calc(var(--right-width, 280px) + 32px);
+}
+
+.seed-layout--left-float.seed-layout--right-float .center-inner {
+    padding-left:  calc(var(--left-width, 240px) + 32px);
+    padding-right: calc(var(--right-width, 280px) + 32px);
 }
 
 .center-inner::-webkit-scrollbar {
