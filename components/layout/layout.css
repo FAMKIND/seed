@@ -14,6 +14,8 @@
      .seed-layout--right-hidden    → right panel hidden, chevron shown
      .seed-layout--left-float      → left panel floats over center as fixed overlay
      .seed-layout--right-float     → right panel floats over center as fixed overlay
+     .seed-layout--left-flush      → left panel sits flush with the viewport left edge
+     .seed-layout--right-flush     → right panel sits flush with the viewport right edge
 
    All color values from Seed semantic tokens — zero hardcoded colors.
 ═══════════════════════════════════════════════════════ */
@@ -215,6 +217,69 @@
    removes it one rAF later to trigger the opacity/transform transition. */
 .seed-layout__left.is-entering  { opacity: 0; transform: translateX(-8px); }
 .seed-layout__right.is-entering { opacity: 0; transform: translateX(8px); }
+
+
+/* ─────────────────────────────────────────────────────
+   FLUSH MODE
+   Panel sits edge-to-edge with the viewport — no outer
+   breathing room on that side. Slightly darker bg and
+   squared outer corners distinguish it from center.
+   Handle hairline is always visible (not just on hover)
+   and turns brand-green on hover and while dragging.
+───────────────────────────────────────────────────── */
+
+/* Remove outer padding on the flushed side */
+.seed-layout--left-flush  { padding-left:  0; }
+.seed-layout--right-flush { padding-right: 0; }
+
+/* Squared outer corners, no elevation shadow, darker fill */
+.seed-layout--left-flush .seed-layout__left {
+    border-radius: 0 var(--seed-radius-lg) var(--seed-radius-lg) 0;
+    box-shadow:    none;
+    background:    var(--calm-bg-subtle-default);
+}
+
+.seed-layout--right-flush .seed-layout__right {
+    border-radius: var(--seed-radius-lg) 0 0 var(--seed-radius-lg);
+    box-shadow:    none;
+    background:    var(--calm-bg-subtle-default);
+}
+
+/* Dark mode: deeper tone so the flush panel reads as a distinct layer */
+[data-theme="dark"] .seed-layout--left-flush .seed-layout__left,
+[data-theme="dark"] .seed-layout--right-flush .seed-layout__right {
+    background: #1A1F1C;
+}
+
+/* Handle position: flush panels have no outer padding offset.
+   Extend top/bottom to fill the full viewport height. */
+.seed-layout--left-flush .seed-layout__handle--left {
+    left:   var(--left-width, 240px);
+    top:    0;
+    bottom: 0;
+}
+
+.seed-layout--right-flush .seed-layout__handle--right {
+    right:  var(--right-width, 280px);
+    top:    0;
+    bottom: 0;
+}
+
+/* Hairline always visible in flush mode; brand-green on interact */
+.seed-layout--left-flush  .seed-layout__handle--left::after,
+.seed-layout--right-flush .seed-layout__handle--right::after {
+    background: var(--soil-border-subtle);
+}
+
+.seed-layout--left-flush  .seed-layout__handle--left:hover::after,
+.seed-layout--right-flush .seed-layout__handle--right:hover::after {
+    background: var(--good-border-subtle-default);
+}
+
+.seed-layout--left-flush  .seed-layout__handle--left.is-dragging::after,
+.seed-layout--right-flush .seed-layout__handle--right.is-dragging::after {
+    background: var(--good-border-bold-default);
+}
 
 
 /* ─────────────────────────────────────────────────────
