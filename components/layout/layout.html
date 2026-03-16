@@ -710,6 +710,8 @@
             <div class="seed-layout__menu-item seed-layout__menu-item--checked"
                  id="left-opt-docked"    role="menuitem">Docked</div>
             <div class="seed-layout__menu-item"
+                 id="left-opt-flush"     role="menuitem">Flush</div>
+            <div class="seed-layout__menu-item"
                  id="left-opt-float"     role="menuitem">Float</div>
             <div class="seed-layout__menu-divider"></div>
             <div class="seed-layout__menu-item seed-layout__menu-item--checked"
@@ -3054,6 +3056,8 @@
           <div class="seed-layout__menu-item seed-layout__menu-item--checked"
                id="right-opt-docked" role="menuitem">Docked</div>
           <div class="seed-layout__menu-item"
+               id="right-opt-flush"  role="menuitem">Flush</div>
+          <div class="seed-layout__menu-item"
                id="right-opt-float"  role="menuitem">Float</div>
           <div class="seed-layout__menu-divider"></div>
           <div class="seed-layout__menu-item seed-layout__menu-item--checked"
@@ -3125,25 +3129,45 @@
     </div>
     <div class="search-modal__results" role="listbox">
       <div class="search-modal__section-label">Recent</div>
-      <div class="search-modal__item" role="option">
-        <span class="search-modal__item-icon">🏠</span>
-        <span>Home</span>
+      <div class="search-modal__item" role="option"
+           data-section="name-logo" data-category="Brand" data-label="Name &amp; Logo">
+        <span class="search-modal__item-icon">🎨</span>
+        <span>Brand</span>
       </div>
-      <div class="search-modal__item" role="option">
-        <span class="search-modal__item-icon">📐</span>
-        <span>Projects</span>
+      <div class="search-modal__item" role="option"
+           data-section="name-logo" data-category="Brand" data-label="Name &amp; Logo">
+        <span class="search-modal__item-icon">📝</span>
+        <span>Name &amp; Logo</span>
       </div>
-      <div class="search-modal__item" role="option">
-        <span class="search-modal__item-icon">📁</span>
-        <span>Files</span>
+      <div class="search-modal__item" role="option"
+           data-section="color-palette" data-category="Brand" data-label="Color Palette">
+        <span class="search-modal__item-icon">🎨</span>
+        <span>Color Palette</span>
       </div>
-      <div class="search-modal__item" role="option">
-        <span class="search-modal__item-icon">💬</span>
-        <span>Messages</span>
+      <div class="search-modal__item" role="option"
+           data-section="typography" data-category="Brand" data-label="Typography">
+        <span class="search-modal__item-icon">Aa</span>
+        <span>Typography</span>
       </div>
-      <div class="search-modal__item" role="option">
-        <span class="search-modal__item-icon">⚙️</span>
-        <span>Settings</span>
+      <div class="search-modal__item" role="option"
+           data-section="semantic-colors" data-category="Tokens" data-label="Semantic Colors">
+        <span class="search-modal__item-icon">🔵</span>
+        <span>Semantic Colors</span>
+      </div>
+      <div class="search-modal__item" role="option"
+           data-section="spacing-scale" data-category="Tokens" data-label="Spacing Scale">
+        <span class="search-modal__item-icon">📏</span>
+        <span>Spacing Scale</span>
+      </div>
+      <div class="search-modal__item" role="option"
+           data-section="buttons" data-category="Components" data-label="Buttons">
+        <span class="search-modal__item-icon">🧩</span>
+        <span>Buttons</span>
+      </div>
+      <div class="search-modal__item" role="option"
+           data-section="badges" data-category="Components" data-label="Badges">
+        <span class="search-modal__item-icon">🏷</span>
+        <span>Badges</span>
       </div>
     </div>
   </div>
@@ -3178,9 +3202,11 @@
     let savedLeftWidth  = 240;
     let savedRightWidth = 280;
 
-    // Float state tracking
+    // Float / flush state tracking
     let leftIsFloat  = false;
     let rightIsFloat = false;
+    let leftIsFlush  = false;
+    let rightIsFlush = false;
 
     // ── Theme ──────────────────────────────────────────────
     themeBtn.addEventListener('click', () => {
@@ -3215,6 +3241,20 @@
       if (e.key === 'Escape' && searchModal.classList.contains('is-open')) {
         closeSearchModal();
       }
+    });
+
+    // Wire up recent items in the search modal
+    document.querySelectorAll('.search-modal__item[data-section]').forEach(item => {
+      item.addEventListener('click', () => {
+        closeSearchModal();
+        const navItem = document.querySelector(`.left-nav [data-section="${item.dataset.section}"]`);
+        if (navItem) {
+          document.querySelectorAll('.left-nav .nav-item--active')
+            .forEach(el => el.classList.remove('nav-item--active'));
+          navItem.classList.add('nav-item--active');
+        }
+        showSection(item.dataset.section, item.dataset.category, item.dataset.label);
+      });
     });
 
     // ── Nav tree ───────────────────────────────────────────
@@ -3388,10 +3428,36 @@
       toggleBg(rightPanel, 'right-opt-bg'); closeMenu('right');
     });
 
-    // ── Float mode ─────────────────────────────────────────
+    // ── Float / flush mode ─────────────────────────────────
+    const LEFT_MODE_IDS  = ['left-opt-docked',  'left-opt-flush',  'left-opt-float'];
+    const RIGHT_MODE_IDS = ['right-opt-docked', 'right-opt-flush', 'right-opt-float'];
+
+    function setLeftDocked() {
+      leftIsFloat = false;
+      leftIsFlush = false;
+      layout.classList.remove('seed-layout--left-float');
+      layout.classList.remove('seed-layout--left-flush');
+      setChecked(LEFT_MODE_IDS, 'left-opt-docked');
+      closeMenu('left');
+    }
+
+    function setLeftFlush(isFlush) {
+      if (isFlush) {
+        // Exiting float if switching to flush
+        leftIsFloat = false;
+        layout.classList.remove('seed-layout--left-float');
+      }
+      leftIsFlush = isFlush;
+      layout.classList.toggle('seed-layout--left-flush', isFlush);
+      setChecked(LEFT_MODE_IDS, isFlush ? 'left-opt-flush' : 'left-opt-docked');
+      closeMenu('left');
+    }
+
     function setLeftFloat(isFloat) {
-      leftIsFloat = isFloat;
       if (isFloat) {
+        // Exiting flush if switching to float
+        leftIsFlush = false;
+        layout.classList.remove('seed-layout--left-flush');
         leftPanel.classList.add('is-entering');
         layout.classList.add('seed-layout--left-float');
         requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -3400,14 +3466,35 @@
       } else {
         layout.classList.remove('seed-layout--left-float');
       }
-      setChecked(['left-opt-docked', 'left-opt-float'],
-                 isFloat ? 'left-opt-float' : 'left-opt-docked');
+      leftIsFloat = isFloat;
+      setChecked(LEFT_MODE_IDS, isFloat ? 'left-opt-float' : 'left-opt-docked');
       closeMenu('left');
     }
 
+    function setRightDocked() {
+      rightIsFloat = false;
+      rightIsFlush = false;
+      layout.classList.remove('seed-layout--right-float');
+      layout.classList.remove('seed-layout--right-flush');
+      setChecked(RIGHT_MODE_IDS, 'right-opt-docked');
+      closeMenu('right');
+    }
+
+    function setRightFlush(isFlush) {
+      if (isFlush) {
+        rightIsFloat = false;
+        layout.classList.remove('seed-layout--right-float');
+      }
+      rightIsFlush = isFlush;
+      layout.classList.toggle('seed-layout--right-flush', isFlush);
+      setChecked(RIGHT_MODE_IDS, isFlush ? 'right-opt-flush' : 'right-opt-docked');
+      closeMenu('right');
+    }
+
     function setRightFloat(isFloat) {
-      rightIsFloat = isFloat;
       if (isFloat) {
+        rightIsFlush = false;
+        layout.classList.remove('seed-layout--right-flush');
         rightPanel.classList.add('is-entering');
         layout.classList.add('seed-layout--right-float');
         requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -3416,14 +3503,16 @@
       } else {
         layout.classList.remove('seed-layout--right-float');
       }
-      setChecked(['right-opt-docked', 'right-opt-float'],
-                 isFloat ? 'right-opt-float' : 'right-opt-docked');
+      rightIsFloat = isFloat;
+      setChecked(RIGHT_MODE_IDS, isFloat ? 'right-opt-float' : 'right-opt-docked');
       closeMenu('right');
     }
 
-    document.getElementById('left-opt-docked').addEventListener('click',  () => setLeftFloat(false));
+    document.getElementById('left-opt-docked').addEventListener('click',  setLeftDocked);
+    document.getElementById('left-opt-flush').addEventListener('click',   () => setLeftFlush(true));
     document.getElementById('left-opt-float').addEventListener('click',   () => setLeftFloat(true));
-    document.getElementById('right-opt-docked').addEventListener('click', () => setRightFloat(false));
+    document.getElementById('right-opt-docked').addEventListener('click', setRightDocked);
+    document.getElementById('right-opt-flush').addEventListener('click',  () => setRightFlush(true));
     document.getElementById('right-opt-float').addEventListener('click',  () => setRightFloat(true));
 
     // ── Left panel ─────────────────────────────────────────
@@ -3442,6 +3531,10 @@
         layout.classList.remove('seed-layout--left-float');
         leftIsFloat = false;
       }
+      if (leftIsFlush) {
+        layout.classList.remove('seed-layout--left-flush');
+        leftIsFlush = false;
+      }
       savedLeftWidth = getWidth('--left-width', 240);
       layout.classList.add('seed-layout--left-hidden');
       closeMenu('left');
@@ -3449,12 +3542,14 @@
 
     function restoreLeft() {
       leftIsFloat = false;
+      leftIsFlush = false;
       layout.classList.remove('seed-layout--left-hidden');
       layout.classList.remove('seed-layout--left-float');
+      layout.classList.remove('seed-layout--left-flush');
       layout.classList.remove('seed-layout--collapsed-left');
       setProp('--left-width', savedLeftWidth + 'px');
       setChecked(['left-opt-expanded', 'left-opt-collapsed'], 'left-opt-expanded');
-      setChecked(['left-opt-docked', 'left-opt-float'], 'left-opt-docked');
+      setChecked(LEFT_MODE_IDS, 'left-opt-docked');
     }
 
     document.getElementById('left-opt-expanded').addEventListener('click',  () => setLeftCollapse('expanded'));
@@ -3489,6 +3584,10 @@
         layout.classList.remove('seed-layout--right-float');
         rightIsFloat = false;
       }
+      if (rightIsFlush) {
+        layout.classList.remove('seed-layout--right-flush');
+        rightIsFlush = false;
+      }
       savedRightWidth = getWidth('--right-width', 280);
       layout.classList.add('seed-layout--right-hidden');
       closeMenu('right');
@@ -3496,10 +3595,12 @@
 
     function restoreRight() {
       rightIsFloat = false;
+      rightIsFlush = false;
       layout.classList.remove('seed-layout--right-hidden');
       layout.classList.remove('seed-layout--right-float');
+      layout.classList.remove('seed-layout--right-flush');
       setProp('--right-width', savedRightWidth + 'px');
-      setChecked(['right-opt-docked', 'right-opt-float'], 'right-opt-docked');
+      setChecked(RIGHT_MODE_IDS, 'right-opt-docked');
     }
 
     document.getElementById('right-opt-hide').addEventListener('click', hideRight);
@@ -3535,7 +3636,8 @@
       const specs = {
         left: [
           ...(!isMobile() ? [
-            { label: 'Docked', checked: !leftIsFloat, action: () => setLeftFloat(false) },
+            { label: 'Docked', checked: !leftIsFloat && !leftIsFlush, action: setLeftDocked },
+            { label: 'Flush',  checked:  leftIsFlush, action: () => setLeftFlush(true)  },
             { label: 'Float',  checked:  leftIsFloat, action: () => setLeftFloat(true)  },
             { divider: true },
           ] : []),
@@ -3551,7 +3653,8 @@
         ],
         right: [
           ...(!isMobile() ? [
-            { label: 'Docked', checked: !rightIsFloat, action: () => setRightFloat(false) },
+            { label: 'Docked', checked: !rightIsFloat && !rightIsFlush, action: setRightDocked },
+            { label: 'Flush',  checked:  rightIsFlush, action: () => setRightFlush(true)  },
             { label: 'Float',  checked:  rightIsFloat, action: () => setRightFloat(true)  },
             { divider: true },
           ] : []),
