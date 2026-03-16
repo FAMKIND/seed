@@ -199,6 +199,18 @@
     box-shadow: var(--seed-shadow-md);
 }
 
+/* Dark mode: floating panels need elevated background + stronger shadow to
+   visually lift off the center card (surface and canvas are very close in value). */
+[data-theme="dark"] .seed-layout--left-float .seed-layout__left {
+    background: var(--soil-bg-elevated);
+    box-shadow: var(--seed-shadow-lg);
+}
+
+[data-theme="dark"] .seed-layout--right-float .seed-layout__right {
+    background: var(--soil-bg-elevated);
+    box-shadow: var(--seed-shadow-lg);
+}
+
 /* Float entry: JS adds .is-entering before adding the float class,
    removes it one rAF later to trigger the opacity/transform transition. */
 .seed-layout__left.is-entering  { opacity: 0; transform: translateX(-8px); }
