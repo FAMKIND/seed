@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../../components/card/card.css">
   <link rel="stylesheet" href="../../components/input/input.css">
   <link rel="stylesheet" href="../../components/divider/divider.css">
+  <link rel="stylesheet" href="../../components/table/table.css">
   <link rel="stylesheet" href="layout.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -842,6 +843,12 @@
             <span class="nav-item__arrow" aria-hidden="true"></span>
             <span class="nav-item__icon">➖</span>
             <span class="nav-label">Dividers</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          </div>
+          <div class="nav-item" data-label="Tables" data-section="tables" data-category="Components" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__icon">📊</span>
+            <span class="nav-label">Tables</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
           </div>
         </div>
@@ -2715,6 +2722,222 @@
           </div>
         </div>
 
+        <!-- ── tables ───────────────────────────────── -->
+        <div class="ds-section" data-section="tables" style="display:none">
+          <style>
+            .tbl-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-4);
+            }
+            .tbl-gap { margin-bottom: var(--seed-space-8); }
+            .tbl-subsection-title {
+              font-size:     var(--seed-text-sm);
+              font-weight:   var(--seed-weight-medium);
+              color:         var(--soil-text);
+              margin-bottom: var(--seed-space-3);
+            }
+            .tbl-variant-grid {
+              display:               grid;
+              grid-template-columns: 1fr 1fr;
+              gap:                   var(--seed-space-6);
+            }
+            @media (max-width: 900px) {
+              .tbl-variant-grid { grid-template-columns: 1fr; }
+            }
+          </style>
+
+          <!-- Main table -->
+          <div class="tbl-gap">
+            <p class="tbl-section-label">Team Members</p>
+            <div class="seed-table__wrapper">
+              <table class="seed-table" id="ds-main-table">
+                <thead>
+                  <tr>
+                    <th class="seed-table__col--check">
+                      <input type="checkbox" class="seed-table__check" id="ds-select-all" aria-label="Select all rows">
+                    </th>
+                    <th>
+                      <span class="seed-table__sortable seed-table__sortable--asc" data-col="name">
+                        Name <span class="seed-table__sort-icon"></span>
+                      </span>
+                    </th>
+                    <th>Role</th>
+                    <th>
+                      <span class="seed-table__sortable" data-col="email">
+                        Email <span class="seed-table__sort-icon"></span>
+                      </span>
+                    </th>
+                    <th>Status</th>
+                    <th>
+                      <span class="seed-table__sortable" data-col="joined">
+                        Joined <span class="seed-table__sort-icon"></span>
+                      </span>
+                    </th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" aria-label="Select Alice Chen"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">AC</div><span class="seed-table__name">Alice Chen</span></div></td>
+                    <td><span class="seed-badge seed-badge--selected seed-badge--sm">Owner</span></td>
+                    <td class="seed-table__cell--muted">alice@famkind.com</td>
+                    <td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td>
+                    <td class="seed-table__cell--muted">Jan 12, 2024</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr class="seed-table__row--selected">
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" checked aria-label="Select Ben Marlowe"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">BM</div><span class="seed-table__name">Ben Marlowe</span></div></td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Editor</span></td>
+                    <td class="seed-table__cell--muted">ben@famkind.com</td>
+                    <td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td>
+                    <td class="seed-table__cell--muted">Feb 3, 2024</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr>
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" aria-label="Select Carla Torres"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">CT</div><span class="seed-table__name">Carla Torres</span></div></td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Viewer</span></td>
+                    <td class="seed-table__cell--muted">carla@studio.io</td>
+                    <td><span class="seed-badge seed-badge--warn seed-badge--sm">Invited</span></td>
+                    <td class="seed-table__cell--muted">Mar 18, 2024</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr>
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" aria-label="Select Dan Lee"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">DL</div><span class="seed-table__name">Dan Lee</span></div></td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Editor</span></td>
+                    <td class="seed-table__cell--muted">dan@famkind.com</td>
+                    <td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td>
+                    <td class="seed-table__cell--muted">Feb 27, 2024</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr class="seed-table__row--selected">
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" checked aria-label="Select Evelyn Park"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">EP</div><span class="seed-table__name">Evelyn Park</span></div></td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Viewer</span></td>
+                    <td class="seed-table__cell--muted">evelyn@park.co</td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Inactive</span></td>
+                    <td class="seed-table__cell--muted">Nov 5, 2023</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr>
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" aria-label="Select Felix Huang"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">FH</div><span class="seed-table__name">Felix Huang</span></div></td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Editor</span></td>
+                    <td class="seed-table__cell--muted">felix@huang.dev</td>
+                    <td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td>
+                    <td class="seed-table__cell--muted">Apr 9, 2024</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr>
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" aria-label="Select Grace Kim"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">GK</div><span class="seed-table__name">Grace Kim</span></div></td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Viewer</span></td>
+                    <td class="seed-table__cell--muted">grace@kim.io</td>
+                    <td><span class="seed-badge seed-badge--warn seed-badge--sm">Invited</span></td>
+                    <td class="seed-table__cell--muted">May 14, 2024</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr class="seed-table__row--selected">
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" checked aria-label="Select Hana Nakamura"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">HN</div><span class="seed-table__name">Hana Nakamura</span></div></td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Editor</span></td>
+                    <td class="seed-table__cell--muted">hana@nakamura.jp</td>
+                    <td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td>
+                    <td class="seed-table__cell--muted">Jan 30, 2024</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr>
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" aria-label="Select Ivan Costa"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">IC</div><span class="seed-table__name">Ivan Costa</span></div></td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Viewer</span></td>
+                    <td class="seed-table__cell--muted">ivan@costa.co</td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Inactive</span></td>
+                    <td class="seed-table__cell--muted">Oct 22, 2023</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr>
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" aria-label="Select Julia Santos"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">JS</div><span class="seed-table__name">Julia Santos</span></div></td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Editor</span></td>
+                    <td class="seed-table__cell--muted">julia@santos.br</td>
+                    <td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td>
+                    <td class="seed-table__cell--muted">Mar 6, 2024</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr>
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" aria-label="Select Kevin Walsh"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">KW</div><span class="seed-table__name">Kevin Walsh</span></div></td>
+                    <td><span class="seed-badge seed-badge--selected seed-badge--sm">Owner</span></td>
+                    <td class="seed-table__cell--muted">kevin@famkind.com</td>
+                    <td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td>
+                    <td class="seed-table__cell--muted">Dec 1, 2023</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                  <tr>
+                    <td class="seed-table__col--check"><input type="checkbox" class="seed-table__check ds-row-check" aria-label="Select Lena Vogel"></td>
+                    <td><div class="seed-table__cell--avatar"><div class="seed-table__avatar">LV</div><span class="seed-table__name">Lena Vogel</span></div></td>
+                    <td><span class="seed-badge seed-badge--neutral seed-badge--sm">Viewer</span></td>
+                    <td class="seed-table__cell--muted">lena@vogel.de</td>
+                    <td><span class="seed-badge seed-badge--warn seed-badge--sm">Invited</span></td>
+                    <td class="seed-table__cell--muted">Jun 2, 2024</td>
+                    <td class="seed-table__cell--actions"><button class="seed-table__action-btn" aria-label="More options"></button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Variants -->
+          <p class="tbl-section-label">Variants</p>
+          <div class="tbl-variant-grid">
+
+            <!-- Striped -->
+            <div>
+              <p class="tbl-subsection-title">Striped</p>
+              <div class="seed-table__wrapper">
+                <table class="seed-table seed-table--striped">
+                  <thead>
+                    <tr><th>Name</th><th>Role</th><th>Status</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Alice Chen</td><td><span class="seed-badge seed-badge--selected seed-badge--sm">Owner</span></td><td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td></tr>
+                    <tr><td>Ben Marlowe</td><td><span class="seed-badge seed-badge--neutral seed-badge--sm">Editor</span></td><td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td></tr>
+                    <tr><td>Carla Torres</td><td><span class="seed-badge seed-badge--neutral seed-badge--sm">Viewer</span></td><td><span class="seed-badge seed-badge--warn seed-badge--sm">Invited</span></td></tr>
+                    <tr><td>Dan Lee</td><td><span class="seed-badge seed-badge--neutral seed-badge--sm">Editor</span></td><td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td></tr>
+                    <tr><td>Evelyn Park</td><td><span class="seed-badge seed-badge--neutral seed-badge--sm">Viewer</span></td><td><span class="seed-badge seed-badge--neutral seed-badge--sm">Inactive</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Borderless -->
+            <div>
+              <p class="tbl-subsection-title">Borderless</p>
+              <div class="seed-table__wrapper seed-table__wrapper--borderless">
+                <table class="seed-table seed-table--borderless">
+                  <thead>
+                    <tr><th>Name</th><th>Role</th><th>Status</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Felix Huang</td><td><span class="seed-badge seed-badge--neutral seed-badge--sm">Editor</span></td><td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td></tr>
+                    <tr><td>Grace Kim</td><td><span class="seed-badge seed-badge--neutral seed-badge--sm">Viewer</span></td><td><span class="seed-badge seed-badge--warn seed-badge--sm">Invited</span></td></tr>
+                    <tr><td>Ivan Costa</td><td><span class="seed-badge seed-badge--neutral seed-badge--sm">Viewer</span></td><td><span class="seed-badge seed-badge--neutral seed-badge--sm">Inactive</span></td></tr>
+                    <tr><td>Kevin Walsh</td><td><span class="seed-badge seed-badge--selected seed-badge--sm">Owner</span></td><td><span class="seed-badge seed-badge--good seed-badge--sm"><span class="seed-badge__dot"></span>Active</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div><!-- /tbl-variant-grid -->
+        </div>
+
         <!-- ── forms ─────────────────────────────────── -->
         <div class="ds-section" data-section="forms" style="display:none">
           <style>
@@ -3713,6 +3936,47 @@
       // Scroll center back to top
       document.querySelector('.center-inner').scrollTop = 0;
     }
+
+    // ── Tables section — checkbox + sort ───────────────────
+    (function initTableSection() {
+      const dsSelectAll = document.getElementById('ds-select-all');
+      const dsRowChecks = document.querySelectorAll('#ds-main-table .ds-row-check');
+
+      function syncHeaderCheckbox() {
+        const total   = dsRowChecks.length;
+        const checked = [...dsRowChecks].filter(c => c.checked).length;
+        dsSelectAll.indeterminate = checked > 0 && checked < total;
+        dsSelectAll.checked       = checked === total;
+      }
+
+      dsSelectAll.addEventListener('change', () => {
+        dsRowChecks.forEach(cb => {
+          cb.checked = dsSelectAll.checked;
+          cb.closest('tr').classList.toggle('seed-table__row--selected', dsSelectAll.checked);
+        });
+      });
+
+      dsRowChecks.forEach(cb => {
+        cb.addEventListener('change', () => {
+          cb.closest('tr').classList.toggle('seed-table__row--selected', cb.checked);
+          syncHeaderCheckbox();
+        });
+      });
+
+      syncHeaderCheckbox();
+
+      document.querySelectorAll('#ds-main-table .seed-table__sortable').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const isAsc  = btn.classList.contains('seed-table__sortable--asc');
+          const isDesc = btn.classList.contains('seed-table__sortable--desc');
+          btn.closest('table').querySelectorAll('.seed-table__sortable').forEach(s => {
+            s.classList.remove('seed-table__sortable--asc', 'seed-table__sortable--desc');
+          });
+          if (!isAsc && !isDesc)   btn.classList.add('seed-table__sortable--asc');
+          else if (isAsc)          btn.classList.add('seed-table__sortable--desc');
+        });
+      });
+    })();
 
     // Wire up all nav leaf items that carry a data-section
     document.querySelectorAll('.left-nav [data-section]').forEach(item => {
