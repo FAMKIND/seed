@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="../../components/upload/upload.css">
   <link rel="stylesheet" href="../../components/media/media.css">
   <link rel="stylesheet" href="../../components/feedback/feedback.css">
+  <link rel="stylesheet" href="../../components/dropdown/dropdown.css">
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
   <style>
@@ -892,6 +893,12 @@
             <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
             <span class="nav-item__icon"><span class="dew dew-information-circle" aria-hidden="true"></span></span>
             <span class="nav-label">Feedback</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-item" data-label="Dropdown" data-section="dropdown" data-category="Components" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-chevron-down" aria-hidden="true"></span></span>
+            <span class="nav-label">Dropdown</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
@@ -4480,6 +4487,218 @@
               <div class="fb-spinner-item"><span class="seed-spinner seed-spinner--muted" role="status" aria-label="Loading"></span>muted</div>
             </div>
           </div>
+
+        </div>
+
+        <!-- ── dropdown ──────────────────────────────── -->
+        <div class="ds-section" data-section="dropdown" style="display:none">
+          <style>
+            .dd-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-3);
+            }
+            .dd-note {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              line-height:   var(--seed-leading-normal);
+              margin-bottom: var(--seed-space-8);
+              max-width:     520px;
+            }
+            .dd-divider {
+              height:     1px;
+              background: var(--soil-border-subtle);
+              margin:     var(--seed-space-8) 0;
+            }
+            /* Row of dropdowns with room below for open menus */
+            .dd-row {
+              display:         flex;
+              gap:             var(--seed-space-6);
+              flex-wrap:       wrap;
+              align-items:     flex-start;
+              padding-bottom:  240px;
+              margin-bottom:  -200px;
+            }
+            .dd-col { display: flex; flex-direction: column; gap: var(--seed-space-1); }
+          </style>
+
+          <p class="dd-note">Click any trigger to open its menu. Click outside or press Escape to close. All menus shown open for visual reference.</p>
+
+          <!-- ── 1. Basic variants ── -->
+          <p class="dd-label">Basic variants</p>
+          <div class="dd-row">
+
+            <!-- Default -->
+            <div class="dd-col">
+              <div class="seed-dropdown">
+                <button class="seed-button seed-button--secondary seed-button--md">
+                  Options <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+                </button>
+                <ul class="seed-dropdown__menu seed-dropdown__menu--open" role="menu">
+                  <li class="seed-dropdown__item" role="menuitem">Edit</li>
+                  <li class="seed-dropdown__item" role="menuitem">Duplicate</li>
+                  <li class="seed-dropdown__item" role="menuitem">Archive</li>
+                  <li class="seed-dropdown__divider" role="separator"></li>
+                  <li class="seed-dropdown__item seed-dropdown__item--danger" role="menuitem">Delete</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- With icons -->
+            <div class="dd-col">
+              <div class="seed-dropdown">
+                <button class="seed-button seed-button--secondary seed-button--md">
+                  Actions <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+                </button>
+                <ul class="seed-dropdown__menu seed-dropdown__menu--open" role="menu">
+                  <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-pencil" aria-hidden="true"></span>Edit</li>
+                  <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-copy" aria-hidden="true"></span>Duplicate</li>
+                  <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-share" aria-hidden="true"></span>Share</li>
+                  <li class="seed-dropdown__divider" role="separator"></li>
+                  <li class="seed-dropdown__item seed-dropdown__item--danger" role="menuitem"><span class="dew dew-trash" aria-hidden="true"></span>Delete</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Keyboard hints -->
+            <div class="dd-col">
+              <div class="seed-dropdown">
+                <button class="seed-button seed-button--secondary seed-button--md">
+                  File <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+                </button>
+                <ul class="seed-dropdown__menu seed-dropdown__menu--open seed-dropdown__menu--wide" role="menu">
+                  <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-file" aria-hidden="true"></span>New file<span class="seed-dropdown__kbd">⌘N</span></li>
+                  <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-folder-open" aria-hidden="true"></span>Open<span class="seed-dropdown__kbd">⌘O</span></li>
+                  <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-download" aria-hidden="true"></span>Save<span class="seed-dropdown__kbd">⌘S</span></li>
+                  <li class="seed-dropdown__divider" role="separator"></li>
+                  <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-search" aria-hidden="true"></span>Find &amp; replace<span class="seed-dropdown__kbd">⌘H</span></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="dd-divider"></div>
+
+          <!-- ── 2. Sections, disabled, descriptions ── -->
+          <p class="dd-label">Sections, disabled &amp; descriptions</p>
+          <div class="dd-row">
+
+            <!-- Section labels + active -->
+            <div class="dd-col">
+              <div class="seed-dropdown">
+                <button class="seed-button seed-button--secondary seed-button--md">
+                  View <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+                </button>
+                <ul class="seed-dropdown__menu seed-dropdown__menu--open" role="menu">
+                  <li class="seed-dropdown__label" role="presentation">Layout</li>
+                  <li class="seed-dropdown__item seed-dropdown__item--active" role="menuitem"><span class="dew dew-grid" aria-hidden="true"></span>Grid</li>
+                  <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-list" aria-hidden="true"></span>List</li>
+                  <li class="seed-dropdown__divider" role="separator"></li>
+                  <li class="seed-dropdown__label" role="presentation">Sort by</li>
+                  <li class="seed-dropdown__item" role="menuitem">Name</li>
+                  <li class="seed-dropdown__item" role="menuitem">Modified</li>
+                  <li class="seed-dropdown__item" role="menuitem">Created</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Disabled items -->
+            <div class="dd-col">
+              <div class="seed-dropdown">
+                <button class="seed-button seed-button--secondary seed-button--md">
+                  More <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+                </button>
+                <ul class="seed-dropdown__menu seed-dropdown__menu--open seed-dropdown__menu--wide" role="menu">
+                  <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-pencil" aria-hidden="true"></span>Edit</li>
+                  <li class="seed-dropdown__item seed-dropdown__item--disabled" role="menuitem" aria-disabled="true"><span class="dew dew-copy" aria-hidden="true"></span>Duplicate<span class="seed-dropdown__kbd">Pro only</span></li>
+                  <li class="seed-dropdown__item seed-dropdown__item--disabled" role="menuitem" aria-disabled="true"><span class="dew dew-share" aria-hidden="true"></span>Publish<span class="seed-dropdown__kbd">Pro only</span></li>
+                  <li class="seed-dropdown__divider" role="separator"></li>
+                  <li class="seed-dropdown__item seed-dropdown__item--danger" role="menuitem"><span class="dew dew-trash" aria-hidden="true"></span>Delete</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Item descriptions -->
+            <div class="dd-col">
+              <div class="seed-dropdown">
+                <button class="seed-button seed-button--secondary seed-button--md">
+                  Export as <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+                </button>
+                <ul class="seed-dropdown__menu seed-dropdown__menu--open seed-dropdown__menu--wide" role="menu">
+                  <li class="seed-dropdown__item" role="menuitem">
+                    <span class="dew dew-file" aria-hidden="true"></span>
+                    <div class="seed-dropdown__item-body">PDF<span class="seed-dropdown__item-desc">Best for sharing and printing</span></div>
+                  </li>
+                  <li class="seed-dropdown__item" role="menuitem">
+                    <span class="dew dew-table" aria-hidden="true"></span>
+                    <div class="seed-dropdown__item-body">CSV<span class="seed-dropdown__item-desc">Import into spreadsheets</span></div>
+                  </li>
+                  <li class="seed-dropdown__item" role="menuitem">
+                    <span class="dew dew-code" aria-hidden="true"></span>
+                    <div class="seed-dropdown__item-body">JSON<span class="seed-dropdown__item-desc">Raw data for developers</span></div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="dd-divider"></div>
+
+          <!-- ── 3. Interactive ── -->
+          <p class="dd-label">Interactive — click to toggle</p>
+          <div style="padding-bottom:280px">
+            <div class="seed-dropdown" data-dd-interactive>
+              <button class="seed-button seed-button--primary seed-button--md"
+                      aria-haspopup="true" aria-expanded="false" data-dd-trigger>
+                <span class="seed-button__icon dew dew-gear" aria-hidden="true"></span>
+                Settings
+                <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+              </button>
+              <ul class="seed-dropdown__menu" role="menu" data-dd-menu>
+                <li class="seed-dropdown__label" role="presentation">Account</li>
+                <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-person" aria-hidden="true"></span>Profile</li>
+                <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-gear" aria-hidden="true"></span>Preferences<span class="seed-dropdown__kbd">⌘,</span></li>
+                <li class="seed-dropdown__divider" role="separator"></li>
+                <li class="seed-dropdown__label" role="presentation">Workspace</li>
+                <li class="seed-dropdown__item" role="menuitem"><span class="dew dew-people" aria-hidden="true"></span>Team members</li>
+                <li class="seed-dropdown__item seed-dropdown__item--disabled" role="menuitem" aria-disabled="true"><span class="dew dew-credit-card" aria-hidden="true"></span>Billing<span class="seed-dropdown__kbd">Admin only</span></li>
+                <li class="seed-dropdown__divider" role="separator"></li>
+                <li class="seed-dropdown__item seed-dropdown__item--danger" role="menuitem"><span class="dew dew-sign-out" aria-hidden="true"></span>Sign out</li>
+              </ul>
+            </div>
+          </div>
+
+          <script>
+            (function () {
+              var section = document.querySelector('[data-section="dropdown"]');
+              if (!section) return;
+              section.querySelectorAll('[data-dd-interactive]').forEach(function (wrap) {
+                var trigger = wrap.querySelector('[data-dd-trigger]');
+                var menu    = wrap.querySelector('[data-dd-menu]');
+                if (!trigger || !menu) return;
+                function close() {
+                  menu.classList.remove('seed-dropdown__menu--open');
+                  trigger.setAttribute('aria-expanded', 'false');
+                }
+                function open() {
+                  menu.classList.add('seed-dropdown__menu--open');
+                  trigger.setAttribute('aria-expanded', 'true');
+                }
+                trigger.addEventListener('click', function (e) {
+                  e.stopPropagation();
+                  menu.classList.contains('seed-dropdown__menu--open') ? close() : open();
+                });
+                document.addEventListener('click', close);
+                menu.addEventListener('click', function (e) { e.stopPropagation(); });
+                document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+              });
+            })();
+          </script>
 
         </div>
 

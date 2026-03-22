@@ -1,0 +1,209 @@
+/* ═══════════════════════════════════════════════════════
+   SEED DROPDOWN
+   Requires: tokens/tokens.css
+   Usage:    <div class="seed-dropdown">
+               <button class="seed-dropdown__trigger">…</button>
+               <ul class="seed-dropdown__menu seed-dropdown__menu--open"
+                   role="menu">
+                 <li class="seed-dropdown__item" role="menuitem">…</li>
+               </ul>
+             </div>
+
+   Zero hardcoded colors — every value flows from
+   Seed semantic tokens. Theme switching is automatic.
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   WRAPPER
+───────────────────────────────────────────────────── */
+
+.seed-dropdown {
+    position: relative;
+    display:  inline-block;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   MENU PANEL
+───────────────────────────────────────────────────── */
+
+.seed-dropdown__menu {
+    display:       none;
+    position:      absolute;
+    top:           calc(100% + 4px);
+    left:          0;
+    min-width:     180px;
+    background:    var(--soil-bg-elevated);
+    border:        1px solid var(--soil-border-subtle);
+    border-radius: var(--seed-radius-md);
+    box-shadow:    var(--seed-shadow-md);
+    padding:       var(--seed-space-1) 0;
+    z-index:       var(--seed-z-dropdown);
+    font-family:   var(--seed-font-ui);
+    /* Contain layout — never clip shadow */
+    overflow:      visible;
+    list-style:    none;
+    margin:        0;
+}
+
+.seed-dropdown__menu--open {
+    display: block;
+}
+
+/* Right-align: menu grows to the left of the trigger */
+.seed-dropdown__menu--right {
+    left:  auto;
+    right: 0;
+}
+
+/* Upward-opening */
+.seed-dropdown__menu--up {
+    top:    auto;
+    bottom: calc(100% + 4px);
+}
+
+/* Wider — for menus that need more room */
+.seed-dropdown__menu--wide {
+    min-width: 240px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   ITEMS
+───────────────────────────────────────────────────── */
+
+.seed-dropdown__item {
+    display:     flex;
+    align-items: center;
+    gap:         var(--seed-space-2);
+    padding:     var(--seed-space-2) var(--seed-space-3);
+    font-size:   var(--seed-text-sm);
+    color:       var(--soil-text);
+    cursor:      pointer;
+    transition:  background 80ms ease;
+    user-select: none;
+    white-space: nowrap;
+    /* Reset list / button / anchor defaults */
+    background:  transparent;
+    border:      none;
+    text-align:  left;
+    width:       100%;
+    text-decoration: none;
+    font-family: var(--seed-font-ui);
+    line-height: var(--seed-leading-tight);
+}
+
+.seed-dropdown__item:hover {
+    background: var(--calm-bg-subtle-hover);
+}
+
+.seed-dropdown__item:hover .dew {
+    color: var(--soil-text);
+}
+
+/* Active / selected */
+.seed-dropdown__item--active {
+    font-weight: var(--seed-weight-medium);
+}
+
+/* Danger */
+.seed-dropdown__item--danger {
+    color: var(--bad-text-bold-default);
+}
+
+.seed-dropdown__item--danger .dew {
+    color: var(--bad-text-bold-default);
+}
+
+.seed-dropdown__item--danger:hover {
+    background: var(--bad-bg-subtle-default);
+}
+
+.seed-dropdown__item--danger:hover .dew {
+    color: var(--bad-text-bold-default);
+}
+
+/* Disabled */
+.seed-dropdown__item--disabled {
+    color:          var(--soil-text-disabled);
+    pointer-events: none;
+    cursor:         default;
+}
+
+.seed-dropdown__item--disabled .dew {
+    color: var(--soil-text-disabled);
+}
+
+/* Icon inside item */
+.seed-dropdown__item .dew {
+    font-size:   14px;
+    color:       var(--soil-text-muted);
+    flex-shrink: 0;
+    transition:  color 80ms ease;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   DIVIDER
+───────────────────────────────────────────────────── */
+
+.seed-dropdown__divider {
+    height:     1px;
+    background: var(--soil-border-subtle);
+    margin:     var(--seed-space-1) 0;
+    list-style: none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SECTION LABEL
+───────────────────────────────────────────────────── */
+
+.seed-dropdown__label {
+    display:        block;
+    padding:        var(--seed-space-1) var(--seed-space-3);
+    font-size:      var(--seed-text-xs);
+    font-weight:    var(--seed-weight-semibold);
+    color:          var(--soil-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    user-select:    none;
+    cursor:         default;
+    list-style:     none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   KEYBOARD HINT
+───────────────────────────────────────────────────── */
+
+.seed-dropdown__kbd {
+    margin-left:  auto;
+    font-size:    var(--seed-text-xs);
+    color:        var(--soil-text-disabled);
+    font-family:  var(--seed-font-ui);
+    flex-shrink:  0;
+    padding-left: var(--seed-space-3);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   ITEM DESCRIPTION (optional sub-text)
+───────────────────────────────────────────────────── */
+
+.seed-dropdown__item-body {
+    display:        flex;
+    flex-direction: column;
+    gap:            1px;
+    flex:           1;
+    min-width:      0;
+}
+
+.seed-dropdown__item-desc {
+    font-size:   var(--seed-text-xs);
+    color:       var(--soil-text-muted);
+    font-weight: var(--seed-weight-regular);
+    white-space: normal;
+    line-height: var(--seed-leading-snug);
+}
