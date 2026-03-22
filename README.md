@@ -1,12 +1,12 @@
 # Seed by FAM
 
-A minimal, open source design token system for mission-driven builders.
+A minimal, open source design system for mission-driven builders.
 
 ---
 
 ## What is Seed?
 
-Seed is the design foundation for the FAM open source ecosystem. It starts with tokens — color, typography, spacing, shadow — and grows into a full component library. It is used directly as the base layer for **Lime**, FAM's primary product.
+Seed is the design foundation for the FAM open source ecosystem. It provides tokens, components, and patterns — color, typography, spacing, and a growing library of plain HTML + CSS components. It is used directly as the base layer for **Lime**, FAM's primary product.
 
 Built for mission-driven artists, designers, and builders who need a clean, composable foundation without opinionated frameworks getting in the way.
 
@@ -100,13 +100,14 @@ Theme-agnostic values for typography, spacing, radius, shadows, grid, and z-inde
 
 ## Usage
 
-Import the token file into your project:
+Import the token file and any component stylesheets you need:
 
 ```css
 @import 'tokens/tokens.css';
+@import 'components/button/button.css';
 ```
 
-Then set a theme on your root element:
+Set a theme on your root element:
 
 ```html
 <html data-theme="light">
@@ -136,7 +137,7 @@ Use semantic tokens in your styles:
 
 ## Palette
 
-Seed ships with four color families in v0.1:
+Seed ships with four color families:
 
 **Soil** — warm neutral scale, the ground everything grows from
 `#F9F8F4` → `#141210` (11 steps: 0, 50, 100–900, 950)
@@ -154,44 +155,256 @@ Seed ships with four color families in v0.1:
 
 ## Components
 
-Seed components are plain HTML + CSS. Each lives in `components/{name}/` with a `.css` file and a `.html` demo page.
+Each component lives in `components/{name}/` with a `.css` file and a `.html` demo page. All components reference Seed semantic tokens — zero hardcoded colors, automatic light/dark theming.
 
 ### Button `components/button/`
 
-```html
-<!-- Variants -->
-<button class="seed-button seed-button--primary seed-button--md">Primary</button>
-<button class="seed-button seed-button--secondary seed-button--md">Secondary</button>
-<button class="seed-button seed-button--link seed-button--md">Link</button>
-<button class="seed-button seed-button--danger seed-button--md">Danger</button>
+Variants, sizes, icon support, loading state.
 
-<!-- Danger outlined: combine --danger with --secondary -->
-<button class="seed-button seed-button--danger seed-button--secondary seed-button--md">Delete</button>
+```html
+<button class="seed-button seed-button--primary   seed-button--md">Primary</button>
+<button class="seed-button seed-button--secondary seed-button--md">Secondary</button>
+<button class="seed-button seed-button--danger    seed-button--md">Danger</button>
+<button class="seed-button seed-button--link      seed-button--md">Link</button>
+
+<!-- Icon-only -->
+<button class="seed-button seed-button--secondary seed-button--md seed-button--icon-only" aria-label="Edit">
+  <span class="seed-button__icon dew dew-pencil" aria-hidden="true"></span>
+</button>
 
 <!-- Sizes: --sm  --md  --lg -->
-<!-- Disabled: add the disabled attribute -->
 ```
 
 ### Badge `components/badge/`
 
+Status labels with dot indicators and interactive variants.
+
 ```html
-<!-- Variants -->
-<span class="seed-badge seed-badge--neutral seed-badge--md">Neutral</span>
-<span class="seed-badge seed-badge--good seed-badge--md">Good</span>
-<span class="seed-badge seed-badge--warn seed-badge--md">Warn</span>
-<span class="seed-badge seed-badge--bad seed-badge--md">Bad</span>
+<span class="seed-badge seed-badge--neutral  seed-badge--md">Neutral</span>
+<span class="seed-badge seed-badge--good     seed-badge--md">Good</span>
+<span class="seed-badge seed-badge--warn     seed-badge--md">Warn</span>
+<span class="seed-badge seed-badge--bad      seed-badge--md">Bad</span>
 <span class="seed-badge seed-badge--selected seed-badge--md">Selected</span>
 
-<!-- With dot indicator -->
+<!-- With dot -->
 <span class="seed-badge seed-badge--good seed-badge--md">
   <span class="seed-badge__dot"></span>Active
 </span>
 
-<!-- Interactive (hover/active states) -->
-<span class="seed-badge seed-badge--good seed-badge--md seed-badge--interactive">Good</span>
-
 <!-- Sizes: --sm  --md  --lg -->
 ```
+
+### Card `components/card/`
+
+Surface container with header, body, footer, and flush/bordered variants.
+
+```html
+<div class="seed-card">
+  <div class="seed-card__header">Title</div>
+  <div class="seed-card__body">Content goes here.</div>
+  <div class="seed-card__footer">Footer</div>
+</div>
+```
+
+### Avatar `components/avatar/`
+
+Initials-based or image avatars in multiple sizes and intent colors.
+
+```html
+<span class="seed-avatar seed-avatar--md seed-avatar--brand">JD</span>
+<span class="seed-avatar seed-avatar--md seed-avatar--good">OK</span>
+
+<!-- Sizes: --xs  --sm  --md  --lg  --xl -->
+```
+
+### Input `components/input/`
+
+Text inputs, textarea, select, checkbox, radio, and toggle.
+
+```html
+<div class="seed-field">
+  <label class="seed-label" for="email">Email</label>
+  <input class="seed-input" id="email" type="email" placeholder="you@example.com">
+</div>
+
+<!-- States: default, focus, error (--error), disabled -->
+```
+
+### Toggle `components/toggle/`
+
+Animated on/off switch.
+
+```html
+<label class="seed-toggle">
+  <input type="checkbox" role="switch">
+  <span class="seed-toggle__track"><span class="seed-toggle__thumb"></span></span>
+</label>
+```
+
+### Tabs `components/tabs/`
+
+Horizontal tab strip with underline and pill variants.
+
+```html
+<div class="seed-tabs">
+  <button class="seed-tab seed-tab--active">Overview</button>
+  <button class="seed-tab">Activity</button>
+  <button class="seed-tab">Settings</button>
+</div>
+```
+
+### Divider `components/divider/`
+
+Horizontal and vertical separators, with optional label.
+
+```html
+<hr class="seed-divider">
+<hr class="seed-divider seed-divider--labeled"><span>or</span>
+```
+
+### Table `components/table/`
+
+Sortable, selectable data table with avatars, badges, and responsive scroll.
+
+```html
+<table class="seed-table">
+  <thead><tr><th class="seed-th">Name</th>…</tr></thead>
+  <tbody><tr class="seed-tr"><td class="seed-td">…</td>…</tr></tbody>
+</table>
+```
+
+### Toast `components/toast/`
+
+Notification toasts with intent variants and dismiss button.
+
+```html
+<div class="seed-toast seed-toast--good" role="alert">
+  <span class="seed-toast__icon dew dew-check-circle" aria-hidden="true"></span>
+  <span class="seed-toast__body">Saved successfully.</span>
+  <button class="seed-toast__close" aria-label="Dismiss">…</button>
+</div>
+
+<!-- Intents: --good  --warn  --bad  --calm -->
+```
+
+### Chat `components/chat/`
+
+Message thread with composer, typing indicator, reactions, and container modes.
+
+```html
+<div class="seed-chat-container">
+  <div class="seed-chat-messages">…</div>
+  <div class="seed-chat-composer">…</div>
+</div>
+```
+
+### Dropdown `components/dropdown/`
+
+Click-toggled menu with icons, keyboard hints, sections, and disabled items.
+
+```html
+<div class="seed-dropdown">
+  <button class="seed-button seed-button--secondary seed-button--md seed-dropdown__trigger">
+    Options <span class="seed-button__icon dew dew-chevron-down"></span>
+  </button>
+  <ul class="seed-dropdown__menu" role="menu">
+    <li class="seed-dropdown__item" role="menuitem">Edit</li>
+    <li class="seed-dropdown__divider" role="separator"></li>
+    <li class="seed-dropdown__item seed-dropdown__item--danger" role="menuitem">Delete</li>
+  </ul>
+</div>
+```
+
+### Tooltip & Popover `components/tooltip/`
+
+Hover tooltips (4 directions, multiline) and click-toggled rich popovers.
+
+```html
+<!-- Tooltip -->
+<span class="seed-tooltip seed-tooltip--top">
+  <button class="seed-button seed-button--secondary seed-button--sm">Hover me</button>
+  <span class="seed-tooltip__tip" role="tooltip">Appears above</span>
+</span>
+
+<!-- Popover -->
+<div class="seed-popover seed-popover--align-start" data-popover>
+  <button data-pop-trigger>Info</button>
+  <div class="seed-popover__content" data-pop-content role="dialog">
+    <p class="seed-popover__title">About this field</p>
+    <p class="seed-popover__body">Details here.</p>
+  </div>
+</div>
+```
+
+### Upload `components/upload/`
+
+Drag-and-drop dropzone with file list, progress bars, and compact trigger.
+
+```html
+<div class="seed-dropzone" role="button" tabindex="0" aria-label="Upload files">
+  <span class="seed-dropzone__icon dew dew-upload" aria-hidden="true"></span>
+  <p class="seed-dropzone__label">Drop files here or <span class="seed-dropzone__link">browse</span></p>
+</div>
+```
+
+### Media `components/media/`
+
+Aspect-ratio containers with skeleton, video overlay, caption, badge, and gallery grid.
+
+```html
+<div class="seed-media seed-media--16x9 seed-media--rounded">
+  <img src="photo.jpg" alt="Description">
+</div>
+
+<!-- Aspect ratios: --16x9  --4x3  --3x2  --1x1  --auto -->
+<!-- Gallery -->
+<div class="seed-media-grid seed-media-grid--3">…</div>
+```
+
+### Feedback `components/feedback/`
+
+Empty states, skeleton loaders, progress bars, and spinners.
+
+```html
+<!-- Empty state -->
+<div class="seed-empty">
+  <p class="seed-empty__title">Nothing here yet</p>
+  <p class="seed-empty__body">Create something to get started.</p>
+</div>
+
+<!-- Progress -->
+<div class="seed-progress"><div class="seed-progress__bar" style="width:60%"></div></div>
+
+<!-- Spinner -->
+<span class="seed-spinner" role="status" aria-label="Loading"></span>
+```
+
+### Breadcrumbs & Pagination `components/nav/`
+
+Wayfinding breadcrumb trail and page controls.
+
+```html
+<!-- Breadcrumbs -->
+<ol class="seed-breadcrumbs">
+  <li><a class="seed-breadcrumb" href="#">Home</a></li>
+  <li class="seed-breadcrumbs__separator" aria-hidden="true"><span class="dew dew-chevron-right"></span></li>
+  <li><span class="seed-breadcrumb seed-breadcrumb--active" aria-current="page">Settings</span></li>
+</ol>
+
+<!-- Pagination -->
+<nav class="seed-pagination">
+  <button class="seed-page" aria-label="Previous page"><span class="dew dew-chevron-left"></span></button>
+  <button class="seed-page">1</button>
+  <button class="seed-page seed-page--active" aria-current="page">2</button>
+  <button class="seed-page">3</button>
+  <button class="seed-page" aria-label="Next page"><span class="dew dew-chevron-right"></span></button>
+  <span class="seed-pagination__info">1–10 of 84</span>
+</nav>
+```
+
+### Layout `components/layout/`
+
+Full-page shell with collapsible left panel, top bar, and fluid content area. Includes a live design system preview at `components/layout/layout.html`.
 
 ---
 
@@ -200,8 +413,8 @@ Seed components are plain HTML + CSS. Each lives in `components/{name}/` with a 
 | Version | Focus |
 |---|---|
 | **v0.1** | Design token system — palette, semantic tokens, scale ✓ |
-| **v0.2** | Core components — Button, Badge ✓ · Input, Text, Stack, Icon |
-| **v0.3** | Compositions — Card, Form, Navigation, Overlay |
+| **v0.2** | Core components — Button, Badge, Card, Avatar, Input, Toggle, Tabs, Divider, Table, Toast ✓ |
+| **v0.3** | Overlay & nav — Chat, Dropdown, Tooltip, Popover, Upload, Media, Feedback, Breadcrumbs, Pagination ✓ |
 | **v1.0** | Full Storybook, accessibility audit, public docs site |
 
 ---
