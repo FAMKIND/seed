@@ -446,6 +446,7 @@
     --seed-z-base:            0;
     --seed-z-raised:          10;
     --seed-z-dropdown:        100;
+    --seed-z-tooltip:         150;
     --seed-z-sticky:          200;
     --seed-z-overlay:         300;
     --seed-z-modal:           400;

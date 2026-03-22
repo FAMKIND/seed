@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="../../components/media/media.css">
   <link rel="stylesheet" href="../../components/feedback/feedback.css">
   <link rel="stylesheet" href="../../components/dropdown/dropdown.css">
+  <link rel="stylesheet" href="../../components/tooltip/tooltip.css">
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
   <style>
@@ -899,6 +900,12 @@
             <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
             <span class="nav-item__icon"><span class="dew dew-chevron-down" aria-hidden="true"></span></span>
             <span class="nav-label">Dropdown</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-item" data-label="Tooltips" data-section="tooltips" data-category="Components" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-information-circle" aria-hidden="true"></span></span>
+            <span class="nav-label">Tooltips</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
@@ -4696,6 +4703,223 @@
                 });
                 document.addEventListener('click', close);
                 menu.addEventListener('click', function (e) { e.stopPropagation(); });
+                document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+              });
+            })();
+          </script>
+
+        </div>
+
+        <!-- ── tooltips ──────────────────────────────── -->
+        <div class="ds-section" data-section="tooltips" style="display:none">
+          <style>
+            .tp-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-3);
+            }
+            .tp-note {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              line-height:   var(--seed-leading-normal);
+              margin-bottom: var(--seed-space-8);
+              max-width:     520px;
+            }
+            .tp-divider {
+              height:     1px;
+              background: var(--soil-border-subtle);
+              margin:     var(--seed-space-8) 0;
+            }
+            /* Tooltip position demo grid */
+            .tp-grid {
+              display:               grid;
+              grid-template-columns: repeat(4, 140px);
+              gap:                   0;
+              margin-bottom:         var(--seed-space-6);
+            }
+            .tp-cell {
+              min-height:      120px;
+              display:         flex;
+              align-items:     center;
+              justify-content: center;
+              flex-direction:  column;
+              gap:             var(--seed-space-2);
+            }
+            .tp-cell-label {
+              font-size: var(--seed-text-xs);
+              color:     var(--soil-text-muted);
+            }
+            /* Popover demo row */
+            .tp-pop-row {
+              display:        flex;
+              gap:            80px;
+              flex-wrap:      wrap;
+              align-items:    flex-start;
+              padding-bottom: 280px;
+              margin-bottom: -240px;
+            }
+            .tp-pop-col {
+              display:        flex;
+              flex-direction: column;
+              gap:            var(--seed-space-2);
+            }
+          </style>
+
+          <p class="tp-note">Tooltip: CSS-only hover reveal in four directions. Popover: click-toggled rich content panel with JS. Both use Seed tokens — dark mode automatic.</p>
+
+          <!-- ── 1. Tooltip positions ── -->
+          <p class="tp-label">Tooltip positions — hover to reveal</p>
+          <div class="tp-grid">
+            <div class="tp-cell">
+              <span class="seed-tooltip seed-tooltip--top">
+                <button class="seed-button seed-button--secondary seed-button--sm">Top</button>
+                <span class="seed-tooltip__tip" role="tooltip">Appears above</span>
+              </span>
+              <span class="tp-cell-label">--top</span>
+            </div>
+            <div class="tp-cell">
+              <span class="seed-tooltip seed-tooltip--bottom">
+                <button class="seed-button seed-button--secondary seed-button--sm">Bottom</button>
+                <span class="seed-tooltip__tip" role="tooltip">Appears below</span>
+              </span>
+              <span class="tp-cell-label">--bottom</span>
+            </div>
+            <div class="tp-cell">
+              <span class="seed-tooltip seed-tooltip--left">
+                <button class="seed-button seed-button--secondary seed-button--sm">Left</button>
+                <span class="seed-tooltip__tip" role="tooltip">Appears left</span>
+              </span>
+              <span class="tp-cell-label">--left</span>
+            </div>
+            <div class="tp-cell">
+              <span class="seed-tooltip seed-tooltip--right">
+                <button class="seed-button seed-button--secondary seed-button--sm">Right</button>
+                <span class="seed-tooltip__tip" role="tooltip">Appears right</span>
+              </span>
+              <span class="tp-cell-label">--right</span>
+            </div>
+          </div>
+
+          <!-- ── 2. Tooltips on icon buttons ── -->
+          <p class="tp-label">On icon buttons</p>
+          <div style="display:flex;gap:var(--seed-space-4);align-items:center;margin-bottom:var(--seed-space-8);padding-top:var(--seed-space-6)">
+            <span class="seed-tooltip seed-tooltip--top">
+              <button class="seed-button seed-button--secondary seed-button--md seed-button--icon-only" aria-label="Edit">
+                <span class="seed-button__icon dew dew-pencil" aria-hidden="true"></span>
+              </button>
+              <span class="seed-tooltip__tip" role="tooltip">Edit</span>
+            </span>
+            <span class="seed-tooltip seed-tooltip--top">
+              <button class="seed-button seed-button--secondary seed-button--md seed-button--icon-only" aria-label="Share">
+                <span class="seed-button__icon dew dew-share" aria-hidden="true"></span>
+              </button>
+              <span class="seed-tooltip__tip" role="tooltip">Share</span>
+            </span>
+            <span class="seed-tooltip seed-tooltip--top">
+              <button class="seed-button seed-button--secondary seed-button--md seed-button--icon-only" aria-label="Download">
+                <span class="seed-button__icon dew dew-download" aria-hidden="true"></span>
+              </button>
+              <span class="seed-tooltip__tip" role="tooltip">Download</span>
+            </span>
+            <span class="seed-tooltip seed-tooltip--top">
+              <button class="seed-button seed-button--danger seed-button--md seed-button--icon-only" aria-label="Delete">
+                <span class="seed-button__icon dew dew-trash" aria-hidden="true"></span>
+              </button>
+              <span class="seed-tooltip__tip" role="tooltip">Delete</span>
+            </span>
+          </div>
+
+          <div class="tp-divider"></div>
+
+          <!-- ── 3. Popovers ── -->
+          <p class="tp-label">Popovers — click to toggle</p>
+          <div class="tp-pop-row">
+
+            <!-- Simple info -->
+            <div class="tp-pop-col">
+              <span class="tp-label" style="margin-bottom:var(--seed-space-2)">Info</span>
+              <div class="seed-popover seed-popover--align-start" data-tp-popover>
+                <button class="seed-button seed-button--secondary seed-button--md"
+                        data-tp-trigger aria-haspopup="true" aria-expanded="false">
+                  <span class="seed-button__icon dew dew-information-circle" aria-hidden="true"></span>
+                  About
+                  <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+                </button>
+                <div class="seed-popover__content" data-tp-content role="dialog">
+                  <p class="seed-popover__title">About this value</p>
+                  <p class="seed-popover__body">Computed from your last 30 days of activity. Updates every 24 hours at midnight UTC.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- User card -->
+            <div class="tp-pop-col">
+              <span class="tp-label" style="margin-bottom:var(--seed-space-2)">User card</span>
+              <div class="seed-popover seed-popover--align-start" data-tp-popover>
+                <button class="seed-button seed-button--secondary seed-button--md"
+                        data-tp-trigger aria-haspopup="true" aria-expanded="false">
+                  <span class="seed-avatar seed-avatar--sm seed-avatar--brand" aria-hidden="true">JD</span>
+                  Jordan Davis
+                  <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+                </button>
+                <div class="seed-popover__content" data-tp-content role="dialog" style="min-width:260px">
+                  <div style="display:flex;gap:var(--seed-space-3);align-items:center;margin-bottom:var(--seed-space-3)">
+                    <span class="seed-avatar seed-avatar--lg seed-avatar--brand" aria-label="Jordan Davis">JD</span>
+                    <div>
+                      <p class="seed-popover__title" style="margin-bottom:2px">Jordan Davis</p>
+                      <p style="font-size:var(--seed-text-xs);color:var(--soil-text-muted)">jordan@famkind.com</p>
+                    </div>
+                  </div>
+                  <div class="seed-popover__divider"></div>
+                  <div class="seed-popover__footer" style="margin-top:0">
+                    <button class="seed-button seed-button--secondary seed-button--sm">View profile</button>
+                    <button class="seed-button seed-button--secondary seed-button--sm">Message</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Confirm -->
+            <div class="tp-pop-col">
+              <span class="tp-label" style="margin-bottom:var(--seed-space-2)">Confirmation</span>
+              <div class="seed-popover seed-popover--align-start" data-tp-popover>
+                <button class="seed-button seed-button--danger seed-button--md"
+                        data-tp-trigger aria-haspopup="true" aria-expanded="false">
+                  <span class="seed-button__icon dew dew-trash" aria-hidden="true"></span>
+                  Delete
+                </button>
+                <div class="seed-popover__content" data-tp-content role="dialog">
+                  <p class="seed-popover__title">Delete this item?</p>
+                  <p class="seed-popover__body">This action cannot be undone. The item will be permanently removed.</p>
+                  <div class="seed-popover__footer">
+                    <button class="seed-button seed-button--danger seed-button--sm">Yes, delete</button>
+                    <button class="seed-button seed-button--secondary seed-button--sm" data-tp-close>Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <script>
+            (function () {
+              var section = document.querySelector('[data-section="tooltips"]');
+              if (!section) return;
+              section.querySelectorAll('[data-tp-popover]').forEach(function (wrap) {
+                var trigger   = wrap.querySelector('[data-tp-trigger]');
+                var content   = wrap.querySelector('[data-tp-content]');
+                var closeBtns = wrap.querySelectorAll('[data-tp-close]');
+                if (!trigger || !content) return;
+                function isOpen() { return content.classList.contains('seed-popover__content--open'); }
+                function open()   { content.classList.add('seed-popover__content--open');    trigger.setAttribute('aria-expanded', 'true');  }
+                function close()  { content.classList.remove('seed-popover__content--open'); trigger.setAttribute('aria-expanded', 'false'); }
+                trigger.addEventListener('click', function (e) { e.stopPropagation(); isOpen() ? close() : open(); });
+                closeBtns.forEach(function (b) { b.addEventListener('click', close); });
+                document.addEventListener('click', close);
+                content.addEventListener('click', function (e) { e.stopPropagation(); });
                 document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
               });
             })();

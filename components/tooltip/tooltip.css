@@ -1,0 +1,206 @@
+/* ═══════════════════════════════════════════════════════
+   SEED TOOLTIP & POPOVER
+   Requires: tokens/tokens.css
+   Usage:    <span class="seed-tooltip seed-tooltip--top">
+               <button>Hover me</button>
+               <span class="seed-tooltip__tip">Tooltip text</span>
+             </span>
+
+   Zero hardcoded colors — every value flows from
+   Seed semantic tokens. Theme switching is automatic.
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   TOOLTIP — WRAPPER
+───────────────────────────────────────────────────── */
+
+.seed-tooltip {
+    position: relative;
+    display:  inline-block;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   TOOLTIP — TIP PANEL
+───────────────────────────────────────────────────── */
+
+.seed-tooltip__tip {
+    position:       absolute;
+    padding:        var(--seed-space-1) var(--seed-space-2);
+    background:     var(--soil-bg-elevated);
+    color:          var(--soil-text);
+    font-size:      var(--seed-text-xs);
+    font-family:    var(--seed-font-ui);
+    font-weight:    var(--seed-weight-regular);
+    line-height:    var(--seed-leading-snug);
+    border-radius:  var(--seed-radius-sm);
+    box-shadow:     var(--seed-shadow-sm);
+    border:         1px solid var(--soil-border-subtle);
+    white-space:    nowrap;
+    pointer-events: none;
+    opacity:        0;
+    transition:     opacity 100ms ease;
+    z-index:        var(--seed-z-tooltip);
+}
+
+.seed-tooltip:hover .seed-tooltip__tip,
+.seed-tooltip:focus-within .seed-tooltip__tip {
+    opacity: 1;
+}
+
+/* Multiline — allow wrapping when content is long */
+.seed-tooltip__tip--wrap {
+    white-space: normal;
+    max-width:   220px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   TOOLTIP — POSITIONS
+   Default is --top. Apply modifier to .seed-tooltip.
+───────────────────────────────────────────────────── */
+
+/* Top (default) */
+.seed-tooltip--top .seed-tooltip__tip,
+.seed-tooltip__tip {
+    bottom:    calc(100% + 6px);
+    left:      50%;
+    transform: translateX(-50%);
+}
+
+/* Bottom */
+.seed-tooltip--bottom .seed-tooltip__tip {
+    bottom:    auto;
+    top:       calc(100% + 6px);
+    left:      50%;
+    transform: translateX(-50%);
+}
+
+/* Left */
+.seed-tooltip--left .seed-tooltip__tip {
+    bottom:    auto;
+    left:      auto;
+    right:     calc(100% + 6px);
+    top:       50%;
+    transform: translateY(-50%);
+}
+
+/* Right */
+.seed-tooltip--right .seed-tooltip__tip {
+    bottom:    auto;
+    left:      calc(100% + 6px);
+    top:       50%;
+    transform: translateY(-50%);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   POPOVER — WRAPPER
+───────────────────────────────────────────────────── */
+
+.seed-popover {
+    position: relative;
+    display:  inline-block;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   POPOVER — CONTENT PANEL
+───────────────────────────────────────────────────── */
+
+.seed-popover__content {
+    display:       none;
+    position:      absolute;
+    top:           calc(100% + 8px);
+    left:          50%;
+    transform:     translateX(-50%);
+    min-width:     240px;
+    background:    var(--soil-bg-elevated);
+    border:        1px solid var(--soil-border-subtle);
+    border-radius: var(--seed-radius-lg);
+    box-shadow:    var(--seed-shadow-lg);
+    padding:       var(--seed-space-4);
+    z-index:       var(--seed-z-dropdown);
+    font-family:   var(--seed-font-ui);
+}
+
+.seed-popover__content--open {
+    display: block;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   POPOVER — POSITIONS
+───────────────────────────────────────────────────── */
+
+/* Top */
+.seed-popover--top .seed-popover__content {
+    top:       auto;
+    bottom:    calc(100% + 8px);
+    left:      50%;
+    transform: translateX(-50%);
+}
+
+/* Bottom (default) — already set above */
+
+/* Left */
+.seed-popover--left .seed-popover__content {
+    top:       50%;
+    left:      auto;
+    right:     calc(100% + 8px);
+    transform: translateY(-50%);
+}
+
+/* Right */
+.seed-popover--right .seed-popover__content {
+    top:       50%;
+    left:      calc(100% + 8px);
+    transform: translateY(-50%);
+}
+
+/* Align left edge to trigger (instead of centred) */
+.seed-popover--align-start .seed-popover__content {
+    left:      0;
+    transform: none;
+}
+
+/* Align right edge to trigger */
+.seed-popover--align-end .seed-popover__content {
+    left:      auto;
+    right:     0;
+    transform: none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   POPOVER — INNER ELEMENTS
+───────────────────────────────────────────────────── */
+
+.seed-popover__title {
+    font-size:     var(--seed-text-sm);
+    font-weight:   var(--seed-weight-semibold);
+    color:         var(--soil-text);
+    margin-bottom: var(--seed-space-2);
+    line-height:   var(--seed-leading-tight);
+}
+
+.seed-popover__body {
+    font-size:   var(--seed-text-sm);
+    color:       var(--soil-text-muted);
+    line-height: var(--seed-leading-normal);
+}
+
+.seed-popover__footer {
+    display:     flex;
+    gap:         var(--seed-space-2);
+    margin-top:  var(--seed-space-4);
+    flex-wrap:   wrap;
+    align-items: center;
+}
+
+.seed-popover__divider {
+    height:     1px;
+    background: var(--soil-border-subtle);
+    margin:     var(--seed-space-3) 0;
+}

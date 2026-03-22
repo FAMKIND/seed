@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed — Tooltip &amp; Popover</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../icons/dew/dew.css">
+  <link rel="stylesheet" href="../../components/button/button.css">
+  <link rel="stylesheet" href="../../components/avatar/avatar.css">
+  <link rel="stylesheet" href="tooltip.css">
+  <style>
+    body {
+      font-family: var(--seed-font-ui);
+      background:  var(--soil-bg-canvas);
+      color:       var(--soil-text);
+      padding:     var(--seed-space-8);
+    }
+    h2 {
+      font-size:     var(--seed-text-base);
+      font-weight:   var(--seed-weight-semibold);
+      margin-bottom: var(--seed-space-2);
+      margin-top:    var(--seed-space-8);
+    }
+    h2:first-child { margin-top: 0; }
+    p.desc {
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      margin-bottom: var(--seed-space-6);
+    }
+    /* Demo grid — each cell gives the tooltip room to appear */
+    .tip-grid {
+      display:               grid;
+      grid-template-columns: repeat(4, 160px);
+      gap:                   0;
+    }
+    .tip-cell {
+      min-height:  120px;
+      display:     flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap:         var(--seed-space-2);
+    }
+    .tip-cell-label {
+      font-size:  var(--seed-text-xs);
+      color:      var(--soil-text-muted);
+      margin-top: var(--seed-space-1);
+    }
+    /* Popover demo spacing */
+    .pop-row {
+      display:     flex;
+      gap:         80px;
+      flex-wrap:   wrap;
+      align-items: flex-start;
+      padding-bottom: 280px;
+      margin-bottom: -240px;
+    }
+    .pop-col {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--seed-space-2);
+    }
+    .pop-col-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── 1. Tooltip positions ────────────────────── -->
+  <h2>Tooltip positions</h2>
+  <p class="desc">Hover each button to see the tooltip. Add modifier to .seed-tooltip for direction.</p>
+  <div class="tip-grid">
+    <div class="tip-cell">
+      <span class="seed-tooltip seed-tooltip--top">
+        <button class="seed-button seed-button--secondary seed-button--sm">Top</button>
+        <span class="seed-tooltip__tip" role="tooltip">Appears above</span>
+      </span>
+      <span class="tip-cell-label">--top (default)</span>
+    </div>
+    <div class="tip-cell">
+      <span class="seed-tooltip seed-tooltip--bottom">
+        <button class="seed-button seed-button--secondary seed-button--sm">Bottom</button>
+        <span class="seed-tooltip__tip" role="tooltip">Appears below</span>
+      </span>
+      <span class="tip-cell-label">--bottom</span>
+    </div>
+    <div class="tip-cell">
+      <span class="seed-tooltip seed-tooltip--left">
+        <button class="seed-button seed-button--secondary seed-button--sm">Left</button>
+        <span class="seed-tooltip__tip" role="tooltip">Appears left</span>
+      </span>
+      <span class="tip-cell-label">--left</span>
+    </div>
+    <div class="tip-cell">
+      <span class="seed-tooltip seed-tooltip--right">
+        <button class="seed-button seed-button--secondary seed-button--sm">Right</button>
+        <span class="seed-tooltip__tip" role="tooltip">Appears right</span>
+      </span>
+      <span class="tip-cell-label">--right</span>
+    </div>
+  </div>
+
+  <!-- ─── 2. Tooltips on icons ────────────────────── -->
+  <h2>On icon buttons</h2>
+  <p class="desc">Common pattern: icon-only buttons labelled by tooltip.</p>
+  <div style="display:flex;gap:var(--seed-space-4);align-items:center;padding-bottom:60px">
+    <span class="seed-tooltip seed-tooltip--top">
+      <button class="seed-button seed-button--secondary seed-button--md seed-button--icon-only" aria-label="Edit">
+        <span class="seed-button__icon dew dew-pencil" aria-hidden="true"></span>
+      </button>
+      <span class="seed-tooltip__tip" role="tooltip">Edit</span>
+    </span>
+    <span class="seed-tooltip seed-tooltip--top">
+      <button class="seed-button seed-button--secondary seed-button--md seed-button--icon-only" aria-label="Share">
+        <span class="seed-button__icon dew dew-share" aria-hidden="true"></span>
+      </button>
+      <span class="seed-tooltip__tip" role="tooltip">Share</span>
+    </span>
+    <span class="seed-tooltip seed-tooltip--top">
+      <button class="seed-button seed-button--secondary seed-button--md seed-button--icon-only" aria-label="Download">
+        <span class="seed-button__icon dew dew-download" aria-hidden="true"></span>
+      </button>
+      <span class="seed-tooltip__tip" role="tooltip">Download</span>
+    </span>
+    <span class="seed-tooltip seed-tooltip--top">
+      <button class="seed-button seed-button--danger seed-button--md seed-button--icon-only" aria-label="Delete">
+        <span class="seed-button__icon dew dew-trash" aria-hidden="true"></span>
+      </button>
+      <span class="seed-tooltip__tip" role="tooltip">Delete</span>
+    </span>
+  </div>
+
+  <!-- ─── 3. Tooltip with wrapping text ───────────── -->
+  <h2>Multiline tooltip</h2>
+  <p class="desc">Add --wrap to .seed-tooltip__tip for longer descriptions.</p>
+  <div style="padding-bottom:80px">
+    <span class="seed-tooltip seed-tooltip--bottom">
+      <button class="seed-button seed-button--secondary seed-button--md">
+        <span class="seed-button__icon dew dew-information-circle" aria-hidden="true"></span>
+        What is this?
+      </button>
+      <span class="seed-tooltip__tip seed-tooltip__tip--wrap" role="tooltip">
+        Seed is an open source design system built by FAM. It provides tokens, components, and patterns for building consistent UIs.
+      </span>
+    </span>
+  </div>
+
+  <!-- ─── 4. Popovers ─────────────────────────────── -->
+  <h2>Popovers</h2>
+  <p class="desc">Click to toggle. Richer content than a tooltip — can contain any HTML.</p>
+  <div class="pop-row">
+
+    <!-- Simple popover -->
+    <div class="pop-col">
+      <span class="pop-col-label">Simple</span>
+      <div class="seed-popover seed-popover--align-start" data-popover>
+        <button class="seed-button seed-button--secondary seed-button--md" data-pop-trigger aria-haspopup="true" aria-expanded="false">
+          Info
+          <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+        </button>
+        <div class="seed-popover__content seed-popover__content--open" data-pop-content role="dialog">
+          <p class="seed-popover__title">About this field</p>
+          <p class="seed-popover__body">This value is computed from your last 30 days of activity. It updates every 24 hours at midnight UTC.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- User card popover -->
+    <div class="pop-col">
+      <span class="pop-col-label">User card</span>
+      <div class="seed-popover seed-popover--align-start" data-popover>
+        <button class="seed-button seed-button--secondary seed-button--md" data-pop-trigger aria-haspopup="true" aria-expanded="false">
+          <span class="seed-avatar seed-avatar--sm seed-avatar--brand" aria-hidden="true">JD</span>
+          Jordan Davis
+          <span class="seed-button__icon dew dew-chevron-down" aria-hidden="true"></span>
+        </button>
+        <div class="seed-popover__content seed-popover__content--open" data-pop-content role="dialog" style="min-width:260px">
+          <div style="display:flex;gap:var(--seed-space-3);align-items:center;margin-bottom:var(--seed-space-3)">
+            <span class="seed-avatar seed-avatar--lg seed-avatar--brand" aria-label="Jordan Davis">JD</span>
+            <div>
+              <p class="seed-popover__title" style="margin-bottom:2px">Jordan Davis</p>
+              <p style="font-size:var(--seed-text-xs);color:var(--soil-text-muted)">jordan@famkind.com</p>
+            </div>
+          </div>
+          <div class="seed-popover__divider"></div>
+          <div class="seed-popover__footer" style="margin-top:0">
+            <button class="seed-button seed-button--secondary seed-button--sm">View profile</button>
+            <button class="seed-button seed-button--secondary seed-button--sm">Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm popover -->
+    <div class="pop-col">
+      <span class="pop-col-label">Confirmation</span>
+      <div class="seed-popover seed-popover--align-start" data-popover>
+        <button class="seed-button seed-button--danger seed-button--md" data-pop-trigger aria-haspopup="true" aria-expanded="false">
+          <span class="seed-button__icon dew dew-trash" aria-hidden="true"></span>
+          Delete
+        </button>
+        <div class="seed-popover__content seed-popover__content--open" data-pop-content role="dialog">
+          <p class="seed-popover__title">Delete this item?</p>
+          <p class="seed-popover__body">This action cannot be undone. The item will be permanently removed.</p>
+          <div class="seed-popover__footer">
+            <button class="seed-button seed-button--danger seed-button--sm">Yes, delete</button>
+            <button class="seed-button seed-button--secondary seed-button--sm" data-pop-close>Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+      document.querySelectorAll('[data-popover]').forEach(function (wrap) {
+        var trigger = wrap.querySelector('[data-pop-trigger]');
+        var content = wrap.querySelector('[data-pop-content]');
+        var close_btns = wrap.querySelectorAll('[data-pop-close]');
+        if (!trigger || !content) return;
+
+        function open()  { content.classList.add('seed-popover__content--open');    trigger.setAttribute('aria-expanded', 'true');  }
+        function close() { content.classList.remove('seed-popover__content--open'); trigger.setAttribute('aria-expanded', 'false'); }
+        function isOpen(){ return content.classList.contains('seed-popover__content--open'); }
+
+        trigger.addEventListener('click', function (e) { e.stopPropagation(); isOpen() ? close() : open(); });
+        close_btns.forEach(function (b) { b.addEventListener('click', close); });
+        document.addEventListener('click', close);
+        content.addEventListener('click', function (e) { e.stopPropagation(); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+      });
+    })();
+  </script>
+
+</body>
+</html>
