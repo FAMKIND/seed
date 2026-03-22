@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed — Feedback</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../icons/dew/dew.css">
+  <link rel="stylesheet" href="../../components/button/button.css">
+  <link rel="stylesheet" href="feedback.css">
+  <style>
+    body {
+      font-family: var(--seed-font-ui);
+      background:  var(--soil-bg-canvas);
+      color:       var(--soil-text);
+      padding:     var(--seed-space-8);
+    }
+    h2 {
+      font-size:     var(--seed-text-base);
+      font-weight:   var(--seed-weight-semibold);
+      color:         var(--soil-text);
+      margin-bottom: var(--seed-space-2);
+      margin-top:    var(--seed-space-10, 40px);
+    }
+    h2:first-child { margin-top: 0; }
+    p.desc {
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      margin-bottom: var(--seed-space-4);
+    }
+    .demo-frame {
+      border:        1px solid var(--soil-border-subtle);
+      border-radius: var(--seed-radius-lg);
+      background:    var(--soil-bg-surface);
+      margin-bottom: var(--seed-space-4);
+      overflow:      hidden;
+    }
+    .demo-row {
+      display:     flex;
+      gap:         var(--seed-space-6);
+      flex-wrap:   wrap;
+      align-items: flex-start;
+      margin-bottom: var(--seed-space-4);
+    }
+    .demo-col {
+      flex:      1;
+      min-width: 220px;
+    }
+    .demo-label {
+      font-size:     var(--seed-text-xs);
+      font-weight:   var(--seed-weight-semibold);
+      color:         var(--soil-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: var(--seed-space-3);
+    }
+    .demo-pad { padding: var(--seed-space-4); }
+    .demo-stack {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--seed-space-3);
+    }
+    .spinner-row {
+      display:     flex;
+      gap:         var(--seed-space-6);
+      align-items: center;
+      flex-wrap:   wrap;
+    }
+    .spinner-item {
+      display:        flex;
+      flex-direction: column;
+      align-items:    center;
+      gap:            var(--seed-space-2);
+      font-size:      var(--seed-text-xs);
+      color:          var(--soil-text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── 1. Empty states ─────────────────────────── -->
+  <h2>Empty states</h2>
+  <p class="desc">Lora title + Inter body. Use a large Dew icon and a clear action.</p>
+
+  <div class="demo-row">
+
+    <!-- No projects -->
+    <div class="demo-frame demo-col">
+      <div class="seed-empty">
+        <span class="dew dew-folder-open seed-empty__icon" aria-hidden="true"></span>
+        <p class="seed-empty__title">No projects yet</p>
+        <p class="seed-empty__message">Create your first project to start organising your work and collaborating with your team.</p>
+        <div class="seed-empty__action">
+          <button class="seed-button seed-button--primary seed-button--md">
+            <span class="seed-button__icon dew dew-plus" aria-hidden="true"></span>
+            New project
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- No messages -->
+    <div class="demo-frame demo-col">
+      <div class="seed-empty">
+        <span class="dew dew-message-circle seed-empty__icon" aria-hidden="true"></span>
+        <p class="seed-empty__title">No messages</p>
+        <p class="seed-empty__message">When someone sends you a message it will appear here. Start a conversation to get things moving.</p>
+        <div class="seed-empty__action">
+          <button class="seed-button seed-button--secondary seed-button--md">Start a conversation</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="demo-row">
+
+    <!-- No search results -->
+    <div class="demo-frame demo-col">
+      <div class="seed-empty seed-empty--compact">
+        <span class="dew dew-search seed-empty__icon" aria-hidden="true"></span>
+        <p class="seed-empty__title">No results for "onboarding"</p>
+        <p class="seed-empty__message">Try a different search term or browse all components.</p>
+        <div class="seed-empty__action">
+          <button class="seed-button seed-button--link seed-button--md">Clear search</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- No files -->
+    <div class="demo-frame demo-col">
+      <div class="seed-empty seed-empty--compact">
+        <span class="dew dew-file seed-empty__icon" aria-hidden="true"></span>
+        <p class="seed-empty__title">No files uploaded</p>
+        <p class="seed-empty__message">Drag files here or click upload to get started.</p>
+        <div class="seed-empty__action">
+          <button class="seed-button seed-button--secondary seed-button--md">
+            <span class="seed-button__icon dew dew-download" aria-hidden="true"></span>
+            Upload files
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── 2. Skeleton loading ─────────────────────── -->
+  <h2>Skeleton loading</h2>
+  <p class="desc">Shimmer placeholders that mirror the shape of real content. Respects prefers-reduced-motion.</p>
+
+  <div class="demo-row">
+
+    <!-- Card skeleton -->
+    <div class="demo-col" style="max-width:280px">
+      <p class="demo-label">Card skeleton</p>
+      <div class="demo-frame demo-pad">
+        <div class="demo-stack">
+          <span class="seed-skeleton seed-skeleton--card"></span>
+          <div class="seed-skeleton-row">
+            <span class="seed-skeleton seed-skeleton--avatar"></span>
+            <div class="seed-skeleton-row__body">
+              <span class="seed-skeleton seed-skeleton--heading"></span>
+              <span class="seed-skeleton seed-skeleton--text-short"></span>
+            </div>
+          </div>
+          <div class="seed-skeleton-block">
+            <span class="seed-skeleton seed-skeleton--text"></span>
+            <span class="seed-skeleton seed-skeleton--text"></span>
+            <span class="seed-skeleton seed-skeleton--text-xs"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table row skeletons -->
+    <div class="demo-col" style="max-width:360px">
+      <p class="demo-label">Table rows</p>
+      <div class="demo-frame demo-pad">
+        <div class="demo-stack">
+          <div class="seed-skeleton-row">
+            <span class="seed-skeleton seed-skeleton--avatar"></span>
+            <div class="seed-skeleton-row__body">
+              <span class="seed-skeleton seed-skeleton--text" style="width:55%"></span>
+              <span class="seed-skeleton seed-skeleton--text" style="width:35%"></span>
+            </div>
+            <span class="seed-skeleton seed-skeleton--button"></span>
+          </div>
+          <div class="seed-skeleton-row">
+            <span class="seed-skeleton seed-skeleton--avatar"></span>
+            <div class="seed-skeleton-row__body">
+              <span class="seed-skeleton seed-skeleton--text" style="width:70%"></span>
+              <span class="seed-skeleton seed-skeleton--text" style="width:40%"></span>
+            </div>
+            <span class="seed-skeleton seed-skeleton--button"></span>
+          </div>
+          <div class="seed-skeleton-row">
+            <span class="seed-skeleton seed-skeleton--avatar"></span>
+            <div class="seed-skeleton-row__body">
+              <span class="seed-skeleton seed-skeleton--text" style="width:50%"></span>
+              <span class="seed-skeleton seed-skeleton--text" style="width:30%"></span>
+            </div>
+            <span class="seed-skeleton seed-skeleton--button"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text block skeleton -->
+    <div class="demo-col" style="max-width:280px">
+      <p class="demo-label">Text block</p>
+      <div class="demo-frame demo-pad">
+        <div class="demo-stack">
+          <span class="seed-skeleton seed-skeleton--heading" style="width:70%"></span>
+          <div class="seed-skeleton-block">
+            <span class="seed-skeleton seed-skeleton--text"></span>
+            <span class="seed-skeleton seed-skeleton--text"></span>
+            <span class="seed-skeleton seed-skeleton--text-short"></span>
+          </div>
+          <div class="seed-skeleton-block" style="margin-top:var(--seed-space-2)">
+            <span class="seed-skeleton seed-skeleton--text"></span>
+            <span class="seed-skeleton seed-skeleton--text"></span>
+            <span class="seed-skeleton seed-skeleton--text-xs"></span>
+          </div>
+          <div class="seed-skeleton-row" style="margin-top:var(--seed-space-2)">
+            <span class="seed-skeleton seed-skeleton--button"></span>
+            <span class="seed-skeleton seed-skeleton--button" style="width:80px"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── 3. Progress bars ─────────────────────────── -->
+  <h2>Progress bars</h2>
+  <p class="desc">Determinate and indeterminate. Width set via inline style.</p>
+
+  <div class="demo-frame demo-pad" style="max-width:520px;margin-bottom:var(--seed-space-4)">
+    <div class="demo-stack">
+
+      <!-- Default / brand -->
+      <div class="seed-progress-group">
+        <div class="seed-progress-group__header">
+          <span class="seed-progress-group__label">Uploading</span>
+          <span class="seed-progress-group__value">65%</span>
+        </div>
+        <div class="seed-progress" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+          <div class="seed-progress__bar" style="width:65%"></div>
+        </div>
+      </div>
+
+      <!-- Good -->
+      <div class="seed-progress-group">
+        <div class="seed-progress-group__header">
+          <span class="seed-progress-group__label">Storage used</span>
+          <span class="seed-progress-group__value">4.1 GB of 5 GB</span>
+        </div>
+        <div class="seed-progress seed-progress--good" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100">
+          <div class="seed-progress__bar" style="width:82%"></div>
+        </div>
+      </div>
+
+      <!-- Warn -->
+      <div class="seed-progress-group">
+        <div class="seed-progress-group__header">
+          <span class="seed-progress-group__label">API usage</span>
+          <span class="seed-progress-group__value">Warning · 78%</span>
+        </div>
+        <div class="seed-progress seed-progress--warn" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+          <div class="seed-progress__bar" style="width:78%"></div>
+        </div>
+      </div>
+
+      <!-- Bad -->
+      <div class="seed-progress-group">
+        <div class="seed-progress-group__header">
+          <span class="seed-progress-group__label">Disk space</span>
+          <span class="seed-progress-group__value">Critical · 96%</span>
+        </div>
+        <div class="seed-progress seed-progress--bad" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100">
+          <div class="seed-progress__bar" style="width:96%"></div>
+        </div>
+      </div>
+
+      <!-- Indeterminate -->
+      <div class="seed-progress-group">
+        <div class="seed-progress-group__header">
+          <span class="seed-progress-group__label">Processing</span>
+          <span class="seed-progress-group__value">Please wait…</span>
+        </div>
+        <div class="seed-progress seed-progress--indeterminate" role="progressbar" aria-label="Processing, please wait">
+          <div class="seed-progress__bar"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Sizes -->
+  <p class="desc">Sizes: sm (4px), default (6px), lg (8px).</p>
+  <div class="demo-frame demo-pad" style="max-width:520px;margin-bottom:var(--seed-space-4)">
+    <div class="demo-stack">
+      <div class="seed-progress-group">
+        <span class="seed-progress-group__label" style="font-size:var(--seed-text-xs);color:var(--soil-text-muted)">sm — 4px</span>
+        <div class="seed-progress seed-progress--sm" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+          <div class="seed-progress__bar" style="width:45%"></div>
+        </div>
+      </div>
+      <div class="seed-progress-group">
+        <span class="seed-progress-group__label" style="font-size:var(--seed-text-xs);color:var(--soil-text-muted)">default — 6px</span>
+        <div class="seed-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+          <div class="seed-progress__bar" style="width:60%"></div>
+        </div>
+      </div>
+      <div class="seed-progress-group">
+        <span class="seed-progress-group__label" style="font-size:var(--seed-text-xs);color:var(--soil-text-muted)">lg — 8px</span>
+        <div class="seed-progress seed-progress--lg" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+          <div class="seed-progress__bar" style="width:75%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 4. Spinners ─────────────────────────────── -->
+  <h2>Spinners</h2>
+  <p class="desc">CSS border-based spinner. Three sizes, four colour variants.</p>
+
+  <div class="demo-frame demo-pad" style="margin-bottom:var(--seed-space-4)">
+    <p class="demo-label" style="margin-bottom:var(--seed-space-4)">Sizes</p>
+    <div class="spinner-row">
+      <div class="spinner-item">
+        <span class="seed-spinner seed-spinner--sm" role="status" aria-label="Loading"></span>
+        sm
+      </div>
+      <div class="spinner-item">
+        <span class="seed-spinner" role="status" aria-label="Loading"></span>
+        default
+      </div>
+      <div class="spinner-item">
+        <span class="seed-spinner seed-spinner--lg" role="status" aria-label="Loading"></span>
+        lg
+      </div>
+      <div class="spinner-item">
+        <span class="seed-spinner seed-spinner--xl" role="status" aria-label="Loading"></span>
+        xl
+      </div>
+    </div>
+
+    <p class="demo-label" style="margin-top:var(--seed-space-6);margin-bottom:var(--seed-space-4)">Colour variants</p>
+    <div class="spinner-row">
+      <div class="spinner-item">
+        <span class="seed-spinner" role="status" aria-label="Loading"></span>
+        brand
+      </div>
+      <div class="spinner-item">
+        <span class="seed-spinner seed-spinner--good" role="status" aria-label="Loading"></span>
+        good
+      </div>
+      <div class="spinner-item">
+        <span class="seed-spinner seed-spinner--warn" role="status" aria-label="Loading"></span>
+        warn
+      </div>
+      <div class="spinner-item">
+        <span class="seed-spinner seed-spinner--bad" role="status" aria-label="Loading"></span>
+        bad
+      </div>
+      <div class="spinner-item">
+        <span class="seed-spinner seed-spinner--muted" role="status" aria-label="Loading"></span>
+        muted
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="../../components/toggle/toggle.css">
   <link rel="stylesheet" href="../../components/upload/upload.css">
   <link rel="stylesheet" href="../../components/media/media.css">
+  <link rel="stylesheet" href="../../components/feedback/feedback.css">
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
   <style>
@@ -885,6 +886,12 @@
             <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
             <span class="nav-item__icon"><span class="dew dew-image" aria-hidden="true"></span></span>
             <span class="nav-label">Media</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-item" data-label="Feedback" data-section="feedback" data-category="Components" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-information-circle" aria-hidden="true"></span></span>
+            <span class="nav-label">Feedback</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
@@ -4237,6 +4244,240 @@
               <figure class="seed-media seed-media--16x9"><div class="md-fill md-fill--warm"></div></figure>
               <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--cool"></div></figure>
               <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--green"></div></figure>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ── feedback ──────────────────────────────── -->
+        <div class="ds-section" data-section="feedback" style="display:none">
+          <style>
+            .fb-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-3);
+            }
+            .fb-note {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              line-height:   var(--seed-leading-normal);
+              margin-bottom: var(--seed-space-8);
+              max-width:     520px;
+            }
+            .fb-divider {
+              height:     1px;
+              background: var(--soil-border-subtle);
+              margin:     var(--seed-space-8) 0;
+            }
+            .fb-frame {
+              border:        1px solid var(--soil-border-subtle);
+              border-radius: var(--seed-radius-lg);
+              background:    var(--soil-bg-surface);
+              overflow:      hidden;
+            }
+            .fb-pad    { padding: var(--seed-space-4); }
+            .fb-row    { display:flex;gap:var(--seed-space-4);flex-wrap:wrap;align-items:flex-start; }
+            .fb-col    { flex:1;min-width:220px; }
+            .fb-stack  { display:flex;flex-direction:column;gap:var(--seed-space-3); }
+            .fb-spinner-row  { display:flex;gap:var(--seed-space-6);align-items:center;flex-wrap:wrap; }
+            .fb-spinner-item { display:flex;flex-direction:column;align-items:center;gap:var(--seed-space-2);font-size:var(--seed-text-xs);color:var(--soil-text-muted); }
+          </style>
+
+          <p class="fb-note">Empty states, skeleton loaders, progress bars, and spinners. All values from Seed tokens — dark mode automatic.</p>
+
+          <!-- ── 1. Empty states ── -->
+          <p class="fb-label">Empty states</p>
+          <div class="fb-row" style="margin-bottom:var(--seed-space-4)">
+            <div class="fb-frame fb-col">
+              <div class="seed-empty seed-empty--compact">
+                <span class="dew dew-folder-open seed-empty__icon" aria-hidden="true"></span>
+                <p class="seed-empty__title">No projects yet</p>
+                <p class="seed-empty__message">Create your first project to start organising your work.</p>
+                <div class="seed-empty__action">
+                  <button class="seed-button seed-button--primary seed-button--md">
+                    <span class="seed-button__icon dew dew-plus" aria-hidden="true"></span>
+                    New project
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="fb-frame fb-col">
+              <div class="seed-empty seed-empty--compact">
+                <span class="dew dew-search seed-empty__icon" aria-hidden="true"></span>
+                <p class="seed-empty__title">No results</p>
+                <p class="seed-empty__message">Try a different search term or browse all components.</p>
+                <div class="seed-empty__action">
+                  <button class="seed-button seed-button--link seed-button--md">Clear search</button>
+                </div>
+              </div>
+            </div>
+            <div class="fb-frame fb-col">
+              <div class="seed-empty seed-empty--compact">
+                <span class="dew dew-message-circle seed-empty__icon" aria-hidden="true"></span>
+                <p class="seed-empty__title">No messages</p>
+                <p class="seed-empty__message">Start a conversation to get things moving.</p>
+                <div class="seed-empty__action">
+                  <button class="seed-button seed-button--secondary seed-button--md">Start a conversation</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fb-divider"></div>
+
+          <!-- ── 2. Skeleton loading ── -->
+          <p class="fb-label">Skeleton loading</p>
+          <div class="fb-row" style="margin-bottom:var(--seed-space-4)">
+
+            <!-- Card skeleton -->
+            <div class="fb-col" style="max-width:260px">
+              <div class="fb-frame fb-pad">
+                <div class="fb-stack">
+                  <span class="seed-skeleton seed-skeleton--card"></span>
+                  <div class="seed-skeleton-row">
+                    <span class="seed-skeleton seed-skeleton--avatar"></span>
+                    <div class="seed-skeleton-row__body">
+                      <span class="seed-skeleton seed-skeleton--heading"></span>
+                      <span class="seed-skeleton seed-skeleton--text-short"></span>
+                    </div>
+                  </div>
+                  <div class="seed-skeleton-block">
+                    <span class="seed-skeleton seed-skeleton--text"></span>
+                    <span class="seed-skeleton seed-skeleton--text"></span>
+                    <span class="seed-skeleton seed-skeleton--text-xs"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Table row skeletons -->
+            <div class="fb-col" style="max-width:340px">
+              <div class="fb-frame fb-pad">
+                <div class="fb-stack">
+                  <div class="seed-skeleton-row">
+                    <span class="seed-skeleton seed-skeleton--avatar"></span>
+                    <div class="seed-skeleton-row__body">
+                      <span class="seed-skeleton seed-skeleton--text" style="width:55%"></span>
+                      <span class="seed-skeleton seed-skeleton--text" style="width:35%"></span>
+                    </div>
+                    <span class="seed-skeleton seed-skeleton--button"></span>
+                  </div>
+                  <div class="seed-skeleton-row">
+                    <span class="seed-skeleton seed-skeleton--avatar"></span>
+                    <div class="seed-skeleton-row__body">
+                      <span class="seed-skeleton seed-skeleton--text" style="width:70%"></span>
+                      <span class="seed-skeleton seed-skeleton--text" style="width:40%"></span>
+                    </div>
+                    <span class="seed-skeleton seed-skeleton--button"></span>
+                  </div>
+                  <div class="seed-skeleton-row">
+                    <span class="seed-skeleton seed-skeleton--avatar"></span>
+                    <div class="seed-skeleton-row__body">
+                      <span class="seed-skeleton seed-skeleton--text" style="width:50%"></span>
+                      <span class="seed-skeleton seed-skeleton--text" style="width:30%"></span>
+                    </div>
+                    <span class="seed-skeleton seed-skeleton--button"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="fb-divider"></div>
+
+          <!-- ── 3. Progress bars ── -->
+          <p class="fb-label">Progress bars</p>
+          <div class="fb-frame fb-pad" style="max-width:480px;margin-bottom:var(--seed-space-4)">
+            <div class="fb-stack">
+              <div class="seed-progress-group">
+                <div class="seed-progress-group__header">
+                  <span class="seed-progress-group__label">Uploading</span>
+                  <span class="seed-progress-group__value">65%</span>
+                </div>
+                <div class="seed-progress" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+                  <div class="seed-progress__bar" style="width:65%"></div>
+                </div>
+              </div>
+              <div class="seed-progress-group">
+                <div class="seed-progress-group__header">
+                  <span class="seed-progress-group__label">Storage</span>
+                  <span class="seed-progress-group__value">82%</span>
+                </div>
+                <div class="seed-progress seed-progress--good" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100">
+                  <div class="seed-progress__bar" style="width:82%"></div>
+                </div>
+              </div>
+              <div class="seed-progress-group">
+                <div class="seed-progress-group__header">
+                  <span class="seed-progress-group__label">API usage</span>
+                  <span class="seed-progress-group__value">Warning · 78%</span>
+                </div>
+                <div class="seed-progress seed-progress--warn" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+                  <div class="seed-progress__bar" style="width:78%"></div>
+                </div>
+              </div>
+              <div class="seed-progress-group">
+                <div class="seed-progress-group__header">
+                  <span class="seed-progress-group__label">Disk space</span>
+                  <span class="seed-progress-group__value">Critical · 96%</span>
+                </div>
+                <div class="seed-progress seed-progress--bad" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100">
+                  <div class="seed-progress__bar" style="width:96%"></div>
+                </div>
+              </div>
+              <div class="seed-progress-group">
+                <div class="seed-progress-group__header">
+                  <span class="seed-progress-group__label">Processing</span>
+                  <span class="seed-progress-group__value">Please wait…</span>
+                </div>
+                <div class="seed-progress seed-progress--indeterminate" role="progressbar" aria-label="Processing">
+                  <div class="seed-progress__bar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sizes -->
+          <div class="fb-frame fb-pad" style="max-width:480px;margin-bottom:var(--seed-space-4)">
+            <div class="fb-stack">
+              <div class="seed-progress-group">
+                <span class="seed-progress-group__label" style="font-size:var(--seed-text-xs);color:var(--soil-text-muted)">sm — 4px</span>
+                <div class="seed-progress seed-progress--sm" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"><div class="seed-progress__bar" style="width:45%"></div></div>
+              </div>
+              <div class="seed-progress-group">
+                <span class="seed-progress-group__label" style="font-size:var(--seed-text-xs);color:var(--soil-text-muted)">default — 6px</span>
+                <div class="seed-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"><div class="seed-progress__bar" style="width:60%"></div></div>
+              </div>
+              <div class="seed-progress-group">
+                <span class="seed-progress-group__label" style="font-size:var(--seed-text-xs);color:var(--soil-text-muted)">lg — 8px</span>
+                <div class="seed-progress seed-progress--lg" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><div class="seed-progress__bar" style="width:75%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fb-divider"></div>
+
+          <!-- ── 4. Spinners ── -->
+          <p class="fb-label">Spinners</p>
+          <div class="fb-frame fb-pad" style="margin-bottom:var(--seed-space-4)">
+            <p class="fb-label" style="margin-bottom:var(--seed-space-4)">Sizes</p>
+            <div class="fb-spinner-row" style="margin-bottom:var(--seed-space-6)">
+              <div class="fb-spinner-item"><span class="seed-spinner seed-spinner--sm" role="status" aria-label="Loading"></span>sm</div>
+              <div class="fb-spinner-item"><span class="seed-spinner" role="status" aria-label="Loading"></span>default</div>
+              <div class="fb-spinner-item"><span class="seed-spinner seed-spinner--lg" role="status" aria-label="Loading"></span>lg</div>
+              <div class="fb-spinner-item"><span class="seed-spinner seed-spinner--xl" role="status" aria-label="Loading"></span>xl</div>
+            </div>
+            <p class="fb-label" style="margin-bottom:var(--seed-space-4)">Colours</p>
+            <div class="fb-spinner-row">
+              <div class="fb-spinner-item"><span class="seed-spinner" role="status" aria-label="Loading"></span>brand</div>
+              <div class="fb-spinner-item"><span class="seed-spinner seed-spinner--good" role="status" aria-label="Loading"></span>good</div>
+              <div class="fb-spinner-item"><span class="seed-spinner seed-spinner--warn" role="status" aria-label="Loading"></span>warn</div>
+              <div class="fb-spinner-item"><span class="seed-spinner seed-spinner--bad" role="status" aria-label="Loading"></span>bad</div>
+              <div class="fb-spinner-item"><span class="seed-spinner seed-spinner--muted" role="status" aria-label="Loading"></span>muted</div>
             </div>
           </div>
 
