@@ -233,6 +233,66 @@
     </div>
   </section>
 
+  <hr class="divider">
+
+  <!-- ── With Icons ── -->
+  <section class="section">
+    <p class="section-label">With Icons</p>
+    <div style="display:flex; flex-wrap:wrap; gap:var(--seed-space-4); align-items:center;">
+      <button class="seed-button seed-button--primary seed-button--md">
+        <span class="seed-button__icon dew dew-plus" aria-hidden="true"></span>
+        New document
+      </button>
+      <button class="seed-button seed-button--secondary seed-button--md">
+        Next
+        <span class="seed-button__icon dew dew-chevron-right" aria-hidden="true"></span>
+      </button>
+      <button class="seed-button seed-button--danger seed-button--md">
+        <span class="seed-button__icon dew dew-trash" aria-hidden="true"></span>
+        Delete
+      </button>
+      <button class="seed-button seed-button--link seed-button--md">
+        <span class="seed-button__icon dew dew-chevron-left" aria-hidden="true"></span>
+        Back
+      </button>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Icon Only ── -->
+  <section class="section">
+    <p class="section-label">Icon Only</p>
+    <div class="button-grid">
+
+      <div></div>
+      <div class="grid-header">sm</div>
+      <div class="grid-header">md</div>
+      <div class="grid-header">lg</div>
+
+      <div class="grid-label">primary</div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--sm seed-button--icon-only" aria-label="Add"><span class="seed-button__icon dew dew-plus" aria-hidden="true"></span></button></div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--md seed-button--icon-only" aria-label="Add"><span class="seed-button__icon dew dew-plus" aria-hidden="true"></span></button></div>
+      <div class="cell"><button class="seed-button seed-button--primary seed-button--lg seed-button--icon-only" aria-label="Add"><span class="seed-button__icon dew dew-plus" aria-hidden="true"></span></button></div>
+
+      <div class="grid-label">secondary</div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--sm seed-button--icon-only" aria-label="Search"><span class="seed-button__icon dew dew-search" aria-hidden="true"></span></button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--md seed-button--icon-only" aria-label="Search"><span class="seed-button__icon dew dew-search" aria-hidden="true"></span></button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--lg seed-button--icon-only" aria-label="Search"><span class="seed-button__icon dew dew-search" aria-hidden="true"></span></button></div>
+
+      <div class="grid-label">secondary (gear)</div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--sm seed-button--icon-only" aria-label="Settings"><span class="seed-button__icon dew dew-gear" aria-hidden="true"></span></button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--md seed-button--icon-only" aria-label="Settings"><span class="seed-button__icon dew dew-gear" aria-hidden="true"></span></button></div>
+      <div class="cell"><button class="seed-button seed-button--secondary seed-button--lg seed-button--icon-only" aria-label="Settings"><span class="seed-button__icon dew dew-gear" aria-hidden="true"></span></button></div>
+
+      <div class="grid-label">danger</div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--sm seed-button--icon-only" aria-label="Delete"><span class="seed-button__icon dew dew-trash" aria-hidden="true"></span></button></div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--md seed-button--icon-only" aria-label="Delete"><span class="seed-button__icon dew dew-trash" aria-hidden="true"></span></button></div>
+      <div class="cell"><button class="seed-button seed-button--danger seed-button--lg seed-button--icon-only" aria-label="Delete"><span class="seed-button__icon dew dew-trash" aria-hidden="true"></span></button></div>
+
+    </div>
+  </section>
+
   <script>
     function toggleTheme() {
       const html = document.documentElement;

@@ -156,6 +156,30 @@
     background:   var(--bad-bg-subtle-active);
 }
 
+/* ─────────────────────────────────────────────────────
+   ICON SLOTS
+───────────────────────────────────────────────────── */
+
+.seed-button__icon {
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    flex-shrink:     0;
+    font-size:       1em;
+    line-height:     1;
+}
+
+/* Icon-only button — no label, square padding */
+.seed-button--icon-only {
+    padding: 0.6em;
+    gap:     0;
+}
+
+/* Adjust icon size per button size */
+.seed-button--sm .seed-button__icon { font-size: 0.875em; }
+.seed-button--lg .seed-button__icon { font-size: 1.1em; }
+
+
 /* danger + secondary = outlined destructive */
 .seed-button--danger.seed-button--secondary {
     background:   transparent;
