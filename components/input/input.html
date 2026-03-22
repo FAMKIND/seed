@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="../../components/grid/grid.css">
   <link rel="stylesheet" href="../../components/card/card.css">
   <link rel="stylesheet" href="input.css">
+  <link rel="stylesheet" href="../../components/toggle/toggle.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -521,6 +522,122 @@
     </div>
   </section>
 
+  <hr class="demo-divider">
+
+
+  <!-- ── Toggle states ── -->
+  <section class="section">
+    <p class="section-label">Toggle</p>
+    <div class="states-grid">
+
+      <div>
+        <p class="state-label">Off</p>
+        <button class="seed-toggle" role="switch" aria-checked="false" aria-label="Toggle off">
+          <span class="seed-toggle__thumb"></span>
+        </button>
+      </div>
+
+      <div>
+        <p class="state-label">On</p>
+        <button class="seed-toggle seed-toggle--on" role="switch" aria-checked="true" aria-label="Toggle on">
+          <span class="seed-toggle__thumb"></span>
+        </button>
+      </div>
+
+      <div>
+        <p class="state-label">Disabled off</p>
+        <button class="seed-toggle" role="switch" aria-checked="false" aria-label="Disabled toggle" disabled>
+          <span class="seed-toggle__thumb"></span>
+        </button>
+      </div>
+
+      <div>
+        <p class="state-label">Disabled on</p>
+        <button class="seed-toggle seed-toggle--on" role="switch" aria-checked="true" aria-label="Disabled toggle on" disabled>
+          <span class="seed-toggle__thumb"></span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Toggle sizes ── -->
+  <section class="section">
+    <p class="section-label">Sizes</p>
+    <div style="display: flex; align-items: center; gap: var(--seed-space-6);">
+
+      <div style="display: flex; flex-direction: column; align-items: center; gap: var(--seed-space-2);">
+        <button class="seed-toggle seed-toggle--sm" role="switch" aria-checked="false" aria-label="Small toggle">
+          <span class="seed-toggle__thumb"></span>
+        </button>
+        <span style="font-size: var(--seed-text-xs); color: var(--soil-text-muted);">sm</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; gap: var(--seed-space-2);">
+        <button class="seed-toggle" role="switch" aria-checked="false" aria-label="Medium toggle">
+          <span class="seed-toggle__thumb"></span>
+        </button>
+        <span style="font-size: var(--seed-text-xs); color: var(--soil-text-muted);">md</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; gap: var(--seed-space-2);">
+        <button class="seed-toggle seed-toggle--lg" role="switch" aria-checked="false" aria-label="Large toggle">
+          <span class="seed-toggle__thumb"></span>
+        </button>
+        <span style="font-size: var(--seed-text-xs); color: var(--soil-text-muted);">lg</span>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Toggle with labels ── -->
+  <section class="section">
+    <p class="section-label">With labels</p>
+    <div style="display: flex; flex-direction: column; gap: var(--seed-space-4); max-width: 360px;">
+
+      <div class="seed-toggle-group" onclick="this.querySelector('.seed-toggle').click()">
+        <button class="seed-toggle seed-toggle--on" role="switch" aria-checked="true" aria-label="Dark mode">
+          <span class="seed-toggle__thumb"></span>
+        </button>
+        <span class="seed-toggle-label">Dark mode</span>
+      </div>
+
+      <div class="seed-toggle-group" onclick="this.querySelector('.seed-toggle').click()">
+        <button class="seed-toggle" role="switch" aria-checked="false" aria-label="Email digest">
+          <span class="seed-toggle__thumb"></span>
+        </button>
+        <span class="seed-toggle-label">Email digest</span>
+      </div>
+
+      <div class="seed-toggle-group" onclick="this.querySelector('.seed-toggle').click()">
+        <button class="seed-toggle seed-toggle--on" role="switch" aria-checked="true" aria-label="Auto-save">
+          <span class="seed-toggle__thumb"></span>
+        </button>
+        <div class="seed-toggle-text">
+          <span class="seed-toggle-label">Auto-save</span>
+          <span class="seed-toggle-description">Changes are saved every 30 seconds.</span>
+        </div>
+      </div>
+
+      <div class="seed-toggle-group" onclick="this.querySelector('.seed-toggle').click()">
+        <button class="seed-toggle" role="switch" aria-checked="false" aria-label="Beta features" disabled>
+          <span class="seed-toggle__thumb"></span>
+        </button>
+        <div class="seed-toggle-text">
+          <span class="seed-toggle-label">Beta features</span>
+          <span class="seed-toggle-description">Not available on your current plan.</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 
   <script>
     function toggleTheme() {
@@ -530,6 +647,16 @@
 
     /* Set indeterminate state (can't be done in HTML) */
     document.getElementById('cb-indeterminate').indeterminate = true;
+
+    /* Toggle interaction */
+    document.querySelectorAll('.seed-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        if (toggle.disabled || toggle.dataset.static) return;
+        const on = toggle.getAttribute('aria-checked') === 'true';
+        toggle.setAttribute('aria-checked', on ? 'false' : 'true');
+        toggle.classList.toggle('seed-toggle--on', !on);
+      });
+    });
   </script>
 
 </body>

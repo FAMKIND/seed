@@ -1,0 +1,145 @@
+/* ═══════════════════════════════════════════════════════
+   SEED TOGGLE
+   Requires: tokens/tokens.css
+   Usage:    <button class="seed-toggle" role="switch" aria-checked="false">
+               <span class="seed-toggle__thumb"></span>
+             </button>
+
+   Zero hardcoded colors — every value flows from
+   Seed semantic tokens. Theme switching is automatic.
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   TRACK
+───────────────────────────────────────────────────── */
+
+.seed-toggle {
+    position:      relative;
+    display:       inline-flex;
+    align-items:   center;
+    cursor:        pointer;
+    width:         36px;
+    height:        20px;
+    background:    var(--calm-bg-normal-default);
+    border-radius: var(--seed-radius-full);
+    border:        none;
+    padding:       0;
+    flex-shrink:   0;
+    transition:    background 150ms ease;
+}
+
+.seed-toggle:hover {
+    background: var(--calm-bg-normal-hover);
+}
+
+.seed-toggle[aria-checked="true"],
+.seed-toggle--on {
+    background: var(--selected-bg-bold-default);
+}
+
+.seed-toggle[aria-checked="true"]:hover,
+.seed-toggle--on:hover {
+    background: var(--selected-bg-bold-hover);
+}
+
+.seed-toggle:disabled,
+.seed-toggle[disabled] {
+    opacity:        0.4;
+    cursor:         not-allowed;
+    pointer-events: none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   THUMB
+───────────────────────────────────────────────────── */
+
+.seed-toggle__thumb {
+    position:      absolute;
+    top:           2px;
+    left:          2px;
+    width:         16px;
+    height:        16px;
+    border-radius: 50%;
+    background:    var(--soil-bg-elevated);
+    box-shadow:    var(--seed-shadow-xs);
+    transition:    left 150ms ease, transform 150ms ease;
+}
+
+.seed-toggle[aria-checked="true"] .seed-toggle__thumb,
+.seed-toggle--on .seed-toggle__thumb {
+    left: 18px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SIZES
+───────────────────────────────────────────────────── */
+
+/* sm — 28 × 16 */
+.seed-toggle--sm {
+    width:  28px;
+    height: 16px;
+}
+
+.seed-toggle--sm .seed-toggle__thumb {
+    width:  12px;
+    height: 12px;
+    top:    2px;
+    left:   2px;
+}
+
+.seed-toggle--sm[aria-checked="true"] .seed-toggle__thumb,
+.seed-toggle--sm.seed-toggle--on .seed-toggle__thumb {
+    left: 14px;
+}
+
+/* lg — 44 × 24 */
+.seed-toggle--lg {
+    width:  44px;
+    height: 24px;
+}
+
+.seed-toggle--lg .seed-toggle__thumb {
+    width:  20px;
+    height: 20px;
+    top:    2px;
+    left:   2px;
+}
+
+.seed-toggle--lg[aria-checked="true"] .seed-toggle__thumb,
+.seed-toggle--lg.seed-toggle--on .seed-toggle__thumb {
+    left: 22px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   LABEL GROUP
+───────────────────────────────────────────────────── */
+
+.seed-toggle-group {
+    display:     flex;
+    align-items: center;
+    gap:         var(--seed-space-2);
+    cursor:      pointer;
+}
+
+.seed-toggle-group .seed-toggle-label {
+    font-family: var(--seed-font-ui);
+    font-size:   var(--seed-text-sm);
+    color:       var(--soil-text);
+    user-select: none;
+}
+
+.seed-toggle-group .seed-toggle-description {
+    font-size:  var(--seed-text-xs);
+    color:      var(--soil-text-muted);
+    margin-top: 2px;
+}
+
+/* Stack label + description */
+.seed-toggle-group .seed-toggle-text {
+    display:        flex;
+    flex-direction: column;
+}

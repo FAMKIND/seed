@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../../components/table/table.css">
   <link rel="stylesheet" href="../../components/topbar/topbar.css">
   <link rel="stylesheet" href="../../components/chat/chat.css">
+  <link rel="stylesheet" href="../../components/toggle/toggle.css">
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
   <style>
@@ -2591,8 +2592,48 @@
               </div>
             </label>
           </div>
+          <div class="field-divider"></div>
+
+          <!-- Toggle -->
+          <p class="field-section-label">Toggle</p>
+          <div style="display:flex;flex-direction:column;gap:var(--seed-space-4);margin-bottom:var(--seed-space-2);">
+            <div class="seed-toggle-group" onclick="this.querySelector('.seed-toggle').click()">
+              <button class="seed-toggle seed-toggle--on" role="switch" aria-checked="true" aria-label="Dark mode">
+                <span class="seed-toggle__thumb"></span>
+              </button>
+              <div class="seed-toggle-text">
+                <span class="seed-toggle-label">Dark mode</span>
+                <span class="seed-toggle-description">Switch between light and dark themes.</span>
+              </div>
+            </div>
+            <div class="seed-toggle-group" onclick="this.querySelector('.seed-toggle').click()">
+              <button class="seed-toggle" role="switch" aria-checked="false" aria-label="Email digest">
+                <span class="seed-toggle__thumb"></span>
+              </button>
+              <span class="seed-toggle-label">Email digest</span>
+            </div>
+            <div class="seed-toggle-group" onclick="this.querySelector('.seed-toggle').click()">
+              <button class="seed-toggle" role="switch" aria-checked="false" aria-label="Beta features" disabled>
+                <span class="seed-toggle__thumb"></span>
+              </button>
+              <div class="seed-toggle-text">
+                <span class="seed-toggle-label">Beta features</span>
+                <span class="seed-toggle-description">Not available on your current plan.</span>
+              </div>
+            </div>
+          </div>
           <script>
-            document.getElementById('layout-cb-ind').indeterminate = true;
+            (function() {
+              document.getElementById('layout-cb-ind').indeterminate = true;
+              document.querySelectorAll('[data-section="fields"] .seed-toggle').forEach(function(t) {
+                t.addEventListener('click', function() {
+                  if (t.disabled) return;
+                  var on = t.getAttribute('aria-checked') === 'true';
+                  t.setAttribute('aria-checked', on ? 'false' : 'true');
+                  t.classList.toggle('seed-toggle--on', !on);
+                });
+              });
+            })();
           </script>
         </div>
 
