@@ -2538,6 +2538,62 @@
               <button class="seed-button seed-button--primary seed-button--md">Save profile</button>
             </div>
           </div>
+
+          <div class="field-divider"></div>
+
+          <!-- Checkbox -->
+          <p class="field-section-label">Checkbox</p>
+          <div class="field-row" style="margin-bottom:var(--seed-space-6);">
+            <div><input class="seed-checkbox" type="checkbox" aria-label="Unchecked"></div>
+            <div><input class="seed-checkbox" type="checkbox" checked aria-label="Checked"></div>
+            <div><input class="seed-checkbox" type="checkbox" id="layout-cb-ind" aria-label="Indeterminate"></div>
+            <div><input class="seed-checkbox" type="checkbox" disabled aria-label="Disabled"></div>
+            <div><input class="seed-checkbox seed-checkbox--error" type="checkbox" aria-label="Error"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--seed-space-3);margin-bottom:var(--seed-space-6);max-width:320px;">
+            <label class="seed-check-group">
+              <input class="seed-checkbox" type="checkbox" checked>
+              <span class="seed-check-label">Email notifications</span>
+            </label>
+            <label class="seed-check-group">
+              <input class="seed-checkbox" type="checkbox">
+              <div class="seed-check-text">
+                <span class="seed-check-label">Marketing emails</span>
+                <span class="seed-check-description">News and updates from the team.</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="field-divider"></div>
+
+          <!-- Radio -->
+          <p class="field-section-label">Radio</p>
+          <div style="display:flex;flex-direction:column;gap:var(--seed-space-3);max-width:320px;">
+            <label class="seed-check-group">
+              <input class="seed-radio" type="radio" name="lf-plan" value="free" checked>
+              <div class="seed-check-text">
+                <span class="seed-check-label">Free</span>
+                <span class="seed-check-description">Up to 3 projects, no credit card required.</span>
+              </div>
+            </label>
+            <label class="seed-check-group">
+              <input class="seed-radio" type="radio" name="lf-plan" value="pro">
+              <div class="seed-check-text">
+                <span class="seed-check-label">Pro</span>
+                <span class="seed-check-description">Unlimited projects and priority support.</span>
+              </div>
+            </label>
+            <label class="seed-check-group">
+              <input class="seed-radio" type="radio" name="lf-plan" value="team" disabled>
+              <div class="seed-check-text">
+                <span class="seed-check-label">Team</span>
+                <span class="seed-check-description">Coming soon.</span>
+              </div>
+            </label>
+          </div>
+          <script>
+            document.getElementById('layout-cb-ind').indeterminate = true;
+          </script>
         </div>
 
         <!-- ── modals ────────────────────────────────── -->

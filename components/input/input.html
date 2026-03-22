@@ -355,11 +355,181 @@
   </section>
 
 
+  <hr class="demo-divider">
+
+
+  <!-- ── Checkbox states ── -->
+  <section class="section">
+    <p class="section-label">Checkbox</p>
+    <div class="states-grid">
+
+      <div>
+        <p class="state-label">Unchecked</p>
+        <input class="seed-checkbox" type="checkbox" id="cb-unchecked" aria-label="Unchecked checkbox">
+      </div>
+
+      <div>
+        <p class="state-label">Checked</p>
+        <input class="seed-checkbox" type="checkbox" id="cb-checked" checked aria-label="Checked checkbox">
+      </div>
+
+      <div>
+        <p class="state-label">Indeterminate</p>
+        <input class="seed-checkbox" type="checkbox" id="cb-indeterminate" aria-label="Indeterminate checkbox">
+      </div>
+
+      <div>
+        <p class="state-label">Disabled</p>
+        <input class="seed-checkbox" type="checkbox" id="cb-disabled" disabled aria-label="Disabled checkbox">
+      </div>
+
+      <div>
+        <p class="state-label">Disabled checked</p>
+        <input class="seed-checkbox" type="checkbox" id="cb-disabled-checked" checked disabled aria-label="Disabled checked checkbox">
+      </div>
+
+      <div>
+        <p class="state-label">Error</p>
+        <input class="seed-checkbox seed-checkbox--error" type="checkbox" id="cb-error" aria-label="Error checkbox">
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Checkbox with labels ── -->
+  <section class="section">
+    <p class="section-label">Checkbox groups</p>
+    <div style="display: flex; flex-direction: column; gap: var(--seed-space-3); max-width: 360px;">
+
+      <label class="seed-check-group">
+        <input class="seed-checkbox" type="checkbox" checked>
+        <span class="seed-check-label">Email notifications</span>
+      </label>
+
+      <label class="seed-check-group">
+        <input class="seed-checkbox" type="checkbox">
+        <span class="seed-check-label">SMS notifications</span>
+      </label>
+
+      <label class="seed-check-group">
+        <input class="seed-checkbox" type="checkbox" checked>
+        <div class="seed-check-text">
+          <span class="seed-check-label">Marketing emails</span>
+          <span class="seed-check-description">News, updates, and special offers from the team.</span>
+        </div>
+      </label>
+
+      <label class="seed-check-group">
+        <input class="seed-checkbox" type="checkbox" disabled>
+        <div class="seed-check-text">
+          <span class="seed-check-label">System alerts</span>
+          <span class="seed-check-description">Always on — cannot be disabled.</span>
+        </div>
+      </label>
+
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Radio states ── -->
+  <section class="section">
+    <p class="section-label">Radio</p>
+    <div class="states-grid">
+
+      <div>
+        <p class="state-label">Unselected</p>
+        <input class="seed-radio" type="radio" name="radio-state" aria-label="Unselected radio">
+      </div>
+
+      <div>
+        <p class="state-label">Selected</p>
+        <input class="seed-radio" type="radio" name="radio-state" checked aria-label="Selected radio">
+      </div>
+
+      <div>
+        <p class="state-label">Disabled</p>
+        <input class="seed-radio" type="radio" name="radio-disabled" disabled aria-label="Disabled radio">
+      </div>
+
+      <div>
+        <p class="state-label">Disabled selected</p>
+        <input class="seed-radio" type="radio" name="radio-disabled-sel" checked disabled aria-label="Disabled selected radio">
+      </div>
+
+      <div>
+        <p class="state-label">Error</p>
+        <input class="seed-radio seed-radio--error" type="radio" name="radio-error" aria-label="Error radio">
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="demo-divider">
+
+
+  <!-- ── Radio groups ── -->
+  <section class="section">
+    <p class="section-label">Radio groups</p>
+    <div style="display: flex; flex-direction: column; gap: var(--seed-space-8); max-width: 360px;">
+
+      <!-- Simple -->
+      <div style="display: flex; flex-direction: column; gap: var(--seed-space-3);">
+        <label class="seed-check-group">
+          <input class="seed-radio" type="radio" name="plan" value="free" checked>
+          <span class="seed-check-label">Free</span>
+        </label>
+        <label class="seed-check-group">
+          <input class="seed-radio" type="radio" name="plan" value="pro">
+          <span class="seed-check-label">Pro</span>
+        </label>
+        <label class="seed-check-group">
+          <input class="seed-radio" type="radio" name="plan" value="team">
+          <span class="seed-check-label">Team</span>
+        </label>
+      </div>
+
+      <!-- With descriptions -->
+      <div style="display: flex; flex-direction: column; gap: var(--seed-space-4);">
+        <label class="seed-check-group">
+          <input class="seed-radio" type="radio" name="notify" value="all" checked>
+          <div class="seed-check-text">
+            <span class="seed-check-label">All activity</span>
+            <span class="seed-check-description">Get notified whenever anything changes.</span>
+          </div>
+        </label>
+        <label class="seed-check-group">
+          <input class="seed-radio" type="radio" name="notify" value="mentions">
+          <div class="seed-check-text">
+            <span class="seed-check-label">Mentions only</span>
+            <span class="seed-check-description">Only when someone @mentions you directly.</span>
+          </div>
+        </label>
+        <label class="seed-check-group">
+          <input class="seed-radio" type="radio" name="notify" value="off">
+          <div class="seed-check-text">
+            <span class="seed-check-label">Nothing</span>
+            <span class="seed-check-description">Turn off all notifications for this item.</span>
+          </div>
+        </label>
+      </div>
+
+    </div>
+  </section>
+
+
   <script>
     function toggleTheme() {
       const html = document.documentElement;
       html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
     }
+
+    /* Set indeterminate state (can't be done in HTML) */
+    document.getElementById('cb-indeterminate').indeterminate = true;
   </script>
 
 </body>

@@ -178,3 +178,176 @@ select.seed-input {
     color:       var(--good-text-bold-default);
     line-height: var(--seed-leading-snug);
 }
+
+
+/* ─────────────────────────────────────────────────────
+   CHECKBOX
+───────────────────────────────────────────────────── */
+
+.seed-checkbox {
+    appearance:  none;
+    -webkit-appearance: none;
+    width:       16px;
+    height:      16px;
+    border:      1.5px solid var(--calm-border-normal-default);
+    border-radius: var(--seed-radius-sm);
+    background:  var(--soil-bg-elevated);
+    cursor:      pointer;
+    transition:  background 120ms ease, border-color 120ms ease;
+    position:    relative;
+    flex-shrink: 0;
+    margin:      0;
+}
+
+.seed-checkbox:hover {
+    border-color: var(--calm-border-bold-default);
+}
+
+.seed-checkbox:checked {
+    background:   var(--selected-bg-bold-default);
+    border-color: var(--selected-border-bold-default);
+}
+
+/* Checkmark — rotated L-shape */
+.seed-checkbox:checked::after {
+    content:      '';
+    position:     absolute;
+    left:         4px;
+    top:          1px;
+    width:        4px;
+    height:       7px;
+    border:       none;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform:    rotate(45deg);
+    display:      block;
+}
+
+.seed-checkbox:indeterminate {
+    background:   var(--selected-bg-bold-default);
+    border-color: var(--selected-border-bold-default);
+}
+
+/* Dash */
+.seed-checkbox:indeterminate::after {
+    content:    '';
+    position:   absolute;
+    left:       50%;
+    top:        50%;
+    width:      8px;
+    height:     2px;
+    background: #fff;
+    transform:  translate(-50%, -50%);
+    display:    block;
+}
+
+.seed-checkbox:disabled {
+    opacity:        0.4;
+    cursor:         not-allowed;
+    pointer-events: none;
+}
+
+.seed-checkbox--error {
+    border-color: var(--bad-border-normal-default);
+}
+
+.seed-checkbox--error:checked {
+    background:   var(--bad-bg-bold-default);
+    border-color: var(--bad-border-bold-default);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   RADIO
+───────────────────────────────────────────────────── */
+
+.seed-radio {
+    appearance:  none;
+    -webkit-appearance: none;
+    width:       16px;
+    height:      16px;
+    border:      1.5px solid var(--calm-border-normal-default);
+    border-radius: 50%;
+    background:  var(--soil-bg-elevated);
+    cursor:      pointer;
+    transition:  background 120ms ease, border-color 120ms ease;
+    position:    relative;
+    flex-shrink: 0;
+    margin:      0;
+}
+
+.seed-radio:hover {
+    border-color: var(--calm-border-bold-default);
+}
+
+.seed-radio:checked {
+    background:   var(--selected-bg-bold-default);
+    border-color: var(--selected-border-bold-default);
+}
+
+/* Inner dot */
+.seed-radio:checked::after {
+    content:       '';
+    position:      absolute;
+    left:          50%;
+    top:           50%;
+    width:         6px;
+    height:        6px;
+    border-radius: 50%;
+    background:    #fff;
+    transform:     translate(-50%, -50%);
+    display:       block;
+}
+
+.seed-radio:disabled {
+    opacity:        0.4;
+    cursor:         not-allowed;
+    pointer-events: none;
+}
+
+.seed-radio--error {
+    border-color: var(--bad-border-normal-default);
+}
+
+.seed-radio--error:checked {
+    background:   var(--bad-bg-bold-default);
+    border-color: var(--bad-border-bold-default);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   LABEL GROUP
+───────────────────────────────────────────────────── */
+
+.seed-check-group {
+    display:     flex;
+    align-items: flex-start;
+    gap:         var(--seed-space-2);
+    cursor:      pointer;
+}
+
+.seed-check-group input {
+    margin-top: 1px; /* optical alignment with label cap-height */
+}
+
+.seed-check-label {
+    font-family: var(--seed-font-ui);
+    font-size:   var(--seed-text-sm);
+    color:       var(--soil-text);
+    line-height: 1.2;
+    padding-top: 1px;
+    user-select: none;
+}
+
+.seed-check-description {
+    font-size:  var(--seed-text-xs);
+    color:      var(--soil-text-muted);
+    margin-top: 2px;
+    line-height: var(--seed-leading-normal);
+}
+
+/* Stack label + description */
+.seed-check-group .seed-check-text {
+    display:        flex;
+    flex-direction: column;
+}
