@@ -12,6 +12,8 @@ Built for mission-driven artists, designers, and builders who need a clean, comp
 
 **Seed has no external CSS dependencies.** There is no Tailwind, no Bootstrap, no third-party utility layer. The entire styling system — tokens, utilities, and components — is built and maintained here, in the open.
 
+Icons: Seed uses [Dew](https://github.com/FAMKIND/dew) — 52 essential SVG icons with outline and fill variants.
+
 ---
 
 ## How Seed Names Things

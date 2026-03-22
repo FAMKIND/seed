@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../../components/divider/divider.css">
   <link rel="stylesheet" href="../../components/table/table.css">
   <link rel="stylesheet" href="layout.css">
+  <link rel="stylesheet" href="../../icons/dew.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -185,17 +186,12 @@
       margin-left:     var(--seed-space-2);
     }
 
-    .nav-item__arrow::before {
-      content:    '▸';
-      display:    block;
-      transition: transform 150ms ease;
-    }
-
     /* Show on parent items when hovered or expanded */
     .nav-item--has-children:hover > .nav-item__arrow,
     .nav-item--has-children.nav-item--expanded > .nav-item__arrow { opacity: 1; }
 
-    .nav-item--expanded > .nav-item__arrow::before { transform: rotate(90deg); }
+    .nav-item__arrow .dew { font-size: 10px; transition: transform 150ms ease; }
+    .nav-item--expanded > .nav-item__arrow .dew { transform: rotate(90deg); }
 
     /* ── Emoji icon wrapper ────────────────────────────── */
 
@@ -214,22 +210,6 @@
     }
 
     .nav-item__icon:hover { background: var(--calm-bg-subtle-hover); }
-
-    /* Tiny dropdown hint on icon hover — suggests icon is swappable */
-    .nav-item__icon::after {
-      content:        '▾';
-      position:       absolute;
-      bottom:         0;
-      right:          0;
-      font-size:      7px;
-      color:          var(--soil-text-disabled);
-      opacity:        0;
-      line-height:    1;
-      pointer-events: none;
-      transition:     opacity 120ms ease;
-    }
-
-    .nav-item__icon:hover::after { opacity: 1; }
 
     /* Muted + icon for "Add new" items */
     .nav-item__icon--muted {
@@ -277,18 +257,6 @@
     .nav-item__add:hover {
       background: var(--calm-bg-subtle-hover);
       color:      var(--soil-text);
-    }
-
-    /* Three-dot via CSS box-shadow (matches layout.css menu trigger style) */
-    .nav-item__more::before {
-      content:       '';
-      display:       block;
-      width:         3px;
-      height:        3px;
-      border-radius: 50%;
-      background:    currentColor;
-      box-shadow:    5px 0 0 currentColor, -5px 0 0 currentColor;
-      flex-shrink:   0;
     }
 
     /* Add new row — same size as other nav items, just muted */
@@ -683,6 +651,15 @@
       font-size:   14px;
       flex-shrink: 0;
     }
+
+    /* ── Dew icon sizing ──────────────────────────────── */
+    .nav-item__icon .dew      { font-size: 16px; }
+    .nav-item__more .dew      { font-size: 13px; }
+    .search-icon-btn .dew,
+    .search-trigger .dew      { font-size: 14px; }
+    .user-avatar .dew         { font-size: 13px; }
+    .theme-toggle .dew        { font-size: 14px; }
+    .search-modal__item-icon .dew { font-size: 14px; }
   </style>
 </head>
 <body>
@@ -706,25 +683,25 @@
 
         <div class="seed-layout__menu-wrap">
           <button class="seed-layout__menu-trigger" id="left-menu-btn"
-                  aria-label="Left panel options" aria-expanded="false"></button>
+                  aria-label="Left panel options" aria-expanded="false"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           <div class="seed-layout__menu" id="left-menu" role="menu">
             <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-                 id="left-opt-docked"    role="menuitem">Docked</div>
+                 id="left-opt-docked"    role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Docked</div>
             <div class="seed-layout__menu-item"
-                 id="left-opt-flush"     role="menuitem">Flush</div>
+                 id="left-opt-flush"     role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Flush</div>
             <div class="seed-layout__menu-item"
-                 id="left-opt-float"     role="menuitem">Float</div>
+                 id="left-opt-float"     role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Float</div>
             <div class="seed-layout__menu-divider"></div>
             <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-                 id="left-opt-expanded"  role="menuitem">Expanded</div>
+                 id="left-opt-expanded"  role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Expanded</div>
             <div class="seed-layout__menu-item"
-                 id="left-opt-collapsed" role="menuitem">Collapsed</div>
+                 id="left-opt-collapsed" role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Collapsed</div>
             <div class="seed-layout__menu-divider"></div>
             <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-                 id="left-opt-bg"        role="menuitem">Show background</div>
+                 id="left-opt-bg"        role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Show background</div>
             <div class="seed-layout__menu-divider"></div>
             <div class="seed-layout__menu-item seed-layout__menu-item--muted"
-                 id="left-opt-hide"      role="menuitem">Hide panel</div>
+                 id="left-opt-hide"      role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Hide panel</div>
           </div>
         </div>
       </div>
@@ -732,10 +709,10 @@
       <div class="left-search">
         <!-- Collapsed mode: icon-only button opens search modal -->
         <button class="search-icon-btn" id="search-icon-btn"
-                aria-label="Search">🔍</button>
+                aria-label="Search"><span class="dew dew-search" aria-hidden="true"></span></button>
         <!-- Expanded mode: fake input trigger opens search modal -->
         <button class="search-trigger" id="search-trigger-btn" aria-label="Search">
-          <span class="seed-icon" aria-hidden="true">🔍</span>
+          <span class="dew dew-search" aria-hidden="true"></span>
           <span class="search-trigger-text">Search...</span>
         </button>
       </div>
@@ -745,140 +722,140 @@
         <!-- Brand (expandable, starts expanded) -->
         <div class="nav-item nav-item--has-children nav-item--expanded"
              data-label="Brand" data-children="nav-brand" role="button" tabindex="0">
-          <span class="nav-item__arrow" aria-hidden="true"></span>
-          <span class="nav-item__icon">🎨</span>
+          <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+          <span class="nav-item__icon"><span class="dew dew-heart" aria-hidden="true"></span></span>
           <span class="nav-label">Brand</span>
-          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
         </div>
         <div class="nav-children" id="nav-brand">
           <div class="nav-item nav-item--active" data-label="Name &amp; Logo" data-section="name-logo" data-category="Brand" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🏷️</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-star" aria-hidden="true"></span></span>
             <span class="nav-label">Name &amp; Logo</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Color Palette" data-section="color-palette" data-category="Brand" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🌈</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-eye-open" aria-hidden="true"></span></span>
             <span class="nav-label">Color Palette</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Typography" data-section="typography" data-category="Brand" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
             <span class="nav-item__icon">Aa</span>
             <span class="nav-label">Typography</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
 
         <!-- Tokens (expandable) -->
         <div class="nav-item nav-item--has-children"
              data-label="Tokens" data-children="nav-tokens" role="button" tabindex="0">
-          <span class="nav-item__arrow" aria-hidden="true"></span>
-          <span class="nav-item__icon">🔵</span>
+          <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+          <span class="nav-item__icon"><span class="dew dew-information-circle" aria-hidden="true"></span></span>
           <span class="nav-label">Tokens</span>
-          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
         </div>
         <div class="nav-children" id="nav-tokens" style="display:none">
           <div class="nav-item" data-label="Semantic Colors" data-section="semantic-colors" data-category="Tokens" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🎯</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-flag" aria-hidden="true"></span></span>
             <span class="nav-label">Semantic Colors</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Spacing Scale" data-section="spacing-scale" data-category="Tokens" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">↔️</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-chevron-up-down" aria-hidden="true"></span></span>
             <span class="nav-label">Spacing Scale</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Radius &amp; Shadows" data-section="radius-shadows" data-category="Tokens" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🔲</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-shield-check" aria-hidden="true"></span></span>
             <span class="nav-label">Radius &amp; Shadows</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
 
         <!-- Components (expandable) -->
         <div class="nav-item nav-item--has-children"
              data-label="Components" data-children="nav-components" role="button" tabindex="0">
-          <span class="nav-item__arrow" aria-hidden="true"></span>
-          <span class="nav-item__icon">🧩</span>
+          <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+          <span class="nav-item__icon"><span class="dew dew-archive" aria-hidden="true"></span></span>
           <span class="nav-label">Components</span>
-          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
         </div>
         <div class="nav-children" id="nav-components" style="display:none">
           <div class="nav-item" data-label="Buttons" data-section="buttons" data-category="Components" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🖱️</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-play" aria-hidden="true"></span></span>
             <span class="nav-label">Buttons</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Badges" data-section="badges" data-category="Components" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🏅</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-flag" aria-hidden="true"></span></span>
             <span class="nav-label">Badges</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Cards" data-section="cards" data-category="Components" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🃏</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-archive" aria-hidden="true"></span></span>
             <span class="nav-label">Cards</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Fields" data-section="fields" data-category="Components" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">✏️</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-pencil" aria-hidden="true"></span></span>
             <span class="nav-label">Fields</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Modals" data-section="modals" data-category="Components" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🪟</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-sidebar-right-open" aria-hidden="true"></span></span>
             <span class="nav-label">Modals</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Dividers" data-section="dividers" data-category="Components" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">➖</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-negative" aria-hidden="true"></span></span>
             <span class="nav-label">Dividers</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Tables" data-section="tables" data-category="Components" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">📊</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-calendar" aria-hidden="true"></span></span>
             <span class="nav-label">Tables</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
 
         <!-- Patterns (expandable) -->
         <div class="nav-item nav-item--has-children"
              data-label="Patterns" data-children="nav-patterns" role="button" tabindex="0">
-          <span class="nav-item__arrow" aria-hidden="true"></span>
-          <span class="nav-item__icon">📐</span>
+          <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+          <span class="nav-item__icon"><span class="dew dew-sidebar-left-open" aria-hidden="true"></span></span>
           <span class="nav-label">Patterns</span>
-          <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+          <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
         </div>
         <div class="nav-children" id="nav-patterns" style="display:none">
           <div class="nav-item" data-label="Forms" data-section="forms" data-category="Patterns" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">📋</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-check" aria-hidden="true"></span></span>
             <span class="nav-label">Forms</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Navigation" data-section="navigation" data-category="Patterns" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">🗺️</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-menu-lines" aria-hidden="true"></span></span>
             <span class="nav-label">Navigation</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-item" data-label="Layout" data-section="layout" data-category="Patterns" role="button" tabindex="0">
-            <span class="nav-item__arrow" aria-hidden="true"></span>
-            <span class="nav-item__icon">⬛</span>
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-sidebar-left-open" aria-hidden="true"></span></span>
             <span class="nav-label">Layout</span>
-            <button class="nav-item__more" tabindex="-1" aria-label="More options"></button>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
 
@@ -887,12 +864,12 @@
       <div class="left-footer">
         <div class="user-row" id="user-row" role="button" tabindex="0" aria-label="User profile">
           <div class="user-avatar">
-            <span class="seed-icon" aria-hidden="true" style="font-size:13px">👤</span>
+            <span class="dew dew-person" aria-hidden="true" style="font-size:13px"></span>
           </div>
           <span class="user-name">User Name</span>
         </div>
         <button class="theme-toggle" id="theme-btn"
-                aria-label="Switch to dark mode">☀️</button>
+                aria-label="Switch to dark mode"><span class="dew dew-sun" aria-hidden="true"></span></button>
       </div>
 
     </aside>
@@ -901,17 +878,17 @@
     <main class="seed-layout__center" id="center-panel">
 
       <!-- Reveal buttons: direct children of center card, position:absolute -->
-      <button class="seed-layout__reveal-left"  id="reveal-left"  aria-label="Show left panel"></button>
-      <button class="seed-layout__reveal-right" id="reveal-right" aria-label="Show right panel"></button>
+      <button class="seed-layout__reveal-left"  id="reveal-left"  aria-label="Show left panel"><span class="dew dew-chevron-right" aria-hidden="true"></span></button>
+      <button class="seed-layout__reveal-right" id="reveal-right" aria-label="Show right panel"><span class="dew dew-chevron-left" aria-hidden="true"></span></button>
 
       <!-- Top-right controls: three-dot context menu only -->
       <div class="seed-layout__center-controls">
         <div class="seed-layout__menu-wrap">
           <button class="seed-layout__menu-trigger" id="center-menu-btn"
-                  aria-label="Center panel options" aria-expanded="false"></button>
+                  aria-label="Center panel options" aria-expanded="false"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           <div class="seed-layout__menu" id="center-menu" role="menu">
             <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-                 id="center-opt-bg" role="menuitem">Show background</div>
+                 id="center-opt-bg" role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Show background</div>
           </div>
         </div>
       </div>
@@ -3101,7 +3078,8 @@
             }
             .nav-demo-item:hover            { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
             .nav-demo-item.is-active        { background: var(--calm-bg-subtle-default); color: var(--soil-text); font-weight: var(--seed-weight-medium); }
-            .nav-demo-item__icon            { font-size: 14px; flex-shrink: 0; }
+            .nav-demo-item__icon            { font-size: 14px; flex-shrink: 0; display: inline-flex; align-items: center; }
+            .nav-demo-item__icon .dew       { font-size: 14px; }
             .nav-demo-children              { padding-left: var(--seed-space-5); }
             .nav-demo-section               { font-size: var(--seed-text-xs); font-weight: var(--seed-weight-semibold); letter-spacing: 0.07em; text-transform: uppercase; color: var(--soil-text-muted); padding: var(--seed-space-3) var(--seed-space-2) var(--seed-space-1); }
             .nav-demo-user {
@@ -3142,22 +3120,22 @@
 
               <!-- Main nav -->
               <div class="nav-demo-section">Main</div>
-              <div class="nav-demo-item is-active"><span class="nav-demo-item__icon">⌂</span> Home</div>
-              <div class="nav-demo-item"><span class="nav-demo-item__icon">✉</span> Inbox <span style="margin-left:auto"><span class="seed-badge seed-badge--bad seed-badge--sm">3</span></span></div>
-              <div class="nav-demo-item"><span class="nav-demo-item__icon">◫</span> Projects</div>
+              <div class="nav-demo-item is-active"><span class="nav-demo-item__icon"><span class="dew dew-home" aria-hidden="true"></span></span> Home</div>
+              <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-chat" aria-hidden="true"></span></span> Inbox <span style="margin-left:auto"><span class="seed-badge seed-badge--bad seed-badge--sm">3</span></span></div>
+              <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-folder" aria-hidden="true"></span></span> Projects</div>
 
               <!-- Section with children -->
               <div class="nav-demo-section">Library</div>
-              <div class="nav-demo-item"><span class="nav-demo-item__icon">▸</span><span class="nav-demo-item__icon">📁</span> Design system</div>
+              <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-chevron-right" aria-hidden="true"></span></span><span class="nav-demo-item__icon"><span class="dew dew-folder-open" aria-hidden="true"></span></span> Design system</div>
               <div class="nav-demo-children">
-                <div class="nav-demo-item"><span class="nav-demo-item__icon">🎨</span> Tokens</div>
-                <div class="nav-demo-item"><span class="nav-demo-item__icon">⬜</span> Components</div>
-                <div class="nav-demo-item"><span class="nav-demo-item__icon">⧉</span> Patterns</div>
+                <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-information-circle" aria-hidden="true"></span></span> Tokens</div>
+                <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-archive" aria-hidden="true"></span></span> Components</div>
+                <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-sidebar-left-open" aria-hidden="true"></span></span> Patterns</div>
               </div>
-              <div class="nav-demo-item"><span class="nav-demo-item__icon">▸</span><span class="nav-demo-item__icon">📁</span> Assets</div>
+              <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-chevron-right" aria-hidden="true"></span></span><span class="nav-demo-item__icon"><span class="dew dew-folder" aria-hidden="true"></span></span> Assets</div>
 
               <div class="nav-demo-section">Settings</div>
-              <div class="nav-demo-item"><span class="nav-demo-item__icon">⚙</span> Preferences</div>
+              <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-gear" aria-hidden="true"></span></span> Preferences</div>
 
               <!-- User row -->
               <div class="nav-demo-user">
@@ -3274,20 +3252,20 @@
 
       <div class="seed-layout__menu-wrap">
         <button class="seed-layout__menu-trigger" id="right-menu-btn"
-                aria-label="Right panel options" aria-expanded="false"></button>
+                aria-label="Right panel options" aria-expanded="false"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
         <div class="seed-layout__menu" id="right-menu" role="menu">
           <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-               id="right-opt-docked" role="menuitem">Docked</div>
+               id="right-opt-docked" role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Docked</div>
           <div class="seed-layout__menu-item"
-               id="right-opt-flush"  role="menuitem">Flush</div>
+               id="right-opt-flush"  role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Flush</div>
           <div class="seed-layout__menu-item"
-               id="right-opt-float"  role="menuitem">Float</div>
+               id="right-opt-float"  role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Float</div>
           <div class="seed-layout__menu-divider"></div>
           <div class="seed-layout__menu-item seed-layout__menu-item--checked"
-               id="right-opt-bg"    role="menuitem">Show background</div>
+               id="right-opt-bg"    role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Show background</div>
           <div class="seed-layout__menu-divider"></div>
           <div class="seed-layout__menu-item seed-layout__menu-item--muted"
-               id="right-opt-hide"  role="menuitem">Hide panel</div>
+               id="right-opt-hide"  role="menuitem"><span class="dew dew-check" aria-hidden="true"></span>Hide panel</div>
         </div>
       </div>
 
@@ -3354,17 +3332,17 @@
       <div class="search-modal__section-label">Recent</div>
       <div class="search-modal__item" role="option"
            data-section="name-logo" data-category="Brand" data-label="Name &amp; Logo">
-        <span class="search-modal__item-icon">🎨</span>
+        <span class="search-modal__item-icon"><span class="dew dew-heart" aria-hidden="true"></span></span>
         <span>Brand</span>
       </div>
       <div class="search-modal__item" role="option"
            data-section="name-logo" data-category="Brand" data-label="Name &amp; Logo">
-        <span class="search-modal__item-icon">📝</span>
+        <span class="search-modal__item-icon"><span class="dew dew-star" aria-hidden="true"></span></span>
         <span>Name &amp; Logo</span>
       </div>
       <div class="search-modal__item" role="option"
            data-section="color-palette" data-category="Brand" data-label="Color Palette">
-        <span class="search-modal__item-icon">🎨</span>
+        <span class="search-modal__item-icon"><span class="dew dew-eye-open" aria-hidden="true"></span></span>
         <span>Color Palette</span>
       </div>
       <div class="search-modal__item" role="option"
@@ -3374,22 +3352,22 @@
       </div>
       <div class="search-modal__item" role="option"
            data-section="semantic-colors" data-category="Tokens" data-label="Semantic Colors">
-        <span class="search-modal__item-icon">🔵</span>
+        <span class="search-modal__item-icon"><span class="dew dew-information-circle" aria-hidden="true"></span></span>
         <span>Semantic Colors</span>
       </div>
       <div class="search-modal__item" role="option"
            data-section="spacing-scale" data-category="Tokens" data-label="Spacing Scale">
-        <span class="search-modal__item-icon">📏</span>
+        <span class="search-modal__item-icon"><span class="dew dew-chevron-up-down" aria-hidden="true"></span></span>
         <span>Spacing Scale</span>
       </div>
       <div class="search-modal__item" role="option"
            data-section="buttons" data-category="Components" data-label="Buttons">
-        <span class="search-modal__item-icon">🧩</span>
+        <span class="search-modal__item-icon"><span class="dew dew-play" aria-hidden="true"></span></span>
         <span>Buttons</span>
       </div>
       <div class="search-modal__item" role="option"
            data-section="badges" data-category="Components" data-label="Badges">
-        <span class="search-modal__item-icon">🏷</span>
+        <span class="search-modal__item-icon"><span class="dew dew-flag" aria-hidden="true"></span></span>
         <span>Badges</span>
       </div>
     </div>
@@ -3436,7 +3414,7 @@
       const html   = document.documentElement;
       const isDark = html.dataset.theme === 'dark';
       html.dataset.theme  = isDark ? 'light' : 'dark';
-      themeBtn.textContent = isDark ? '☀️' : '🌙';
+      themeBtn.innerHTML  = isDark ? '<span class="dew dew-sun" aria-hidden="true"></span>' : '<span class="dew dew-moon" aria-hidden="true"></span>';
       themeBtn.setAttribute('aria-label', isDark ? 'Switch to dark mode' : 'Switch to light mode');
     });
 
@@ -3904,7 +3882,7 @@
         el.className = 'seed-layout__sheet-item'
           + (spec.muted   ? ' seed-layout__sheet-item--muted'   : '')
           + (spec.checked ? ' seed-layout__sheet-item--checked' : '');
-        el.textContent = spec.label;
+        el.innerHTML = '<span class="dew dew-check" aria-hidden="true"></span>' + spec.label;
         el.addEventListener('click', () => { closeSheet(); spec.action(); });
         sheetInner.appendChild(el);
       });
