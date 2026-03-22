@@ -1,0 +1,289 @@
+/* ═══════════════════════════════════════════════════════
+   SEED TOPBAR
+   Requires: tokens/tokens.css
+   Usage:    <header class="seed-topbar"> … </header>
+
+   Zero hardcoded colors — every value flows from
+   Seed semantic tokens. Theme switching is automatic.
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   TOPBAR
+───────────────────────────────────────────────────── */
+
+.seed-topbar {
+    display:          flex;
+    align-items:      center;
+    height:           48px;
+    padding:          0 var(--seed-space-4);
+    background:       var(--soil-bg-surface);
+    border-bottom:    1px solid var(--soil-border-subtle);
+    position:         sticky;
+    top:              0;
+    z-index:          var(--seed-z-sticky);
+    gap:              var(--seed-space-3);
+    font-family:      var(--seed-font-ui);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   BRAND
+───────────────────────────────────────────────────── */
+
+.seed-topbar__brand {
+    display:         flex;
+    align-items:     center;
+    gap:             var(--seed-space-2);
+    text-decoration: none;
+    flex-shrink:     0;
+    margin-right:    var(--seed-space-2);
+}
+
+.seed-topbar__logo {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    width:           28px;
+    height:          28px;
+    border-radius:   var(--seed-radius-md);
+    background:      var(--soil-bg-elevated);
+    font-size:       16px;
+    flex-shrink:     0;
+}
+
+.seed-topbar__name {
+    font-family:    var(--seed-font-brand);
+    font-size:      var(--seed-text-sm);
+    font-weight:    var(--seed-weight-semibold);
+    color:          var(--soil-text);
+    letter-spacing: -0.01em;
+    white-space:    nowrap;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   NAV LINKS
+───────────────────────────────────────────────────── */
+
+.seed-topbar__nav {
+    display:     flex;
+    align-items: center;
+    gap:         var(--seed-space-1);
+}
+
+.seed-topbar__link {
+    display:         inline-flex;
+    align-items:     center;
+    gap:             var(--seed-space-2);
+    padding:         0.35em var(--seed-space-3);
+    border-radius:   var(--seed-radius-md);
+    font-size:       var(--seed-text-sm);
+    font-weight:     var(--seed-weight-medium);
+    color:           var(--soil-text-muted);
+    text-decoration: none;
+    white-space:     nowrap;
+    transition:      background 100ms ease, color 100ms ease;
+    background:      transparent;
+    border:          none;
+    cursor:          pointer;
+    font-family:     inherit;
+}
+
+.seed-topbar__link:hover {
+    background: var(--calm-bg-subtle-hover);
+    color:      var(--soil-text);
+}
+
+.seed-topbar__link--active {
+    background: var(--calm-bg-subtle-hover);
+    color:      var(--soil-text);
+    font-weight: var(--seed-weight-medium);
+}
+
+.seed-topbar__link .dew {
+    font-size:   0.9em;
+    flex-shrink: 0;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SPACER
+───────────────────────────────────────────────────── */
+
+.seed-topbar__spacer {
+    flex: 1;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SEARCH
+───────────────────────────────────────────────────── */
+
+.seed-topbar__search {
+    display:       flex;
+    align-items:   center;
+    gap:           var(--seed-space-2);
+    width:         200px;
+    height:        30px;
+    padding:       0 var(--seed-space-3);
+    border-radius: var(--seed-radius-md);
+    border:        1px solid var(--soil-border-subtle);
+    background:    var(--soil-bg-canvas);
+    color:         var(--soil-text-muted);
+    font-family:   var(--seed-font-ui);
+    font-size:     var(--seed-text-sm);
+    cursor:        pointer;
+    transition:    border-color 120ms ease, background 120ms ease;
+    flex-shrink:   0;
+}
+
+.seed-topbar__search:hover {
+    border-color: var(--soil-border);
+    background:   var(--soil-bg-surface);
+}
+
+.seed-topbar__search .dew {
+    font-size:   14px;
+    flex-shrink: 0;
+}
+
+.seed-topbar__search-label {
+    flex: 1;
+    white-space: nowrap;
+    overflow:    hidden;
+}
+
+.seed-topbar__search-kbd {
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    height:          18px;
+    padding:         0 5px;
+    border-radius:   var(--seed-radius-sm);
+    border:          1px solid var(--soil-border-subtle);
+    background:      var(--soil-bg-elevated);
+    font-size:       10px;
+    font-weight:     var(--seed-weight-medium);
+    color:           var(--soil-text-muted);
+    white-space:     nowrap;
+    flex-shrink:     0;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   ACTIONS
+───────────────────────────────────────────────────── */
+
+.seed-topbar__actions {
+    display:     flex;
+    align-items: center;
+    gap:         var(--seed-space-1);
+    flex-shrink: 0;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   ICON BUTTON
+───────────────────────────────────────────────────── */
+
+.seed-topbar__icon-btn {
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    width:           32px;
+    height:          32px;
+    border-radius:   50%;
+    border:          none;
+    background:      transparent;
+    color:           var(--soil-text-muted);
+    font-size:       16px;
+    cursor:          pointer;
+    transition:      background 120ms ease, color 120ms ease;
+    padding:         0;
+    flex-shrink:     0;
+}
+
+.seed-topbar__icon-btn:hover {
+    background: var(--calm-bg-subtle-hover);
+    color:      var(--soil-text);
+}
+
+.seed-topbar__icon-btn:active {
+    background: var(--soil-border-subtle);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   USER CHIP
+───────────────────────────────────────────────────── */
+
+.seed-topbar__user {
+    display:       flex;
+    align-items:   center;
+    gap:           var(--seed-space-2);
+    padding:       0.3em var(--seed-space-2) 0.3em 0.3em;
+    border-radius: var(--seed-radius-full);
+    cursor:        pointer;
+    transition:    background 120ms ease;
+    border:        none;
+    background:    transparent;
+    font-family:   inherit;
+}
+
+.seed-topbar__user:hover {
+    background: var(--calm-bg-subtle-hover);
+}
+
+.seed-topbar__user-name {
+    font-size:   var(--seed-text-sm);
+    font-weight: var(--seed-weight-medium);
+    color:       var(--soil-text);
+    white-space: nowrap;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   DIVIDER
+───────────────────────────────────────────────────── */
+
+.seed-topbar__divider {
+    width:        1px;
+    height:       20px;
+    background:   var(--soil-border-subtle);
+    flex-shrink:  0;
+    margin:       0 var(--seed-space-1);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   HAMBURGER (mobile)
+───────────────────────────────────────────────────── */
+
+.seed-topbar__hamburger {
+    display: none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────────────── */
+
+/* Below 768px: hide nav links and search; show hamburger */
+@media (max-width: 767px) {
+    .seed-topbar__nav,
+    .seed-topbar__search {
+        display: none;
+    }
+
+    .seed-topbar__hamburger {
+        display: inline-flex;
+    }
+}
+
+/* Below 480px: hide user name, show avatar only */
+@media (max-width: 479px) {
+    .seed-topbar__user-name {
+        display: none;
+    }
+}

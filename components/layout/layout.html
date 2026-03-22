@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="../../components/input/input.css">
   <link rel="stylesheet" href="../../components/divider/divider.css">
   <link rel="stylesheet" href="../../components/table/table.css">
+  <link rel="stylesheet" href="../../components/topbar/topbar.css">
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
   <style>
@@ -891,6 +892,12 @@
             <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
             <span class="nav-item__icon"><span class="dew dew-file" aria-hidden="true"></span></span>
             <span class="nav-label">Layout</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-item" data-label="Top Bar" data-section="topbar" data-category="Patterns" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-file" aria-hidden="true"></span></span>
+            <span class="nav-label">Top Bar</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
@@ -3699,6 +3706,111 @@
           </div>
 
           <p style="font-size:var(--seed-text-sm);color:var(--soil-text-muted)">You are viewing this pattern right now. The full layout demo is this page.</p>
+        </div>
+
+        <!-- ── topbar ─────────────────────────────────── -->
+        <div class="ds-section" data-section="topbar" style="display:none">
+          <style>
+            .topbar-note {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              line-height:   var(--seed-leading-normal);
+              margin-bottom: var(--seed-space-6);
+              max-width:     560px;
+            }
+            .topbar-demo {
+              border:        1px solid var(--soil-border-subtle);
+              border-radius: var(--seed-radius-lg);
+              overflow:      hidden;
+              margin-bottom: var(--seed-space-6);
+            }
+            .topbar-demo-body {
+              padding:    var(--seed-space-6);
+              font-size:  var(--seed-text-sm);
+              color:      var(--soil-text-muted);
+              min-height: 80px;
+            }
+            .topbar-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-3);
+            }
+          </style>
+
+          <p class="topbar-note">A sticky horizontal navigation bar — 48 px tall, tokens-driven. Combines brand, nav links, search, icon actions, and a user chip. Nav links and search collapse below 768 px; the user name hides below 480 px.</p>
+
+          <p class="topbar-section-label">Full</p>
+          <div class="topbar-demo">
+            <header class="seed-topbar" style="position:relative;top:auto;">
+              <a class="seed-topbar__brand" href="#">
+                <span class="seed-topbar__logo">🌱</span>
+                <span class="seed-topbar__name">seed</span>
+              </a>
+              <nav class="seed-topbar__nav" aria-label="Main navigation">
+                <a class="seed-topbar__link seed-topbar__link--active" href="#">
+                  <span class="dew dew-home" aria-hidden="true"></span>Home
+                </a>
+                <a class="seed-topbar__link" href="#">
+                  <span class="dew dew-folder" aria-hidden="true"></span>Projects
+                </a>
+                <a class="seed-topbar__link" href="#">
+                  <span class="dew dew-file" aria-hidden="true"></span>Files
+                </a>
+                <a class="seed-topbar__link" href="#">
+                  <span class="dew dew-gear" aria-hidden="true"></span>Settings
+                </a>
+              </nav>
+              <div class="seed-topbar__spacer"></div>
+              <button class="seed-topbar__search" aria-label="Search">
+                <span class="dew dew-search" aria-hidden="true"></span>
+                <span class="seed-topbar__search-label">Search…</span>
+                <kbd class="seed-topbar__search-kbd">⌘K</kbd>
+              </button>
+              <div class="seed-topbar__actions">
+                <button class="seed-topbar__icon-btn" aria-label="Notifications">
+                  <span class="dew dew-bell-on" aria-hidden="true"></span>
+                </button>
+                <button class="seed-topbar__icon-btn" aria-label="Settings">
+                  <span class="dew dew-gear" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="seed-topbar__divider" aria-hidden="true"></div>
+              <button class="seed-topbar__user" aria-label="User menu">
+                <span class="seed-avatar seed-avatar--sm seed-avatar--brand" aria-hidden="true">F</span>
+                <span class="seed-topbar__user-name">FAM</span>
+              </button>
+            </header>
+            <div class="topbar-demo-body">Page content sits below the topbar.</div>
+          </div>
+
+          <p class="topbar-section-label">Brand + actions (sidebar companion)</p>
+          <div class="topbar-demo">
+            <header class="seed-topbar" style="position:relative;top:auto;">
+              <a class="seed-topbar__brand" href="#">
+                <span class="seed-topbar__logo">🌱</span>
+                <span class="seed-topbar__name">seed</span>
+              </a>
+              <div class="seed-topbar__spacer"></div>
+              <div class="seed-topbar__actions">
+                <button class="seed-topbar__icon-btn" aria-label="Notifications">
+                  <span class="dew dew-bell-on" aria-hidden="true"></span>
+                </button>
+                <button class="seed-topbar__icon-btn" aria-label="Help">
+                  <span class="dew dew-information-circle" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="seed-topbar__divider" aria-hidden="true"></div>
+              <button class="seed-topbar__user" aria-label="User menu">
+                <span class="seed-avatar seed-avatar--sm seed-avatar--green" aria-hidden="true">J</span>
+                <span class="seed-topbar__user-name">Jordan</span>
+              </button>
+            </header>
+            <div class="topbar-demo-body">Pairs with a sidebar — nav lives in the left panel, topbar carries brand + global actions.</div>
+          </div>
+
         </div>
 
       </div>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Top Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../components/avatar/avatar.css">
+  <link rel="stylesheet" href="topbar.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    .page-content {
+      padding: var(--seed-space-12) var(--seed-space-8);
+    }
+
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-12);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .page-title span {
+      font-weight: var(--seed-weight-regular);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-sm);
+      margin-left: var(--seed-space-3);
+    }
+
+    .page-nav {
+      display:     flex;
+      gap:         var(--seed-space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+
+    .section       { margin-bottom: var(--seed-space-12); }
+    .section-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-4);
+    }
+
+    .divider {
+      border:     none;
+      border-top: 1px solid var(--soil-border-subtle);
+      margin:     var(--seed-space-8) 0;
+    }
+
+    /* Demo frame */
+    .demo-frame {
+      border:        1px solid var(--soil-border-subtle);
+      border-radius: var(--seed-radius-lg);
+      overflow:      hidden;
+      background:    var(--soil-bg-canvas);
+    }
+
+    .demo-body {
+      padding:    var(--seed-space-8);
+      min-height: 180px;
+    }
+
+    .demo-body p {
+      font-size:  var(--seed-text-sm);
+      color:      var(--soil-text-muted);
+      line-height: var(--seed-leading-normal);
+    }
+
+    /* Variant row */
+    .variant-row {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--seed-space-6);
+    }
+
+    .variant-label {
+      font-size:     var(--seed-text-xs);
+      color:         var(--soil-text-muted);
+      margin-bottom: var(--seed-space-2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Full-width demo topbar (fixed to viewport top) -->
+  <header class="seed-topbar">
+    <a class="seed-topbar__brand" href="#">
+      <span class="seed-topbar__logo">🌱</span>
+      <span class="seed-topbar__name">seed</span>
+    </a>
+
+    <nav class="seed-topbar__nav" aria-label="Main navigation">
+      <a class="seed-topbar__link seed-topbar__link--active" href="#">
+        <span class="dew dew-home" aria-hidden="true"></span>Home
+      </a>
+      <a class="seed-topbar__link" href="#">
+        <span class="dew dew-folder" aria-hidden="true"></span>Projects
+      </a>
+      <a class="seed-topbar__link" href="#">
+        <span class="dew dew-file" aria-hidden="true"></span>Files
+      </a>
+      <a class="seed-topbar__link" href="#">
+        <span class="dew dew-gear" aria-hidden="true"></span>Settings
+      </a>
+    </nav>
+
+    <div class="seed-topbar__spacer"></div>
+
+    <button class="seed-topbar__search" aria-label="Search">
+      <span class="dew dew-search" aria-hidden="true"></span>
+      <span class="seed-topbar__search-label">Search…</span>
+      <kbd class="seed-topbar__search-kbd">⌘K</kbd>
+    </button>
+
+    <div class="seed-topbar__actions">
+      <button class="seed-topbar__icon-btn" aria-label="Notifications">
+        <span class="dew dew-bell-on" aria-hidden="true"></span>
+      </button>
+      <button class="seed-topbar__icon-btn" aria-label="Settings">
+        <span class="dew dew-gear" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="seed-topbar__divider" aria-hidden="true"></div>
+
+    <button class="seed-topbar__user" aria-label="User menu">
+      <span class="seed-avatar seed-avatar--sm seed-avatar--brand" aria-hidden="true">F</span>
+      <span class="seed-topbar__user-name">FAM</span>
+    </button>
+
+    <!-- Hamburger (mobile only) -->
+    <button class="seed-topbar__icon-btn seed-topbar__hamburger" aria-label="Open menu">
+      <span class="dew dew-menu-lines" aria-hidden="true"></span>
+    </button>
+  </header>
+
+  <div class="page-content">
+
+    <header class="page-header">
+      <div class="page-title">
+        seed <span>Top Bar component · v0.1</span>
+      </div>
+      <div class="page-nav">
+        <a class="nav-link" href="../layout/layout.html">Layout →</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+      </div>
+    </header>
+
+    <!-- ── Full with brand + nav + search + actions + user ── -->
+    <section class="section">
+      <p class="section-label">Full</p>
+      <div class="demo-frame">
+        <header class="seed-topbar" style="position:relative; top:auto;">
+          <a class="seed-topbar__brand" href="#">
+            <span class="seed-topbar__logo">🌱</span>
+            <span class="seed-topbar__name">seed</span>
+          </a>
+          <nav class="seed-topbar__nav" aria-label="Main navigation">
+            <a class="seed-topbar__link seed-topbar__link--active" href="#">
+              <span class="dew dew-home" aria-hidden="true"></span>Home
+            </a>
+            <a class="seed-topbar__link" href="#">
+              <span class="dew dew-folder" aria-hidden="true"></span>Projects
+            </a>
+            <a class="seed-topbar__link" href="#">
+              <span class="dew dew-file" aria-hidden="true"></span>Files
+            </a>
+            <a class="seed-topbar__link" href="#">
+              <span class="dew dew-gear" aria-hidden="true"></span>Settings
+            </a>
+          </nav>
+          <div class="seed-topbar__spacer"></div>
+          <button class="seed-topbar__search" aria-label="Search">
+            <span class="dew dew-search" aria-hidden="true"></span>
+            <span class="seed-topbar__search-label">Search…</span>
+            <kbd class="seed-topbar__search-kbd">⌘K</kbd>
+          </button>
+          <div class="seed-topbar__actions">
+            <button class="seed-topbar__icon-btn" aria-label="Notifications">
+              <span class="dew dew-bell-on" aria-hidden="true"></span>
+            </button>
+            <button class="seed-topbar__icon-btn" aria-label="Settings">
+              <span class="dew dew-gear" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="seed-topbar__divider" aria-hidden="true"></div>
+          <button class="seed-topbar__user" aria-label="User menu">
+            <span class="seed-avatar seed-avatar--sm seed-avatar--brand" aria-hidden="true">F</span>
+            <span class="seed-topbar__user-name">FAM</span>
+          </button>
+        </header>
+        <div class="demo-body">
+          <p>Page content sits below the topbar.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ── Links only (no icons) ── -->
+    <section class="section">
+      <p class="section-label">Links only</p>
+      <div class="demo-frame">
+        <header class="seed-topbar" style="position:relative; top:auto;">
+          <a class="seed-topbar__brand" href="#">
+            <span class="seed-topbar__logo">🌱</span>
+            <span class="seed-topbar__name">seed</span>
+          </a>
+          <nav class="seed-topbar__nav" aria-label="Main navigation">
+            <a class="seed-topbar__link seed-topbar__link--active" href="#">Home</a>
+            <a class="seed-topbar__link" href="#">Docs</a>
+            <a class="seed-topbar__link" href="#">Components</a>
+            <a class="seed-topbar__link" href="#">Changelog</a>
+          </nav>
+          <div class="seed-topbar__spacer"></div>
+          <div class="seed-topbar__actions">
+            <button class="seed-topbar__icon-btn" aria-label="GitHub">
+              <span class="dew dew-github" aria-hidden="true"></span>
+            </button>
+          </div>
+          <button class="seed-topbar__user" aria-label="User menu">
+            <span class="seed-avatar seed-avatar--sm seed-avatar--neutral" aria-hidden="true">A</span>
+            <span class="seed-topbar__user-name">Alex</span>
+          </button>
+        </header>
+        <div class="demo-body">
+          <p>Minimal topbar — no search, single icon action.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ── Brand + spacer + actions only ── -->
+    <section class="section">
+      <p class="section-label">Brand + actions</p>
+      <div class="demo-frame">
+        <header class="seed-topbar" style="position:relative; top:auto;">
+          <a class="seed-topbar__brand" href="#">
+            <span class="seed-topbar__logo">🌱</span>
+            <span class="seed-topbar__name">seed</span>
+          </a>
+          <div class="seed-topbar__spacer"></div>
+          <div class="seed-topbar__actions">
+            <button class="seed-topbar__icon-btn" aria-label="Notifications">
+              <span class="dew dew-bell-on" aria-hidden="true"></span>
+            </button>
+            <button class="seed-topbar__icon-btn" aria-label="Help">
+              <span class="dew dew-information-circle" aria-hidden="true"></span>
+            </button>
+            <button class="seed-topbar__icon-btn" aria-label="Settings">
+              <span class="dew dew-gear" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="seed-topbar__divider" aria-hidden="true"></div>
+          <button class="seed-topbar__user" aria-label="User menu">
+            <span class="seed-avatar seed-avatar--sm seed-avatar--green" aria-hidden="true">J</span>
+            <span class="seed-topbar__user-name">Jordan</span>
+          </button>
+        </header>
+        <div class="demo-body">
+          <p>Brand + actions pattern — useful when main nav lives in a sidebar.</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- .page-content -->
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+  </script>
+
+</body>
+</html>
