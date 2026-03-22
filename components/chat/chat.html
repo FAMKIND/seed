@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="chat.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      padding:          var(--seed-space-12) var(--seed-space-8);
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-12);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .page-title span {
+      font-weight: var(--seed-weight-regular);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-sm);
+      margin-left: var(--seed-space-3);
+    }
+
+    .page-nav {
+      display:     flex;
+      gap:         var(--seed-space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+
+    .section       { margin-bottom: var(--seed-space-12); }
+    .section-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-4);
+    }
+
+    .divider {
+      border:     none;
+      border-top: 1px solid var(--soil-border-subtle);
+      margin:     var(--seed-space-8) 0;
+    }
+
+    /* Mode switcher */
+    .mode-row {
+      display:       flex;
+      gap:           var(--seed-space-2);
+      flex-wrap:     wrap;
+      margin-bottom: var(--seed-space-6);
+    }
+
+    .mode-btn {
+      padding:       0.35em 0.9em;
+      border-radius: var(--seed-radius-full);
+      border:        1px solid var(--calm-border-normal-default);
+      background:    transparent;
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-xs);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+
+    .mode-btn:hover   { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+    .mode-btn.is-active {
+      background:   var(--calm-bg-subtle-hover);
+      border-color: var(--soil-border);
+      color:        var(--soil-text);
+    }
+
+    /* Demo frames */
+    .demo-frame {
+      border:        1px solid var(--soil-border-subtle);
+      border-radius: var(--seed-radius-lg);
+      overflow:      hidden;
+      background:    var(--soil-bg-canvas);
+      max-width:     560px;
+    }
+
+    .demo-frame--tall {
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .demo-note {
+      font-size:   var(--seed-text-xs);
+      color:       var(--soil-text-muted);
+      margin-top:  var(--seed-space-3);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-title">
+      seed <span>Chat component · v0.1</span>
+    </div>
+    <div class="page-nav">
+      <a class="nav-link" href="../layout/layout.html">Layout →</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+    </div>
+  </header>
+
+  <!-- ── Base input ── -->
+  <section class="section">
+    <p class="section-label">Base input</p>
+    <div class="demo-frame" style="padding: var(--seed-space-4);">
+      <div class="seed-chat" id="base-chat">
+        <div class="seed-chat__row">
+          <textarea class="seed-chat__input" id="base-input" rows="1"
+                    placeholder="Type a message…" aria-label="Message input"></textarea>
+          <div class="seed-chat__actions">
+            <button class="seed-chat__btn" aria-label="Attach file">
+              <span class="dew dew-plus" aria-hidden="true"></span>
+            </button>
+            <button class="seed-chat__btn" aria-label="Add media">
+              <span class="dew dew-camera-on" aria-hidden="true"></span>
+            </button>
+            <button class="seed-chat__btn" aria-label="Voice message">
+              <span class="dew dew-microphone" aria-hidden="true"></span>
+            </button>
+            <button class="seed-chat__send" id="base-send" aria-label="Send message" disabled>
+              <span class="dew dew-chevron-up" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── With toolbar ── -->
+  <section class="section">
+    <p class="section-label">With formatting toolbar</p>
+    <div class="demo-frame" style="padding: var(--seed-space-4);">
+      <div class="seed-chat">
+        <div class="seed-chat__row">
+          <textarea class="seed-chat__input" rows="2"
+                    placeholder="Write something…" aria-label="Message input"></textarea>
+          <div class="seed-chat__actions">
+            <button class="seed-chat__btn" aria-label="Attach file">
+              <span class="dew dew-plus" aria-hidden="true"></span>
+            </button>
+            <button class="seed-chat__send" aria-label="Send message">
+              <span class="dew dew-chevron-up" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+        <div class="seed-chat__toolbar">
+          <button class="seed-chat__btn" aria-label="Bold" style="font-size:12px; font-weight:600; width:24px; height:24px;">B</button>
+          <button class="seed-chat__btn" aria-label="Italic" style="font-size:12px; font-style:italic; width:24px; height:24px;">I</button>
+          <button class="seed-chat__btn" aria-label="Link">
+            <span class="dew dew-link" aria-hidden="true"></span>
+          </button>
+          <button class="seed-chat__btn" aria-label="Mention">
+            <span class="dew dew-at-sign" aria-hidden="true"></span>
+          </button>
+          <button class="seed-chat__btn" aria-label="Emoji">
+            <span class="dew dew-face-happy" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Message bubbles ── -->
+  <section class="section">
+    <p class="section-label">Message bubbles</p>
+    <div class="demo-frame demo-frame--tall">
+      <div class="seed-chat__messages">
+        <div class="seed-chat__date-divider">Today</div>
+        <div class="seed-chat__message-sender">Seed Bot</div>
+        <div class="seed-chat__message seed-chat__message--received">
+          Hey! Welcome to Seed. How can I help you today?
+        </div>
+        <div class="seed-chat__message seed-chat__message--sent">
+          I'm looking at the chat component. Looks great!
+        </div>
+        <div class="seed-chat__message-sender">Seed Bot</div>
+        <div class="seed-chat__message seed-chat__message--received">
+          Thanks — it supports panel, float, and fullscreen modes.
+        </div>
+        <div class="seed-chat__message seed-chat__message--sent">
+          Can it auto-resize as I type?
+        </div>
+        <div class="seed-chat__message-sender">Seed Bot</div>
+        <div class="seed-chat__message seed-chat__message--received">
+          Yes, the textarea grows up to max-height: 160px then scrolls.
+        </div>
+      </div>
+      <div style="padding: var(--seed-space-3); border-top: 1px solid var(--soil-border-subtle);">
+        <div class="seed-chat">
+          <div class="seed-chat__row">
+            <textarea class="seed-chat__input" rows="1"
+                      placeholder="Reply…" aria-label="Reply"></textarea>
+            <div class="seed-chat__actions">
+              <button class="seed-chat__btn" aria-label="Attach">
+                <span class="dew dew-plus" aria-hidden="true"></span>
+              </button>
+              <button class="seed-chat__send" aria-label="Send">
+                <span class="dew dew-chevron-up" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Float modes ── -->
+  <section class="section">
+    <p class="section-label">Float modes</p>
+    <div class="mode-row">
+      <button class="mode-btn is-active" data-mode="none">None</button>
+      <button class="mode-btn" data-mode="bottom-center">Bottom center</button>
+      <button class="mode-btn" data-mode="bottom-right">Bottom right</button>
+      <button class="mode-btn" data-mode="collapsed">Collapsed FAB</button>
+      <button class="mode-btn" data-mode="fullscreen">Fullscreen</button>
+    </div>
+    <p class="demo-note" id="mode-note">Select a float mode above to show the chat in that position.</p>
+  </section>
+
+  <!-- ── Float instances (toggled by JS) ── -->
+
+  <!-- Bottom center -->
+  <div class="seed-chat-float--bottom-center" id="float-bottom-center" style="display:none">
+    <div class="seed-chat">
+      <div class="seed-chat__row">
+        <textarea class="seed-chat__input" rows="1" placeholder="Message…" aria-label="Message"></textarea>
+        <div class="seed-chat__actions">
+          <button class="seed-chat__btn" aria-label="Attach"><span class="dew dew-plus" aria-hidden="true"></span></button>
+          <button class="seed-chat__btn" aria-label="Media"><span class="dew dew-camera-on" aria-hidden="true"></span></button>
+          <button class="seed-chat__send" aria-label="Send"><span class="dew dew-chevron-up" aria-hidden="true"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom right -->
+  <div class="seed-chat-float--bottom-right" id="float-bottom-right" style="display:none">
+    <div class="seed-chat">
+      <div class="seed-chat__row">
+        <textarea class="seed-chat__input" rows="1" placeholder="Message…" aria-label="Message"></textarea>
+        <div class="seed-chat__actions">
+          <button class="seed-chat__btn" aria-label="Attach"><span class="dew dew-plus" aria-hidden="true"></span></button>
+          <button class="seed-chat__send" aria-label="Send"><span class="dew dew-chevron-up" aria-hidden="true"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Collapsed FAB -->
+  <button class="seed-chat-float--collapsed" id="float-collapsed" style="display:none"
+          aria-label="Open chat" id="collapsed-fab">
+    <span class="dew dew-chat" aria-hidden="true"></span>
+  </button>
+
+  <!-- Fullscreen -->
+  <div class="seed-chat-fullscreen" id="float-fullscreen" style="display:none" role="dialog" aria-modal="true" aria-label="Chat">
+    <div class="seed-chat-fullscreen__header">
+      <span class="seed-chat-fullscreen__title">Chat</span>
+      <button class="seed-chat-fullscreen__close" id="fullscreen-close" aria-label="Close chat">
+        <span class="dew dew-close" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="seed-chat__messages">
+      <div class="seed-chat__date-divider">Today</div>
+      <div class="seed-chat__message-sender">Seed Bot</div>
+      <div class="seed-chat__message seed-chat__message--received">
+        You're viewing the fullscreen chat mode.
+      </div>
+      <div class="seed-chat__message seed-chat__message--sent">
+        This is great for focus mode.
+      </div>
+      <div class="seed-chat__message-sender">Seed Bot</div>
+      <div class="seed-chat__message seed-chat__message--received">
+        The input stays pinned to the bottom. Messages scroll above.
+      </div>
+    </div>
+    <div class="seed-chat">
+      <div class="seed-chat__row">
+        <textarea class="seed-chat__input" rows="1" placeholder="Message…" aria-label="Message"></textarea>
+        <div class="seed-chat__actions">
+          <button class="seed-chat__btn" aria-label="Attach"><span class="dew dew-plus" aria-hidden="true"></span></button>
+          <button class="seed-chat__btn" aria-label="Media"><span class="dew dew-camera-on" aria-hidden="true"></span></button>
+          <button class="seed-chat__btn" aria-label="Voice"><span class="dew dew-microphone" aria-hidden="true"></span></button>
+          <button class="seed-chat__send" aria-label="Send"><span class="dew dew-chevron-up" aria-hidden="true"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+
+    /* ── Send button enable/disable on base input ── */
+    const baseInput = document.getElementById('base-input');
+    const baseSend  = document.getElementById('base-send');
+    if (baseInput && baseSend) {
+      baseInput.addEventListener('input', () => {
+        baseSend.disabled = baseInput.value.trim() === '';
+      });
+      /* Auto-grow */
+      baseInput.addEventListener('input', function () {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 160) + 'px';
+      });
+    }
+
+    /* ── Float mode switcher ── */
+    const floatIds = {
+      'bottom-center': 'float-bottom-center',
+      'bottom-right':  'float-bottom-right',
+      'collapsed':     'float-collapsed',
+      'fullscreen':    'float-fullscreen',
+    };
+
+    const modeNote = document.getElementById('mode-note');
+
+    let activeMode = 'none';
+
+    function hideAll() {
+      Object.values(floatIds).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+    }
+
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mode = btn.dataset.mode;
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        if (mode === activeMode || mode === 'none') {
+          hideAll();
+          activeMode = 'none';
+          modeNote.textContent = 'Select a float mode above to show the chat in that position.';
+          return;
+        }
+
+        hideAll();
+        activeMode = mode;
+
+        const el = document.getElementById(floatIds[mode]);
+        if (el) {
+          el.style.display = mode === 'collapsed' ? 'inline-flex' : (mode === 'fullscreen' ? 'flex' : 'block');
+        }
+
+        const notes = {
+          'bottom-center': 'Bottom center — fixed, centered, 600px max-width. Good for AI assistants.',
+          'bottom-right':  'Bottom right — fixed, 360px wide. Good for support chat widgets.',
+          'collapsed':     'Collapsed FAB — 48px circle. Click to expand (wired to bottom-right).',
+          'fullscreen':    'Fullscreen — covers the viewport. Press the × to close.',
+        };
+        modeNote.textContent = notes[mode] || '';
+      });
+    });
+
+    /* Collapsed FAB → expand to bottom-right */
+    const fab = document.getElementById('float-collapsed');
+    if (fab) {
+      fab.addEventListener('click', () => {
+        fab.style.display = 'none';
+        const br = document.getElementById('float-bottom-right');
+        if (br) br.style.display = 'block';
+        activeMode = 'bottom-right';
+        document.querySelectorAll('.mode-btn').forEach(b => {
+          b.classList.toggle('is-active', b.dataset.mode === 'bottom-right');
+        });
+        modeNote.textContent = 'Expanded from collapsed FAB → bottom right.';
+      });
+    }
+
+    /* Fullscreen close */
+    document.getElementById('fullscreen-close')?.addEventListener('click', () => {
+      hideAll();
+      activeMode = 'none';
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('is-active'));
+      document.querySelector('.mode-btn[data-mode="none"]')?.classList.add('is-active');
+      modeNote.textContent = 'Select a float mode above to show the chat in that position.';
+    });
+
+    /* ESC closes fullscreen */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && activeMode === 'fullscreen') {
+        document.getElementById('fullscreen-close')?.click();
+      }
+    });
+
+    /* Auto-grow all textareas */
+    document.querySelectorAll('.seed-chat__input').forEach(ta => {
+      ta.addEventListener('input', function () {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 160) + 'px';
+      });
+    });
+
+    /* Enable send buttons when their paired input has content */
+    document.querySelectorAll('.seed-chat').forEach(chat => {
+      const input = chat.querySelector('.seed-chat__input');
+      const send  = chat.querySelector('.seed-chat__send');
+      if (!input || !send) return;
+      send.disabled = input.value.trim() === '';
+      input.addEventListener('input', () => {
+        send.disabled = input.value.trim() === '';
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="../../components/divider/divider.css">
   <link rel="stylesheet" href="../../components/table/table.css">
   <link rel="stylesheet" href="../../components/topbar/topbar.css">
+  <link rel="stylesheet" href="../../components/chat/chat.css">
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
   <style>
@@ -863,6 +864,12 @@
             <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
             <span class="nav-item__icon"><span class="dew dew-file" aria-hidden="true"></span></span>
             <span class="nav-label">Tabs</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-item" data-label="Chat" data-section="chat" data-category="Components" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-file" aria-hidden="true"></span></span>
+            <span class="nav-label">Chat</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
@@ -3373,6 +3380,144 @@
                   container.querySelectorAll('.seed-tab-content').forEach(function(panel) {
                     panel.classList.toggle('seed-tab-content--active', panel.id === panelId);
                   });
+                });
+              });
+            })();
+          </script>
+        </div>
+
+        <!-- ── chat ──────────────────────────────────── -->
+        <div class="ds-section" data-section="chat" style="display:none">
+          <style>
+            .chat-demo-frame {
+              border:        1px solid var(--soil-border-subtle);
+              border-radius: var(--seed-radius-lg);
+              overflow:      hidden;
+              margin-bottom: var(--seed-space-6);
+              max-width:     520px;
+            }
+            .chat-demo-frame--tall {
+              height: 320px;
+              display: flex;
+              flex-direction: column;
+            }
+            .chat-demo-pad {
+              padding: var(--seed-space-4);
+            }
+            .chat-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-3);
+            }
+            .chat-section-note {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              line-height:   var(--seed-leading-normal);
+              margin-bottom: var(--seed-space-6);
+              max-width:     520px;
+            }
+          </style>
+
+          <p class="chat-section-note">A message composer with auto-growing textarea, send-on-content enable/disable, and support for floating, panel, and fullscreen layout modes. All colors are tokens — zero hardcoded values.</p>
+
+          <p class="chat-section-label">Base input</p>
+          <div class="chat-demo-frame chat-demo-pad">
+            <div class="seed-chat" id="ds-base-chat">
+              <div class="seed-chat__row">
+                <textarea class="seed-chat__input" rows="1"
+                          placeholder="Type a message…" aria-label="Message input"></textarea>
+                <div class="seed-chat__actions">
+                  <button class="seed-chat__btn" aria-label="Attach file">
+                    <span class="dew dew-plus" aria-hidden="true"></span>
+                  </button>
+                  <button class="seed-chat__btn" aria-label="Add media">
+                    <span class="dew dew-camera-on" aria-hidden="true"></span>
+                  </button>
+                  <button class="seed-chat__btn" aria-label="Voice message">
+                    <span class="dew dew-microphone" aria-hidden="true"></span>
+                  </button>
+                  <button class="seed-chat__send" aria-label="Send message" disabled>
+                    <span class="dew dew-chevron-up" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="chat-section-label">With messages</p>
+          <div class="chat-demo-frame chat-demo-frame--tall">
+            <div class="seed-chat__messages">
+              <div class="seed-chat__date-divider">Today</div>
+              <div class="seed-chat__message-sender">Seed Bot</div>
+              <div class="seed-chat__message seed-chat__message--received">
+                Hey! What are you building today?
+              </div>
+              <div class="seed-chat__message seed-chat__message--sent">
+                Just added the chat component to Seed.
+              </div>
+              <div class="seed-chat__message-sender">Seed Bot</div>
+              <div class="seed-chat__message seed-chat__message--received">
+                Nice — it supports float, panel, and fullscreen modes too.
+              </div>
+            </div>
+            <div style="padding:var(--seed-space-3);border-top:1px solid var(--soil-border-subtle);">
+              <div class="seed-chat">
+                <div class="seed-chat__row">
+                  <textarea class="seed-chat__input" rows="1"
+                            placeholder="Reply…" aria-label="Reply"></textarea>
+                  <div class="seed-chat__actions">
+                    <button class="seed-chat__btn" aria-label="Attach">
+                      <span class="dew dew-plus" aria-hidden="true"></span>
+                    </button>
+                    <button class="seed-chat__send" aria-label="Send" disabled>
+                      <span class="dew dew-chevron-up" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="chat-section-label">With formatting toolbar</p>
+          <div class="chat-demo-frame chat-demo-pad">
+            <div class="seed-chat">
+              <div class="seed-chat__row">
+                <textarea class="seed-chat__input" rows="2"
+                          placeholder="Write something…" aria-label="Message input"></textarea>
+                <div class="seed-chat__actions">
+                  <button class="seed-chat__btn" aria-label="Attach file">
+                    <span class="dew dew-plus" aria-hidden="true"></span>
+                  </button>
+                  <button class="seed-chat__send" aria-label="Send message">
+                    <span class="dew dew-chevron-up" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="seed-chat__toolbar">
+                <button class="seed-chat__btn" aria-label="Bold" style="font-size:11px;font-weight:700;width:24px;height:24px;">B</button>
+                <button class="seed-chat__btn" aria-label="Italic" style="font-size:11px;font-style:italic;width:24px;height:24px;">I</button>
+                <button class="seed-chat__btn" aria-label="Link"><span class="dew dew-link" aria-hidden="true"></span></button>
+                <button class="seed-chat__btn" aria-label="Mention"><span class="dew dew-at-sign" aria-hidden="true"></span></button>
+                <button class="seed-chat__btn" aria-label="Emoji"><span class="dew dew-face-happy" aria-hidden="true"></span></button>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            (function() {
+              // Auto-grow + send enable for all chats in this section
+              document.querySelectorAll('[data-section="chat"] .seed-chat').forEach(function(chat) {
+                var input = chat.querySelector('.seed-chat__input');
+                var send  = chat.querySelector('.seed-chat__send');
+                if (!input) return;
+                if (send) send.disabled = input.value.trim() === '';
+                input.addEventListener('input', function() {
+                  this.style.height = 'auto';
+                  this.style.height = Math.min(this.scrollHeight, 160) + 'px';
+                  if (send) send.disabled = this.value.trim() === '';
                 });
               });
             })();
