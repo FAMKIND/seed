@@ -3486,22 +3486,7 @@
         <!-- ── chat ──────────────────────────────────── -->
         <div class="ds-section" data-section="chat" style="display:none">
           <style>
-            .chat-demo-frame {
-              border:        1px solid var(--soil-border-subtle);
-              border-radius: var(--seed-radius-lg);
-              overflow:      hidden;
-              margin-bottom: var(--seed-space-6);
-              max-width:     520px;
-            }
-            .chat-demo-frame--tall {
-              height: 320px;
-              display: flex;
-              flex-direction: column;
-            }
-            .chat-demo-pad {
-              padding: var(--seed-space-4);
-            }
-            .chat-section-label {
+            .cs-label {
               font-size:      var(--seed-text-xs);
               font-weight:    var(--seed-weight-semibold);
               letter-spacing: 0.08em;
@@ -3509,34 +3494,56 @@
               color:          var(--soil-text-muted);
               margin-bottom:  var(--seed-space-3);
             }
-            .chat-section-note {
+            .cs-note {
               font-size:     var(--seed-text-sm);
               color:         var(--soil-text-muted);
               line-height:   var(--seed-leading-normal);
-              margin-bottom: var(--seed-space-6);
+              margin-bottom: var(--seed-space-8);
               max-width:     520px;
+            }
+            .cs-divider {
+              height:        1px;
+              background:    var(--soil-border-subtle);
+              margin:        var(--seed-space-8) 0;
+            }
+            /* Demo frame — provides the border/radius wrapper for embedded examples */
+            .cs-frame {
+              border:        1px solid var(--soil-border-subtle);
+              border-radius: var(--seed-radius-lg);
+              overflow:      hidden;
+              max-width:     520px;
+              margin-bottom: var(--seed-space-2);
+            }
+            .cs-frame--thread {
+              height: 380px;
+              display: flex;
+              flex-direction: column;
+            }
+            .cs-frame--float-preview {
+              max-width: 400px;
+              height:    460px;
             }
           </style>
 
-          <p class="chat-section-note">A message composer with auto-growing textarea, send-on-content enable/disable, and support for floating, panel, and fullscreen layout modes. All colors are tokens — zero hardcoded values.</p>
+          <p class="cs-note">Token-driven chat primitives: message bubbles with avatar slots, auto-growing composer, typing indicator, timestamp dividers, and system messages. Compose into float, panel, or fullscreen layouts.</p>
 
-          <p class="chat-section-label">Base input</p>
-          <div class="chat-demo-frame chat-demo-pad">
-            <div class="seed-chat" id="ds-base-chat">
-              <div class="seed-chat__row">
-                <textarea class="seed-chat__input" rows="1"
-                          placeholder="Type a message…" aria-label="Message input"></textarea>
-                <div class="seed-chat__actions">
-                  <button class="seed-chat__btn" aria-label="Attach file">
+          <!-- ── 1. Composer — empty ── -->
+          <p class="cs-label">Composer — empty</p>
+          <div class="cs-frame" style="padding:var(--seed-space-3);">
+            <div class="seed-chat-composer" id="cs-composer-empty">
+              <div class="seed-chat-composer__inner">
+                <div class="seed-chat-composer__action-left">
+                  <button class="seed-chat-composer__btn" aria-label="Attach">
                     <span class="dew dew-plus" aria-hidden="true"></span>
                   </button>
-                  <button class="seed-chat__btn" aria-label="Add media">
-                    <span class="dew dew-camera-on" aria-hidden="true"></span>
-                  </button>
-                  <button class="seed-chat__btn" aria-label="Voice message">
+                </div>
+                <textarea class="seed-chat-composer__input" rows="1"
+                          placeholder="Type a message…" aria-label="Message"></textarea>
+                <div class="seed-chat-composer__actions">
+                  <button class="seed-chat-composer__btn" aria-label="Voice">
                     <span class="dew dew-microphone" aria-hidden="true"></span>
                   </button>
-                  <button class="seed-chat__send" aria-label="Send message" disabled>
+                  <button class="seed-chat-composer__send" aria-label="Send" disabled>
                     <span class="dew dew-chevron-up" aria-hidden="true"></span>
                   </button>
                 </div>
@@ -3544,32 +3551,242 @@
             </div>
           </div>
 
-          <p class="chat-section-label">With messages</p>
-          <div class="chat-demo-frame chat-demo-frame--tall">
-            <div class="seed-chat__messages">
-              <div class="seed-chat__date-divider">Today</div>
-              <div class="seed-chat__message-sender">Seed Bot</div>
-              <div class="seed-chat__message seed-chat__message--received">
-                Hey! What are you building today?
-              </div>
-              <div class="seed-chat__message seed-chat__message--sent">
-                Just added the chat component to Seed.
-              </div>
-              <div class="seed-chat__message-sender">Seed Bot</div>
-              <div class="seed-chat__message seed-chat__message--received">
-                Nice — it supports float, panel, and fullscreen modes too.
+          <div class="cs-divider"></div>
+
+          <!-- ── 2. Composer — with content ── -->
+          <p class="cs-label">Composer — with content</p>
+          <div class="cs-frame" style="padding:var(--seed-space-3);">
+            <div class="seed-chat-composer" id="cs-composer-filled">
+              <div class="seed-chat-composer__inner">
+                <div class="seed-chat-composer__action-left">
+                  <button class="seed-chat-composer__btn" aria-label="Attach">
+                    <span class="dew dew-plus" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <textarea class="seed-chat-composer__input" rows="1"
+                          aria-label="Message">Sounds great, let's ship it!</textarea>
+                <div class="seed-chat-composer__actions">
+                  <button class="seed-chat-composer__btn" aria-label="Voice">
+                    <span class="dew dew-microphone" aria-hidden="true"></span>
+                  </button>
+                  <button class="seed-chat-composer__send" aria-label="Send">
+                    <span class="dew dew-chevron-up" aria-hidden="true"></span>
+                  </button>
+                </div>
               </div>
             </div>
-            <div style="padding:var(--seed-space-3);border-top:1px solid var(--soil-border-subtle);">
-              <div class="seed-chat">
-                <div class="seed-chat__row">
-                  <textarea class="seed-chat__input" rows="1"
-                            placeholder="Reply…" aria-label="Reply"></textarea>
-                  <div class="seed-chat__actions">
-                    <button class="seed-chat__btn" aria-label="Attach">
+          </div>
+
+          <div class="cs-divider"></div>
+
+          <!-- ── 3. Composer — with toolbar ── -->
+          <p class="cs-label">Composer — with toolbar</p>
+          <div class="cs-frame" style="padding:var(--seed-space-3);">
+            <div class="seed-chat-composer">
+              <div class="seed-chat-composer__inner">
+                <div class="seed-chat-composer__action-left">
+                  <button class="seed-chat-composer__btn" aria-label="Attach">
+                    <span class="dew dew-plus" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <textarea class="seed-chat-composer__input" rows="2"
+                          placeholder="Write something…" aria-label="Message"></textarea>
+                <div class="seed-chat-composer__actions">
+                  <button class="seed-chat-composer__btn" aria-label="Camera">
+                    <span class="dew dew-camera-on" aria-hidden="true"></span>
+                  </button>
+                  <button class="seed-chat-composer__send" aria-label="Send" disabled>
+                    <span class="dew dew-chevron-up" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="seed-chat-composer__toolbar">
+                <button class="seed-chat-composer__btn" aria-label="Bold"
+                        style="font-size:11px;font-weight:700;width:28px;height:28px;">B</button>
+                <button class="seed-chat-composer__btn" aria-label="Italic"
+                        style="font-size:11px;font-style:italic;width:28px;height:28px;">I</button>
+                <button class="seed-chat-composer__btn" aria-label="Link">
+                  <span class="dew dew-link" aria-hidden="true"></span>
+                </button>
+                <button class="seed-chat-composer__btn" aria-label="Mention">
+                  <span class="dew dew-at-sign" aria-hidden="true"></span>
+                </button>
+                <button class="seed-chat-composer__btn" aria-label="Emoji">
+                  <span class="dew dew-face-happy" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-divider"></div>
+
+          <!-- ── 4. Message thread ── -->
+          <p class="cs-label">Message thread</p>
+          <div class="cs-frame cs-frame--thread">
+            <!-- Messages -->
+            <div class="seed-chat-messages">
+
+              <div class="seed-chat-timestamp">Today</div>
+
+              <!-- Received: Jordan, first message -->
+              <div class="seed-chat-message-row seed-chat-message-row--received">
+                <span class="seed-avatar seed-avatar--md seed-avatar--brand seed-chat-message-row__avatar"
+                      aria-label="Jordan">JD</span>
+                <div class="seed-chat-message-row__content">
+                  <div class="seed-chat-message-row__meta">
+                    <span class="seed-chat-message-row__name">Jordan</span>
+                    <span class="seed-chat-message-row__time">2:31 PM</span>
+                  </div>
+                  <div class="seed-chat-message-row__bubble">
+                    Hey! How's the chat component coming along?
+                  </div>
+                </div>
+              </div>
+
+              <!-- Received: Jordan, consecutive (no avatar/name) -->
+              <div class="seed-chat-message-row seed-chat-message-row--received seed-chat-message-row--consecutive">
+                <div class="seed-chat-message-row__spacer"></div>
+                <div class="seed-chat-message-row__content">
+                  <div class="seed-chat-message-row__bubble">
+                    Looks like the typing indicator is working too 👀
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sent -->
+              <div class="seed-chat-message-row seed-chat-message-row--sent">
+                <div class="seed-chat-message-row__content">
+                  <div class="seed-chat-message-row__bubble">
+                    Just finished the bubble variants — avatars, consecutive messages, lime tint for sent. Pretty happy with it.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sent, consecutive -->
+              <div class="seed-chat-message-row seed-chat-message-row--sent seed-chat-message-row--consecutive">
+                <div class="seed-chat-message-row__content">
+                  <div class="seed-chat-message-row__bubble">
+                    Composer grows up to 160px then scrolls.
+                  </div>
+                </div>
+              </div>
+
+              <!-- System message -->
+              <div class="seed-chat-system">
+                <span class="dew dew-information-circle" aria-hidden="true"></span>
+                Alex joined the conversation
+              </div>
+
+              <!-- Received: Alex -->
+              <div class="seed-chat-message-row seed-chat-message-row--received">
+                <span class="seed-avatar seed-avatar--md seed-avatar--neutral seed-chat-message-row__avatar"
+                      aria-label="Alex">AL</span>
+                <div class="seed-chat-message-row__content">
+                  <div class="seed-chat-message-row__meta">
+                    <span class="seed-chat-message-row__name">Alex</span>
+                    <span class="seed-chat-message-row__time">2:33 PM</span>
+                  </div>
+                  <div class="seed-chat-message-row__bubble">
+                    This looks great — dark mode works automatically through the tokens?
+                  </div>
+                </div>
+              </div>
+
+              <!-- Typing indicator -->
+              <div class="seed-chat-typing">
+                <span class="seed-avatar seed-avatar--md seed-avatar--brand seed-chat-typing__avatar"
+                      aria-label="Jordan typing">JD</span>
+                <div class="seed-chat-typing__bubble" aria-label="Jordan is typing">
+                  <span class="seed-chat-typing__dot"></span>
+                  <span class="seed-chat-typing__dot"></span>
+                  <span class="seed-chat-typing__dot"></span>
+                </div>
+              </div>
+
+            </div>
+            <!-- Composer -->
+            <div class="seed-chat-composer" id="cs-thread-composer">
+              <div class="seed-chat-composer__inner">
+                <div class="seed-chat-composer__action-left">
+                  <button class="seed-chat-composer__btn" aria-label="Attach">
+                    <span class="dew dew-plus" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <textarea class="seed-chat-composer__input" rows="1"
+                          placeholder="Reply…" aria-label="Reply"></textarea>
+                <div class="seed-chat-composer__actions">
+                  <button class="seed-chat-composer__send" aria-label="Send" disabled>
+                    <span class="dew dew-chevron-up" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-divider"></div>
+
+          <!-- ── 5. Float mode preview ── -->
+          <p class="cs-label">Float mode (container--float)</p>
+          <div class="cs-frame cs-frame--float-preview">
+            <div class="seed-chat-container" style="height:100%;border:none;border-radius:0;">
+              <div class="seed-chat-header">
+                <span class="seed-avatar seed-avatar--md seed-avatar--brand" aria-label="Jordan">JD</span>
+                <div class="seed-chat-header__title">
+                  <span class="seed-chat-header__name">Jordan Davis</span>
+                  <span class="seed-chat-header__subtitle">Active now</span>
+                </div>
+                <div class="seed-chat-header__actions">
+                  <button class="seed-chat-header__btn" aria-label="Video call">
+                    <span class="dew dew-camera-on" aria-hidden="true"></span>
+                  </button>
+                  <button class="seed-chat-header__btn" aria-label="More">
+                    <span class="dew dew-ellipsis-menu" aria-hidden="true"></span>
+                  </button>
+                  <button class="seed-chat-header__btn" aria-label="Minimise">
+                    <span class="dew dew-chevron-down" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="seed-chat-messages">
+                <div class="seed-chat-timestamp">Today</div>
+                <div class="seed-chat-message-row seed-chat-message-row--received">
+                  <span class="seed-avatar seed-avatar--md seed-avatar--brand seed-chat-message-row__avatar">JD</span>
+                  <div class="seed-chat-message-row__content">
+                    <div class="seed-chat-message-row__meta">
+                      <span class="seed-chat-message-row__name">Jordan</span>
+                      <span class="seed-chat-message-row__time">3:12 PM</span>
+                    </div>
+                    <div class="seed-chat-message-row__bubble">Can you review the PR when you get a chance?</div>
+                  </div>
+                </div>
+                <div class="seed-chat-message-row seed-chat-message-row--sent">
+                  <div class="seed-chat-message-row__content">
+                    <div class="seed-chat-message-row__bubble">On it — give me 10 mins.</div>
+                  </div>
+                </div>
+                <div class="seed-chat-typing">
+                  <span class="seed-avatar seed-avatar--md seed-avatar--brand seed-chat-typing__avatar">JD</span>
+                  <div class="seed-chat-typing__bubble">
+                    <span class="seed-chat-typing__dot"></span>
+                    <span class="seed-chat-typing__dot"></span>
+                    <span class="seed-chat-typing__dot"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="seed-chat-composer" id="cs-float-composer">
+                <div class="seed-chat-composer__inner">
+                  <div class="seed-chat-composer__action-left">
+                    <button class="seed-chat-composer__btn" aria-label="Attach">
                       <span class="dew dew-plus" aria-hidden="true"></span>
                     </button>
-                    <button class="seed-chat__send" aria-label="Send" disabled>
+                  </div>
+                  <textarea class="seed-chat-composer__input" rows="1"
+                            placeholder="Message Jordan…" aria-label="Message"></textarea>
+                  <div class="seed-chat-composer__actions">
+                    <button class="seed-chat-composer__btn" aria-label="Voice">
+                      <span class="dew dew-microphone" aria-hidden="true"></span>
+                    </button>
+                    <button class="seed-chat-composer__send" aria-label="Send" disabled>
                       <span class="dew dew-chevron-up" aria-hidden="true"></span>
                     </button>
                   </div>
@@ -3578,35 +3795,51 @@
             </div>
           </div>
 
-          <p class="chat-section-label">With formatting toolbar</p>
-          <div class="chat-demo-frame chat-demo-pad">
-            <div class="seed-chat">
-              <div class="seed-chat__row">
-                <textarea class="seed-chat__input" rows="2"
-                          placeholder="Write something…" aria-label="Message input"></textarea>
-                <div class="seed-chat__actions">
-                  <button class="seed-chat__btn" aria-label="Attach file">
-                    <span class="dew dew-plus" aria-hidden="true"></span>
-                  </button>
-                  <button class="seed-chat__send" aria-label="Send message">
-                    <span class="dew dew-chevron-up" aria-hidden="true"></span>
-                  </button>
-                </div>
+          <div class="cs-divider"></div>
+
+          <!-- ── 6. System messages ── -->
+          <p class="cs-label">System messages</p>
+          <div class="cs-frame" style="padding:var(--seed-space-4);">
+            <div style="display:flex;flex-direction:column;gap:var(--seed-space-3);">
+              <div class="seed-chat-system">
+                <span class="dew dew-information-circle" aria-hidden="true"></span>
+                Alex joined the conversation
               </div>
-              <div class="seed-chat__toolbar">
-                <button class="seed-chat__btn" aria-label="Bold" style="font-size:11px;font-weight:700;width:24px;height:24px;">B</button>
-                <button class="seed-chat__btn" aria-label="Italic" style="font-size:11px;font-style:italic;width:24px;height:24px;">I</button>
-                <button class="seed-chat__btn" aria-label="Link"><span class="dew dew-link" aria-hidden="true"></span></button>
-                <button class="seed-chat__btn" aria-label="Mention"><span class="dew dew-at-sign" aria-hidden="true"></span></button>
-                <button class="seed-chat__btn" aria-label="Emoji"><span class="dew dew-face-happy" aria-hidden="true"></span></button>
+              <div class="seed-chat-system">
+                <span class="dew dew-camera-on" aria-hidden="true"></span>
+                Call ended · 4 min 22 sec
+              </div>
+              <div class="seed-chat-system">
+                <span class="dew dew-check" aria-hidden="true"></span>
+                Message request accepted
+              </div>
+              <div class="seed-chat-system">
+                <span class="dew dew-lock" aria-hidden="true"></span>
+                Messages are end-to-end encrypted
               </div>
             </div>
           </div>
 
           <script>
             (function() {
-              // Auto-grow + send enable for all chats in this section
-              document.querySelectorAll('[data-section="chat"] .seed-chat').forEach(function(chat) {
+              var section = document.querySelector('[data-section="chat"]');
+              if (!section) return;
+
+              // Auto-grow textareas + send enable/disable for .seed-chat-composer
+              section.querySelectorAll('.seed-chat-composer').forEach(function(composer) {
+                var input = composer.querySelector('.seed-chat-composer__input');
+                var send  = composer.querySelector('.seed-chat-composer__send');
+                if (!input) return;
+                if (send) send.disabled = input.value.trim() === '';
+                input.addEventListener('input', function() {
+                  this.style.height = 'auto';
+                  this.style.height = Math.min(this.scrollHeight, 160) + 'px';
+                  if (send) send.disabled = this.value.trim() === '';
+                });
+              });
+
+              // Legacy .seed-chat composers
+              section.querySelectorAll('.seed-chat').forEach(function(chat) {
                 var input = chat.querySelector('.seed-chat__input');
                 var send  = chat.querySelector('.seed-chat__send');
                 if (!input) return;
