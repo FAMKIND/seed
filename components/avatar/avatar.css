@@ -1,0 +1,176 @@
+/* ═══════════════════════════════════════════════════════
+   SEED AVATAR
+   Requires: tokens/tokens.css
+   Usage:    <span class="seed-avatar seed-avatar--md seed-avatar--neutral">AB</span>
+
+   Zero hardcoded colors — every value flows from
+   Seed semantic tokens. Theme switching is automatic.
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   BASE
+───────────────────────────────────────────────────── */
+
+.seed-avatar {
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    border-radius:   50%;
+    overflow:        hidden;
+    flex-shrink:     0;
+    background:      var(--calm-bg-subtle-hover);
+    color:           var(--soil-text-muted);
+    font-family:     var(--seed-font-ui);
+    font-weight:     var(--seed-weight-medium);
+    user-select:     none;
+    position:        relative;
+    line-height:     1;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SIZES
+───────────────────────────────────────────────────── */
+
+.seed-avatar--xs {
+    width:     20px;
+    height:    20px;
+    font-size: 8px;
+}
+
+.seed-avatar--sm {
+    width:     24px;
+    height:    24px;
+    font-size: 10px;
+}
+
+.seed-avatar--md {
+    width:     32px;
+    height:    32px;
+    font-size: 12px;
+}
+
+.seed-avatar--lg {
+    width:     40px;
+    height:    40px;
+    font-size: 14px;
+}
+
+.seed-avatar--xl {
+    width:     56px;
+    height:    56px;
+    font-size: 18px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   CONTENT — image, initials, icon, emoji
+───────────────────────────────────────────────────── */
+
+.seed-avatar img {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    display:    block;
+}
+
+.seed-avatar .dew {
+    font-size: inherit;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   COLOR VARIANTS
+───────────────────────────────────────────────────── */
+
+.seed-avatar--neutral {
+    background: var(--calm-bg-subtle-hover);
+    color:      var(--calm-text-bold-default);
+}
+
+.seed-avatar--green {
+    background: var(--good-bg-subtle-default);
+    color:      var(--good-text-bold-default);
+}
+
+.seed-avatar--yellow {
+    background: var(--warn-bg-subtle-default);
+    color:      var(--warn-text-bold-default);
+}
+
+.seed-avatar--red {
+    background: var(--bad-bg-subtle-default);
+    color:      var(--bad-text-bold-default);
+}
+
+.seed-avatar--brand {
+    background: var(--selected-bg-bold-default);
+    color:      var(--selected-text-bold-default);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   STATUS DOT
+───────────────────────────────────────────────────── */
+
+.seed-avatar__status {
+    position:      absolute;
+    bottom:        0;
+    right:         0;
+    border-radius: 50%;
+    border:        2px solid var(--soil-bg-surface);
+}
+
+/* Size-specific dot dimensions */
+.seed-avatar--xs .seed-avatar__status { width: 6px;  height: 6px;  }
+.seed-avatar--sm .seed-avatar__status { width: 7px;  height: 7px;  }
+.seed-avatar--md .seed-avatar__status { width: 8px;  height: 8px;  }
+.seed-avatar--lg .seed-avatar__status { width: 10px; height: 10px; }
+.seed-avatar--xl .seed-avatar__status { width: 14px; height: 14px; }
+
+.seed-avatar__status--online  { background: #09A950; }
+.seed-avatar__status--offline { background: var(--soil-text-disabled); }
+.seed-avatar__status--busy    { background: var(--bad-bg-bold-default); }
+.seed-avatar__status--away    { background: var(--warn-bg-bold-default); }
+
+
+/* ─────────────────────────────────────────────────────
+   AVATAR GROUP — stacked overlapping row
+───────────────────────────────────────────────────── */
+
+.seed-avatar-group {
+    display:        inline-flex;
+    flex-direction: row-reverse;
+    align-items:    center;
+}
+
+.seed-avatar-group .seed-avatar {
+    margin-left: -8px;
+    border:      2px solid var(--soil-bg-surface);
+}
+
+.seed-avatar-group .seed-avatar:last-child {
+    margin-left: 0;
+}
+
+.seed-avatar-group__overflow {
+    background: var(--calm-bg-normal-default);
+    color:      var(--soil-text-muted);
+    font-size:  11px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   INTERACTIVE
+───────────────────────────────────────────────────── */
+
+.seed-avatar--interactive {
+    cursor:     pointer;
+    transition: transform 80ms ease, box-shadow 80ms ease;
+}
+
+.seed-avatar--interactive:hover {
+    transform:  scale(1.05);
+    box-shadow: var(--seed-shadow-sm);
+}

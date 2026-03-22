@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Avatar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="avatar.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      padding:          var(--seed-space-12) var(--seed-space-8);
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-12);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .page-title span {
+      font-weight: var(--seed-weight-regular);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-sm);
+      margin-left: var(--seed-space-3);
+    }
+
+    /* ── Nav ── */
+    .page-nav {
+      display:     flex;
+      gap:         var(--seed-space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: var(--seed-space-12);
+    }
+
+    .section-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-4);
+    }
+
+    .row {
+      display:     flex;
+      align-items: center;
+      gap:         var(--seed-space-4);
+      flex-wrap:   wrap;
+      margin-bottom: var(--seed-space-4);
+    }
+
+    .row--baseline {
+      align-items: baseline;
+    }
+
+    .sub-label {
+      font-size:  var(--seed-text-xs);
+      color:      var(--soil-text-muted);
+      margin-bottom: var(--seed-space-2);
+    }
+
+    .col {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--seed-space-2);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border:     none;
+      border-top: 1px solid var(--soil-border-subtle);
+      margin:     var(--seed-space-8) 0;
+    }
+
+    /* ── Placeholder image (for demo) ── */
+    .avatar-photo {
+      width:            100%;
+      height:           100%;
+      background:       linear-gradient(135deg, #6EE7B7 0%, #3B82F6 100%);
+      display:          flex;
+      align-items:      center;
+      justify-content:  center;
+      font-size:        inherit;
+      color:            white;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-title">
+      seed <span>Avatar component · v0.1</span>
+    </div>
+    <div class="page-nav">
+      <a class="nav-link" href="../layout/layout.html">Layout →</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+    </div>
+  </header>
+
+  <!-- ── 1. Sizes ── -->
+  <section class="section">
+    <p class="section-label">Sizes</p>
+    <div class="row" style="align-items:flex-end; gap:var(--seed-space-6);">
+      <div class="col">
+        <div class="sub-label">xs · 20px</div>
+        <span class="seed-avatar seed-avatar--xs seed-avatar--neutral">SH</span>
+      </div>
+      <div class="col">
+        <div class="sub-label">sm · 24px</div>
+        <span class="seed-avatar seed-avatar--sm seed-avatar--neutral">SH</span>
+      </div>
+      <div class="col">
+        <div class="sub-label">md · 32px</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--neutral">SH</span>
+      </div>
+      <div class="col">
+        <div class="sub-label">lg · 40px</div>
+        <span class="seed-avatar seed-avatar--lg seed-avatar--neutral">SH</span>
+      </div>
+      <div class="col">
+        <div class="sub-label">xl · 56px</div>
+        <span class="seed-avatar seed-avatar--xl seed-avatar--neutral">SH</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 2. Content types ── -->
+  <section class="section">
+    <p class="section-label">Content Types</p>
+    <div class="row" style="align-items:flex-end; gap:var(--seed-space-6);">
+      <div class="col">
+        <div class="sub-label">Photo</div>
+        <span class="seed-avatar seed-avatar--md">
+          <div class="avatar-photo"></div>
+        </span>
+      </div>
+      <div class="col">
+        <div class="sub-label">Initials</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--neutral">AB</span>
+      </div>
+      <div class="col">
+        <div class="sub-label">Icon</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--neutral">
+          <span class="dew dew-person" aria-hidden="true"></span>
+        </span>
+      </div>
+      <div class="col">
+        <div class="sub-label">Emoji</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--neutral">🌱</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 3. Color variants ── -->
+  <section class="section">
+    <p class="section-label">Color Variants</p>
+    <div class="row" style="gap:var(--seed-space-6);">
+      <div class="col">
+        <div class="sub-label">neutral</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--neutral">AB</span>
+      </div>
+      <div class="col">
+        <div class="sub-label">green</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--green">CD</span>
+      </div>
+      <div class="col">
+        <div class="sub-label">yellow</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--yellow">EF</span>
+      </div>
+      <div class="col">
+        <div class="sub-label">red</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--red">GH</span>
+      </div>
+      <div class="col">
+        <div class="sub-label">brand</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--brand">SH</span>
+      </div>
+    </div>
+    <div class="row" style="gap:var(--seed-space-4); margin-top:var(--seed-space-4);">
+      <span class="seed-avatar seed-avatar--md seed-avatar--neutral"><span class="dew dew-person" aria-hidden="true"></span></span>
+      <span class="seed-avatar seed-avatar--md seed-avatar--green"><span class="dew dew-person" aria-hidden="true"></span></span>
+      <span class="seed-avatar seed-avatar--md seed-avatar--yellow"><span class="dew dew-person" aria-hidden="true"></span></span>
+      <span class="seed-avatar seed-avatar--md seed-avatar--red"><span class="dew dew-person" aria-hidden="true"></span></span>
+      <span class="seed-avatar seed-avatar--md seed-avatar--brand"><span class="dew dew-person" aria-hidden="true"></span></span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 4. Status dots ── -->
+  <section class="section">
+    <p class="section-label">Status</p>
+    <div class="row" style="gap:var(--seed-space-6);">
+      <div class="col">
+        <div class="sub-label">online</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--neutral">
+          AB
+          <span class="seed-avatar__status seed-avatar__status--online"></span>
+        </span>
+      </div>
+      <div class="col">
+        <div class="sub-label">offline</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--neutral">
+          CD
+          <span class="seed-avatar__status seed-avatar__status--offline"></span>
+        </span>
+      </div>
+      <div class="col">
+        <div class="sub-label">busy</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--neutral">
+          EF
+          <span class="seed-avatar__status seed-avatar__status--busy"></span>
+        </span>
+      </div>
+      <div class="col">
+        <div class="sub-label">away</div>
+        <span class="seed-avatar seed-avatar--md seed-avatar--neutral">
+          GH
+          <span class="seed-avatar__status seed-avatar__status--away"></span>
+        </span>
+      </div>
+    </div>
+    <!-- Status across sizes -->
+    <div class="row" style="align-items:flex-end; gap:var(--seed-space-4); margin-top:var(--seed-space-4);">
+      <span class="seed-avatar seed-avatar--xs seed-avatar--neutral">S<span class="seed-avatar__status seed-avatar__status--online"></span></span>
+      <span class="seed-avatar seed-avatar--sm seed-avatar--neutral">SH<span class="seed-avatar__status seed-avatar__status--online"></span></span>
+      <span class="seed-avatar seed-avatar--md seed-avatar--neutral">SH<span class="seed-avatar__status seed-avatar__status--online"></span></span>
+      <span class="seed-avatar seed-avatar--lg seed-avatar--neutral">SH<span class="seed-avatar__status seed-avatar__status--online"></span></span>
+      <span class="seed-avatar seed-avatar--xl seed-avatar--neutral">SH<span class="seed-avatar__status seed-avatar__status--online"></span></span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 5. Avatar group ── -->
+  <section class="section">
+    <p class="section-label">Avatar Group</p>
+    <div class="row" style="gap:var(--seed-space-8);">
+      <div class="col">
+        <div class="sub-label">sm</div>
+        <div class="seed-avatar-group">
+          <span class="seed-avatar seed-avatar--sm seed-avatar--neutral">AB</span>
+          <span class="seed-avatar seed-avatar--sm seed-avatar--green">CD</span>
+          <span class="seed-avatar seed-avatar--sm seed-avatar--yellow">EF</span>
+          <span class="seed-avatar seed-avatar--sm seed-avatar--red">GH</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="sub-label">md</div>
+        <div class="seed-avatar-group">
+          <span class="seed-avatar seed-avatar--md seed-avatar--neutral">AB</span>
+          <span class="seed-avatar seed-avatar--md seed-avatar--green">CD</span>
+          <span class="seed-avatar seed-avatar--md seed-avatar--yellow">EF</span>
+          <span class="seed-avatar seed-avatar--md seed-avatar--red">GH</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="sub-label">md + overflow</div>
+        <div class="seed-avatar-group">
+          <span class="seed-avatar seed-avatar--md seed-avatar-group__overflow">+3</span>
+          <span class="seed-avatar seed-avatar--md seed-avatar--yellow">EF</span>
+          <span class="seed-avatar seed-avatar--md seed-avatar--green">CD</span>
+          <span class="seed-avatar seed-avatar--md seed-avatar--neutral">AB</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="sub-label">lg</div>
+        <div class="seed-avatar-group">
+          <span class="seed-avatar seed-avatar--lg seed-avatar--neutral">AB</span>
+          <span class="seed-avatar seed-avatar--lg seed-avatar--green">CD</span>
+          <span class="seed-avatar seed-avatar--lg seed-avatar--yellow">EF</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── 6. Interactive ── -->
+  <section class="section">
+    <p class="section-label">Interactive</p>
+    <div class="row" style="gap:var(--seed-space-4);">
+      <span class="seed-avatar seed-avatar--md seed-avatar--neutral seed-avatar--interactive">AB</span>
+      <span class="seed-avatar seed-avatar--md seed-avatar--green seed-avatar--interactive">CD</span>
+      <span class="seed-avatar seed-avatar--md seed-avatar--brand seed-avatar--interactive">SH</span>
+      <span class="seed-avatar seed-avatar--lg seed-avatar--neutral seed-avatar--interactive">
+        <span class="dew dew-person" aria-hidden="true"></span>
+      </span>
+    </div>
+  </section>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+  </script>
+
+</body>
+</html>

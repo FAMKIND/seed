@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../../tokens/tokens.css">
   <link rel="stylesheet" href="../../components/button/button.css">
   <link rel="stylesheet" href="../../components/badge/badge.css">
+  <link rel="stylesheet" href="../../components/avatar/avatar.css">
   <link rel="stylesheet" href="../../components/card/card.css">
   <link rel="stylesheet" href="../../components/input/input.css">
   <link rel="stylesheet" href="../../components/divider/divider.css">
@@ -841,6 +842,12 @@
             <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
             <span class="nav-item__icon"><span class="dew dew-file" aria-hidden="true"></span></span>
             <span class="nav-label">Tables</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-item" data-label="Avatar" data-section="avatar" data-category="Components" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-file" aria-hidden="true"></span></span>
+            <span class="nav-label">Avatar</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
@@ -3028,6 +3035,93 @@
             </div>
 
           </div><!-- /tbl-variant-grid -->
+        </div>
+
+        <!-- ── avatar ────────────────────────────────── -->
+        <div class="ds-section" data-section="avatar" style="display:none">
+          <style>
+            .av-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-3);
+            }
+            .av-section { margin-bottom: var(--seed-space-6); }
+            .av-row {
+              display:     flex;
+              align-items: center;
+              gap:         var(--seed-space-4);
+              flex-wrap:   wrap;
+            }
+            .av-divider {
+              border:     none;
+              border-top: 1px solid var(--soil-border-subtle);
+              margin:     var(--seed-space-5) 0;
+            }
+          </style>
+
+          <!-- Sizes -->
+          <div class="av-section">
+            <p class="av-section-label">Sizes</p>
+            <div class="av-row" style="align-items:flex-end;">
+              <span class="seed-avatar seed-avatar--xs seed-avatar--neutral">SH</span>
+              <span class="seed-avatar seed-avatar--sm seed-avatar--neutral">SH</span>
+              <span class="seed-avatar seed-avatar--md seed-avatar--neutral">SH</span>
+              <span class="seed-avatar seed-avatar--lg seed-avatar--neutral">SH</span>
+              <span class="seed-avatar seed-avatar--xl seed-avatar--neutral">SH</span>
+            </div>
+          </div>
+
+          <hr class="av-divider">
+
+          <!-- Color variants -->
+          <div class="av-section">
+            <p class="av-section-label">Color Variants</p>
+            <div class="av-row">
+              <span class="seed-avatar seed-avatar--md seed-avatar--neutral">AB</span>
+              <span class="seed-avatar seed-avatar--md seed-avatar--green">CD</span>
+              <span class="seed-avatar seed-avatar--md seed-avatar--yellow">EF</span>
+              <span class="seed-avatar seed-avatar--md seed-avatar--red">GH</span>
+              <span class="seed-avatar seed-avatar--md seed-avatar--brand">SH</span>
+            </div>
+          </div>
+
+          <hr class="av-divider">
+
+          <!-- Status -->
+          <div class="av-section">
+            <p class="av-section-label">Status</p>
+            <div class="av-row">
+              <span class="seed-avatar seed-avatar--md seed-avatar--neutral">AB<span class="seed-avatar__status seed-avatar__status--online"></span></span>
+              <span class="seed-avatar seed-avatar--md seed-avatar--neutral">CD<span class="seed-avatar__status seed-avatar__status--busy"></span></span>
+              <span class="seed-avatar seed-avatar--md seed-avatar--neutral">EF<span class="seed-avatar__status seed-avatar__status--away"></span></span>
+              <span class="seed-avatar seed-avatar--md seed-avatar--neutral">GH<span class="seed-avatar__status seed-avatar__status--offline"></span></span>
+            </div>
+          </div>
+
+          <hr class="av-divider">
+
+          <!-- Group -->
+          <div class="av-section">
+            <p class="av-section-label">Avatar Group</p>
+            <div class="av-row">
+              <div class="seed-avatar-group">
+                <span class="seed-avatar seed-avatar--md seed-avatar-group__overflow">+3</span>
+                <span class="seed-avatar seed-avatar--md seed-avatar--yellow">EF</span>
+                <span class="seed-avatar seed-avatar--md seed-avatar--green">CD</span>
+                <span class="seed-avatar seed-avatar--md seed-avatar--neutral">AB</span>
+              </div>
+              <div class="seed-avatar-group">
+                <span class="seed-avatar seed-avatar--lg seed-avatar--red">GH</span>
+                <span class="seed-avatar seed-avatar--lg seed-avatar--yellow">EF</span>
+                <span class="seed-avatar seed-avatar--lg seed-avatar--green">CD</span>
+                <span class="seed-avatar seed-avatar--lg seed-avatar--neutral">AB</span>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <!-- ── forms ─────────────────────────────────── -->
