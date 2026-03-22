@@ -1,0 +1,219 @@
+/* ═══════════════════════════════════════════════════════
+   SEED TOAST
+   Requires: tokens/tokens.css
+   Usage:    See toast.html for JS integration pattern.
+
+   Zero hardcoded colors — every value flows from
+   Seed semantic tokens. Theme switching is automatic.
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   CONTAINER
+   Fixed-position stack. pointer-events: none so the
+   container itself never blocks page interaction —
+   individual toasts re-enable pointer-events.
+───────────────────────────────────────────────────── */
+
+.seed-toast-container {
+    position:       fixed;
+    z-index:        var(--seed-z-toast);
+    display:        flex;
+    flex-direction: column;
+    gap:            var(--seed-space-3);
+    pointer-events: none;
+    padding:        var(--seed-space-4);
+}
+
+.seed-toast-container--top-center {
+    top:       0;
+    left:      50%;
+    transform: translateX(-50%);
+    align-items: center;
+}
+
+.seed-toast-container--bottom-center {
+    bottom:    0;
+    left:      50%;
+    transform: translateX(-50%);
+    align-items:    center;
+    flex-direction: column-reverse;
+}
+
+.seed-toast-container--bottom-right {
+    bottom:         0;
+    right:          0;
+    align-items:    flex-end;
+    flex-direction: column-reverse;
+}
+
+.seed-toast-container--top-right {
+    top:         0;
+    right:       0;
+    align-items: flex-end;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   TOAST
+───────────────────────────────────────────────────── */
+
+.seed-toast {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           var(--seed-space-3);
+    padding:       var(--seed-space-3) var(--seed-space-4);
+    background:    var(--soil-bg-elevated);
+    border:        1px solid var(--soil-border-subtle);
+    border-radius: var(--seed-radius-lg);
+    box-shadow:    var(--seed-shadow-md);
+    font-family:   var(--seed-font-ui);
+    font-size:     var(--seed-text-sm);
+    color:         var(--soil-text);
+    pointer-events: auto;
+    max-width:     400px;
+    min-width:     260px;
+    border-left-width: 3px;
+    animation:     seed-toast-in 180ms ease both;
+}
+
+/* Neutral — no colored accent */
+.seed-toast--neutral {
+    border-left-color: var(--soil-border-subtle);
+}
+
+.seed-toast--good {
+    border-left-color: var(--good-border-bold-default);
+}
+
+.seed-toast--warn {
+    border-left-color: var(--warn-border-bold-default);
+}
+
+.seed-toast--bad {
+    border-left-color: var(--bad-border-bold-default);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   TOAST PARTS
+───────────────────────────────────────────────────── */
+
+.seed-toast__icon {
+    display:     inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    font-size:   16px;
+    line-height: 1;
+}
+
+.seed-toast--good .seed-toast__icon { color: var(--good-text-bold-default); }
+.seed-toast--warn .seed-toast__icon { color: var(--warn-text-bold-default); }
+.seed-toast--bad  .seed-toast__icon { color: var(--bad-text-bold-default);  }
+.seed-toast--neutral .seed-toast__icon { color: var(--soil-text-muted); }
+
+.seed-toast__content {
+    display:        flex;
+    flex-direction: column;
+    gap:            2px;
+    flex:           1;
+    min-width:      0;
+}
+
+.seed-toast__title {
+    font-weight: var(--seed-weight-medium);
+    line-height: var(--seed-leading-tight);
+}
+
+.seed-toast__message {
+    font-size:   var(--seed-text-xs);
+    color:       var(--soil-text-muted);
+    line-height: var(--seed-leading-normal);
+}
+
+.seed-toast__action {
+    font-size:             var(--seed-text-xs);
+    font-weight:           var(--seed-weight-medium);
+    color:                 var(--selected-text-normal-default);
+    text-decoration:       underline;
+    text-underline-offset: 2px;
+    cursor:                pointer;
+    background:            none;
+    border:                none;
+    padding:               0;
+    font-family:           inherit;
+    margin-top:            2px;
+    transition:            color 120ms ease;
+}
+
+.seed-toast__action:hover {
+    color: var(--selected-text-normal-hover);
+}
+
+.seed-toast__dismiss {
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    flex-shrink:     0;
+    width:           22px;
+    height:          22px;
+    font-size:       11px;
+    border-radius:   50%;
+    border:          none;
+    background:      transparent;
+    color:           var(--soil-text-muted);
+    cursor:          pointer;
+    padding:         0;
+    transition:      background 120ms ease, color 120ms ease;
+    margin-right:    -4px;
+}
+
+.seed-toast__dismiss:hover {
+    background: var(--calm-bg-subtle-hover);
+    color:      var(--soil-text);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   ANIMATION
+───────────────────────────────────────────────────── */
+
+@keyframes seed-toast-in {
+    from {
+        opacity:   0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity:   1;
+        transform: translateY(0);
+    }
+}
+
+/* Bottom-anchored containers: slide up from below */
+.seed-toast-container--bottom-center .seed-toast,
+.seed-toast-container--bottom-right  .seed-toast {
+    animation-name: seed-toast-in-up;
+}
+
+@keyframes seed-toast-in-up {
+    from {
+        opacity:   0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity:   1;
+        transform: translateY(0);
+    }
+}
+
+.seed-toast--exiting {
+    opacity:    0;
+    transform:  translateY(-8px);
+    transition: opacity 150ms ease, transform 150ms ease;
+    pointer-events: none;
+}
+
+.seed-toast-container--bottom-center .seed-toast--exiting,
+.seed-toast-container--bottom-right  .seed-toast--exiting {
+    transform: translateY(8px);
+}

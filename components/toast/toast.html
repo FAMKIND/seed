@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Toast</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="toast.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      padding:          var(--seed-space-12) var(--seed-space-8);
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-12);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .page-title span {
+      font-weight: var(--seed-weight-regular);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-sm);
+      margin-left: var(--seed-space-3);
+    }
+
+    .page-nav {
+      display:     flex;
+      gap:         var(--seed-space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--calm-bg-subtle-hover);
+      color:      var(--soil-text);
+    }
+
+    .section        { margin-bottom: var(--seed-space-10); }
+    .section-label  {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-4);
+    }
+
+    .row {
+      display:     flex;
+      flex-wrap:   wrap;
+      gap:         var(--seed-space-3);
+      align-items: flex-start;
+    }
+
+    .divider {
+      border:     none;
+      border-top: 1px solid var(--soil-border-subtle);
+      margin:     var(--seed-space-8) 0;
+    }
+
+    /* ── Trigger buttons ── */
+    .trigger-btn {
+      display:         inline-flex;
+      align-items:     center;
+      gap:             var(--seed-space-2);
+      padding:         0.55em 1.2em;
+      border-radius:   var(--seed-radius-pill);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text);
+      cursor:          pointer;
+      transition:      background 120ms ease;
+    }
+    .trigger-btn:hover       { background: var(--calm-bg-subtle-hover); }
+    .trigger-btn--good       { border-color: var(--good-border-normal-default);   color: var(--good-text-bold-default);  background: var(--good-bg-subtle-default); }
+    .trigger-btn--good:hover { background: var(--good-bg-subtle-hover); }
+    .trigger-btn--warn       { border-color: var(--warn-border-normal-default);   color: var(--warn-text-bold-default);  background: var(--warn-bg-subtle-default); }
+    .trigger-btn--warn:hover { background: var(--warn-bg-subtle-hover); }
+    .trigger-btn--bad        { border-color: var(--bad-border-normal-default);    color: var(--bad-text-bold-default);   background: var(--bad-bg-subtle-default); }
+    .trigger-btn--bad:hover  { background: var(--bad-bg-subtle-hover); }
+
+    /* ── Position selector ── */
+    .pos-selector {
+      display:     flex;
+      gap:         var(--seed-space-2);
+      flex-wrap:   wrap;
+      margin-bottom: var(--seed-space-6);
+    }
+
+    .pos-btn {
+      padding:       0.35em 0.9em;
+      border-radius: var(--seed-radius-full);
+      border:        1px solid var(--calm-border-normal-default);
+      background:    transparent;
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-xs);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+
+    .pos-btn:hover          { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+    .pos-btn.is-active      { background: var(--calm-bg-subtle-hover); border-color: var(--calm-border-bold-default, var(--soil-border)); color: var(--soil-text); }
+
+    /* ── Static preview ── */
+    .preview-stack {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--seed-space-3);
+      max-width:      420px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-title">
+      seed <span>Toast component · v0.1</span>
+    </div>
+    <div class="page-nav">
+      <a class="nav-link" href="../layout/layout.html">Layout →</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+    </div>
+  </header>
+
+  <!-- ── Trigger ── -->
+  <section class="section">
+    <p class="section-label">Position</p>
+    <div class="pos-selector">
+      <button class="pos-btn is-active" data-pos="top-right">top-right</button>
+      <button class="pos-btn" data-pos="top-center">top-center</button>
+      <button class="pos-btn" data-pos="bottom-right">bottom-right</button>
+      <button class="pos-btn" data-pos="bottom-center">bottom-center</button>
+    </div>
+
+    <p class="section-label">Trigger</p>
+    <div class="row">
+      <button class="trigger-btn trigger-btn--good" onclick="showToast('good')">
+        <span class="dew dew-check" aria-hidden="true"></span>
+        Success
+      </button>
+      <button class="trigger-btn trigger-btn--warn" onclick="showToast('warn')">
+        <span class="dew dew-alert-triangle" aria-hidden="true"></span>
+        Warning
+      </button>
+      <button class="trigger-btn trigger-btn--bad" onclick="showToast('bad')">
+        <span class="dew dew-negative" aria-hidden="true"></span>
+        Error
+      </button>
+      <button class="trigger-btn" onclick="showToast('neutral')">
+        <span class="dew dew-information-circle" aria-hidden="true"></span>
+        Info
+      </button>
+      <button class="trigger-btn" onclick="showToast('undo')">
+        <span class="dew dew-undo" aria-hidden="true"></span>
+        With action
+      </button>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Static preview ── -->
+  <section class="section">
+    <p class="section-label">All Variants (static preview)</p>
+    <div class="preview-stack">
+
+      <div class="seed-toast seed-toast--good">
+        <span class="seed-toast__icon dew dew-check" aria-hidden="true"></span>
+        <div class="seed-toast__content">
+          <span class="seed-toast__title">Changes saved</span>
+          <span class="seed-toast__message">Your document has been saved successfully.</span>
+        </div>
+        <button class="seed-toast__dismiss dew dew-close" aria-label="Dismiss"></button>
+      </div>
+
+      <div class="seed-toast seed-toast--warn">
+        <span class="seed-toast__icon dew dew-alert-triangle" aria-hidden="true"></span>
+        <div class="seed-toast__content">
+          <span class="seed-toast__title">Almost at limit</span>
+          <span class="seed-toast__message">You're using 90% of your storage quota.</span>
+        </div>
+        <button class="seed-toast__dismiss dew dew-close" aria-label="Dismiss"></button>
+      </div>
+
+      <div class="seed-toast seed-toast--bad">
+        <span class="seed-toast__icon dew dew-negative" aria-hidden="true"></span>
+        <div class="seed-toast__content">
+          <span class="seed-toast__title">Upload failed</span>
+          <span class="seed-toast__message">Connection timed out. Please try again.</span>
+        </div>
+        <button class="seed-toast__dismiss dew dew-close" aria-label="Dismiss"></button>
+      </div>
+
+      <div class="seed-toast seed-toast--neutral">
+        <span class="seed-toast__icon dew dew-information-circle" aria-hidden="true"></span>
+        <div class="seed-toast__content">
+          <span class="seed-toast__title">New version available</span>
+          <span class="seed-toast__message">Refresh to get the latest features.</span>
+        </div>
+        <button class="seed-toast__dismiss dew dew-close" aria-label="Dismiss"></button>
+      </div>
+
+      <!-- With action -->
+      <div class="seed-toast seed-toast--neutral">
+        <span class="seed-toast__icon dew dew-trash" aria-hidden="true"></span>
+        <div class="seed-toast__content">
+          <span class="seed-toast__title">Item deleted</span>
+          <button class="seed-toast__action">Undo</button>
+        </div>
+        <button class="seed-toast__dismiss dew dew-close" aria-label="Dismiss"></button>
+      </div>
+
+      <!-- Title only (no message) -->
+      <div class="seed-toast seed-toast--good">
+        <span class="seed-toast__icon dew dew-check" aria-hidden="true"></span>
+        <div class="seed-toast__content">
+          <span class="seed-toast__title">Copied to clipboard</span>
+        </div>
+        <button class="seed-toast__dismiss dew dew-close" aria-label="Dismiss"></button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Toast containers (one per position, JS activates the right one) -->
+  <div class="seed-toast-container seed-toast-container--top-right"    id="container-top-right"></div>
+  <div class="seed-toast-container seed-toast-container--top-center"   id="container-top-center" style="display:none"></div>
+  <div class="seed-toast-container seed-toast-container--bottom-right" id="container-bottom-right" style="display:none"></div>
+  <div class="seed-toast-container seed-toast-container--bottom-center" id="container-bottom-center" style="display:none"></div>
+
+  <script>
+    /* ── Theme toggle ── */
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+
+    /* ── Position selector ── */
+    let activePos = 'top-right';
+    document.querySelectorAll('.pos-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        activePos = btn.dataset.pos;
+        // Show only the active container
+        document.querySelectorAll('.seed-toast-container').forEach(c => c.style.display = 'none');
+        document.getElementById('container-' + activePos).style.display = 'flex';
+      });
+    });
+
+    /* ── Toast data ── */
+    const TOASTS = {
+      good:    { intent: 'good',    icon: 'dew-check',            title: 'Changes saved',       message: 'Your document has been saved successfully.' },
+      warn:    { intent: 'warn',    icon: 'dew-alert-triangle',   title: 'Almost at limit',     message: 'You\'re using 90% of your storage quota.' },
+      bad:     { intent: 'bad',     icon: 'dew-negative',         title: 'Upload failed',       message: 'Connection timed out. Please try again.' },
+      neutral: { intent: 'neutral', icon: 'dew-information-circle', title: 'New version available', message: 'Refresh to get the latest features.' },
+      undo:    { intent: 'neutral', icon: 'dew-trash',            title: 'Item deleted',        message: null, action: 'Undo' },
+    };
+
+    /* ── Create and show a toast ── */
+    function showToast(type) {
+      const data = TOASTS[type];
+      const container = document.getElementById('container-' + activePos);
+
+      const toast = document.createElement('div');
+      toast.className = `seed-toast seed-toast--${data.intent}`;
+
+      toast.innerHTML = `
+        <span class="seed-toast__icon dew ${data.icon}" aria-hidden="true"></span>
+        <div class="seed-toast__content">
+          <span class="seed-toast__title">${data.title}</span>
+          ${data.message  ? `<span class="seed-toast__message">${data.message}</span>` : ''}
+          ${data.action   ? `<button class="seed-toast__action">${data.action}</button>` : ''}
+        </div>
+        <button class="seed-toast__dismiss dew dew-close" aria-label="Dismiss"></button>
+      `;
+
+      container.appendChild(toast);
+
+      /* Dismiss on X click */
+      toast.querySelector('.seed-toast__dismiss').addEventListener('click', () => dismiss(toast));
+
+      /* Action click (no-op in demo) */
+      const actionBtn = toast.querySelector('.seed-toast__action');
+      if (actionBtn) actionBtn.addEventListener('click', () => dismiss(toast));
+
+      /* Auto-dismiss after 5s, paused on hover */
+      let timer = setTimeout(() => dismiss(toast), 5000);
+      toast.addEventListener('mouseenter', () => clearTimeout(timer));
+      toast.addEventListener('mouseleave', () => { timer = setTimeout(() => dismiss(toast), 2000); });
+    }
+
+    function dismiss(toast) {
+      toast.classList.add('seed-toast--exiting');
+      setTimeout(() => toast.remove(), 150);
+    }
+  </script>
+
+</body>
+</html>

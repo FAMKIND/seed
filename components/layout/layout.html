@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../../components/button/button.css">
   <link rel="stylesheet" href="../../components/badge/badge.css">
   <link rel="stylesheet" href="../../components/avatar/avatar.css">
+  <link rel="stylesheet" href="../../components/toast/toast.css">
   <link rel="stylesheet" href="../../components/card/card.css">
   <link rel="stylesheet" href="../../components/input/input.css">
   <link rel="stylesheet" href="../../components/divider/divider.css">
@@ -848,6 +849,12 @@
             <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
             <span class="nav-item__icon"><span class="dew dew-file" aria-hidden="true"></span></span>
             <span class="nav-label">Avatar</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-item" data-label="Toasts" data-section="toasts" data-category="Components" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-file" aria-hidden="true"></span></span>
+            <span class="nav-label">Toasts</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
@@ -3122,6 +3129,147 @@
             </div>
           </div>
 
+        </div>
+
+        <!-- ── toasts ────────────────────────────────── -->
+        <div class="ds-section" data-section="toasts" style="display:none">
+          <style>
+            .toast-trigger-row {
+              display:     flex;
+              flex-wrap:   wrap;
+              gap:         var(--seed-space-3);
+              margin-bottom: var(--seed-space-5);
+            }
+            .toast-pos-row {
+              display:       flex;
+              flex-wrap:     wrap;
+              gap:           var(--seed-space-2);
+              margin-bottom: var(--seed-space-4);
+            }
+            .toast-pos-btn {
+              padding:       0.3em 0.8em;
+              border-radius: var(--seed-radius-full);
+              border:        1px solid var(--calm-border-normal-default);
+              background:    transparent;
+              font-family:   var(--seed-font-ui);
+              font-size:     var(--seed-text-xs);
+              font-weight:   var(--seed-weight-medium);
+              color:         var(--soil-text-muted);
+              cursor:        pointer;
+              transition:    background 120ms ease, color 120ms ease;
+            }
+            .toast-pos-btn:hover    { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+            .toast-pos-btn.is-active { background: var(--calm-bg-subtle-hover); color: var(--soil-text); border-color: var(--soil-border); }
+            .toast-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-3);
+            }
+            .toast-trigger-btn {
+              display:       inline-flex;
+              align-items:   center;
+              gap:           var(--seed-space-2);
+              padding:       0.45em 1.1em;
+              border-radius: var(--seed-radius-pill);
+              border:        1px solid var(--calm-border-normal-default);
+              background:    var(--calm-bg-subtle-default);
+              font-family:   var(--seed-font-ui);
+              font-size:     var(--seed-text-sm);
+              font-weight:   var(--seed-weight-medium);
+              color:         var(--soil-text);
+              cursor:        pointer;
+              transition:    background 120ms ease;
+            }
+            .toast-trigger-btn:hover       { background: var(--calm-bg-subtle-hover); }
+            .toast-trigger-btn--good       { border-color: var(--good-border-normal-default); color: var(--good-text-bold-default); background: var(--good-bg-subtle-default); }
+            .toast-trigger-btn--good:hover { background: var(--good-bg-subtle-hover); }
+            .toast-trigger-btn--warn       { border-color: var(--warn-border-normal-default); color: var(--warn-text-bold-default); background: var(--warn-bg-subtle-default); }
+            .toast-trigger-btn--warn:hover { background: var(--warn-bg-subtle-hover); }
+            .toast-trigger-btn--bad        { border-color: var(--bad-border-normal-default);  color: var(--bad-text-bold-default);  background: var(--bad-bg-subtle-default); }
+            .toast-trigger-btn--bad:hover  { background: var(--bad-bg-subtle-hover); }
+          </style>
+
+          <p class="toast-section-label">Position</p>
+          <div class="toast-pos-row" id="toast-pos-btns">
+            <button class="toast-pos-btn is-active" data-pos="top-right">top-right</button>
+            <button class="toast-pos-btn" data-pos="top-center">top-center</button>
+            <button class="toast-pos-btn" data-pos="bottom-right">bottom-right</button>
+            <button class="toast-pos-btn" data-pos="bottom-center">bottom-center</button>
+          </div>
+
+          <p class="toast-section-label">Trigger</p>
+          <div class="toast-trigger-row">
+            <button class="toast-trigger-btn toast-trigger-btn--good" onclick="dsShowToast('good')">
+              <span class="dew dew-check" aria-hidden="true"></span> Success
+            </button>
+            <button class="toast-trigger-btn toast-trigger-btn--warn" onclick="dsShowToast('warn')">
+              <span class="dew dew-alert-triangle" aria-hidden="true"></span> Warning
+            </button>
+            <button class="toast-trigger-btn toast-trigger-btn--bad" onclick="dsShowToast('bad')">
+              <span class="dew dew-negative" aria-hidden="true"></span> Error
+            </button>
+            <button class="toast-trigger-btn" onclick="dsShowToast('neutral')">
+              <span class="dew dew-information-circle" aria-hidden="true"></span> Info
+            </button>
+            <button class="toast-trigger-btn" onclick="dsShowToast('undo')">
+              <span class="dew dew-undo" aria-hidden="true"></span> With action
+            </button>
+          </div>
+
+          <!-- Toast containers for ds preview -->
+          <div class="seed-toast-container seed-toast-container--top-right"     id="ds-container-top-right"></div>
+          <div class="seed-toast-container seed-toast-container--top-center"    id="ds-container-top-center"    style="display:none"></div>
+          <div class="seed-toast-container seed-toast-container--bottom-right"  id="ds-container-bottom-right"  style="display:none"></div>
+          <div class="seed-toast-container seed-toast-container--bottom-center" id="ds-container-bottom-center" style="display:none"></div>
+
+          <script>
+            (function() {
+              let dsPos = 'top-right';
+              document.getElementById('toast-pos-btns').addEventListener('click', function(e) {
+                const btn = e.target.closest('.toast-pos-btn');
+                if (!btn) return;
+                document.querySelectorAll('#toast-pos-btns .toast-pos-btn').forEach(b => b.classList.remove('is-active'));
+                btn.classList.add('is-active');
+                dsPos = btn.dataset.pos;
+                document.querySelectorAll('[id^="ds-container-"]').forEach(c => c.style.display = 'none');
+                document.getElementById('ds-container-' + dsPos).style.display = 'flex';
+              });
+
+              const DS_TOASTS = {
+                good:    { intent: 'good',    icon: 'dew-check',              title: 'Changes saved',           message: 'Your document has been saved successfully.' },
+                warn:    { intent: 'warn',    icon: 'dew-alert-triangle',     title: 'Almost at limit',         message: 'You\'re using 90% of your storage quota.' },
+                bad:     { intent: 'bad',     icon: 'dew-negative',           title: 'Upload failed',           message: 'Connection timed out. Please try again.' },
+                neutral: { intent: 'neutral', icon: 'dew-information-circle', title: 'New version available',   message: 'Refresh to get the latest features.' },
+                undo:    { intent: 'neutral', icon: 'dew-trash',              title: 'Item deleted',            message: null, action: 'Undo' },
+              };
+
+              window.dsShowToast = function(type) {
+                const data = DS_TOASTS[type];
+                const container = document.getElementById('ds-container-' + dsPos);
+                const toast = document.createElement('div');
+                toast.className = 'seed-toast seed-toast--' + data.intent;
+                toast.innerHTML =
+                  '<span class="seed-toast__icon dew ' + data.icon + '" aria-hidden="true"></span>' +
+                  '<div class="seed-toast__content">' +
+                    '<span class="seed-toast__title">' + data.title + '</span>' +
+                    (data.message ? '<span class="seed-toast__message">' + data.message + '</span>' : '') +
+                    (data.action  ? '<button class="seed-toast__action">' + data.action + '</button>' : '') +
+                  '</div>' +
+                  '<button class="seed-toast__dismiss dew dew-close" aria-label="Dismiss"></button>';
+                container.appendChild(toast);
+                function dsDismiss() { toast.classList.add('seed-toast--exiting'); setTimeout(() => toast.remove(), 150); }
+                toast.querySelector('.seed-toast__dismiss').addEventListener('click', dsDismiss);
+                const act = toast.querySelector('.seed-toast__action');
+                if (act) act.addEventListener('click', dsDismiss);
+                let t = setTimeout(dsDismiss, 5000);
+                toast.addEventListener('mouseenter', () => clearTimeout(t));
+                toast.addEventListener('mouseleave', () => { t = setTimeout(dsDismiss, 2000); });
+              };
+            })();
+          </script>
         </div>
 
         <!-- ── forms ─────────────────────────────────── -->
