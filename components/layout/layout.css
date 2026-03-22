@@ -382,7 +382,7 @@
     padding:         0;
     border:          none;
     background:      transparent;
-    border-radius:   var(--seed-radius-sm);
+    border-radius:   50%;
     cursor:          pointer;
     color:           var(--soil-text-muted);
     opacity:         0;
@@ -398,7 +398,7 @@
 }
 
 .seed-layout__menu-trigger:hover {
-    background: var(--calm-bg-subtle-hover);
+    background: var(--soil-border-subtle);
     color:      var(--soil-text);
 }
 
