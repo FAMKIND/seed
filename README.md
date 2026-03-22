@@ -206,6 +206,22 @@ Seed components are plain HTML + CSS. Each lives in `components/{name}/` with a 
 
 ---
 
+## Updating Icons
+
+Seed uses [Dew](https://github.com/FAMKIND/dew) as a git submodule for icons. To pull the latest Dew icons:
+
+```bash
+cd icons/dew && git pull origin main
+```
+
+When cloning Seed fresh, initialize the submodule with:
+
+```bash
+git submodule update --init --recursive
+```
+
+---
+
 ## License
 
 MIT — free to use, fork, and build on.

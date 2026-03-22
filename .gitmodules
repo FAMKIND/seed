@@ -1,0 +1,3 @@
+[submodule "icons/dew"]
+	path = icons/dew
+	url = https://github.com/FAMKIND/dew.git
