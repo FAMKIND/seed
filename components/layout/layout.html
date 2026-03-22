@@ -3531,14 +3531,17 @@
           <p class="cs-label">Composer — empty</p>
           <div class="cs-frame" style="padding:var(--seed-space-3);">
             <div class="seed-chat-composer" id="cs-composer-empty">
-              <div class="seed-chat-composer__inner">
+              <textarea class="seed-chat-composer__input" rows="1"
+                        placeholder="Type a message…" aria-label="Message"></textarea>
+              <div class="seed-chat-composer__bar">
                 <div class="seed-chat-composer__action-left">
                   <button class="seed-chat-composer__btn" aria-label="Attach">
                     <span class="dew dew-plus" aria-hidden="true"></span>
                   </button>
+                  <button class="seed-chat-composer__btn" aria-label="Options">
+                    <span class="dew dew-sliders" aria-hidden="true"></span>
+                  </button>
                 </div>
-                <textarea class="seed-chat-composer__input" rows="1"
-                          placeholder="Type a message…" aria-label="Message"></textarea>
                 <div class="seed-chat-composer__actions">
                   <button class="seed-chat-composer__btn" aria-label="Voice">
                     <span class="dew dew-microphone" aria-hidden="true"></span>
@@ -3557,14 +3560,17 @@
           <p class="cs-label">Composer — with content</p>
           <div class="cs-frame" style="padding:var(--seed-space-3);">
             <div class="seed-chat-composer" id="cs-composer-filled">
-              <div class="seed-chat-composer__inner">
+              <textarea class="seed-chat-composer__input" rows="1"
+                        aria-label="Message">Sounds great, let's ship it!</textarea>
+              <div class="seed-chat-composer__bar">
                 <div class="seed-chat-composer__action-left">
                   <button class="seed-chat-composer__btn" aria-label="Attach">
                     <span class="dew dew-plus" aria-hidden="true"></span>
                   </button>
+                  <button class="seed-chat-composer__btn" aria-label="Options">
+                    <span class="dew dew-sliders" aria-hidden="true"></span>
+                  </button>
                 </div>
-                <textarea class="seed-chat-composer__input" rows="1"
-                          aria-label="Message">Sounds great, let's ship it!</textarea>
                 <div class="seed-chat-composer__actions">
                   <button class="seed-chat-composer__btn" aria-label="Voice">
                     <span class="dew dew-microphone" aria-hidden="true"></span>
@@ -3583,23 +3589,8 @@
           <p class="cs-label">Composer — with toolbar</p>
           <div class="cs-frame" style="padding:var(--seed-space-3);">
             <div class="seed-chat-composer">
-              <div class="seed-chat-composer__inner">
-                <div class="seed-chat-composer__action-left">
-                  <button class="seed-chat-composer__btn" aria-label="Attach">
-                    <span class="dew dew-plus" aria-hidden="true"></span>
-                  </button>
-                </div>
-                <textarea class="seed-chat-composer__input" rows="2"
-                          placeholder="Write something…" aria-label="Message"></textarea>
-                <div class="seed-chat-composer__actions">
-                  <button class="seed-chat-composer__btn" aria-label="Camera">
-                    <span class="dew dew-camera-on" aria-hidden="true"></span>
-                  </button>
-                  <button class="seed-chat-composer__send" aria-label="Send" disabled>
-                    <span class="dew dew-chevron-up" aria-hidden="true"></span>
-                  </button>
-                </div>
-              </div>
+              <textarea class="seed-chat-composer__input" rows="2"
+                        placeholder="Write something…" aria-label="Message"></textarea>
               <div class="seed-chat-composer__toolbar">
                 <button class="seed-chat-composer__btn" aria-label="Bold"
                         style="font-size:11px;font-weight:700;width:28px;height:28px;">B</button>
@@ -3614,6 +3605,21 @@
                 <button class="seed-chat-composer__btn" aria-label="Emoji">
                   <span class="dew dew-face-happy" aria-hidden="true"></span>
                 </button>
+              </div>
+              <div class="seed-chat-composer__bar">
+                <div class="seed-chat-composer__action-left">
+                  <button class="seed-chat-composer__btn" aria-label="Attach">
+                    <span class="dew dew-plus" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="seed-chat-composer__actions">
+                  <button class="seed-chat-composer__btn" aria-label="Camera">
+                    <span class="dew dew-camera-on" aria-hidden="true"></span>
+                  </button>
+                  <button class="seed-chat-composer__send" aria-label="Send" disabled>
+                    <span class="dew dew-chevron-up" aria-hidden="true"></span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -3706,14 +3712,14 @@
             </div>
             <!-- Composer -->
             <div class="seed-chat-composer" id="cs-thread-composer">
-              <div class="seed-chat-composer__inner">
+              <textarea class="seed-chat-composer__input" rows="1"
+                        placeholder="Reply…" aria-label="Reply"></textarea>
+              <div class="seed-chat-composer__bar">
                 <div class="seed-chat-composer__action-left">
                   <button class="seed-chat-composer__btn" aria-label="Attach">
                     <span class="dew dew-plus" aria-hidden="true"></span>
                   </button>
                 </div>
-                <textarea class="seed-chat-composer__input" rows="1"
-                          placeholder="Reply…" aria-label="Reply"></textarea>
                 <div class="seed-chat-composer__actions">
                   <button class="seed-chat-composer__send" aria-label="Send" disabled>
                     <span class="dew dew-chevron-up" aria-hidden="true"></span>
@@ -3774,14 +3780,14 @@
                 </div>
               </div>
               <div class="seed-chat-composer" id="cs-float-composer">
-                <div class="seed-chat-composer__inner">
+                <textarea class="seed-chat-composer__input" rows="1"
+                          placeholder="Message Jordan…" aria-label="Message"></textarea>
+                <div class="seed-chat-composer__bar">
                   <div class="seed-chat-composer__action-left">
                     <button class="seed-chat-composer__btn" aria-label="Attach">
                       <span class="dew dew-plus" aria-hidden="true"></span>
                     </button>
                   </div>
-                  <textarea class="seed-chat-composer__input" rows="1"
-                            placeholder="Message Jordan…" aria-label="Message"></textarea>
                   <div class="seed-chat-composer__actions">
                     <button class="seed-chat-composer__btn" aria-label="Voice">
                       <span class="dew dew-microphone" aria-hidden="true"></span>

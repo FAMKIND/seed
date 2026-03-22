@@ -392,73 +392,77 @@
    COMPOSER
 ───────────────────────────────────────────────────── */
 
+/*
+   Two-row layout:
+     Row 1 — textarea, full width, no border of its own
+     Row 2 — actions bar: [+ settings] ··· spacer ··· [mic send]
+
+   The outer container is the rounded card. Focus-within
+   highlights the whole box, not the textarea alone.
+*/
 .seed-chat-composer {
     display:        flex;
     flex-direction: column;
-    background:     transparent;
-    border:         none;
-    border-radius:  0;
+    background:     var(--soil-bg-surface);
+    border:         1px solid var(--soil-border-subtle);
+    border-radius:  var(--seed-radius-xl);
     font-family:    var(--seed-font-ui);
-    padding:        var(--seed-space-2) var(--seed-space-3);
+    padding:        var(--seed-space-3) var(--seed-space-3) var(--seed-space-2);
     flex-shrink:    0;
+    transition:     border-color 120ms ease;
 }
 
-/* Inner row: input + right actions */
-.seed-chat-composer__inner {
-    display:     flex;
-    align-items: flex-start;
-    gap:         var(--seed-space-2);
-    min-height:  44px;
+.seed-chat-composer:focus-within {
+    border-color: var(--calm-border-bold-default);
 }
 
-/* Left action slot */
-.seed-chat-composer__action-left {
-    display:     flex;
-    align-items: flex-start;
-    gap:         var(--seed-space-1);
-    flex-shrink: 0;
-    padding-top: 2px;
-}
-
-/* Textarea — pill shaped */
+/* Row 1 — bare textarea, spans the full width */
 .seed-chat-composer__input {
-    flex:          1;
-    min-height:    36px;
-    max-height:    160px;
-    resize:        none;
-    border:        1px solid var(--soil-border-subtle);
-    border-radius: var(--seed-radius-full);
-    background:    var(--soil-bg-elevated);
-    font-size:     var(--seed-text-sm);
-    color:         var(--soil-text);
-    font-family:   var(--seed-font-ui);
-    line-height:   var(--seed-leading-normal);
-    outline:       none;
-    overflow-y:    auto;
-    padding:       8px var(--seed-space-4);
-    margin:        0;
-    appearance:    none;
-    align-self:    flex-start;
-    transition:    border-color 120ms ease;
-    field-sizing:  content; /* progressive enhancement */
-}
-
-.seed-chat-composer__input:focus {
-    border-color: var(--calm-border-normal-default);
-    outline:      none;
+    width:       100%;
+    min-height:  28px;
+    max-height:  160px;
+    resize:      none;
+    border:      none;
+    background:  transparent;
+    font-size:   var(--seed-text-sm);
+    color:       var(--soil-text);
+    font-family: var(--seed-font-ui);
+    line-height: var(--seed-leading-normal);
+    outline:     none;
+    overflow-y:  auto;
+    padding:     0 var(--seed-space-1);
+    margin:      0 0 var(--seed-space-2);
+    appearance:  none;
+    display:     block;
+    field-sizing: content; /* progressive enhancement */
 }
 
 .seed-chat-composer__input::placeholder {
     color: var(--soil-text-muted);
 }
 
-/* Right action slot */
-.seed-chat-composer__actions {
+/* Row 2 — actions bar */
+.seed-chat-composer__bar {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    gap:             var(--seed-space-2);
+}
+
+/* Left cluster */
+.seed-chat-composer__action-left {
     display:     flex;
-    align-items: flex-start;
+    align-items: center;
     gap:         var(--seed-space-1);
     flex-shrink: 0;
-    padding-top: 2px;
+}
+
+/* Right cluster */
+.seed-chat-composer__actions {
+    display:     flex;
+    align-items: center;
+    gap:         var(--seed-space-1);
+    flex-shrink: 0;
 }
 
 /* Generic icon button */
@@ -490,8 +494,8 @@
 
 /* Send button — lime fill */
 .seed-chat-composer__send {
-    width:           36px;
-    height:          36px;
+    width:           32px;
+    height:          32px;
     border-radius:   50%;
     display:         inline-flex;
     align-items:     center;
@@ -500,7 +504,7 @@
     color:           var(--good-text-bold-default);
     border:          none;
     cursor:          pointer;
-    font-size:       16px;
+    font-size:       15px;
     padding:         0;
     transition:      background 80ms ease, opacity 120ms ease,
                      filter 120ms ease;
@@ -519,26 +523,33 @@
     cursor:         default;
 }
 
-/* Formatting toolbar */
+/* Formatting toolbar — sits between textarea and actions bar */
 .seed-chat-composer__toolbar {
-    display:     flex;
-    align-items: center;
-    gap:         var(--seed-space-1);
-    padding-top: var(--seed-space-2);
-    margin-top:  var(--seed-space-1);
-    border-top:  1px solid var(--soil-border-subtle);
+    display:       flex;
+    align-items:   center;
+    gap:           var(--seed-space-1);
+    padding:       var(--seed-space-2) 0;
+    margin-bottom: var(--seed-space-2);
+    border-top:    1px solid var(--soil-border-subtle);
+    border-bottom: 1px solid var(--soil-border-subtle);
 }
 
 
 /* ─────────────────────────────────────────────────────
    COMPOSER IN CONTAINER
-   Add the separating hairline and adjust padding when the
-   composer is inside a .seed-chat-container card.
+   Hairline separating it from the messages area.
 ───────────────────────────────────────────────────── */
 
 .seed-chat-container .seed-chat-composer {
-    border-top: 1px solid var(--soil-border-subtle);
-    padding:    var(--seed-space-3) var(--seed-space-4);
+    border-radius: 0;
+    border:        none;
+    border-top:    1px solid var(--soil-border-subtle);
+    padding:       var(--seed-space-3) var(--seed-space-4) var(--seed-space-3);
+    transition:    none;
+}
+
+.seed-chat-container .seed-chat-composer:focus-within {
+    border-top-color: var(--calm-border-bold-default);
 }
 
 
