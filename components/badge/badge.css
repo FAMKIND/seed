@@ -150,3 +150,45 @@
     background:    currentColor;
     flex-shrink:   0;
 }
+
+
+/* ─────────────────────────────────────────────────────
+   ICON SLOT
+───────────────────────────────────────────────────── */
+
+.seed-badge__icon {
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    flex-shrink:     0;
+    font-size:       0.85em;
+    line-height:     1;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   DISMISS — right-side close button
+───────────────────────────────────────────────────── */
+
+.seed-badge__dismiss {
+    display:       inline-flex;
+    align-items:   center;
+    justify-content: center;
+    flex-shrink:   0;
+    font-size:     0.75em;
+    line-height:   1;
+    cursor:        pointer;
+    border-radius: 50%;
+    padding:       2px;
+    margin-left:   -0.1em;
+    margin-right:  -0.2em;
+    transition:    background 80ms ease;
+}
+
+.seed-badge__dismiss:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .seed-badge__dismiss:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
