@@ -27,7 +27,7 @@
     flex-direction: column;
     background:     var(--soil-bg-surface);
     border:         1px solid var(--soil-border-subtle);
-    border-radius:  var(--seed-radius-lg);
+    border-radius:  var(--seed-radius-xl);
     box-shadow:     var(--seed-shadow-xs);
     overflow:       hidden;
     font-family:    var(--seed-font-ui);
@@ -156,7 +156,7 @@
     overflow-y:     auto;
     display:        flex;
     flex-direction: column;
-    padding:        var(--seed-space-4) var(--seed-space-4);
+    padding:        var(--seed-space-4) var(--seed-space-4) var(--seed-space-5);
     gap:            var(--seed-space-3);
     /* Scroll anchoring — keep view at bottom as new messages arrive */
     overflow-anchor: auto;
@@ -404,16 +404,39 @@
     display:        flex;
     flex-direction: column;
     background:     var(--soil-bg-surface);
-    border:         1px solid var(--soil-border-subtle);
+    border:         1px solid var(--calm-border-subtle-default);
     border-radius:  var(--seed-radius-xl);
     font-family:    var(--seed-font-ui);
     padding:        var(--seed-space-4);
     flex-shrink:    0;
-    transition:     border-color 120ms ease;
+    transition:     border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.seed-chat-composer:hover {
+    border-color: var(--calm-border-normal-default);
 }
 
 .seed-chat-composer:focus-within {
-    border-color: var(--calm-border-bold-default);
+    border-color: var(--good-border-subtle-default);
+    box-shadow:   var(--seed-shadow-focus);
+}
+
+/* Error modifier */
+.seed-chat-composer--error {
+    border-color: var(--bad-border-subtle-default);
+}
+
+.seed-chat-composer--error:hover,
+.seed-chat-composer--error:focus-within {
+    border-color: var(--bad-border-subtle-default);
+    box-shadow:   0 0 0 3px rgba(139, 8, 54, 0.12);
+}
+
+/* Disabled modifier */
+.seed-chat-composer--disabled {
+    opacity:        0.5;
+    pointer-events: none;
+    border-color:   var(--calm-border-subtle-default);
 }
 
 /* Row 1 — bare textarea, spans the full width */
@@ -541,15 +564,7 @@
 ───────────────────────────────────────────────────── */
 
 .seed-chat-container .seed-chat-composer {
-    border-radius: 0;
-    border:        none;
-    border-top:    1px solid var(--soil-border-subtle);
-    padding:       var(--seed-space-3) var(--seed-space-4) var(--seed-space-3);
-    transition:    none;
-}
-
-.seed-chat-container .seed-chat-composer:focus-within {
-    border-top-color: var(--calm-border-bold-default);
+    margin: 0 var(--seed-space-4) var(--seed-space-4);
 }
 
 
@@ -563,8 +578,8 @@
 }
 
 .seed-chat-container--fullscreen .seed-chat-composer {
-    padding-left:  max(var(--seed-space-4), calc(50% - 360px));
-    padding-right: max(var(--seed-space-4), calc(50% - 360px));
+    margin-left:  max(var(--seed-space-4), calc(50% - 360px));
+    margin-right: max(var(--seed-space-4), calc(50% - 360px));
 }
 
 
@@ -578,7 +593,7 @@
     flex-direction: column;
     background:     var(--soil-bg-surface);
     border:         1px solid var(--soil-border-subtle);
-    border-radius:  var(--seed-radius-lg);
+    border-radius:  var(--seed-radius-xl);
     font-family:    var(--seed-font-ui);
     padding:        var(--seed-space-3);
     transition:     border-color 120ms ease;

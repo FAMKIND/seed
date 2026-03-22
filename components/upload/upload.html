@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed — Upload</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../icons/dew/dew.css">
+  <link rel="stylesheet" href="upload.css">
+  <style>
+    body {
+      font-family: var(--seed-font-ui);
+      background:  var(--soil-bg-canvas);
+      color:       var(--soil-text);
+      padding:     var(--seed-space-8);
+    }
+    h2 {
+      font-size:     var(--seed-text-lg);
+      font-weight:   var(--seed-weight-semibold);
+      margin-bottom: var(--seed-space-2);
+      margin-top:    var(--seed-space-8);
+    }
+    h2:first-child { margin-top: 0; }
+    p.desc {
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      margin-bottom: var(--seed-space-4);
+    }
+    .demo-block {
+      max-width: 480px;
+      margin-bottom: var(--seed-space-8);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── 1. Dropzone — default ─────────────────────── -->
+  <h2>Dropzone</h2>
+  <p class="desc">Click to open file browser or drag files directly onto the zone.</p>
+  <div class="demo-block">
+    <div class="seed-upload" role="button" tabindex="0"
+         aria-label="Upload files — click or drag and drop">
+      <span class="dew dew-download seed-upload__icon" aria-hidden="true"></span>
+      <span class="seed-upload__text">
+        <strong>Click to upload</strong> or drag and drop
+      </span>
+      <span class="seed-upload__hint">PNG, JPG, PDF up to 10 MB</span>
+    </div>
+  </div>
+
+  <!-- ─── 2. Dropzone — drag-over state ─────────────── -->
+  <h2>Drag-over state</h2>
+  <p class="desc">Applied when a file is dragged over the zone (.seed-upload--dragging).</p>
+  <div class="demo-block">
+    <div class="seed-upload seed-upload--dragging" role="button" tabindex="0"
+         aria-label="Drop files to upload">
+      <span class="dew dew-download seed-upload__icon" aria-hidden="true"></span>
+      <span class="seed-upload__text">Drop to upload</span>
+      <span class="seed-upload__hint">PNG, JPG, PDF up to 10 MB</span>
+    </div>
+  </div>
+
+  <!-- ─── 3. File list — with progress bars ─────────── -->
+  <h2>File list with progress</h2>
+  <p class="desc">Attach below the dropzone or use standalone. Width set on .seed-upload__progress-bar via inline style.</p>
+  <div class="demo-block">
+
+    <!-- Uploading — 65% -->
+    <div class="seed-upload__file">
+      <span class="dew dew-file seed-upload__file-icon" aria-hidden="true"></span>
+      <div class="seed-upload__file-body">
+        <span class="seed-upload__file-name">design-system-v2.fig</span>
+        <div class="seed-upload__progress" role="progressbar"
+             aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"
+             aria-label="Uploading design-system-v2.fig, 65%">
+          <div class="seed-upload__progress-bar" style="width:65%"></div>
+        </div>
+      </div>
+      <span class="seed-upload__file-status seed-upload__file-status--uploading">65%</span>
+      <button class="seed-upload__file-remove" aria-label="Cancel upload">
+        <span class="dew dew-close" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <!-- Complete -->
+    <div class="seed-upload__file">
+      <span class="dew dew-image seed-upload__file-icon" aria-hidden="true"></span>
+      <div class="seed-upload__file-body">
+        <span class="seed-upload__file-name">hero-banner.png</span>
+        <div class="seed-upload__progress" role="progressbar"
+             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+             aria-label="hero-banner.png upload complete">
+          <div class="seed-upload__progress-bar seed-upload__progress-bar--complete" style="width:100%"></div>
+        </div>
+      </div>
+      <span class="seed-upload__file-status seed-upload__file-status--done">Done</span>
+      <button class="seed-upload__file-remove" aria-label="Remove file">
+        <span class="dew dew-close" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <!-- Error -->
+    <div class="seed-upload__file">
+      <span class="dew dew-file seed-upload__file-icon" aria-hidden="true"></span>
+      <div class="seed-upload__file-body">
+        <span class="seed-upload__file-name">report-final-FINAL.pdf</span>
+        <div class="seed-upload__progress" role="progressbar"
+             aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+             aria-label="report-final-FINAL.pdf upload failed">
+          <div class="seed-upload__progress-bar seed-upload__progress-bar--error" style="width:30%"></div>
+        </div>
+      </div>
+      <span class="seed-upload__file-status seed-upload__file-status--error">Failed</span>
+      <button class="seed-upload__file-remove" aria-label="Remove file">
+        <span class="dew dew-close" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <!-- Queued — no progress yet -->
+    <div class="seed-upload__file">
+      <span class="dew dew-archive seed-upload__file-icon" aria-hidden="true"></span>
+      <div class="seed-upload__file-body">
+        <span class="seed-upload__file-name">assets.zip</span>
+      </div>
+      <span class="seed-upload__file-size">4.2 MB</span>
+      <button class="seed-upload__file-remove" aria-label="Remove file">
+        <span class="dew dew-close" aria-hidden="true"></span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ─── 4. Compact trigger ────────────────────────── -->
+  <h2>Compact trigger</h2>
+  <p class="desc">Inline button-style upload trigger — use when a full dropzone is too prominent.</p>
+  <div class="demo-block">
+    <button class="seed-upload--compact" type="button">
+      <span class="dew dew-download seed-upload__icon" aria-hidden="true"></span>
+      Upload file
+    </button>
+  </div>
+
+  <!-- ─── 5. File type restriction ─────────────────── -->
+  <h2>File type restriction</h2>
+  <p class="desc">Hint text communicates accepted formats. Validation is handled in JS.</p>
+  <div class="demo-block">
+    <div class="seed-upload" role="button" tabindex="0"
+         aria-label="Upload CSV file — click or drag and drop">
+      <span class="dew dew-table seed-upload__icon" aria-hidden="true"></span>
+      <span class="seed-upload__text">
+        <strong>Upload a CSV</strong> to import contacts
+      </span>
+      <span class="seed-upload__hint">CSV only · Max 25 MB · Up to 50,000 rows</span>
+    </div>
+  </div>
+
+</body>
+</html>

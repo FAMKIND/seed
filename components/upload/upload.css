@@ -1,0 +1,250 @@
+/* ═══════════════════════════════════════════════════════
+   SEED UPLOAD
+   Requires: tokens/tokens.css
+   Usage:    <div class="seed-upload" role="button" tabindex="0">
+               <span class="seed-upload__icon dew dew-download"></span>
+               <span class="seed-upload__text">Drop files here or click to browse</span>
+               <span class="seed-upload__hint">PNG, JPG, PDF up to 10MB</span>
+             </div>
+
+   Zero hardcoded colors — every value flows from
+   Seed semantic tokens. Theme switching is automatic.
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   DROPZONE
+───────────────────────────────────────────────────── */
+
+.seed-upload {
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    justify-content: center;
+    gap:             var(--seed-space-3);
+    padding:         var(--seed-space-8);
+    border:          2px dashed var(--calm-border-normal-default);
+    border-radius:   var(--seed-radius-lg);
+    background:      transparent;
+    cursor:          pointer;
+    text-align:      center;
+    transition:      border-color 150ms ease, background 150ms ease;
+    user-select:     none;
+}
+
+.seed-upload:hover {
+    border-color: var(--calm-border-bold-default);
+    background:   var(--calm-bg-subtle-default);
+}
+
+.seed-upload:focus-visible {
+    outline:        2px solid var(--good-border-subtle-default);
+    outline-offset: 2px;
+}
+
+/* Active drag-over state */
+.seed-upload--dragging {
+    border-color: var(--selected-border-bold-default);
+    background:   var(--good-bg-subtle-default);
+}
+
+.seed-upload--dragging .seed-upload__icon {
+    color: var(--selected-text-bold-default);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   DROPZONE INNER ELEMENTS
+───────────────────────────────────────────────────── */
+
+.seed-upload__icon {
+    font-size: 32px;
+    color:     var(--soil-text-muted);
+    transition: color 150ms ease;
+}
+
+.seed-upload__text {
+    font-family: var(--seed-font-ui);
+    font-size:   var(--seed-text-sm);
+    color:       var(--soil-text-muted);
+    line-height: var(--seed-leading-snug);
+}
+
+.seed-upload__text strong {
+    color:       var(--soil-text);
+    font-weight: var(--seed-weight-medium);
+}
+
+.seed-upload__hint {
+    font-family: var(--seed-font-ui);
+    font-size:   var(--seed-text-xs);
+    color:       var(--soil-text-disabled);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   FILE LIST ITEM
+───────────────────────────────────────────────────── */
+
+.seed-upload__file {
+    display:     flex;
+    align-items: center;
+    gap:         var(--seed-space-3);
+    padding:     var(--seed-space-2) var(--seed-space-3);
+    border:      1px solid var(--soil-border-subtle);
+    border-radius: var(--seed-radius-md);
+    background:  var(--soil-bg-surface);
+    margin-top:  var(--seed-space-2);
+}
+
+.seed-upload__file-icon {
+    font-size:   16px;
+    color:       var(--soil-text-muted);
+    flex-shrink: 0;
+}
+
+.seed-upload__file-name {
+    flex:          1;
+    font-family:   var(--seed-font-ui);
+    font-size:     var(--seed-text-sm);
+    color:         var(--soil-text);
+    overflow:      hidden;
+    text-overflow: ellipsis;
+    white-space:   nowrap;
+    min-width:     0;
+}
+
+.seed-upload__file-size {
+    font-family: var(--seed-font-ui);
+    font-size:   var(--seed-text-xs);
+    color:       var(--soil-text-muted);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.seed-upload__file-remove {
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    width:           18px;
+    height:          18px;
+    border-radius:   50%;
+    border:          none;
+    background:      transparent;
+    color:           var(--soil-text-muted);
+    cursor:          pointer;
+    flex-shrink:     0;
+    padding:         0;
+    font-size:       14px;
+    transition:      background 120ms ease, color 120ms ease;
+}
+
+.seed-upload__file-remove:hover {
+    background: var(--calm-bg-subtle-hover);
+    color:      var(--soil-text);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   FILE BODY — wraps name + progress bar
+───────────────────────────────────────────────────── */
+
+.seed-upload__file-body {
+    flex:      1;
+    min-width: 0;
+    display:   flex;
+    flex-direction: column;
+    gap:       2px;
+}
+
+/* When .seed-upload__file-body is present, remove flex:1 from name */
+.seed-upload__file-body .seed-upload__file-name {
+    flex: none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   PROGRESS BAR
+───────────────────────────────────────────────────── */
+
+.seed-upload__progress {
+    height:        4px;
+    background:    var(--calm-bg-subtle-active);
+    border-radius: var(--seed-radius-full);
+    overflow:      hidden;
+    margin-top:    var(--seed-space-1);
+}
+
+.seed-upload__progress-bar {
+    height:        100%;
+    background:    var(--selected-bg-bold-default);
+    border-radius: var(--seed-radius-full);
+    transition:    width 200ms ease;
+}
+
+/* Complete — green */
+.seed-upload__progress-bar--complete {
+    background: var(--good-bg-bold-default);
+}
+
+/* Error — red */
+.seed-upload__progress-bar--error {
+    background: var(--bad-bg-bold-default);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   FILE STATUS BADGE
+───────────────────────────────────────────────────── */
+
+.seed-upload__file-status {
+    font-family: var(--seed-font-ui);
+    font-size:   var(--seed-text-xs);
+    flex-shrink: 0;
+}
+
+.seed-upload__file-status--uploading { color: var(--soil-text-muted); }
+.seed-upload__file-status--done      { color: var(--good-text-bold-default); }
+.seed-upload__file-status--error     { color: var(--bad-text-bold-default); }
+
+
+/* ─────────────────────────────────────────────────────
+   COMPACT TRIGGER
+───────────────────────────────────────────────────── */
+
+.seed-upload--compact {
+    display:         inline-flex;
+    align-items:     center;
+    gap:             var(--seed-space-2);
+    padding:         0.5em 0.875em;
+    border:          1px solid var(--calm-border-normal-default);
+    border-radius:   var(--seed-radius-lg);
+    background:      var(--soil-bg-surface);
+    color:           var(--soil-text);
+    font-family:     var(--seed-font-ui);
+    font-size:       var(--seed-text-sm);
+    font-weight:     var(--seed-weight-medium);
+    cursor:          pointer;
+    transition:      background 120ms ease, border-color 120ms ease;
+    user-select:     none;
+    white-space:     nowrap;
+}
+
+.seed-upload--compact:hover {
+    background:   var(--calm-bg-subtle-hover);
+    border-color: var(--calm-border-bold-default);
+}
+
+.seed-upload--compact:active {
+    background: var(--calm-bg-subtle-active);
+}
+
+.seed-upload--compact:focus-visible {
+    outline:        2px solid var(--good-border-subtle-default);
+    outline-offset: 2px;
+}
+
+.seed-upload--compact .seed-upload__icon {
+    font-size: 16px;
+    color:     inherit;
+}
