@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="../../components/feedback/feedback.css">
   <link rel="stylesheet" href="../../components/dropdown/dropdown.css">
   <link rel="stylesheet" href="../../components/tooltip/tooltip.css">
+  <link rel="stylesheet" href="../../components/nav/nav.css">
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
   <style>
@@ -5041,124 +5042,132 @@
         <!-- ── navigation ─────────────────────────────── -->
         <div class="ds-section" data-section="navigation" style="display:none">
           <style>
-            .nav-demo-wrap {
-              max-width:   260px;
+            .nav-demo-stack {
+              display:        flex;
+              flex-direction: column;
+              gap:            var(--seed-space-5);
+              margin-bottom:  var(--seed-space-10);
             }
-            .nav-demo-note {
-              font-size:     var(--seed-text-sm);
-              color:         var(--soil-text-muted);
-              line-height:   var(--seed-leading-normal);
-              margin-bottom: var(--seed-space-6);
-              max-width:     480px;
+            .nav-demo-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.07em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-2);
             }
-            /* Standalone nav-demo search box */
-            .nav-demo-search {
-              display:       flex;
-              align-items:   center;
-              gap:           var(--seed-space-2);
-              background:    var(--calm-bg-subtle-default);
-              border:        1px solid var(--soil-border-subtle);
-              border-radius: var(--seed-radius-md);
-              padding:       var(--seed-space-2) var(--seed-space-3);
-              margin-bottom: var(--seed-space-3);
-            }
-            .nav-demo-search input {
-              border:     none;
-              background: transparent;
-              outline:    none;
-              font-size:  var(--seed-text-sm);
-              color:      var(--soil-text);
-              width:      100%;
-            }
-            .nav-demo-search input::placeholder { color: var(--soil-text-muted); }
-            .nav-demo-search-icon {
-              font-size:   12px;
-              color:       var(--soil-text-muted);
-              flex-shrink: 0;
-            }
-            /* Nav items inside demo */
-            .nav-demo-item {
-              display:       flex;
-              align-items:   center;
-              gap:           var(--seed-space-2);
-              padding:       var(--seed-space-2) var(--seed-space-2);
-              border-radius: var(--seed-radius-md);
-              font-size:     var(--seed-text-sm);
-              color:         var(--soil-text-muted);
-              cursor:        pointer;
-              transition:    background 120ms ease;
-            }
-            .nav-demo-item:hover            { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
-            .nav-demo-item.is-active        { background: var(--calm-bg-subtle-default); color: var(--soil-text); font-weight: var(--seed-weight-medium); }
-            .nav-demo-item__icon            { font-size: 14px; flex-shrink: 0; display: inline-flex; align-items: center; }
-            .nav-demo-item__icon .dew       { font-size: 14px; }
-            .nav-demo-children              { padding-left: var(--seed-space-5); }
-            .nav-demo-section               { font-size: var(--seed-text-xs); font-weight: var(--seed-weight-semibold); letter-spacing: 0.07em; text-transform: uppercase; color: var(--soil-text-muted); padding: var(--seed-space-3) var(--seed-space-2) var(--seed-space-1); }
-            .nav-demo-user {
-              display:     flex;
-              align-items: center;
-              gap:         var(--seed-space-2);
-              padding:     var(--seed-space-3) var(--seed-space-2) 0;
-              margin-top:  var(--seed-space-2);
-              border-top:  1px solid var(--soil-border-subtle);
-            }
-            .nav-demo-avatar {
-              width:           28px;
-              height:          28px;
-              border-radius:   var(--seed-radius-full);
-              background:      var(--selected-bg-bold-default);
-              display:         flex;
-              align-items:     center;
-              justify-content: center;
-              font-size:       11px;
-              color:           var(--selected-text-bold-default);
-              font-weight:     var(--seed-weight-semibold);
-              flex-shrink:     0;
-            }
-            .nav-demo-username { font-size: var(--seed-text-sm); color: var(--soil-text); font-weight: var(--seed-weight-medium); }
-            .nav-demo-role     { font-size: var(--seed-text-xs); color: var(--soil-text-muted); }
           </style>
 
-          <p class="nav-demo-note">The panel nav pattern — used by the left panel in the layout system. A vertical tree with collapsible sections, search, and a pinned user row at the bottom. Compose with <code style="font-size:var(--seed-text-xs);background:var(--calm-bg-subtle-default);padding:1px 5px;border-radius:var(--seed-radius-sm)">seed-card</code> as the container.</p>
+          <!-- ── Breadcrumbs ── -->
+          <h2 style="font-size:var(--seed-text-base);font-weight:var(--seed-weight-semibold);margin-bottom:var(--seed-space-2)">Breadcrumbs</h2>
+          <p style="font-size:var(--seed-text-sm);color:var(--soil-text-muted);margin-bottom:var(--seed-space-6)">Wayfinding trail. Last item is non-interactive active state.</p>
 
-          <div class="seed-card nav-demo-wrap">
-            <div class="seed-card__body" style="padding:var(--seed-space-3)">
+          <div class="nav-demo-stack">
 
-              <!-- Search -->
-              <div class="nav-demo-search">
-                <span class="nav-demo-search-icon">⌕</span>
-                <input type="text" placeholder="Search…" tabindex="-1">
-              </div>
-
-              <!-- Main nav -->
-              <div class="nav-demo-section">Main</div>
-              <div class="nav-demo-item is-active"><span class="nav-demo-item__icon"><span class="dew dew-home" aria-hidden="true"></span></span> Home</div>
-              <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-chat" aria-hidden="true"></span></span> Inbox <span style="margin-left:auto"><span class="seed-badge seed-badge--bad seed-badge--sm">3</span></span></div>
-              <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-folder" aria-hidden="true"></span></span> Projects</div>
-
-              <!-- Section with children -->
-              <div class="nav-demo-section">Library</div>
-              <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-chevron-right" aria-hidden="true"></span></span><span class="nav-demo-item__icon"><span class="dew dew-folder-open" aria-hidden="true"></span></span> Design system</div>
-              <div class="nav-demo-children">
-                <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-information-circle" aria-hidden="true"></span></span> Tokens</div>
-                <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-archive" aria-hidden="true"></span></span> Components</div>
-                <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-sidebar-left-open" aria-hidden="true"></span></span> Patterns</div>
-              </div>
-              <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-chevron-right" aria-hidden="true"></span></span><span class="nav-demo-item__icon"><span class="dew dew-folder" aria-hidden="true"></span></span> Assets</div>
-
-              <div class="nav-demo-section">Settings</div>
-              <div class="nav-demo-item"><span class="nav-demo-item__icon"><span class="dew dew-gear" aria-hidden="true"></span></span> Preferences</div>
-
-              <!-- User row -->
-              <div class="nav-demo-user">
-                <div class="nav-demo-avatar">FA</div>
-                <div>
-                  <div class="nav-demo-username">FAM</div>
-                  <div class="nav-demo-role">Owner</div>
-                </div>
-              </div>
-
+            <div>
+              <p class="nav-demo-label">Chevron separator</p>
+              <nav aria-label="Breadcrumb">
+                <ol class="seed-breadcrumbs">
+                  <li><a class="seed-breadcrumb" href="#">Home</a></li>
+                  <li class="seed-breadcrumbs__separator" aria-hidden="true"><span class="dew dew-chevron-right"></span></li>
+                  <li><a class="seed-breadcrumb" href="#">Projects</a></li>
+                  <li class="seed-breadcrumbs__separator" aria-hidden="true"><span class="dew dew-chevron-right"></span></li>
+                  <li><a class="seed-breadcrumb" href="#">Seed</a></li>
+                  <li class="seed-breadcrumbs__separator" aria-hidden="true"><span class="dew dew-chevron-right"></span></li>
+                  <li><span class="seed-breadcrumb seed-breadcrumb--active" aria-current="page">Tokens</span></li>
+                </ol>
+              </nav>
             </div>
+
+            <div>
+              <p class="nav-demo-label">Slash separator</p>
+              <nav aria-label="Breadcrumb">
+                <ol class="seed-breadcrumbs">
+                  <li><a class="seed-breadcrumb" href="#">Home</a></li>
+                  <li class="seed-breadcrumbs__separator" aria-hidden="true">/</li>
+                  <li><a class="seed-breadcrumb" href="#">Projects</a></li>
+                  <li class="seed-breadcrumbs__separator" aria-hidden="true">/</li>
+                  <li><a class="seed-breadcrumb" href="#">Seed</a></li>
+                  <li class="seed-breadcrumbs__separator" aria-hidden="true">/</li>
+                  <li><span class="seed-breadcrumb seed-breadcrumb--active" aria-current="page">Tokens</span></li>
+                </ol>
+              </nav>
+            </div>
+
+            <div>
+              <p class="nav-demo-label">Short path</p>
+              <nav aria-label="Breadcrumb">
+                <ol class="seed-breadcrumbs">
+                  <li><a class="seed-breadcrumb" href="#">Home</a></li>
+                  <li class="seed-breadcrumbs__separator" aria-hidden="true"><span class="dew dew-chevron-right"></span></li>
+                  <li><span class="seed-breadcrumb seed-breadcrumb--active" aria-current="page">Settings</span></li>
+                </ol>
+              </nav>
+            </div>
+
+          </div>
+
+          <!-- ── Pagination ── -->
+          <h2 style="font-size:var(--seed-text-base);font-weight:var(--seed-weight-semibold);margin-bottom:var(--seed-space-2)">Pagination</h2>
+          <p style="font-size:var(--seed-text-sm);color:var(--soil-text-muted);margin-bottom:var(--seed-space-6)">Page controls for lists and tables. Prev/next use icon-only buttons.</p>
+
+          <div class="nav-demo-stack">
+
+            <div>
+              <p class="nav-demo-label">Default</p>
+              <nav aria-label="Pagination" class="seed-pagination">
+                <button class="seed-page" aria-label="Previous page"><span class="dew dew-chevron-left" aria-hidden="true"></span></button>
+                <button class="seed-page">1</button>
+                <button class="seed-page">2</button>
+                <button class="seed-page seed-page--active" aria-current="page">3</button>
+                <button class="seed-page">4</button>
+                <button class="seed-page">5</button>
+                <button class="seed-page" aria-label="Next page"><span class="dew dew-chevron-right" aria-hidden="true"></span></button>
+              </nav>
+            </div>
+
+            <div>
+              <p class="nav-demo-label">With record count</p>
+              <nav aria-label="Pagination" class="seed-pagination">
+                <button class="seed-page" aria-label="Previous page"><span class="dew dew-chevron-left" aria-hidden="true"></span></button>
+                <button class="seed-page seed-page--active" aria-current="page">1</button>
+                <button class="seed-page">2</button>
+                <button class="seed-page">3</button>
+                <button class="seed-page">4</button>
+                <button class="seed-page">5</button>
+                <button class="seed-page" aria-label="Next page"><span class="dew dew-chevron-right" aria-hidden="true"></span></button>
+                <span class="seed-pagination__info">1–10 of 84</span>
+              </nav>
+            </div>
+
+            <div>
+              <p class="nav-demo-label">With ellipsis</p>
+              <nav aria-label="Pagination" class="seed-pagination">
+                <button class="seed-page" aria-label="Previous page"><span class="dew dew-chevron-left" aria-hidden="true"></span></button>
+                <button class="seed-page">1</button>
+                <button class="seed-page">2</button>
+                <span class="seed-pagination__ellipsis" aria-hidden="true">…</span>
+                <button class="seed-page seed-page--active" aria-current="page">7</button>
+                <span class="seed-pagination__ellipsis" aria-hidden="true">…</span>
+                <button class="seed-page">12</button>
+                <button class="seed-page">13</button>
+                <button class="seed-page" aria-label="Next page"><span class="dew dew-chevron-right" aria-hidden="true"></span></button>
+              </nav>
+            </div>
+
+            <div>
+              <p class="nav-demo-label">First page (prev disabled)</p>
+              <nav aria-label="Pagination" class="seed-pagination">
+                <button class="seed-page seed-page--disabled" aria-label="Previous page" aria-disabled="true"><span class="dew dew-chevron-left" aria-hidden="true"></span></button>
+                <button class="seed-page seed-page--active" aria-current="page">1</button>
+                <button class="seed-page">2</button>
+                <button class="seed-page">3</button>
+                <button class="seed-page">4</button>
+                <button class="seed-page">5</button>
+                <button class="seed-page" aria-label="Next page"><span class="dew dew-chevron-right" aria-hidden="true"></span></button>
+              </nav>
+            </div>
+
           </div>
         </div>
 

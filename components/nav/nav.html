@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed — Breadcrumbs &amp; Pagination</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../icons/dew/dew.css">
+  <link rel="stylesheet" href="nav.css">
+  <style>
+    body {
+      font-family: var(--seed-font-ui);
+      background:  var(--soil-bg-canvas);
+      color:       var(--soil-text);
+      padding:     var(--seed-space-8);
+    }
+    h2 {
+      font-size:     var(--seed-text-base);
+      font-weight:   var(--seed-weight-semibold);
+      margin-bottom: var(--seed-space-2);
+      margin-top:    var(--seed-space-8);
+    }
+    h2:first-child { margin-top: 0; }
+    p.desc {
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      margin-bottom: var(--seed-space-6);
+    }
+    .demo-stack {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--seed-space-5);
+      margin-bottom:  var(--seed-space-8);
+    }
+    .demo-row {
+      display:     flex;
+      flex-wrap:   wrap;
+      gap:         var(--seed-space-8);
+      align-items: center;
+      margin-bottom: var(--seed-space-6);
+    }
+    .col-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-2);
+    }
+    .demo-col {
+      display:        flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── 1. Breadcrumbs ───────────────────────────── -->
+  <h2>Breadcrumbs</h2>
+  <p class="desc">Wayfinding trail. Last item is non-interactive active state.</p>
+  <div class="demo-stack">
+
+    <!-- Icon separators -->
+    <div>
+      <p class="col-label">Chevron separator</p>
+      <nav aria-label="Breadcrumb">
+        <ol class="seed-breadcrumbs">
+          <li><a class="seed-breadcrumb" href="#">Home</a></li>
+          <li class="seed-breadcrumbs__separator" aria-hidden="true"><span class="dew dew-chevron-right"></span></li>
+          <li><a class="seed-breadcrumb" href="#">Projects</a></li>
+          <li class="seed-breadcrumbs__separator" aria-hidden="true"><span class="dew dew-chevron-right"></span></li>
+          <li><a class="seed-breadcrumb" href="#">Seed</a></li>
+          <li class="seed-breadcrumbs__separator" aria-hidden="true"><span class="dew dew-chevron-right"></span></li>
+          <li><span class="seed-breadcrumb seed-breadcrumb--active" aria-current="page">Tokens</span></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Text separators -->
+    <div>
+      <p class="col-label">Slash separator</p>
+      <nav aria-label="Breadcrumb">
+        <ol class="seed-breadcrumbs">
+          <li><a class="seed-breadcrumb" href="#">Home</a></li>
+          <li class="seed-breadcrumbs__separator" aria-hidden="true">/</li>
+          <li><a class="seed-breadcrumb" href="#">Projects</a></li>
+          <li class="seed-breadcrumbs__separator" aria-hidden="true">/</li>
+          <li><a class="seed-breadcrumb" href="#">Seed</a></li>
+          <li class="seed-breadcrumbs__separator" aria-hidden="true">/</li>
+          <li><span class="seed-breadcrumb seed-breadcrumb--active" aria-current="page">Tokens</span></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Short path -->
+    <div>
+      <p class="col-label">Short path</p>
+      <nav aria-label="Breadcrumb">
+        <ol class="seed-breadcrumbs">
+          <li><a class="seed-breadcrumb" href="#">Home</a></li>
+          <li class="seed-breadcrumbs__separator" aria-hidden="true"><span class="dew dew-chevron-right"></span></li>
+          <li><span class="seed-breadcrumb seed-breadcrumb--active" aria-current="page">Settings</span></li>
+        </ol>
+      </nav>
+    </div>
+
+  </div>
+
+  <!-- ─── 2. Pagination ────────────────────────────── -->
+  <h2>Pagination</h2>
+  <p class="desc">Page controls for lists and tables. Prev/next use icon-only buttons.</p>
+  <div class="demo-stack">
+
+    <!-- Default: 5 pages, page 3 active -->
+    <div>
+      <p class="col-label">Default</p>
+      <nav aria-label="Pagination" class="seed-pagination">
+        <button class="seed-page" aria-label="Previous page">
+          <span class="dew dew-chevron-left" aria-hidden="true"></span>
+        </button>
+        <button class="seed-page">1</button>
+        <button class="seed-page">2</button>
+        <button class="seed-page seed-page--active" aria-current="page">3</button>
+        <button class="seed-page">4</button>
+        <button class="seed-page">5</button>
+        <button class="seed-page" aria-label="Next page">
+          <span class="dew dew-chevron-right" aria-hidden="true"></span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- With info text -->
+    <div>
+      <p class="col-label">With record count</p>
+      <nav aria-label="Pagination" class="seed-pagination">
+        <button class="seed-page" aria-label="Previous page">
+          <span class="dew dew-chevron-left" aria-hidden="true"></span>
+        </button>
+        <button class="seed-page seed-page--active" aria-current="page">1</button>
+        <button class="seed-page">2</button>
+        <button class="seed-page">3</button>
+        <button class="seed-page">4</button>
+        <button class="seed-page">5</button>
+        <button class="seed-page" aria-label="Next page">
+          <span class="dew dew-chevron-right" aria-hidden="true"></span>
+        </button>
+        <span class="seed-pagination__info">1–10 of 84</span>
+      </nav>
+    </div>
+
+    <!-- With ellipsis -->
+    <div>
+      <p class="col-label">With ellipsis</p>
+      <nav aria-label="Pagination" class="seed-pagination">
+        <button class="seed-page" aria-label="Previous page">
+          <span class="dew dew-chevron-left" aria-hidden="true"></span>
+        </button>
+        <button class="seed-page">1</button>
+        <button class="seed-page">2</button>
+        <span class="seed-pagination__ellipsis" aria-hidden="true">…</span>
+        <button class="seed-page seed-page--active" aria-current="page">7</button>
+        <span class="seed-pagination__ellipsis" aria-hidden="true">…</span>
+        <button class="seed-page">12</button>
+        <button class="seed-page">13</button>
+        <button class="seed-page" aria-label="Next page">
+          <span class="dew dew-chevron-right" aria-hidden="true"></span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- First page: prev disabled -->
+    <div>
+      <p class="col-label">First page (prev disabled)</p>
+      <nav aria-label="Pagination" class="seed-pagination">
+        <button class="seed-page seed-page--disabled" aria-label="Previous page" aria-disabled="true">
+          <span class="dew dew-chevron-left" aria-hidden="true"></span>
+        </button>
+        <button class="seed-page seed-page--active" aria-current="page">1</button>
+        <button class="seed-page">2</button>
+        <button class="seed-page">3</button>
+        <button class="seed-page">4</button>
+        <button class="seed-page">5</button>
+        <button class="seed-page" aria-label="Next page">
+          <span class="dew dew-chevron-right" aria-hidden="true"></span>
+        </button>
+      </nav>
+    </div>
+
+  </div>
+
+</body>
+</html>

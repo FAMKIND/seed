@@ -1,0 +1,120 @@
+/* ═══════════════════════════════════════════════════════
+   SEED NAV — Breadcrumbs & Pagination
+   Requires: tokens/tokens.css
+   Zero hardcoded colors — every value flows from
+   Seed semantic tokens. Theme switching is automatic.
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   BREADCRUMBS
+───────────────────────────────────────────────────── */
+
+.seed-breadcrumbs {
+    display:     flex;
+    align-items: center;
+    gap:         var(--seed-space-1);
+    font-family: var(--seed-font-ui);
+    font-size:   var(--seed-text-sm);
+    flex-wrap:   wrap;
+}
+
+.seed-breadcrumb {
+    color:           var(--soil-text-muted);
+    text-decoration: none;
+    transition:      color 80ms ease;
+}
+
+.seed-breadcrumb:hover {
+    color:           var(--soil-text);
+    text-decoration: underline;
+}
+
+.seed-breadcrumb--active {
+    color:          var(--soil-text);
+    font-weight:    var(--seed-weight-medium);
+    pointer-events: none;
+}
+
+.seed-breadcrumbs__separator {
+    color:          var(--soil-text-disabled);
+    display:        inline-flex;
+    align-items:    center;
+    pointer-events: none;
+    user-select:    none;
+}
+
+/* Icon separator — use dew-chevron-right at 10px */
+.seed-breadcrumbs__separator .dew {
+    font-size: 10px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   PAGINATION
+───────────────────────────────────────────────────── */
+
+.seed-pagination {
+    display:     flex;
+    align-items: center;
+    gap:         var(--seed-space-1);
+    font-family: var(--seed-font-ui);
+}
+
+.seed-page {
+    width:           32px;
+    height:          32px;
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    border-radius:   var(--seed-radius-md);
+    font-size:       var(--seed-text-sm);
+    font-weight:     var(--seed-weight-medium);
+    color:           var(--soil-text-muted);
+    cursor:          pointer;
+    transition:      all 80ms ease;
+    border:          none;
+    background:      none;
+    text-decoration: none;
+    user-select:     none;
+}
+
+.seed-page:hover {
+    background: var(--calm-bg-subtle-hover);
+    color:      var(--soil-text);
+}
+
+.seed-page--active {
+    background: var(--selected-bg-bold-default);
+    color:      var(--selected-text-bold-default);
+}
+
+.seed-page--active:hover {
+    background: var(--selected-bg-bold-default);
+    color:      var(--selected-text-bold-default);
+}
+
+.seed-page--disabled {
+    opacity:        0.4;
+    pointer-events: none;
+}
+
+/* Ellipsis gap between page runs */
+.seed-pagination__ellipsis {
+    width:           32px;
+    height:          32px;
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    font-size:       var(--seed-text-sm);
+    color:           var(--soil-text-muted);
+    pointer-events:  none;
+    user-select:     none;
+}
+
+/* "1–10 of 84" info label */
+.seed-pagination__info {
+    font-size:   var(--seed-text-xs);
+    color:       var(--soil-text-muted);
+    margin-left: var(--seed-space-2);
+}
