@@ -156,7 +156,7 @@
     /* Children: 8px margin + 16px padding + 12px arrow = indent one level from parent */
     .nav-children .nav-item { padding-left: var(--seed-space-4); }
 
-    .nav-item:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+    .nav-item:hover { background: var(--calm-bg-subtle-default); color: var(--soil-text); }
 
     .nav-item--active {
       background:  var(--calm-bg-subtle-hover);
@@ -173,22 +173,27 @@
        Sits at the item's left edge (8px from card, inside the margin).
        opacity: 0 for leaves keeps spacing identical; parent items show it on hover. */
     .nav-item__arrow {
-      width:           12px;
-      min-width:       12px;
-      height:          16px;
-      display:         flex;
+      width:           22px;
+      min-width:       22px;
+      height:          22px;
+      display:         inline-flex;
       align-items:     center;
       justify-content: center;
       flex-shrink:     0;
       font-size:       9px;
       color:           var(--soil-text-muted);
+      border-radius:   50%;
       opacity:         0;
       margin-left:     var(--seed-space-2);
+      transition:      background 120ms ease;
     }
 
     /* Show on parent items when hovered or expanded */
     .nav-item--has-children:hover > .nav-item__arrow,
     .nav-item--has-children.nav-item--expanded > .nav-item__arrow { opacity: 1; }
+
+    .nav-item__arrow:hover  { background: var(--calm-bg-subtle-active); }
+    .nav-item__arrow:active { background: var(--calm-bg-normal-default); }
 
     .nav-item__arrow .dew { font-size: 10px; transition: transform 150ms ease; }
     .nav-item--expanded > .nav-item__arrow .dew { transform: rotate(90deg); }
@@ -209,7 +214,8 @@
       transition:      background 120ms ease;
     }
 
-    .nav-item__icon:hover { background: var(--calm-bg-subtle-hover); }
+    .nav-item__icon:hover  { background: var(--calm-bg-subtle-active); }
+    .nav-item__icon:active { background: var(--calm-bg-normal-default); }
 
     /* Muted + icon for "Add new" items */
     .nav-item__icon--muted {
@@ -233,15 +239,13 @@
 
     .nav-item__more,
     .nav-item__add {
-      display:         flex;
+      display:         inline-flex;
       align-items:     center;
       justify-content: center;
-      width:           20px;
-      height:          20px;
       padding:         0;
       border:          none;
       background:      transparent;
-      border-radius:   var(--seed-radius-sm);
+      border-radius:   50%;
       cursor:          pointer;
       color:           var(--soil-text-muted);
       flex-shrink:     0;
@@ -249,13 +253,21 @@
       opacity:         0;
       transition:      opacity 100ms ease, background 120ms ease, color 120ms ease;
     }
+    .nav-item__more { width: 26px; height: 26px; }
+    .nav-item__add  { width: 22px; height: 22px; }
 
     .nav-item:hover .nav-item__more,
     .nav-item:hover .nav-item__add  { opacity: 1; }
 
     .nav-item__more:hover,
     .nav-item__add:hover {
-      background: var(--calm-bg-subtle-hover);
+      background: var(--calm-bg-subtle-active);
+      color:      var(--soil-text);
+    }
+
+    .nav-item__more:active,
+    .nav-item__add:active {
+      background: var(--calm-bg-normal-default);
       color:      var(--soil-text);
     }
 
