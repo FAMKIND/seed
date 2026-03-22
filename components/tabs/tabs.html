@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seed — Tabs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="tabs.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family:      var(--seed-font-ui);
+      background-color: var(--soil-bg-canvas);
+      color:            var(--soil-text);
+      min-height:       100vh;
+      padding:          var(--seed-space-12) var(--seed-space-8);
+      transition:       background-color 200ms ease, color 200ms ease;
+    }
+
+    .page-header {
+      display:         flex;
+      align-items:     baseline;
+      justify-content: space-between;
+      margin-bottom:   var(--seed-space-12);
+      padding-bottom:  var(--seed-space-6);
+      border-bottom:   1px solid var(--soil-border);
+    }
+
+    .page-title {
+      font-family:    var(--seed-font-brand);
+      font-size:      var(--seed-text-xl);
+      font-weight:    var(--seed-weight-semibold);
+      color:          var(--soil-logo-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .page-title span {
+      font-weight: var(--seed-weight-regular);
+      color:       var(--soil-text-muted);
+      font-family: var(--seed-font-ui);
+      font-size:   var(--seed-text-sm);
+      margin-left: var(--seed-space-3);
+    }
+
+    .page-nav {
+      display:     flex;
+      gap:         var(--seed-space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family:     var(--seed-font-ui);
+      font-size:       var(--seed-text-sm);
+      font-weight:     var(--seed-weight-medium);
+      color:           var(--soil-text-muted);
+      text-decoration: none;
+      padding:         0.4em 1em;
+      border-radius:   var(--seed-radius-full);
+      border:          1px solid var(--calm-border-normal-default);
+      background:      var(--calm-bg-subtle-default);
+      transition:      background 120ms ease, color 120ms ease;
+    }
+
+    .nav-link:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+
+    .theme-toggle {
+      font-family:   var(--seed-font-ui);
+      font-size:     var(--seed-text-sm);
+      font-weight:   var(--seed-weight-medium);
+      color:         var(--soil-text-muted);
+      background:    var(--calm-bg-subtle-default);
+      border:        1px solid var(--calm-border-normal-default);
+      border-radius: var(--seed-radius-full);
+      padding:       0.4em 1em;
+      cursor:        pointer;
+      transition:    background 120ms ease, color 120ms ease;
+    }
+
+    .theme-toggle:hover { background: var(--calm-bg-subtle-hover); color: var(--soil-text); }
+
+    .section       { margin-bottom: var(--seed-space-12); }
+    .section-label {
+      font-size:      var(--seed-text-xs);
+      font-weight:    var(--seed-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color:          var(--soil-text-muted);
+      margin-bottom:  var(--seed-space-4);
+    }
+
+    .divider {
+      border:     none;
+      border-top: 1px solid var(--soil-border-subtle);
+      margin:     var(--seed-space-8) 0;
+    }
+
+    /* Panel content placeholder */
+    .panel-body {
+      padding:     var(--seed-space-5) 0;
+      font-size:   var(--seed-text-sm);
+      color:       var(--soil-text-muted);
+      line-height: var(--seed-leading-normal);
+    }
+
+    .size-row {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--seed-space-6);
+    }
+
+    .size-label {
+      font-size:     var(--seed-text-xs);
+      color:         var(--soil-text-muted);
+      margin-bottom: var(--seed-space-2);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-title">
+      seed <span>Tabs component · v0.1</span>
+    </div>
+    <div class="page-nav">
+      <a class="nav-link" href="../layout/layout.html">Layout →</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">Toggle dark mode</button>
+    </div>
+  </header>
+
+  <!-- ── Underline tabs ── -->
+  <section class="section">
+    <p class="section-label">Underline (default)</p>
+    <div class="seed-tabs" role="tablist" data-tabs="underline">
+      <button class="seed-tab seed-tab--active" role="tab" aria-selected="true"  data-panel="u-overview">Overview</button>
+      <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="u-activity">Activity</button>
+      <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="u-settings">Settings</button>
+    </div>
+    <div class="seed-tab-content seed-tab-content--active" id="u-overview">
+      <p class="panel-body">Overview panel — summary, key metrics, and quick actions live here.</p>
+    </div>
+    <div class="seed-tab-content" id="u-activity">
+      <p class="panel-body">Activity panel — recent events, changelog, and timeline entries.</p>
+    </div>
+    <div class="seed-tab-content" id="u-settings">
+      <p class="panel-body">Settings panel — configuration, preferences, and danger zone.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Pill tabs ── -->
+  <section class="section">
+    <p class="section-label">Pill</p>
+    <div class="seed-tabs seed-tabs--pill" role="tablist" data-tabs="pill">
+      <button class="seed-tab seed-tab--active" role="tab" aria-selected="true"  data-panel="p-all">All</button>
+      <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="p-active">Active</button>
+      <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="p-archived">Archived</button>
+    </div>
+    <div class="seed-tab-content seed-tab-content--active" id="p-all">
+      <p class="panel-body">All items — showing every record regardless of status.</p>
+    </div>
+    <div class="seed-tab-content" id="p-active">
+      <p class="panel-body">Active items — showing only in-progress and open records.</p>
+    </div>
+    <div class="seed-tab-content" id="p-archived">
+      <p class="panel-body">Archived items — completed and dismissed records.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── With icons ── -->
+  <section class="section">
+    <p class="section-label">With Icons</p>
+
+    <p class="size-label" style="margin-bottom:var(--seed-space-3);">Underline + icons</p>
+    <div class="seed-tabs" role="tablist" data-tabs="icon-under">
+      <button class="seed-tab seed-tab--active" role="tab" aria-selected="true"  data-panel="i-overview">
+        <span class="dew dew-home" aria-hidden="true"></span>Overview
+      </button>
+      <button class="seed-tab" role="tab" aria-selected="false" data-panel="i-activity">
+        <span class="dew dew-bell-on" aria-hidden="true"></span>Activity
+      </button>
+      <button class="seed-tab" role="tab" aria-selected="false" data-panel="i-members">
+        <span class="dew dew-people" aria-hidden="true"></span>Members
+      </button>
+      <button class="seed-tab" role="tab" aria-selected="false" data-panel="i-settings">
+        <span class="dew dew-gear" aria-hidden="true"></span>Settings
+      </button>
+    </div>
+    <div class="seed-tab-content seed-tab-content--active" id="i-overview"><p class="panel-body">Overview</p></div>
+    <div class="seed-tab-content" id="i-activity"><p class="panel-body">Activity</p></div>
+    <div class="seed-tab-content" id="i-members"><p class="panel-body">Members</p></div>
+    <div class="seed-tab-content" id="i-settings"><p class="panel-body">Settings</p></div>
+
+    <p class="size-label" style="margin-top:var(--seed-space-6); margin-bottom:var(--seed-space-3);">Pill + icons</p>
+    <div class="seed-tabs seed-tabs--pill" role="tablist" data-tabs="icon-pill">
+      <button class="seed-tab seed-tab--active" role="tab" aria-selected="true"  data-panel="ip-grid">
+        <span class="dew dew-menu-lines" aria-hidden="true"></span>List
+      </button>
+      <button class="seed-tab" role="tab" aria-selected="false" data-panel="ip-calendar">
+        <span class="dew dew-calendar" aria-hidden="true"></span>Calendar
+      </button>
+      <button class="seed-tab" role="tab" aria-selected="false" data-panel="ip-filter">
+        <span class="dew dew-filter-horizontal" aria-hidden="true"></span>Filter
+      </button>
+    </div>
+    <div class="seed-tab-content seed-tab-content--active" id="ip-grid"><p class="panel-body">List view</p></div>
+    <div class="seed-tab-content" id="ip-calendar"><p class="panel-body">Calendar view</p></div>
+    <div class="seed-tab-content" id="ip-filter"><p class="panel-body">Filter view</p></div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ── Sizes ── -->
+  <section class="section">
+    <p class="section-label">Sizes</p>
+    <div class="size-row">
+      <div>
+        <p class="size-label">sm — underline</p>
+        <div class="seed-tabs seed-tabs--sm" role="tablist" data-tabs="sz-under-sm">
+          <button class="seed-tab seed-tab--active" role="tab" data-panel="su-a">Overview</button>
+          <button class="seed-tab" role="tab" data-panel="su-b">Activity</button>
+          <button class="seed-tab" role="tab" data-panel="su-c">Settings</button>
+        </div>
+        <div class="seed-tab-content seed-tab-content--active" id="su-a"><p class="panel-body">Overview</p></div>
+        <div class="seed-tab-content" id="su-b"><p class="panel-body">Activity</p></div>
+        <div class="seed-tab-content" id="su-c"><p class="panel-body">Settings</p></div>
+      </div>
+      <div>
+        <p class="size-label">md — underline (default)</p>
+        <div class="seed-tabs" role="tablist" data-tabs="sz-under-md">
+          <button class="seed-tab seed-tab--active" role="tab" data-panel="mu-a">Overview</button>
+          <button class="seed-tab" role="tab" data-panel="mu-b">Activity</button>
+          <button class="seed-tab" role="tab" data-panel="mu-c">Settings</button>
+        </div>
+        <div class="seed-tab-content seed-tab-content--active" id="mu-a"><p class="panel-body">Overview</p></div>
+        <div class="seed-tab-content" id="mu-b"><p class="panel-body">Activity</p></div>
+        <div class="seed-tab-content" id="mu-c"><p class="panel-body">Settings</p></div>
+      </div>
+      <div>
+        <p class="size-label">lg — underline</p>
+        <div class="seed-tabs seed-tabs--lg" role="tablist" data-tabs="sz-under-lg">
+          <button class="seed-tab seed-tab--active" role="tab" data-panel="lu-a">Overview</button>
+          <button class="seed-tab" role="tab" data-panel="lu-b">Activity</button>
+          <button class="seed-tab" role="tab" data-panel="lu-c">Settings</button>
+        </div>
+        <div class="seed-tab-content seed-tab-content--active" id="lu-a"><p class="panel-body">Overview</p></div>
+        <div class="seed-tab-content" id="lu-b"><p class="panel-body">Activity</p></div>
+        <div class="seed-tab-content" id="lu-c"><p class="panel-body">Settings</p></div>
+      </div>
+      <div>
+        <p class="size-label">sm — pill</p>
+        <div class="seed-tabs seed-tabs--pill seed-tabs--sm" role="tablist" data-tabs="sz-pill-sm">
+          <button class="seed-tab seed-tab--active" role="tab" data-panel="sp-a">All</button>
+          <button class="seed-tab" role="tab" data-panel="sp-b">Active</button>
+          <button class="seed-tab" role="tab" data-panel="sp-c">Done</button>
+        </div>
+        <div class="seed-tab-content seed-tab-content--active" id="sp-a"><p class="panel-body">All</p></div>
+        <div class="seed-tab-content" id="sp-b"><p class="panel-body">Active</p></div>
+        <div class="seed-tab-content" id="sp-c"><p class="panel-body">Done</p></div>
+      </div>
+      <div>
+        <p class="size-label">lg — pill</p>
+        <div class="seed-tabs seed-tabs--pill seed-tabs--lg" role="tablist" data-tabs="sz-pill-lg">
+          <button class="seed-tab seed-tab--active" role="tab" data-panel="lp-a">All</button>
+          <button class="seed-tab" role="tab" data-panel="lp-b">Active</button>
+          <button class="seed-tab" role="tab" data-panel="lp-c">Done</button>
+        </div>
+        <div class="seed-tab-content seed-tab-content--active" id="lp-a"><p class="panel-body">All</p></div>
+        <div class="seed-tab-content" id="lp-b"><p class="panel-body">Active</p></div>
+        <div class="seed-tab-content" id="lp-c"><p class="panel-body">Done</p></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+
+    document.querySelectorAll('.seed-tabs').forEach(tablist => {
+      tablist.addEventListener('click', e => {
+        const tab = e.target.closest('.seed-tab');
+        if (!tab || tab.classList.contains('seed-tab--active')) return;
+        // Deactivate current
+        tablist.querySelectorAll('.seed-tab').forEach(t => {
+          t.classList.remove('seed-tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        // Activate clicked
+        tab.classList.add('seed-tab--active');
+        tab.setAttribute('aria-selected', 'true');
+        // Swap panels
+        const panelId = tab.dataset.panel;
+        if (!panelId) return;
+        // Find all sibling panels — walk up to parent container
+        const container = tablist.parentElement;
+        container.querySelectorAll('.seed-tab-content').forEach(panel => {
+          panel.classList.toggle('seed-tab-content--active', panel.id === panelId);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

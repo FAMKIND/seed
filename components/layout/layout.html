@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="../../components/badge/badge.css">
   <link rel="stylesheet" href="../../components/avatar/avatar.css">
   <link rel="stylesheet" href="../../components/toast/toast.css">
+  <link rel="stylesheet" href="../../components/tabs/tabs.css">
   <link rel="stylesheet" href="../../components/card/card.css">
   <link rel="stylesheet" href="../../components/input/input.css">
   <link rel="stylesheet" href="../../components/divider/divider.css">
@@ -855,6 +856,12 @@
             <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
             <span class="nav-item__icon"><span class="dew dew-file" aria-hidden="true"></span></span>
             <span class="nav-label">Toasts</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-item" data-label="Tabs" data-section="tabs" data-category="Components" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-file" aria-hidden="true"></span></span>
+            <span class="nav-label">Tabs</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
@@ -3268,6 +3275,99 @@
                 toast.addEventListener('mouseenter', () => clearTimeout(t));
                 toast.addEventListener('mouseleave', () => { t = setTimeout(dsDismiss, 2000); });
               };
+            })();
+          </script>
+        </div>
+
+        <!-- ── tabs ──────────────────────────────────── -->
+        <div class="ds-section" data-section="tabs" style="display:none">
+          <style>
+            .tabs-section-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-3);
+            }
+            .tabs-section { margin-bottom: var(--seed-space-6); }
+            .tabs-panel-body {
+              padding:   var(--seed-space-4) 0;
+              font-size: var(--seed-text-sm);
+              color:     var(--soil-text-muted);
+            }
+            .tabs-divider {
+              border:     none;
+              border-top: 1px solid var(--soil-border-subtle);
+              margin:     var(--seed-space-5) 0;
+            }
+          </style>
+
+          <!-- Underline -->
+          <div class="tabs-section">
+            <p class="tabs-section-label">Underline</p>
+            <div class="seed-tabs" role="tablist" data-tabs="ds-under">
+              <button class="seed-tab seed-tab--active" role="tab" aria-selected="true"  data-panel="ds-u-a">Overview</button>
+              <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="ds-u-b">Activity</button>
+              <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="ds-u-c">Settings</button>
+            </div>
+            <div class="seed-tab-content seed-tab-content--active" id="ds-u-a"><p class="tabs-panel-body">Overview — summary and key metrics.</p></div>
+            <div class="seed-tab-content" id="ds-u-b"><p class="tabs-panel-body">Activity — recent events and timeline.</p></div>
+            <div class="seed-tab-content" id="ds-u-c"><p class="tabs-panel-body">Settings — configuration and preferences.</p></div>
+          </div>
+
+          <hr class="tabs-divider">
+
+          <!-- Pill -->
+          <div class="tabs-section">
+            <p class="tabs-section-label">Pill</p>
+            <div class="seed-tabs seed-tabs--pill" role="tablist" data-tabs="ds-pill">
+              <button class="seed-tab seed-tab--active" role="tab" aria-selected="true"  data-panel="ds-p-a">All</button>
+              <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="ds-p-b">Active</button>
+              <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="ds-p-c">Archived</button>
+            </div>
+            <div class="seed-tab-content seed-tab-content--active" id="ds-p-a"><p class="tabs-panel-body">All items.</p></div>
+            <div class="seed-tab-content" id="ds-p-b"><p class="tabs-panel-body">Active items.</p></div>
+            <div class="seed-tab-content" id="ds-p-c"><p class="tabs-panel-body">Archived items.</p></div>
+          </div>
+
+          <hr class="tabs-divider">
+
+          <!-- With icons -->
+          <div class="tabs-section">
+            <p class="tabs-section-label">With Icons</p>
+            <div class="seed-tabs" role="tablist" data-tabs="ds-icon">
+              <button class="seed-tab seed-tab--active" role="tab" aria-selected="true"  data-panel="ds-i-a"><span class="dew dew-home" aria-hidden="true"></span>Overview</button>
+              <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="ds-i-b"><span class="dew dew-bell-on" aria-hidden="true"></span>Activity</button>
+              <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="ds-i-c"><span class="dew dew-people" aria-hidden="true"></span>Members</button>
+              <button class="seed-tab"                  role="tab" aria-selected="false" data-panel="ds-i-d"><span class="dew dew-gear" aria-hidden="true"></span>Settings</button>
+            </div>
+            <div class="seed-tab-content seed-tab-content--active" id="ds-i-a"><p class="tabs-panel-body">Overview</p></div>
+            <div class="seed-tab-content" id="ds-i-b"><p class="tabs-panel-body">Activity</p></div>
+            <div class="seed-tab-content" id="ds-i-c"><p class="tabs-panel-body">Members</p></div>
+            <div class="seed-tab-content" id="ds-i-d"><p class="tabs-panel-body">Settings</p></div>
+          </div>
+
+          <script>
+            (function() {
+              document.querySelectorAll('[data-section="tabs"] .seed-tabs').forEach(function(tablist) {
+                tablist.addEventListener('click', function(e) {
+                  var tab = e.target.closest('.seed-tab');
+                  if (!tab || tab.classList.contains('seed-tab--active')) return;
+                  tablist.querySelectorAll('.seed-tab').forEach(function(t) {
+                    t.classList.remove('seed-tab--active');
+                    t.setAttribute('aria-selected', 'false');
+                  });
+                  tab.classList.add('seed-tab--active');
+                  tab.setAttribute('aria-selected', 'true');
+                  var panelId = tab.dataset.panel;
+                  if (!panelId) return;
+                  var container = tablist.parentElement;
+                  container.querySelectorAll('.seed-tab-content').forEach(function(panel) {
+                    panel.classList.toggle('seed-tab-content--active', panel.id === panelId);
+                  });
+                });
+              });
             })();
           </script>
         </div>
