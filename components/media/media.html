@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed — Media</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../icons/dew/dew.css">
+  <link rel="stylesheet" href="media.css">
+  <style>
+    body {
+      font-family: var(--seed-font-ui);
+      background:  var(--soil-bg-canvas);
+      color:       var(--soil-text);
+      padding:     var(--seed-space-8);
+    }
+    h2 {
+      font-size:     var(--seed-text-base);
+      font-weight:   var(--seed-weight-semibold);
+      color:         var(--soil-text);
+      margin-bottom: var(--seed-space-2);
+      margin-top:    var(--seed-space-8);
+    }
+    h2:first-child { margin-top: 0; }
+    p.desc {
+      font-size:     var(--seed-text-sm);
+      color:         var(--soil-text-muted);
+      margin-bottom: var(--seed-space-4);
+    }
+    .demo-row {
+      display:     flex;
+      gap:         var(--seed-space-4);
+      flex-wrap:   wrap;
+      align-items: flex-start;
+      margin-bottom: var(--seed-space-8);
+    }
+    /* Demo image fill — a coloured rect standing in for a real photo */
+    .demo-img {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--calm-bg-subtle-hover) 0%, var(--calm-bg-normal-default) 100%);
+      display: block;
+    }
+    .demo-img--warm {
+      background: linear-gradient(135deg, #e8d5b7 0%, #c9a96e 100%);
+    }
+    .demo-img--cool {
+      background: linear-gradient(135deg, #b7cfe8 0%, #6e9ec9 100%);
+    }
+    .demo-img--green {
+      background: linear-gradient(135deg, #c2dbb5 0%, #7ab85e 100%);
+    }
+    .demo-img--purple {
+      background: linear-gradient(135deg, #d5b7e8 0%, #9a6ec9 100%);
+    }
+    .demo-img--rose {
+      background: linear-gradient(135deg, #e8b7c4 0%, #c96e85 100%);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── 1. Aspect ratios ────────────────────────── -->
+  <h2>Aspect ratios</h2>
+  <p class="desc">The container enforces the ratio; the image fills it with object-fit: cover.</p>
+  <div class="demo-row">
+    <div style="width:280px">
+      <figure class="seed-media seed-media--16x9">
+        <div class="demo-img demo-img--cool"></div>
+      </figure>
+      <p class="seed-media__caption">16 × 9 — widescreen</p>
+    </div>
+    <div style="width:200px">
+      <figure class="seed-media seed-media--4x3">
+        <div class="demo-img demo-img--warm"></div>
+      </figure>
+      <p class="seed-media__caption">4 × 3 — classic photo</p>
+    </div>
+    <div style="width:160px">
+      <figure class="seed-media seed-media--1x1">
+        <div class="demo-img demo-img--green"></div>
+      </figure>
+      <p class="seed-media__caption">1 × 1 — square</p>
+    </div>
+    <div style="width:120px">
+      <figure class="seed-media seed-media--1x1 seed-media--circle">
+        <div class="demo-img demo-img--purple"></div>
+      </figure>
+      <p class="seed-media__caption">circle</p>
+    </div>
+  </div>
+
+  <!-- ─── 2. Border radius variants ───────────────── -->
+  <h2>Border radius</h2>
+  <p class="desc">Default (md), rounded (lg), square (0).</p>
+  <div class="demo-row">
+    <div style="width:200px">
+      <figure class="seed-media seed-media--4x3">
+        <div class="demo-img demo-img--cool"></div>
+      </figure>
+      <p class="seed-media__caption">Default — radius-md</p>
+    </div>
+    <div style="width:200px">
+      <figure class="seed-media seed-media--4x3 seed-media--rounded">
+        <div class="demo-img demo-img--warm"></div>
+      </figure>
+      <p class="seed-media__caption">Rounded — radius-lg</p>
+    </div>
+    <div style="width:200px">
+      <figure class="seed-media seed-media--4x3 seed-media--square">
+        <div class="demo-img demo-img--green"></div>
+      </figure>
+      <p class="seed-media__caption">Square — no radius</p>
+    </div>
+  </div>
+
+  <!-- ─── 3. Placeholder ──────────────────────────── -->
+  <h2>Placeholder</h2>
+  <p class="desc">Empty state before an image is selected or loaded.</p>
+  <div class="demo-row">
+    <div style="width:280px">
+      <figure class="seed-media seed-media--16x9 seed-media--placeholder">
+        <span class="dew dew-camera-off seed-media__icon" aria-hidden="true"></span>
+      </figure>
+      <p class="seed-media__caption">No image — 16 × 9</p>
+    </div>
+    <div style="width:160px">
+      <figure class="seed-media seed-media--1x1 seed-media--placeholder">
+        <span class="dew dew-camera-off seed-media__icon" aria-hidden="true"></span>
+      </figure>
+      <p class="seed-media__caption">No image — square</p>
+    </div>
+    <div style="width:120px">
+      <figure class="seed-media seed-media--1x1 seed-media--circle seed-media--placeholder">
+        <span class="dew dew-person seed-media__icon" aria-hidden="true"></span>
+      </figure>
+      <p class="seed-media__caption">Avatar placeholder</p>
+    </div>
+  </div>
+
+  <!-- ─── 4. Skeleton loading ─────────────────────── -->
+  <h2>Skeleton loading</h2>
+  <p class="desc">Shimmer animation while the image is in-flight. Respects prefers-reduced-motion.</p>
+  <div class="demo-row">
+    <div style="width:280px">
+      <figure class="seed-media seed-media--16x9 seed-media--skeleton"></figure>
+      <p class="seed-media__caption">Loading — 16 × 9</p>
+    </div>
+    <div style="width:200px">
+      <figure class="seed-media seed-media--4x3 seed-media--skeleton"></figure>
+      <p class="seed-media__caption">Loading — 4 × 3</p>
+    </div>
+    <div style="width:120px">
+      <figure class="seed-media seed-media--1x1 seed-media--skeleton"></figure>
+      <p class="seed-media__caption">Loading — square</p>
+    </div>
+  </div>
+
+  <!-- ─── 5. Video with play overlay ──────────────── -->
+  <h2>Video thumbnail</h2>
+  <p class="desc">Play button overlay centred over a poster image or coloured fill.</p>
+  <div class="demo-row">
+    <div style="width:320px">
+      <figure class="seed-media seed-media--16x9 seed-media--video" role="button"
+              tabindex="0" aria-label="Play video">
+        <div class="demo-img demo-img--cool"></div>
+        <button class="seed-media__play" tabindex="-1" aria-hidden="true">
+          <span class="dew dew-play"></span>
+        </button>
+      </figure>
+      <p class="seed-media__caption">Hover to see play highlight</p>
+    </div>
+    <div style="width:200px">
+      <figure class="seed-media seed-media--1x1 seed-media--video seed-media--rounded"
+              role="button" tabindex="0" aria-label="Play video">
+        <div class="demo-img demo-img--purple"></div>
+        <button class="seed-media__play" tabindex="-1" aria-hidden="true">
+          <span class="dew dew-play"></span>
+        </button>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ─── 6. Overlay caption & badge ─────────────── -->
+  <h2>Overlay caption &amp; badge</h2>
+  <p class="desc">Gradient overlay for labelling media inline. Badge for duration, status, etc.</p>
+  <div class="demo-row">
+    <div style="width:320px">
+      <figure class="seed-media seed-media--16x9 seed-media--video" role="button"
+              tabindex="0" aria-label="Play: The making of Seed">
+        <div class="demo-img demo-img--warm"></div>
+        <button class="seed-media__play" tabindex="-1" aria-hidden="true">
+          <span class="dew dew-play"></span>
+        </button>
+        <div class="seed-media__badge seed-media__badge--right">4:32</div>
+        <div class="seed-media__overlay">
+          <p class="seed-media__overlay-title">The making of Seed</p>
+          Behind the design system
+        </div>
+      </figure>
+    </div>
+    <div style="width:240px">
+      <figure class="seed-media seed-media--4x3 seed-media--rounded">
+        <div class="demo-img demo-img--green"></div>
+        <div class="seed-media__badge">New</div>
+        <div class="seed-media__overlay">
+          <p class="seed-media__overlay-title">Spring collection</p>
+          12 items
+        </div>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ─── 7. Gallery — 2 column ───────────────────── -->
+  <h2>Gallery — 2 columns</h2>
+  <div style="max-width:520px;margin-bottom:var(--seed-space-8)">
+    <div class="seed-media-grid seed-media-grid--2">
+      <figure class="seed-media seed-media--4x3">
+        <div class="demo-img demo-img--cool"></div>
+      </figure>
+      <figure class="seed-media seed-media--4x3">
+        <div class="demo-img demo-img--warm"></div>
+      </figure>
+      <figure class="seed-media seed-media--4x3">
+        <div class="demo-img demo-img--green"></div>
+      </figure>
+      <figure class="seed-media seed-media--4x3">
+        <div class="demo-img demo-img--purple"></div>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ─── 8. Gallery — 3 column ───────────────────── -->
+  <h2>Gallery — 3 columns</h2>
+  <div style="max-width:520px;margin-bottom:var(--seed-space-8)">
+    <div class="seed-media-grid seed-media-grid--3">
+      <figure class="seed-media seed-media--1x1"><div class="demo-img demo-img--cool"></div></figure>
+      <figure class="seed-media seed-media--1x1"><div class="demo-img demo-img--warm"></div></figure>
+      <figure class="seed-media seed-media--1x1"><div class="demo-img demo-img--green"></div></figure>
+      <figure class="seed-media seed-media--1x1"><div class="demo-img demo-img--purple"></div></figure>
+      <figure class="seed-media seed-media--1x1"><div class="demo-img demo-img--rose"></div></figure>
+      <figure class="seed-media seed-media--1x1"><div class="demo-img demo-img--cool"></div></figure>
+    </div>
+  </div>
+
+  <!-- ─── 9. Gallery — featured ───────────────────── -->
+  <h2>Gallery — featured (first spans 2 cols)</h2>
+  <div style="max-width:520px;margin-bottom:var(--seed-space-8)">
+    <div class="seed-media-grid seed-media-grid--2 seed-media-grid--featured">
+      <figure class="seed-media seed-media--16x9"><div class="demo-img demo-img--warm"></div></figure>
+      <figure class="seed-media seed-media--1x1"><div class="demo-img demo-img--cool"></div></figure>
+      <figure class="seed-media seed-media--1x1"><div class="demo-img demo-img--green"></div></figure>
+    </div>
+  </div>
+
+</body>
+</html>

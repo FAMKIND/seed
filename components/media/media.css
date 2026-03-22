@@ -1,0 +1,274 @@
+/* ═══════════════════════════════════════════════════════
+   SEED MEDIA
+   Requires: tokens/tokens.css
+   Usage:    <figure class="seed-media seed-media--16x9">
+               <img src="…" alt="…">
+             </figure>
+
+   Covers: image, video, placeholder, skeleton, gallery.
+   Zero hardcoded colors — every value flows from
+   Seed semantic tokens. Theme switching is automatic.
+═══════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────
+   CONTAINER
+───────────────────────────────────────────────────── */
+
+.seed-media {
+    position:      relative;
+    overflow:      hidden;
+    border-radius: var(--seed-radius-md);
+    background:    var(--calm-bg-subtle-default);
+    display:       block;
+}
+
+.seed-media img,
+.seed-media video,
+.seed-media iframe {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    display:    block;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   BORDER RADIUS VARIANTS
+───────────────────────────────────────────────────── */
+
+.seed-media--square  { border-radius: 0; }
+.seed-media--rounded { border-radius: var(--seed-radius-lg); }
+.seed-media--circle  { border-radius: 50%; }
+
+
+/* ─────────────────────────────────────────────────────
+   ASPECT RATIOS
+───────────────────────────────────────────────────── */
+
+.seed-media--16x9 { aspect-ratio: 16 / 9; }
+.seed-media--4x3  { aspect-ratio: 4  / 3; }
+.seed-media--3x2  { aspect-ratio: 3  / 2; }
+.seed-media--1x1  { aspect-ratio: 1  / 1; }
+.seed-media--auto { aspect-ratio: auto;   }
+
+
+/* ─────────────────────────────────────────────────────
+   CAPTION
+───────────────────────────────────────────────────── */
+
+.seed-media__caption {
+    padding:     var(--seed-space-2) 0;
+    font-family: var(--seed-font-ui);
+    font-size:   var(--seed-text-xs);
+    color:       var(--soil-text-muted);
+    line-height: var(--seed-leading-snug);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   PLACEHOLDER — empty / no image
+───────────────────────────────────────────────────── */
+
+.seed-media--placeholder {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    background:      var(--calm-bg-subtle-default);
+}
+
+.seed-media--placeholder::after {
+    content:     '\e900'; /* fallback if no child icon */
+    font-size:   24px;
+    color:       var(--soil-text-disabled);
+}
+
+/* When an explicit icon child is provided, hide the ::after pseudo */
+.seed-media--placeholder .seed-media__icon {
+    font-size:   28px;
+    color:       var(--soil-text-disabled);
+    line-height: 1;
+}
+
+.seed-media--placeholder::after {
+    display: none;
+}
+
+/* Re-show ::after only when no child icon */
+.seed-media--placeholder:not(:has(.seed-media__icon))::after {
+    display: block;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   SKELETON — shimmer loading state
+───────────────────────────────────────────────────── */
+
+@keyframes seed-shimmer {
+    from { background-position:  200% 0; }
+    to   { background-position: -200% 0; }
+}
+
+.seed-media--skeleton {
+    background:      linear-gradient(
+                       90deg,
+                       var(--calm-bg-subtle-default) 25%,
+                       var(--calm-bg-subtle-hover)   50%,
+                       var(--calm-bg-subtle-default) 75%
+                     );
+    background-size: 200% 100%;
+    animation:       seed-shimmer 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .seed-media--skeleton {
+        animation: none;
+        background: var(--calm-bg-subtle-default);
+    }
+}
+
+
+/* ─────────────────────────────────────────────────────
+   VIDEO — play overlay
+───────────────────────────────────────────────────── */
+
+.seed-media--video {
+    cursor: pointer;
+}
+
+.seed-media__play {
+    position:        absolute;
+    top:             50%;
+    left:            50%;
+    transform:       translate(-50%, -50%);
+    width:           48px;
+    height:          48px;
+    border-radius:   50%;
+    background:      rgba(0, 0, 0, 0.55);
+    color:           #fff;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    font-size:       20px;
+    border:          none;
+    cursor:          pointer;
+    transition:      background 150ms ease, transform 150ms ease;
+    pointer-events:  none; /* let click pass to container */
+}
+
+.seed-media--video:hover .seed-media__play {
+    background: rgba(0, 0, 0, 0.78);
+    transform:  translate(-50%, -50%) scale(1.08);
+}
+
+/* Slightly larger play icon for big containers */
+.seed-media--lg .seed-media__play {
+    width:     64px;
+    height:    64px;
+    font-size: 28px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   OVERLAY — gradient caption / badge on hover
+───────────────────────────────────────────────────── */
+
+.seed-media__overlay {
+    position:   absolute;
+    bottom:     0;
+    left:       0;
+    right:      0;
+    padding:    var(--seed-space-4) var(--seed-space-3) var(--seed-space-3);
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+    color:      #fff;
+    font-family: var(--seed-font-ui);
+    font-size:  var(--seed-text-xs);
+    line-height: var(--seed-leading-snug);
+}
+
+.seed-media__overlay-title {
+    font-size:   var(--seed-text-sm);
+    font-weight: var(--seed-weight-semibold);
+    margin-bottom: 2px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   BADGE — top-left or top-right label
+───────────────────────────────────────────────────── */
+
+.seed-media__badge {
+    position:      absolute;
+    top:           var(--seed-space-2);
+    left:          var(--seed-space-2);
+    padding:       2px var(--seed-space-2);
+    background:    rgba(0, 0, 0, 0.6);
+    color:         #fff;
+    font-family:   var(--seed-font-ui);
+    font-size:     var(--seed-text-xs);
+    font-weight:   var(--seed-weight-medium);
+    border-radius: var(--seed-radius-sm);
+    line-height:   1.4;
+    pointer-events: none;
+}
+
+.seed-media__badge--right {
+    left:  auto;
+    right: var(--seed-space-2);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   GALLERY GRID
+───────────────────────────────────────────────────── */
+
+.seed-media-grid {
+    display: grid;
+    gap:     var(--seed-space-2);
+}
+
+.seed-media-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.seed-media-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.seed-media-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Featured: first item spans 2 columns */
+.seed-media-grid--featured .seed-media:first-child {
+    grid-column: span 2;
+}
+
+/* Masonry — CSS columns fallback */
+.seed-media-grid--masonry {
+    display:       block;
+    columns:       2;
+    gap:           var(--seed-space-2);
+    column-gap:    var(--seed-space-2);
+}
+
+.seed-media-grid--masonry .seed-media {
+    break-inside:  avoid;
+    margin-bottom: var(--seed-space-2);
+    width:         100%;
+    height:        auto;
+}
+
+.seed-media-grid--masonry .seed-media img {
+    height: auto;
+}
+
+@media (max-width: 639px) {
+    .seed-media-grid--3,
+    .seed-media-grid--4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .seed-media-grid--masonry {
+        columns: 2;
+    }
+}

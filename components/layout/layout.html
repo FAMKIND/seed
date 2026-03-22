@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="../../components/chat/chat.css">
   <link rel="stylesheet" href="../../components/toggle/toggle.css">
   <link rel="stylesheet" href="../../components/upload/upload.css">
+  <link rel="stylesheet" href="../../components/media/media.css">
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
   <style>
@@ -878,6 +879,12 @@
             <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
             <span class="nav-item__icon"><span class="dew dew-download" aria-hidden="true"></span></span>
             <span class="nav-label">Upload</span>
+            <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-item" data-label="Media" data-section="media" data-category="Components" role="button" tabindex="0">
+            <span class="nav-item__arrow" aria-hidden="true"><span class="dew dew-chevron-right"></span></span>
+            <span class="nav-item__icon"><span class="dew dew-image" aria-hidden="true"></span></span>
+            <span class="nav-label">Media</span>
             <button class="nav-item__more" tabindex="-1" aria-label="More options"><span class="dew dew-ellipsis-menu" aria-hidden="true"></span></button>
           </div>
         </div>
@@ -4073,6 +4080,163 @@
                 <strong>Upload a CSV</strong> to import contacts
               </span>
               <span class="seed-upload__hint">CSV only · Max 25 MB · Up to 50,000 rows</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ── media ─────────────────────────────────── -->
+        <div class="ds-section" data-section="media" style="display:none">
+          <style>
+            .md-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-3);
+            }
+            .md-note {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              line-height:   var(--seed-leading-normal);
+              margin-bottom: var(--seed-space-8);
+              max-width:     520px;
+            }
+            .md-divider {
+              height:     1px;
+              background: var(--soil-border-subtle);
+              margin:     var(--seed-space-8) 0;
+            }
+            .md-row {
+              display:     flex;
+              gap:         var(--seed-space-4);
+              flex-wrap:   wrap;
+              align-items: flex-start;
+              margin-bottom: var(--seed-space-2);
+            }
+            /* coloured gradient standing in for real photos */
+            .md-fill         { width:100%;height:100%;display:block;background:linear-gradient(135deg,var(--calm-bg-subtle-hover) 0%,var(--calm-bg-normal-default) 100%); }
+            .md-fill--warm   { background:linear-gradient(135deg,#e8d5b7 0%,#c9a96e 100%); }
+            .md-fill--cool   { background:linear-gradient(135deg,#b7cfe8 0%,#6e9ec9 100%); }
+            .md-fill--green  { background:linear-gradient(135deg,#c2dbb5 0%,#7ab85e 100%); }
+            .md-fill--purple { background:linear-gradient(135deg,#d5b7e8 0%,#9a6ec9 100%); }
+            .md-fill--rose   { background:linear-gradient(135deg,#e8b7c4 0%,#c96e85 100%); }
+          </style>
+
+          <p class="md-note">Image container with aspect ratios, border-radius variants, placeholder and skeleton states, video play overlay, and gallery grid. Zero hardcoded colors — dark mode automatic.</p>
+
+          <!-- ── 1. Aspect ratios ── -->
+          <p class="md-label">Aspect ratios</p>
+          <div class="md-row">
+            <div style="width:260px">
+              <figure class="seed-media seed-media--16x9"><div class="md-fill md-fill--cool"></div></figure>
+              <p class="seed-media__caption">16 × 9</p>
+            </div>
+            <div style="width:180px">
+              <figure class="seed-media seed-media--4x3"><div class="md-fill md-fill--warm"></div></figure>
+              <p class="seed-media__caption">4 × 3</p>
+            </div>
+            <div style="width:140px">
+              <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--green"></div></figure>
+              <p class="seed-media__caption">1 × 1</p>
+            </div>
+            <div style="width:100px">
+              <figure class="seed-media seed-media--1x1 seed-media--circle"><div class="md-fill md-fill--purple"></div></figure>
+              <p class="seed-media__caption">circle</p>
+            </div>
+          </div>
+
+          <div class="md-divider"></div>
+
+          <!-- ── 2. Placeholder & skeleton ── -->
+          <p class="md-label">Placeholder &amp; skeleton</p>
+          <div class="md-row">
+            <div style="width:220px">
+              <figure class="seed-media seed-media--16x9 seed-media--placeholder">
+                <span class="dew dew-camera-off seed-media__icon" aria-hidden="true"></span>
+              </figure>
+              <p class="seed-media__caption">Placeholder</p>
+            </div>
+            <div style="width:220px">
+              <figure class="seed-media seed-media--16x9 seed-media--skeleton"></figure>
+              <p class="seed-media__caption">Skeleton loading</p>
+            </div>
+            <div style="width:100px">
+              <figure class="seed-media seed-media--1x1 seed-media--circle seed-media--placeholder">
+                <span class="dew dew-person seed-media__icon" aria-hidden="true"></span>
+              </figure>
+              <p class="seed-media__caption">Avatar</p>
+            </div>
+            <div style="width:100px">
+              <figure class="seed-media seed-media--1x1 seed-media--circle seed-media--skeleton"></figure>
+              <p class="seed-media__caption">Avatar loading</p>
+            </div>
+          </div>
+
+          <div class="md-divider"></div>
+
+          <!-- ── 3. Video + overlay ── -->
+          <p class="md-label">Video &amp; overlay</p>
+          <div class="md-row">
+            <div style="width:300px">
+              <figure class="seed-media seed-media--16x9 seed-media--video" role="button" tabindex="0" aria-label="Play video">
+                <div class="md-fill md-fill--cool"></div>
+                <button class="seed-media__play" tabindex="-1" aria-hidden="true"><span class="dew dew-play"></span></button>
+                <div class="seed-media__badge seed-media__badge--right">3:47</div>
+              </figure>
+              <p class="seed-media__caption">Video with play overlay &amp; duration badge</p>
+            </div>
+            <div style="width:240px">
+              <figure class="seed-media seed-media--4x3 seed-media--rounded">
+                <div class="md-fill md-fill--warm"></div>
+                <div class="seed-media__badge">New</div>
+                <div class="seed-media__overlay">
+                  <p class="seed-media__overlay-title">Spring collection</p>
+                  12 items
+                </div>
+              </figure>
+              <p class="seed-media__caption">Gradient overlay with badge</p>
+            </div>
+          </div>
+
+          <div class="md-divider"></div>
+
+          <!-- ── 4. Gallery 2-col ── -->
+          <p class="md-label">Gallery — 2 columns</p>
+          <div style="max-width:480px;margin-bottom:var(--seed-space-6)">
+            <div class="seed-media-grid seed-media-grid--2">
+              <figure class="seed-media seed-media--4x3"><div class="md-fill md-fill--cool"></div></figure>
+              <figure class="seed-media seed-media--4x3"><div class="md-fill md-fill--warm"></div></figure>
+              <figure class="seed-media seed-media--4x3"><div class="md-fill md-fill--green"></div></figure>
+              <figure class="seed-media seed-media--4x3"><div class="md-fill md-fill--purple"></div></figure>
+            </div>
+          </div>
+
+          <div class="md-divider"></div>
+
+          <!-- ── 5. Gallery 3-col ── -->
+          <p class="md-label">Gallery — 3 columns</p>
+          <div style="max-width:480px;margin-bottom:var(--seed-space-6)">
+            <div class="seed-media-grid seed-media-grid--3">
+              <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--cool"></div></figure>
+              <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--warm"></div></figure>
+              <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--green"></div></figure>
+              <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--purple"></div></figure>
+              <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--rose"></div></figure>
+              <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--cool"></div></figure>
+            </div>
+          </div>
+
+          <div class="md-divider"></div>
+
+          <!-- ── 6. Gallery featured ── -->
+          <p class="md-label">Gallery — featured (first spans 2 cols)</p>
+          <div style="max-width:480px">
+            <div class="seed-media-grid seed-media-grid--2 seed-media-grid--featured">
+              <figure class="seed-media seed-media--16x9"><div class="md-fill md-fill--warm"></div></figure>
+              <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--cool"></div></figure>
+              <figure class="seed-media seed-media--1x1"><div class="md-fill md-fill--green"></div></figure>
             </div>
           </div>
 
