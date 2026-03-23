@@ -392,9 +392,9 @@
 :root {
 
     /* Typography */
-    --seed-font-brand:        'Inter', sans-serif;
+    --seed-font-brand:        'Montserrat', sans-serif;
     --seed-font-serif:        'Lora', serif;
-    --seed-font-ui:           'Inter', sans-serif;
+    --seed-font-ui:           'Montserrat', sans-serif;
 
     --seed-text-xs:           12px;
     --seed-text-sm:           14px;
