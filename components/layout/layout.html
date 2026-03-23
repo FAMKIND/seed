@@ -75,6 +75,17 @@
         'blue-tint':  ['#F0F4F8','#E0E8F0','#CCD9E8','#AABDD0','#8AA0B8','#6A8098','#4A6070','#2D4055','#1A2838','#0E1620','#182030'],
         'pure-white': ['#FFFFFF','#F0F0F0','#E0E0E0','#CCCCCC','#AAAAAA','#888888','#555555','#333333','#1A1A1A','#0D0D0D','#1A1A1A']
       };
+      /* Canvas ramp: near-whites have misleadingly high HSL saturation (~28%).
+         Attenuate heavily so dark stops stay warm-gray, never golden. */
+      function makeCanvasRamp(hex) {
+        var hsl=hexToHsl(hex),h=hsl[0],l=hsl[2],s=Math.min(hsl[1]*0.3,8);
+        return [hex.toUpperCase(),
+          hslToHex(h,s*0.8,clamp(l-3, 88,96)),hslToHex(h,s*0.9,clamp(l-8, 78,92)),
+          hslToHex(h,s*1.0,clamp(l-17,65,87)),hslToHex(h,s*1.1,clamp(l-27,52,80)),
+          hslToHex(h,s*1.2,clamp(l-40,38,68)),hslToHex(h,s*1.3,clamp(l-52,24,55)),
+          hslToHex(h,s*1.3,clamp(l-62,14,43)),hslToHex(h,s*1.2,clamp(l-68, 7,30)),
+          hslToHex(h,s*1.1,clamp(l-73, 3,18)),hslToHex(h,s*1.1,clamp(l-70, 5,22))];
+      }
       function applyK(keys,ramp){keys.forEach(function(k,i){root.style.setProperty(k,ramp[i]);});}
       var p=localStorage.getItem('seed-color-primary'), s2=localStorage.getItem('seed-color-secondary'),
           a=localStorage.getItem('seed-color-accent'),  c=localStorage.getItem('seed-color-canvas');
@@ -82,6 +93,7 @@
       if(s2) applyK(MEADOW_K,makeRamp(s2));
       if(a)  applyK(YELLOW_K,makeRamp(a));
       if(c && CANVAS_P[c]) applyK(SOIL_K,CANVAS_P[c]);
+      else if(c && /^#[0-9A-Fa-f]{6}$/.test(c)) applyK(SOIL_K,makeCanvasRamp(c));
     })();
   </script>
   <style>
@@ -2062,18 +2074,6 @@
               outline:       none;
               letter-spacing: 0.03em;
             }
-            .pal-sw-canvas-select {
-              appearance:    none;
-              background:    transparent;
-              border:        none;
-              padding:       0;
-              font-size:     var(--seed-text-xs);
-              font-family:   var(--seed-font-ui);
-              font-weight:   var(--seed-weight-medium);
-              color:         var(--soil-text);
-              outline:       none;
-              cursor:        pointer;
-            }
             .pal-sw-reset {
               font-size:       var(--seed-text-xs);
               color:           var(--soil-text-muted);
@@ -2341,14 +2341,29 @@
               <input type="text" class="pal-sw-hex" id="sw-accent-hex" maxlength="7" value="#FCEE23">
               <span class="pal-sw-label">Accent</span>
             </div>
+            <!-- Canvas -->
             <div class="pal-sw-slot">
-              <select class="pal-sw-canvas-select" id="sw-canvas-select">
-                <option value="warm">Warm</option>
-                <option value="cool-gray">Cool Gray</option>
-                <option value="warm-cream">Warm Cream</option>
-                <option value="blue-tint">Blue Tint</option>
-                <option value="pure-white">Pure White</option>
-              </select>
+              <div class="pal-pick-wrap">
+                <button class="pal-pick-btn" id="pp-canvas-btn" style="background:#F9F8F4" aria-expanded="false" aria-haspopup="true" aria-label="Pick canvas color"></button>
+                <div class="pal-pick-drop" id="pp-canvas-drop" hidden>
+                  <div class="pal-pick-sb" id="pp-canvas-sb">
+                    <div class="pal-pick-sb-bg" id="pp-canvas-sb-bg"></div>
+                    <div class="pal-pick-sb-white"></div>
+                    <div class="pal-pick-sb-black"></div>
+                    <div class="pal-pick-cursor" id="pp-canvas-cursor"></div>
+                  </div>
+                  <input type="range" class="pal-pick-hue" id="pp-canvas-hue" min="0" max="360" value="40">
+                  <input type="text" class="pal-pick-hex-in" id="pp-canvas-pick-hex" value="#F9F8F4" maxlength="7">
+                  <div class="pal-pick-presets">
+                    <button class="pal-pick-preset" data-val="#F9F8F4"><span class="pal-pick-preset-dot" style="background:#F9F8F4;border:1px solid #D8D3C8"></span>Warm <span style="opacity:.5">#F9F8F4</span></button>
+                    <button class="pal-pick-preset" data-val="#F8F8F8"><span class="pal-pick-preset-dot" style="background:#F8F8F8;border:1px solid #DEDEDE"></span>Cool Gray <span style="opacity:.5">#F8F8F8</span></button>
+                    <button class="pal-pick-preset" data-val="#FDF8F0"><span class="pal-pick-preset-dot" style="background:#FDF8F0;border:1px solid #DDD6C8"></span>Warm Cream <span style="opacity:.5">#FDF8F0</span></button>
+                    <button class="pal-pick-preset" data-val="#F0F4F8"><span class="pal-pick-preset-dot" style="background:#F0F4F8;border:1px solid #CCD9E8"></span>Blue Tint <span style="opacity:.5">#F0F4F8</span></button>
+                    <button class="pal-pick-preset" data-val="#FFFFFF"><span class="pal-pick-preset-dot" style="background:#FFFFFF;border:1px solid #E0E0E0"></span>Pure White <span style="opacity:.5">#FFFFFF</span></button>
+                  </div>
+                </div>
+              </div>
+              <input type="text" class="pal-sw-hex" id="sw-canvas-hex" maxlength="7" value="#F9F8F4">
               <span class="pal-sw-label">Canvas</span>
             </div>
             <button class="pal-sw-reset" id="sw-reset">Reset</button>
@@ -2604,6 +2619,26 @@
                 hslToHex(h, s,                    clamp(l-18,5,70))
               ];
             }
+            /* generate 11-stop soil ramp from a base (lightest) hex.
+               Near-whites have misleadingly high HSL saturation (~28% for #F9F8F4)
+               because the tiny RGB delta is a large *proportion* of the range.
+               Attenuate heavily (×0.3, cap 8%) so dark stops stay warm-gray. */
+            function makeCanvasRamp(hex) {
+              var hsl=hexToHsl(hex), h=hsl[0], l=hsl[2], s=Math.min(hsl[1]*0.3,8);
+              return [
+                hex.toUpperCase(),
+                hslToHex(h, s*0.8, clamp(l-3,  88, 96)),
+                hslToHex(h, s*0.9, clamp(l-8,  78, 92)),
+                hslToHex(h, s*1.0, clamp(l-17, 65, 87)),
+                hslToHex(h, s*1.1, clamp(l-27, 52, 80)),
+                hslToHex(h, s*1.2, clamp(l-40, 38, 68)),
+                hslToHex(h, s*1.3, clamp(l-52, 24, 55)),
+                hslToHex(h, s*1.3, clamp(l-62, 14, 43)),
+                hslToHex(h, s*1.2, clamp(l-68,  7, 30)),
+                hslToHex(h, s*1.1, clamp(l-73,  3, 18)),
+                hslToHex(h, s*1.1, clamp(l-70,  5, 22))
+              ];
+            }
             /* ── token / element maps ─────────────────────────── */
             var LIME_K   = ['--seed-lime-100','--seed-lime-300','--seed-lime-500','--seed-lime-600','--seed-lime-700'];
             var MEADOW_K = ['--seed-meadow-100','--seed-meadow-300','--seed-meadow-500','--seed-meadow-600','--seed-meadow-700'];
@@ -2642,11 +2677,18 @@
             function applyPrimary(hex)   { applyRamp(LIME_K,   HEX_IDS.primary,   BLOCK_IDS.primary,   makeRamp(hex)); localStorage.setItem('seed-color-primary',   hex); }
             function applySecondary(hex) { applyRamp(MEADOW_K, HEX_IDS.secondary, BLOCK_IDS.secondary, makeRamp(hex)); localStorage.setItem('seed-color-secondary', hex); }
             function applyAccent(hex)    { applyRamp(YELLOW_K, HEX_IDS.accent,    BLOCK_IDS.accent,    makeRamp(hex)); localStorage.setItem('seed-color-accent',    hex); }
-            function applyCanvas(key) {
-              if(!CANVAS_P[key]) return;
-              SOIL_K.forEach(function(k,i){ root.style.setProperty(k, CANVAS_P[key][i]); });
-              localStorage.setItem('seed-color-canvas', key);
-              var sel=document.getElementById('sw-canvas-select'); if(sel) sel.value=key;
+            function applyCanvas(keyOrHex) {
+              var ramp;
+              if(CANVAS_P[keyOrHex]) {
+                ramp=CANVAS_P[keyOrHex];
+              } else if(/^#[0-9A-Fa-f]{6}$/.test(keyOrHex)) {
+                ramp=makeCanvasRamp(keyOrHex);
+              } else return;
+              SOIL_K.forEach(function(k,i){ root.style.setProperty(k, ramp[i]); });
+              localStorage.setItem('seed-color-canvas', keyOrHex);
+              var base=ramp[0];
+              var btn=document.getElementById('pp-canvas-btn'); if(btn) btn.style.background=base;
+              var hexEl=document.getElementById('sw-canvas-hex'); if(hexEl) hexEl.value=base;
             }
 
             /* ── HSV ↔ HEX helpers ────────────────────────────── */
@@ -2723,15 +2765,13 @@
             var pPicker=initPicker('primary',   applyPrimary);
             var sPicker=initPicker('secondary', applySecondary);
             var aPicker=initPicker('accent',    applyAccent);
-
-            document.getElementById('sw-canvas-select').addEventListener('change', function() {
-              applyCanvas(this.value);
-            });
+            var cPicker=initPicker('canvas',    applyCanvas);
 
             document.getElementById('sw-reset').addEventListener('click', function(e){
               e.preventDefault();
               ['seed-color-primary','seed-color-secondary','seed-color-accent','seed-color-canvas'].forEach(function(k){ localStorage.removeItem(k); });
-              pPicker.setHex(DEFAULT_P); sPicker.setHex(DEFAULT_S); aPicker.setHex(DEFAULT_A); applyCanvas(DEFAULT_C);
+              pPicker.setHex(DEFAULT_P); sPicker.setHex(DEFAULT_S); aPicker.setHex(DEFAULT_A);
+              cPicker.setHex(CANVAS_P[DEFAULT_C][0]);
             });
 
             /* ── restore from localStorage ────────────────────── */
@@ -2739,7 +2779,9 @@
             var sS=localStorage.getItem('seed-color-secondary')||DEFAULT_S;
             var sA=localStorage.getItem('seed-color-accent')   ||DEFAULT_A;
             var sC=localStorage.getItem('seed-color-canvas')   ||DEFAULT_C;
-            pPicker.setHex(sP); sPicker.setHex(sS); aPicker.setHex(sA); applyCanvas(sC);
+            pPicker.setHex(sP); sPicker.setHex(sS); aPicker.setHex(sA);
+            /* sC may be a preset key ('warm') or a hex — normalise to hex */
+            cPicker.setHex(CANVAS_P[sC] ? CANVAS_P[sC][0] : ((/^#[0-9A-Fa-f]{6}$/.test(sC)) ? sC : CANVAS_P[DEFAULT_C][0]));
           })();
           </script>
 
