@@ -1991,6 +1991,7 @@
                 <option value="Source Sans 3">Source Sans 3</option>
                 <option value="Work Sans">Work Sans</option>
                 <option value="Fira Sans">Fira Sans</option>
+                <option value="Mozilla Text">Mozilla Text</option>
               </select>
             </div>
             <div class="type-switcher-group">
@@ -2004,6 +2005,7 @@
                 <option value="Fraunces">Fraunces</option>
                 <option value="Source Serif 4">Source Serif 4</option>
                 <option value="Fira Sans">Fira Sans</option>
+                <option value="Mozilla Headline">Mozilla Headline</option>
               </select>
             </div>
             <button class="type-switcher-reset" id="font-reset">Reset to defaults</button>
@@ -2037,23 +2039,12 @@
                 'Fraunces':           { gf: 'Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400' },
                 'Source Serif 4':     { gf: 'Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
 
-                // Mozilla Protocol open source fonts
-                // Fira Sans — humanist sans-serif, Mozilla's primary UI font.
-                // Google Fonts: https://fonts.google.com/specimen/Fira+Sans
+                // Mozilla open source fonts — all available on Google Fonts
                 'Fira Sans':          { gf: 'Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600' },
-
-                // NOT YET IN DROPDOWN — requires self-hosting or CDN:
-                //
-                // Metropolis — Mozilla Protocol's geometric sans-serif headline font
-                //   by Chris Simpson. Open source, NOT on Google Fonts.
-                //   CDN: https://cdn.jsdelivr.net/npm/metropolis-font@latest/css/metropolis.min.css
-                //   To enable: add to FONT_LOADERS with { cdn: '<url>' }, add <option> to selects,
-                //   and handle the 'cdn' key in loadFont() below.
-                //
-                // Mozilla Headline / Mozilla Text — custom uniwidth typefaces from Mozilla's 2024
-                //   rebrand. Open source, not on Google Fonts, downloaded from Mozilla directly.
-                //   https://mozilla.design/firefox/typography/
-                //   To enable: self-host the woff2 files and add @font-face declarations to tokens.css.
+                'Mozilla Text':       { gf: 'Mozilla+Text:wght@400;500;600' },
+                'Mozilla Headline':   { gf: 'Mozilla+Headline:wght@400;500;600' },
+                // Fira Code — monospace, not wired to a dropdown slot yet
+                // 'Fira Code':       { gf: 'Fira+Code:wght@400;500;600' },
               };
 
               function loadFont(family) {
