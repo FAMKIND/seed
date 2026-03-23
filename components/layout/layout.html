@@ -1990,6 +1990,9 @@
                 <option value="Nunito Sans">Nunito Sans</option>
                 <option value="Source Sans 3">Source Sans 3</option>
                 <option value="Work Sans">Work Sans</option>
+                <optgroup label="Mozilla Protocol">
+                  <option value="Fira Sans">Fira Sans</option>
+                </optgroup>
               </select>
             </div>
             <div class="type-switcher-group">
@@ -2002,6 +2005,9 @@
                 <option value="DM Serif Display">DM Serif Display</option>
                 <option value="Fraunces">Fraunces</option>
                 <option value="Source Serif 4">Source Serif 4</option>
+                <optgroup label="Mozilla Protocol">
+                  <option value="Fira Sans">Fira Sans (heavy display)</option>
+                </optgroup>
               </select>
             </div>
             <button class="type-switcher-reset" id="font-reset">Reset to defaults</button>
@@ -2016,19 +2022,55 @@
               var serifSel = document.getElementById('font-serif-select');
               var resetBtn = document.getElementById('font-reset');
 
-              // Google Fonts URL builder — each family gets 400;500;600 regular + italic
-              function gfUrl(family) {
-                var enc = encodeURIComponent(family);
-                return 'https://fonts.googleapis.com/css2?family=' + enc + ':ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap';
-              }
+              // Per-family loader config.
+              // Fonts not on Google Fonts require self-hosting or a CDN — see comments below.
+              var FONT_LOADERS = {
+                // Standard Google Fonts — loaded dynamically via GF API
+                'Montserrat':         { gf: 'Montserrat:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
+                'Inter':              { gf: 'Inter:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
+                'DM Sans':            { gf: 'DM+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
+                'Plus Jakarta Sans':  { gf: 'Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
+                'Nunito Sans':        { gf: 'Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
+                'Source Sans 3':      { gf: 'Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
+                'Work Sans':          { gf: 'Work+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
+                'Lora':               { gf: 'Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
+                'Playfair Display':   { gf: 'Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
+                'Libre Baskerville':  { gf: 'Libre+Baskerville:ital,wght@0,400;1,400' },
+                'Merriweather':       { gf: 'Merriweather:ital,wght@0,400;0,700;1,400;1,700' },
+                'DM Serif Display':   { gf: 'DM+Serif+Display:ital,wght@0,400;1,400' },
+                'Fraunces':           { gf: 'Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400' },
+                'Source Serif 4':     { gf: 'Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600' },
+
+                // Mozilla Protocol open source fonts
+                // Fira Sans — humanist sans-serif, Mozilla's primary UI font.
+                // Google Fonts: https://fonts.google.com/specimen/Fira+Sans
+                'Fira Sans':          { gf: 'Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600' },
+
+                // NOT YET IN DROPDOWN — requires self-hosting or CDN:
+                //
+                // Metropolis — Mozilla Protocol's geometric sans-serif headline font
+                //   by Chris Simpson. Open source, NOT on Google Fonts.
+                //   CDN: https://cdn.jsdelivr.net/npm/metropolis-font@latest/css/metropolis.min.css
+                //   To enable: add to FONT_LOADERS with { cdn: '<url>' }, add <option> to selects,
+                //   and handle the 'cdn' key in loadFont() below.
+                //
+                // Mozilla Headline / Mozilla Text — custom uniwidth typefaces from Mozilla's 2024
+                //   rebrand. Open source, not on Google Fonts, downloaded from Mozilla directly.
+                //   https://mozilla.design/firefox/typography/
+                //   To enable: self-host the woff2 files and add @font-face declarations to tokens.css.
+              };
 
               function loadFont(family) {
-                var id = 'gf-' + family.replace(/\s+/g, '-').toLowerCase();
+                var id   = 'gf-' + family.replace(/\s+/g, '-').toLowerCase();
                 if (document.getElementById(id)) return;
+                var cfg  = FONT_LOADERS[family];
+                var href = cfg && cfg.gf
+                  ? 'https://fonts.googleapis.com/css2?family=' + cfg.gf + '&display=swap'
+                  : 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(family) + ':ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap';
                 var link = document.createElement('link');
                 link.id   = id;
                 link.rel  = 'stylesheet';
-                link.href = gfUrl(family);
+                link.href = href;
                 document.head.appendChild(link);
               }
 
