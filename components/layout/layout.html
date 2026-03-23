@@ -28,6 +28,20 @@
   <link rel="stylesheet" href="../../components/nav/nav.css">
   <link rel="stylesheet" href="layout.css">
   <link rel="stylesheet" href="../../icons/dew/dist/dew.css">
+  <script>
+    /* Apply saved font tokens before first paint to avoid FOUT */
+    (function () {
+      var ui    = localStorage.getItem('seed-font-ui');
+      var serif = localStorage.getItem('seed-font-serif');
+      var root  = document.documentElement;
+      if (ui)    { root.style.setProperty('--seed-font-ui',    "'" + ui    + "', sans-serif");
+                   root.style.setProperty('--seed-font-brand', "'" + ui    + "', sans-serif"); }
+      if (serif) { root.style.setProperty('--seed-font-serif', "'" + serif + "', serif"); }
+      function gfUrl(f) { return 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(f) + ':ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap'; }
+      if (ui    && ui    !== 'Montserrat') { var l1 = document.createElement('link'); l1.rel='stylesheet'; l1.href=gfUrl(ui);    document.head.appendChild(l1); }
+      if (serif && serif !== 'Lora')       { var l2 = document.createElement('link'); l2.rel='stylesheet'; l2.href=gfUrl(serif); document.head.appendChild(l2); }
+    })();
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1604,12 +1618,173 @@
               flex-wrap:   wrap;
               align-items: center;
             }
+            /* ── font switcher ── */
+            .type-switcher {
+              display:       flex;
+              align-items:   center;
+              gap:           var(--seed-space-4);
+              flex-wrap:     wrap;
+              padding:       var(--seed-space-4) var(--seed-space-5);
+              background:    var(--calm-bg-subtle-default);
+              border:        1px solid var(--soil-border-subtle);
+              border-radius: var(--seed-radius-md);
+              margin-bottom: var(--seed-space-8);
+            }
+            .type-switcher-group {
+              display:     flex;
+              align-items: center;
+              gap:         var(--seed-space-2);
+            }
+            .type-switcher-label {
+              font-size:   var(--seed-text-xs);
+              font-weight: var(--seed-weight-medium);
+              color:       var(--soil-text-muted);
+              white-space: nowrap;
+            }
+            .type-switcher select {
+              appearance:    none;
+              background:    var(--soil-bg-elevated);
+              border:        1px solid var(--soil-border);
+              border-radius: var(--seed-radius-md);
+              padding:       5px var(--seed-space-6) 5px var(--seed-space-3);
+              font-size:     var(--seed-text-sm);
+              font-family:   var(--seed-font-ui);
+              font-weight:   var(--seed-weight-medium);
+              color:         var(--soil-text);
+              cursor:        pointer;
+              outline:       none;
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A09890' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+              background-repeat:   no-repeat;
+              background-position: right 10px center;
+              transition:    border-color 80ms ease;
+            }
+            .type-switcher select:hover  { border-color: var(--soil-border); }
+            .type-switcher select:focus  { border-color: var(--selected-bg-bold-default); box-shadow: 0 0 0 3px rgba(9,169,80,.18); }
+            .type-switcher-reset {
+              font-size:       var(--seed-text-xs);
+              color:           var(--soil-text-muted);
+              text-decoration: underline;
+              cursor:          pointer;
+              background:      none;
+              border:          none;
+              padding:         0;
+              margin-left:     auto;
+              font-family:     var(--seed-font-ui);
+            }
+            .type-switcher-reset:hover { color: var(--soil-text); }
           </style>
 
-          <!-- ══ PRIMARY — MONTSERRAT ═════════════════════ -->
+          <!-- ══ FONT PAIRING SWITCHER ════════════════════ -->
+          <div class="type-switcher">
+            <div class="type-switcher-group">
+              <span class="type-switcher-label">Primary (UI)</span>
+              <select id="font-ui-select">
+                <option value="Montserrat">Montserrat</option>
+                <option value="Inter">Inter</option>
+                <option value="DM Sans">DM Sans</option>
+                <option value="Plus Jakarta Sans">Plus Jakarta Sans</option>
+                <option value="Nunito Sans">Nunito Sans</option>
+                <option value="Source Sans 3">Source Sans 3</option>
+                <option value="Work Sans">Work Sans</option>
+              </select>
+            </div>
+            <div class="type-switcher-group">
+              <span class="type-switcher-label">Secondary (Serif)</span>
+              <select id="font-serif-select">
+                <option value="Lora">Lora</option>
+                <option value="Playfair Display">Playfair Display</option>
+                <option value="Libre Baskerville">Libre Baskerville</option>
+                <option value="Merriweather">Merriweather</option>
+                <option value="DM Serif Display">DM Serif Display</option>
+                <option value="Fraunces">Fraunces</option>
+                <option value="Source Serif 4">Source Serif 4</option>
+              </select>
+            </div>
+            <button class="type-switcher-reset" id="font-reset">Reset to defaults</button>
+          </div>
+
+          <script>
+            (function () {
+              var DEFAULT_UI    = 'Montserrat';
+              var DEFAULT_SERIF = 'Lora';
+
+              var uiSel    = document.getElementById('font-ui-select');
+              var serifSel = document.getElementById('font-serif-select');
+              var resetBtn = document.getElementById('font-reset');
+
+              // Google Fonts URL builder — each family gets 400;500;600 regular + italic
+              function gfUrl(family) {
+                var enc = encodeURIComponent(family);
+                return 'https://fonts.googleapis.com/css2?family=' + enc + ':ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap';
+              }
+
+              function loadFont(family) {
+                var id = 'gf-' + family.replace(/\s+/g, '-').toLowerCase();
+                if (document.getElementById(id)) return;
+                var link = document.createElement('link');
+                link.id   = id;
+                link.rel  = 'stylesheet';
+                link.href = gfUrl(family);
+                document.head.appendChild(link);
+              }
+
+              function updatePairingLabel() {
+                var lbl = document.getElementById('type-pairing-label');
+                if (!lbl) return;
+                lbl.textContent = 'Pairing — ' + (serifSel ? serifSel.value : DEFAULT_SERIF) + ' heading + ' + (uiSel ? uiSel.value : DEFAULT_UI) + ' body';
+              }
+
+              function applyUI(family) {
+                loadFont(family);
+                document.documentElement.style.setProperty('--seed-font-ui',    "'" + family + "', sans-serif");
+                document.documentElement.style.setProperty('--seed-font-brand', "'" + family + "', sans-serif");
+                var heading = document.getElementById('type-ui-heading');
+                if (heading) heading.textContent = family;
+                updatePairingLabel();
+              }
+
+              function applySerif(family) {
+                loadFont(family);
+                document.documentElement.style.setProperty('--seed-font-serif', "'" + family + "', serif");
+                var heading = document.getElementById('type-serif-heading');
+                if (heading) heading.textContent = family;
+                updatePairingLabel();
+              }
+
+              function applyAll(ui, serif) {
+                applyUI(ui);
+                applySerif(serif);
+                uiSel.value    = ui;
+                serifSel.value = serif;
+              }
+
+              // Restore from localStorage before first paint
+              var savedUI    = localStorage.getItem('seed-font-ui')    || DEFAULT_UI;
+              var savedSerif = localStorage.getItem('seed-font-serif') || DEFAULT_SERIF;
+              applyAll(savedUI, savedSerif);
+
+              uiSel.addEventListener('change', function () {
+                localStorage.setItem('seed-font-ui', uiSel.value);
+                applyUI(uiSel.value);
+              });
+
+              serifSel.addEventListener('change', function () {
+                localStorage.setItem('seed-font-serif', serifSel.value);
+                applySerif(serifSel.value);
+              });
+
+              resetBtn.addEventListener('click', function () {
+                localStorage.removeItem('seed-font-ui');
+                localStorage.removeItem('seed-font-serif');
+                applyAll(DEFAULT_UI, DEFAULT_SERIF);
+              });
+            })();
+          </script>
+
+          <!-- ══ PRIMARY — UI FONT ════════════════════════ -->
           <div class="type-section">
-            <p class="type-font-heading" style="font-family:var(--seed-font-ui)">Montserrat</p>
-            <p class="type-font-meta">--seed-font-ui · UI, body copy, labels, captions</p>
+            <p class="type-font-heading" id="type-ui-heading" style="font-family:var(--seed-font-ui)">Montserrat</p>
+            <p class="type-font-meta" id="type-ui-meta">--seed-font-ui · UI, body copy, labels, captions</p>
 
             <!-- Size scale -->
             <p class="type-label">Size scale</p>
@@ -1680,9 +1855,9 @@
 
           <div class="type-divider"></div>
 
-          <!-- ══ SECONDARY — LORA ════════════════════════ -->
+          <!-- ══ SECONDARY — SERIF FONT ══════════════════ -->
           <div class="type-section">
-            <p class="type-font-heading" style="font-family:var(--seed-font-serif)">Lora</p>
+            <p class="type-font-heading" id="type-serif-heading" style="font-family:var(--seed-font-serif)">Lora</p>
             <p class="type-font-meta">--seed-font-serif · Headings, editorial, display</p>
 
             <!-- Size scale -->
@@ -1717,7 +1892,7 @@
             </div>
 
             <!-- Pairing intro -->
-            <p class="type-label" style="margin-top:var(--seed-space-8)">Pairing — Lora heading + Montserrat body</p>
+            <p class="type-label" id="type-pairing-label" style="margin-top:var(--seed-space-8)">Pairing — Lora heading + Montserrat body</p>
             <div style="max-width:520px;padding:var(--seed-space-6);background:var(--soil-bg-surface);border:1px solid var(--soil-border-subtle);border-radius:var(--seed-radius-lg);">
               <p style="font-family:var(--seed-font-serif);font-size:var(--seed-text-xl);font-weight:var(--seed-weight-semibold);color:var(--soil-text);line-height:var(--seed-leading-tight);margin-bottom:var(--seed-space-3)">Designed for clarity, built for scale</p>
               <p style="font-family:var(--seed-font-ui);font-size:var(--seed-text-sm);color:var(--soil-text-muted);line-height:var(--seed-leading-normal)">Lora brings editorial warmth to headings while Montserrat handles the UI work — labels, captions, form copy. The contrast is deliberate: serif for meaning, geometric sans for navigation.</p>
