@@ -13,10 +13,13 @@
 .seed-breadcrumbs {
     display:     flex;
     align-items: center;
-    gap:         var(--seed-space-1);
+    gap:         var(--seed-space-2);
     font-family: var(--seed-font-ui);
     font-size:   var(--seed-text-sm);
     flex-wrap:   wrap;
+    list-style:  none;
+    padding:     0;
+    margin:      0;
 }
 
 .seed-breadcrumb {
