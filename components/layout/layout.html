@@ -42,6 +42,42 @@
       if (serif && serif !== 'Lora')       { var l2 = document.createElement('link'); l2.rel='stylesheet'; l2.href=gfUrl(serif); document.head.appendChild(l2); }
     })();
   </script>
+  <script>
+    /* Apply saved color tokens before first paint */
+    (function () {
+      function hexToHsl(hex) {
+        var r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+        var max=Math.max(r,g,b), min=Math.min(r,g,b), h, s, l=(max+min)/2;
+        if (max===min) { h=s=0; } else {
+          var d=max-min; s=l>0.5?d/(2-max-min):d/(max+min);
+          switch(max){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;case b:h=((r-g)/d+4)/6;break;}
+        }
+        return [h*360,s*100,l*100];
+      }
+      function hslToHex(h,s,l) {
+        s/=100;l/=100;var a=s*Math.min(l,1-l),f=function(n){var k=(n+h/30)%12;return l-a*Math.max(Math.min(k-3,9-k,1),-1);};
+        return '#'+[f(0),f(8),f(4)].map(function(x){return Math.round(x*255).toString(16).padStart(2,'0');}).join('').toUpperCase();
+      }
+      function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+      function makeRamp(hex) {
+        var hsl=hexToHsl(hex),h=hsl[0],s=hsl[1],l=hsl[2];
+        return [hslToHex(h,clamp(s*0.25,8,40),clamp(l+58,90,97)),hslToHex(h,clamp(s*0.65,20,80),clamp(l+32,70,88)),hex.toUpperCase(),hslToHex(h,clamp(s+3,10,95),clamp(l-9,5,80)),hslToHex(h,s,clamp(l-18,5,70))];
+      }
+      var root=document.documentElement;
+      var LIME_K  =['--seed-lime-100','--seed-lime-300','--seed-lime-500','--seed-lime-600','--seed-lime-700'];
+      var MEADOW_K=['--seed-meadow-100','--seed-meadow-300','--seed-meadow-500','--seed-meadow-600','--seed-meadow-700'];
+      var YELLOW_K=['--seed-yellow-100','--seed-yellow-300','--seed-yellow-500','--seed-yellow-600','--seed-yellow-700'];
+      var SOIL_K  =['--seed-soil-0','--seed-soil-100','--seed-soil-200','--seed-soil-300','--seed-soil-400','--seed-soil-500','--seed-soil-600','--seed-soil-700','--seed-soil-800','--seed-soil-900','--seed-soil-950'];
+      var COOL    =['#F6F8FA','#E2E8F0','#CBD5E1','#94A3B8','#7B91A8','#617590','#475569','#334155','#1E293B','#0F172A','#1A2234'];
+      function applyK(keys,ramp){keys.forEach(function(k,i){root.style.setProperty(k,ramp[i]);});}
+      var p=localStorage.getItem('seed-color-primary'), s2=localStorage.getItem('seed-color-secondary'),
+          a=localStorage.getItem('seed-color-accent'),  c=localStorage.getItem('seed-color-canvas');
+      if(p)  applyK(LIME_K,  makeRamp(p));
+      if(s2) applyK(MEADOW_K,makeRamp(s2));
+      if(a)  applyK(YELLOW_K,makeRamp(a));
+      if(c==='cool') applyK(SOIL_K,COOL);
+    })();
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1405,7 +1441,163 @@
               margin-top: var(--seed-space-4);
               opacity:    0.7;
             }
+            /* ── switcher ─────────────────────────── */
+            .pal-switcher {
+              background:    var(--soil-bg-surface);
+              border:        1px solid var(--soil-border-subtle);
+              border-radius: var(--seed-radius-lg);
+              padding:       var(--seed-space-5);
+              margin-bottom: var(--seed-space-6);
+            }
+            .pal-sw-grid {
+              display:               grid;
+              grid-template-columns: 1fr 1fr 1fr;
+              gap:                   var(--seed-space-5);
+              margin-bottom:         var(--seed-space-4);
+            }
+            .pal-sw-label {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              color:          var(--soil-text-muted);
+              text-transform: uppercase;
+              letter-spacing: 0.07em;
+              margin-bottom:  var(--seed-space-2);
+            }
+            .pal-sw-input-row {
+              display:       flex;
+              align-items:   center;
+              gap:           var(--seed-space-2);
+              margin-bottom: var(--seed-space-3);
+            }
+            .pal-sw-hex {
+              font-family:   monospace;
+              font-size:     var(--seed-text-xs);
+              color:         var(--soil-text);
+              background:    var(--soil-bg-canvas);
+              border:        1px solid var(--soil-border);
+              border-radius: var(--seed-radius-sm);
+              padding:       var(--seed-space-1) var(--seed-space-2);
+              width:         82px;
+              outline:       none;
+            }
+            .pal-sw-hex:focus { border-color: var(--selected-border-bold-default); }
+            .pal-sw-picker {
+              width:         26px;
+              height:        26px;
+              border:        none;
+              border-radius: var(--seed-radius-sm);
+              padding:       0;
+              cursor:        pointer;
+              background:    transparent;
+              flex-shrink:   0;
+            }
+            .pal-sw-presets {
+              display:   flex;
+              flex-wrap: wrap;
+              gap:       6px;
+            }
+            .pal-sw-preset {
+              width:         22px;
+              height:        22px;
+              border-radius: 50%;
+              border:        2px solid transparent;
+              cursor:        pointer;
+              padding:       0;
+              transition:    border-color 120ms, transform 120ms;
+              outline:       none;
+            }
+            .pal-sw-preset:hover  { transform: scale(1.18); }
+            .pal-sw-preset--active { border-color: var(--soil-text); }
+            .pal-sw-canvas-row {
+              display:     flex;
+              align-items: center;
+              gap:         var(--seed-space-4);
+              padding-top: var(--seed-space-4);
+              border-top:  1px solid var(--soil-border-subtle);
+            }
+            .pal-sw-toggle {
+              display:       flex;
+              border:        1px solid var(--soil-border);
+              border-radius: var(--seed-radius-sm);
+              overflow:      hidden;
+            }
+            .pal-sw-toggle-btn {
+              font-family: var(--seed-font-ui);
+              font-size:   var(--seed-text-xs);
+              font-weight: var(--seed-weight-medium);
+              color:       var(--soil-text-muted);
+              background:  transparent;
+              border:      none;
+              padding:     var(--seed-space-1) var(--seed-space-3);
+              cursor:      pointer;
+              transition:  background 120ms, color 120ms;
+            }
+            .pal-sw-toggle-btn--active { background: var(--soil-bg-elevated); color: var(--soil-text); }
+            .pal-sw-reset {
+              margin-left:     auto;
+              font-size:       var(--seed-text-xs);
+              color:           var(--soil-text-muted);
+              text-decoration: none;
+              opacity:         0.7;
+            }
+            .pal-sw-reset:hover { opacity: 1; text-decoration: underline; }
           </style>
+
+          <!-- ── Color palette switcher ──────────────────── -->
+          <div class="pal-switcher">
+            <div class="pal-sw-grid">
+              <!-- Primary -->
+              <div class="pal-sw-col">
+                <p class="pal-sw-label">Primary</p>
+                <div class="pal-sw-input-row">
+                  <input type="text"  class="pal-sw-hex"    id="sw-primary-hex"    maxlength="7" value="#09A950">
+                  <input type="color" class="pal-sw-picker" id="sw-primary-picker" value="#09A950">
+                </div>
+                <div class="pal-sw-presets" id="sw-primary-presets">
+                  <button class="pal-sw-preset pal-sw-preset--active" style="background:#09A950" data-color="#09A950" title="Lime"></button>
+                  <button class="pal-sw-preset" style="background:#10B981" data-color="#10B981" title="Emerald"></button>
+                  <button class="pal-sw-preset" style="background:#6366F1" data-color="#6366F1" title="Indigo"></button>
+                  <button class="pal-sw-preset" style="background:#8B5CF6" data-color="#8B5CF6" title="Violet"></button>
+                  <button class="pal-sw-preset" style="background:#F43F5E" data-color="#F43F5E" title="Rose"></button>
+                  <button class="pal-sw-preset" style="background:#0EA5E9" data-color="#0EA5E9" title="Sky"></button>
+                  <button class="pal-sw-preset" style="background:#64748B" data-color="#64748B" title="Slate"></button>
+                </div>
+              </div>
+              <!-- Secondary -->
+              <div class="pal-sw-col">
+                <p class="pal-sw-label">Secondary</p>
+                <div class="pal-sw-presets" id="sw-secondary-presets">
+                  <button class="pal-sw-preset pal-sw-preset--active" style="background:#A3E18A" data-color="#A3E18A" title="Meadow"></button>
+                  <button class="pal-sw-preset" style="background:#84CC73" data-color="#84CC73" title="Sage"></button>
+                  <button class="pal-sw-preset" style="background:#2DD4BF" data-color="#2DD4BF" title="Teal"></button>
+                  <button class="pal-sw-preset" style="background:#A78BFA" data-color="#A78BFA" title="Lavender"></button>
+                  <button class="pal-sw-preset" style="background:#FB923C" data-color="#FB923C" title="Peach"></button>
+                  <button class="pal-sw-preset" style="background:#FDA4AF" data-color="#FDA4AF" title="Blush"></button>
+                </div>
+              </div>
+              <!-- Accent -->
+              <div class="pal-sw-col">
+                <p class="pal-sw-label">Accent</p>
+                <div class="pal-sw-presets" id="sw-accent-presets">
+                  <button class="pal-sw-preset pal-sw-preset--active" style="background:#FCEE23" data-color="#FCEE23" title="Yellow"></button>
+                  <button class="pal-sw-preset" style="background:#F97316" data-color="#F97316" title="Orange"></button>
+                  <button class="pal-sw-preset" style="background:#F59E0B" data-color="#F59E0B" title="Amber"></button>
+                  <button class="pal-sw-preset" style="background:#EF4444" data-color="#EF4444" title="Coral"></button>
+                  <button class="pal-sw-preset" style="background:#D946EF" data-color="#D946EF" title="Purple"></button>
+                  <button class="pal-sw-preset" style="background:#22D3EE" data-color="#22D3EE" title="Cyan"></button>
+                </div>
+              </div>
+            </div>
+            <!-- Canvas & Reset -->
+            <div class="pal-sw-canvas-row">
+              <p class="pal-sw-label" style="margin:0">Canvas</p>
+              <div class="pal-sw-toggle">
+                <button class="pal-sw-toggle-btn pal-sw-toggle-btn--active" id="sw-canvas-warm">Warm</button>
+                <button class="pal-sw-toggle-btn" id="sw-canvas-cool">Cool</button>
+              </div>
+              <a href="#" class="pal-sw-reset" id="sw-reset">Reset to defaults</a>
+            </div>
+          </div>
 
           <p class="pal-note">Every color is a live CSS variable — toggle dark mode to see them adapt.</p>
 
@@ -1414,29 +1606,29 @@
             <p class="pal-group-label">Primary — Lime</p>
             <div class="pal-row">
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-lime-100)"></div>
+                <div class="pal-block" id="pal-block-primary-light" style="background:var(--seed-lime-100)"></div>
                 <span class="pal-label">Light</span>
-                <span class="pal-hex">#E4F9BE</span>
+                <span class="pal-hex" id="pal-hex-primary-light">#E4F9BE</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-lime-300)"></div>
+                <div class="pal-block" id="pal-block-primary-tint" style="background:var(--seed-lime-300)"></div>
                 <span class="pal-label">Tint</span>
-                <span class="pal-hex">#A3E18A</span>
+                <span class="pal-hex" id="pal-hex-primary-tint">#A3E18A</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block pal-block--primary" style="background:var(--seed-lime-500)"></div>
+                <div class="pal-block pal-block--primary" id="pal-block-primary-mid" style="background:var(--seed-lime-500)"></div>
                 <span class="pal-label pal-label--primary">Primary</span>
-                <span class="pal-hex">#09A950</span>
+                <span class="pal-hex" id="pal-hex-primary-mid">#09A950</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-lime-600)"></div>
+                <div class="pal-block" id="pal-block-primary-dark" style="background:var(--seed-lime-600)"></div>
                 <span class="pal-label">Dark</span>
-                <span class="pal-hex">#078040</span>
+                <span class="pal-hex" id="pal-hex-primary-dark">#078040</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-lime-700)"></div>
+                <div class="pal-block" id="pal-block-primary-deeper" style="background:var(--seed-lime-700)"></div>
                 <span class="pal-label">Deeper</span>
-                <span class="pal-hex">#055C2E</span>
+                <span class="pal-hex" id="pal-hex-primary-deeper">#055C2E</span>
               </div>
             </div>
           </div>
@@ -1448,29 +1640,29 @@
             <p class="pal-group-label">Secondary — Meadow</p>
             <div class="pal-row">
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-meadow-100)"></div>
+                <div class="pal-block" id="pal-block-secondary-light" style="background:var(--seed-meadow-100)"></div>
                 <span class="pal-label">Light</span>
-                <span class="pal-hex">#F0FBEA</span>
+                <span class="pal-hex" id="pal-hex-secondary-light">#F0FBEA</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-meadow-300)"></div>
+                <div class="pal-block" id="pal-block-secondary-tint" style="background:var(--seed-meadow-300)"></div>
                 <span class="pal-label">Tint</span>
-                <span class="pal-hex">#C8EDAF</span>
+                <span class="pal-hex" id="pal-hex-secondary-tint">#C8EDAF</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block pal-block--primary" style="background:var(--seed-meadow-500)"></div>
+                <div class="pal-block pal-block--primary" id="pal-block-secondary-mid" style="background:var(--seed-meadow-500)"></div>
                 <span class="pal-label pal-label--primary">Secondary</span>
-                <span class="pal-hex">#A3E18A</span>
+                <span class="pal-hex" id="pal-hex-secondary-mid">#A3E18A</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-meadow-600)"></div>
+                <div class="pal-block" id="pal-block-secondary-dark" style="background:var(--seed-meadow-600)"></div>
                 <span class="pal-label">Dark</span>
-                <span class="pal-hex">#7ABF62</span>
+                <span class="pal-hex" id="pal-hex-secondary-dark">#7ABF62</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-meadow-700)"></div>
+                <div class="pal-block" id="pal-block-secondary-deeper" style="background:var(--seed-meadow-700)"></div>
                 <span class="pal-label">Deeper</span>
-                <span class="pal-hex">#559A40</span>
+                <span class="pal-hex" id="pal-hex-secondary-deeper">#559A40</span>
               </div>
             </div>
           </div>
@@ -1482,29 +1674,29 @@
             <p class="pal-group-label">Accent — Yellow</p>
             <div class="pal-row">
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-yellow-100)"></div>
+                <div class="pal-block" id="pal-block-accent-light" style="background:var(--seed-yellow-100)"></div>
                 <span class="pal-label">Light</span>
-                <span class="pal-hex">#FEFEF0</span>
+                <span class="pal-hex" id="pal-hex-accent-light">#FEFEF0</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-yellow-300)"></div>
+                <div class="pal-block" id="pal-block-accent-tint" style="background:var(--seed-yellow-300)"></div>
                 <span class="pal-label">Tint</span>
-                <span class="pal-hex">#FEF8A0</span>
+                <span class="pal-hex" id="pal-hex-accent-tint">#FEF8A0</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block pal-block--primary" style="background:var(--seed-yellow-500)"></div>
+                <div class="pal-block pal-block--primary" id="pal-block-accent-mid" style="background:var(--seed-yellow-500)"></div>
                 <span class="pal-label pal-label--primary">Accent</span>
-                <span class="pal-hex">#FCEE23</span>
+                <span class="pal-hex" id="pal-hex-accent-mid">#FCEE23</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-yellow-600)"></div>
+                <div class="pal-block" id="pal-block-accent-dark" style="background:var(--seed-yellow-600)"></div>
                 <span class="pal-label">Dark</span>
-                <span class="pal-hex">#D4C800</span>
+                <span class="pal-hex" id="pal-hex-accent-dark">#D4C800</span>
               </div>
               <div class="pal-swatch">
-                <div class="pal-block" style="background:var(--seed-yellow-700)"></div>
+                <div class="pal-block" id="pal-block-accent-deeper" style="background:var(--seed-yellow-700)"></div>
                 <span class="pal-label">Deeper</span>
-                <span class="pal-hex">#A89E00</span>
+                <span class="pal-hex" id="pal-hex-accent-deeper">#A89E00</span>
               </div>
             </div>
           </div>
@@ -1554,6 +1746,126 @@
           </div>
 
           <p class="pal-footer">For detailed semantic token mapping, see Tokens &#x2192; Semantic Colors.</p>
+
+          <script>
+          (function () {
+            /* ── helpers ──────────────────────────────────────── */
+            function hexToHsl(hex) {
+              var r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+              var max=Math.max(r,g,b), min=Math.min(r,g,b), h, s, l=(max+min)/2;
+              if (max===min) { h=s=0; } else {
+                var d=max-min; s=l>0.5?d/(2-max-min):d/(max+min);
+                switch(max){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;case b:h=((r-g)/d+4)/6;break;}
+              }
+              return [h*360,s*100,l*100];
+            }
+            function hslToHex(h,s,l) {
+              s/=100; l/=100;
+              var a=s*Math.min(l,1-l), f=function(n){var k=(n+h/30)%12;return l-a*Math.max(Math.min(k-3,9-k,1),-1);};
+              return '#'+[f(0),f(8),f(4)].map(function(x){return Math.round(x*255).toString(16).padStart(2,'0');}).join('').toUpperCase();
+            }
+            function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+            function makeRamp(hex) {
+              var hsl=hexToHsl(hex), h=hsl[0], s=hsl[1], l=hsl[2];
+              return [
+                hslToHex(h, clamp(s*0.25,8,40),  clamp(l+58,90,97)),
+                hslToHex(h, clamp(s*0.65,20,80), clamp(l+32,70,88)),
+                hex.toUpperCase(),
+                hslToHex(h, clamp(s+3,10,95),    clamp(l-9,5,80)),
+                hslToHex(h, s,                    clamp(l-18,5,70))
+              ];
+            }
+            /* ── token / element maps ─────────────────────────── */
+            var LIME_K   = ['--seed-lime-100','--seed-lime-300','--seed-lime-500','--seed-lime-600','--seed-lime-700'];
+            var MEADOW_K = ['--seed-meadow-100','--seed-meadow-300','--seed-meadow-500','--seed-meadow-600','--seed-meadow-700'];
+            var YELLOW_K = ['--seed-yellow-100','--seed-yellow-300','--seed-yellow-500','--seed-yellow-600','--seed-yellow-700'];
+            var SOIL_K   = ['--seed-soil-0','--seed-soil-100','--seed-soil-200','--seed-soil-300','--seed-soil-400','--seed-soil-500','--seed-soil-600','--seed-soil-700','--seed-soil-800','--seed-soil-900','--seed-soil-950'];
+            var WARM_SOIL= ['#F9F8F4','#E8E4DB','#D8D3C8','#C0BAB0','#A09890','#787068','#504840','#342E28','#221E18','#141210','#1C1B18'];
+            var COOL_SOIL= ['#F6F8FA','#E2E8F0','#CBD5E1','#94A3B8','#7B91A8','#617590','#475569','#334155','#1E293B','#0F172A','#1A2234'];
+            var HEX_IDS = {
+              primary:   ['pal-hex-primary-light','pal-hex-primary-tint','pal-hex-primary-mid','pal-hex-primary-dark','pal-hex-primary-deeper'],
+              secondary: ['pal-hex-secondary-light','pal-hex-secondary-tint','pal-hex-secondary-mid','pal-hex-secondary-dark','pal-hex-secondary-deeper'],
+              accent:    ['pal-hex-accent-light','pal-hex-accent-tint','pal-hex-accent-mid','pal-hex-accent-dark','pal-hex-accent-deeper']
+            };
+            var BLOCK_IDS = {
+              primary:   ['pal-block-primary-light','pal-block-primary-tint','pal-block-primary-mid','pal-block-primary-dark','pal-block-primary-deeper'],
+              secondary: ['pal-block-secondary-light','pal-block-secondary-tint','pal-block-secondary-mid','pal-block-secondary-dark','pal-block-secondary-deeper'],
+              accent:    ['pal-block-accent-light','pal-block-accent-tint','pal-block-accent-mid','pal-block-accent-dark','pal-block-accent-deeper']
+            };
+            var DEFAULT_P = '#09A950', DEFAULT_S = '#A3E18A', DEFAULT_A = '#FCEE23';
+            var root = document.documentElement;
+
+            /* ── apply helpers ────────────────────────────────── */
+            function applyRamp(tokenKeys, hexIds, blockIds, ramp) {
+              tokenKeys.forEach(function(k,i){ root.style.setProperty(k, ramp[i]); });
+              hexIds.forEach(function(id,i){
+                var el=document.getElementById(id); if(el) el.textContent=ramp[i];
+              });
+              blockIds.forEach(function(id,i){
+                var el=document.getElementById(id); if(el) el.style.background=ramp[i];
+              });
+            }
+            function applyPrimary(hex)   { applyRamp(LIME_K,   HEX_IDS.primary,   BLOCK_IDS.primary,   makeRamp(hex)); localStorage.setItem('seed-color-primary',   hex); }
+            function applySecondary(hex) { applyRamp(MEADOW_K, HEX_IDS.secondary, BLOCK_IDS.secondary, makeRamp(hex)); localStorage.setItem('seed-color-secondary', hex); }
+            function applyAccent(hex)    { applyRamp(YELLOW_K, HEX_IDS.accent,    BLOCK_IDS.accent,    makeRamp(hex)); localStorage.setItem('seed-color-accent',    hex); }
+            function applyCanvas(mode) {
+              var vals = mode==='cool' ? COOL_SOIL : WARM_SOIL;
+              SOIL_K.forEach(function(k,i){ root.style.setProperty(k, vals[i]); });
+              localStorage.setItem('seed-color-canvas', mode);
+              document.getElementById('sw-canvas-warm').classList.toggle('pal-sw-toggle-btn--active', mode!=='cool');
+              document.getElementById('sw-canvas-cool').classList.toggle('pal-sw-toggle-btn--active', mode==='cool');
+            }
+            function setActivePreset(groupId, hex) {
+              var group=document.getElementById(groupId); if(!group) return;
+              group.querySelectorAll('.pal-sw-preset').forEach(function(btn){
+                btn.classList.toggle('pal-sw-preset--active', btn.dataset.color.toUpperCase()===hex.toUpperCase());
+              });
+            }
+
+            /* ── wire controls ────────────────────────────────── */
+            var hexInput = document.getElementById('sw-primary-hex');
+            var picker   = document.getElementById('sw-primary-picker');
+
+            hexInput.addEventListener('input', function() {
+              var v=this.value.trim();
+              if(/^#[0-9A-Fa-f]{6}$/.test(v)){ picker.value=v; applyPrimary(v); setActivePreset('sw-primary-presets',v); }
+            });
+            picker.addEventListener('input', function() {
+              var v=this.value.toUpperCase(); hexInput.value=v; applyPrimary(v); setActivePreset('sw-primary-presets',v);
+            });
+            document.getElementById('sw-primary-presets').addEventListener('click', function(e){
+              var btn=e.target.closest('.pal-sw-preset'); if(!btn) return;
+              var c=btn.dataset.color; hexInput.value=c; picker.value=c; applyPrimary(c); setActivePreset('sw-primary-presets',c);
+            });
+            document.getElementById('sw-secondary-presets').addEventListener('click', function(e){
+              var btn=e.target.closest('.pal-sw-preset'); if(!btn) return;
+              applySecondary(btn.dataset.color); setActivePreset('sw-secondary-presets',btn.dataset.color);
+            });
+            document.getElementById('sw-accent-presets').addEventListener('click', function(e){
+              var btn=e.target.closest('.pal-sw-preset'); if(!btn) return;
+              applyAccent(btn.dataset.color); setActivePreset('sw-accent-presets',btn.dataset.color);
+            });
+            document.getElementById('sw-canvas-warm').addEventListener('click', function(){ applyCanvas('warm'); });
+            document.getElementById('sw-canvas-cool').addEventListener('click', function(){ applyCanvas('cool'); });
+            document.getElementById('sw-reset').addEventListener('click', function(e){
+              e.preventDefault();
+              ['seed-color-primary','seed-color-secondary','seed-color-accent','seed-color-canvas'].forEach(function(k){ localStorage.removeItem(k); });
+              applyPrimary(DEFAULT_P); applySecondary(DEFAULT_S); applyAccent(DEFAULT_A); applyCanvas('warm');
+              hexInput.value=DEFAULT_P; picker.value=DEFAULT_P;
+              setActivePreset('sw-primary-presets',DEFAULT_P); setActivePreset('sw-secondary-presets',DEFAULT_S); setActivePreset('sw-accent-presets',DEFAULT_A);
+              SOIL_K.forEach(function(k){ root.style.removeProperty(k); });
+            });
+
+            /* ── restore from localStorage ────────────────────── */
+            var sP=localStorage.getItem('seed-color-primary')  ||DEFAULT_P;
+            var sS=localStorage.getItem('seed-color-secondary')||DEFAULT_S;
+            var sA=localStorage.getItem('seed-color-accent')   ||DEFAULT_A;
+            var sC=localStorage.getItem('seed-color-canvas')   ||'warm';
+            applyPrimary(sP); applySecondary(sS); applyAccent(sA); applyCanvas(sC);
+            hexInput.value=sP; picker.value=sP;
+            setActivePreset('sw-primary-presets',sP); setActivePreset('sw-secondary-presets',sS); setActivePreset('sw-accent-presets',sA);
+          })();
+          </script>
 
         </div>
 
