@@ -337,6 +337,7 @@ The layout shell is the main Seed experience. `index.html` redirects here. It in
 | **v0.3** | Overlay & nav — Chat, Dropdown, Tooltip, Popover, Upload, Media, Feedback, Breadcrumbs, Pagination ✓ |
 | **v0.4** | Brand system — Name & Logo guidelines, Meadow palette, font-pairing switcher ✓ |
 | **v0.5** | Interactive brand customizer — HSV color picker, canvas switcher (light mode), dark mode via tokens ✓ |
+| **v0.6** | Component index with status badges, index.html redirect, contrast fixes ✓ |
 | **v1.0** | Storybook, accessibility audit, public docs site |
 
 ---
