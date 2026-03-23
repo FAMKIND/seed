@@ -52,6 +52,32 @@
     font-size: 10px;
 }
 
+/* Icon + label item — wraps the dew icon and text together */
+.seed-breadcrumb-item {
+    display:     inline-flex;
+    align-items: center;
+    gap:         5px;
+    color:       var(--soil-text-muted);
+    text-decoration: none;
+    transition:  color 80ms ease;
+}
+
+.seed-breadcrumb-item:hover {
+    color:           var(--soil-text);
+    text-decoration: underline;
+}
+
+.seed-breadcrumb-item--active {
+    color:          var(--soil-text);
+    font-weight:    var(--seed-weight-medium);
+    pointer-events: none;
+}
+
+.seed-breadcrumb-item .dew {
+    font-size:   14px;
+    flex-shrink: 0;
+}
+
 
 /* ─────────────────────────────────────────────────────
    PAGINATION
