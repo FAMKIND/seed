@@ -2097,9 +2097,26 @@
               font-weight:   var(--seed-weight-semibold);
               font-family:   var(--seed-font-ui);
               background:    var(--seed-meadow-300);
-              color:         var(--seed-meadow-700);
+              color:         var(--soil-text);
               border:        none;
             }
+            [data-theme="dark"] .pal-ip-badge-meadow {
+              background: var(--seed-meadow-500);
+              color:      var(--seed-meadow-100);
+            }
+            /* Secondary card fill — meadow tint, adapts in dark mode */
+            .pal-ctx-secondary-fill {
+              background: var(--seed-meadow-100);
+              padding:    var(--seed-space-5) var(--seed-space-6);
+            }
+            [data-theme="dark"] .pal-ctx-secondary-fill {
+              background: var(--seed-meadow-700);
+            }
+            /* Canvas slot: light mode only */
+            [data-theme="dark"] .pal-sw-slot--canvas .pal-pick-btn,
+            [data-theme="dark"] .pal-sw-slot--canvas .pal-sw-hex { opacity: 0.3; pointer-events: none; }
+            .pal-sw-canvas-note { display: none; font-size: var(--seed-text-xs); color: var(--soil-text-disabled); white-space: nowrap; }
+            [data-theme="dark"] .pal-sw-canvas-note { display: block; }
             .pal-ip-card-meadow {
               display:       inline-flex;
               align-items:   center;
@@ -2342,7 +2359,7 @@
               <span class="pal-sw-label">Accent</span>
             </div>
             <!-- Canvas -->
-            <div class="pal-sw-slot">
+            <div class="pal-sw-slot pal-sw-slot--canvas">
               <div class="pal-pick-wrap">
                 <button class="pal-pick-btn" id="pp-canvas-btn" style="background:#F9F8F4" aria-expanded="false" aria-haspopup="true" aria-label="Pick canvas color"></button>
                 <div class="pal-pick-drop" id="pp-canvas-drop" hidden>
@@ -2365,6 +2382,7 @@
               </div>
               <input type="text" class="pal-sw-hex" id="sw-canvas-hex" maxlength="7" value="#F9F8F4">
               <span class="pal-sw-label">Canvas</span>
+              <span class="pal-sw-canvas-note">Light mode only</span>
             </div>
             <button class="pal-sw-reset" id="sw-reset">Reset</button>
           </div>
@@ -2411,9 +2429,9 @@
                   <button class="seed-button seed-button--primary seed-button--md">Get started</button>
                   <button class="seed-button seed-button--secondary seed-button--md">View docs</button>
                 </div>
-                <div class="pal-ctx-row" style="gap:16px;align-items:center;margin-top:12px">
-                  <label class="seed-toggle" style="pointer-events:none;flex-shrink:0"><input type="checkbox" role="switch" checked><span class="seed-toggle__track"><span class="seed-toggle__thumb"></span></span></label>
-                  <a href="#" style="font-size:var(--seed-text-sm);font-family:var(--seed-font-ui);font-weight:var(--seed-weight-medium);color:var(--selected-bg-bold-default);text-decoration:underline;text-underline-offset:2px;white-space:nowrap;">View documentation →</a>
+                <div style="display:flex;align-items:center;gap:16px;margin-top:12px">
+                  <button class="seed-toggle seed-toggle--on" role="switch" aria-checked="true" style="pointer-events:none;flex-shrink:0"><span class="seed-toggle__thumb"></span></button>
+                  <a href="#" style="font-size:var(--seed-text-sm);font-family:var(--seed-font-ui);font-weight:var(--seed-weight-medium);color:var(--selected-bg-bold-default);text-decoration:underline;text-underline-offset:2px;white-space:nowrap">View documentation →</a>
                 </div>
               </div>
             </div>
@@ -2455,7 +2473,7 @@
             </div>
             <div class="pal-color-right">
               <div class="pal-ctx-card" style="padding:0;overflow:hidden">
-                <div style="background:var(--seed-meadow-100);padding:var(--seed-space-5) var(--seed-space-6)">
+                <div class="pal-ctx-secondary-fill">
                   <p style="font-size:var(--seed-text-base);font-weight:var(--seed-weight-semibold);font-family:var(--seed-font-ui);color:var(--soil-text);margin-bottom:var(--seed-space-2)">Community milestone</p>
                   <p style="font-size:var(--seed-text-sm);font-family:var(--seed-font-ui);color:var(--soil-text);line-height:var(--seed-leading-normal);margin-bottom:var(--seed-space-4)">Your project reached 1,000 supporters this month.</p>
                   <span class="pal-ip-badge-meadow">Growth</span>

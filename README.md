@@ -336,7 +336,7 @@ Full-page shell with collapsible left panel, top bar, and fluid content area. Op
 | **v0.2** | Core components — Button, Badge, Card, Avatar, Input, Toggle, Tabs, Divider, Table, Toast ✓ |
 | **v0.3** | Overlay & nav — Chat, Dropdown, Tooltip, Popover, Upload, Media, Feedback, Breadcrumbs, Pagination ✓ |
 | **v0.4** | Brand system — Name & Logo guidelines, Meadow palette, font-pairing switcher ✓ |
-| **v0.5** | Interactive brand customizer — live logo mark picker, color palette switcher with custom HSV picker, context cards ✓ |
+| **v0.5** | Interactive brand customizer — HSV color picker, canvas switcher (light mode), dark mode via tokens ✓ |
 | **v1.0** | Storybook, accessibility audit, public docs site |
 
 ---
