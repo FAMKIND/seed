@@ -324,7 +324,7 @@ Each component lives in `components/{name}/` with a `.css` file and a `.html` de
 
 ### Layout `components/layout/`
 
-Full-page shell with collapsible left panel, top bar, and fluid content area. Open `components/layout/layout.html` for the live design system preview — includes the brand guidelines, all component demos, the font-pairing switcher, and the interactive brand customizer (live logo mark picker, custom HSV color palette switcher).
+The layout shell is the main Seed experience. `index.html` redirects here. It includes all component demos, brand guidelines, the font-pairing switcher, the interactive brand customizer, and a full component index with build status.
 
 ---
 
