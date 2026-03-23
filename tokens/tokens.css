@@ -76,7 +76,15 @@
     --seed-lime-900:      #86EFAC;
     --seed-lime-950:      #131B17;
 
-    /* Yellow — energy, attention
+    /* Meadow — secondary brand, lime-segment green
+       ────────────────────────────────────────────── */
+    --seed-meadow-100:    #F0FBEA;
+    --seed-meadow-300:    #C8EDAF;
+    --seed-meadow-500:    #A3E18A;
+    --seed-meadow-600:    #7ABF62;
+    --seed-meadow-700:    #559A40;
+
+    /* Yellow — accent brand, energy, attention
        ────────────────────────────────────────────── */
     --seed-yellow-25:     #FDFBEC;
     --seed-yellow-35:     #FAF5D0;
