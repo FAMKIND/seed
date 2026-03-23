@@ -2878,6 +2878,15 @@
               function setHex(hex) {
                 var hsv=hexToHsv(hex); pH=hsv[0]; pS=hsv[1]; pV=hsv[2]; updateUi();
               }
+              /* Sync picker UI to a hex without triggering applyFn.
+                 Used when applyCanvas has already been called with the correct key. */
+              function syncDisplay(hex) {
+                var hsv=hexToHsv(hex); pH=hsv[0]; pS=hsv[1]; pV=hsv[2];
+                sbBg.style.background='hsl('+Math.round(pH)+',100%,50%)';
+                cur.style.left=(pS*100)+'%'; cur.style.top=((1-pV)*100)+'%';
+                hue.value=Math.round(pH); hexI.value=hex; btn.style.background=hex;
+                if(swH) swH.value=hex;
+              }
               function setSb(e) {
                 var r=sb.getBoundingClientRect();
                 pS=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));
@@ -2907,7 +2916,7 @@
                 }
               });
               if(swH){swH.addEventListener('input',function(){var v=this.value.trim();if(/^#[0-9A-Fa-f]{6}$/.test(v))setHex(v);});}
-              return {setHex:setHex};
+              return {setHex:setHex, syncDisplay:syncDisplay};
             }
 
             /* ── wire controls ────────────────────────────────── */
@@ -2920,7 +2929,8 @@
               e.preventDefault();
               ['seed-color-primary','seed-color-secondary','seed-color-accent','seed-color-canvas'].forEach(function(k){ localStorage.removeItem(k); });
               pPicker.setHex(DEFAULT_P); sPicker.setHex(DEFAULT_S); aPicker.setHex(DEFAULT_A);
-              cPicker.setHex(CANVAS_P[DEFAULT_C][0]);
+              applyCanvas(DEFAULT_C);
+              cPicker.syncDisplay(CANVAS_P[DEFAULT_C][0]);
             });
 
             /* ── restore from localStorage ────────────────────── */
@@ -2929,8 +2939,21 @@
             var sA=localStorage.getItem('seed-color-accent')   ||DEFAULT_A;
             var sC=localStorage.getItem('seed-color-canvas')   ||DEFAULT_C;
             pPicker.setHex(sP); sPicker.setHex(sS); aPicker.setHex(sA);
-            /* sC may be a preset key ('warm') or a hex — normalise to hex */
-            cPicker.setHex(CANVAS_P[sC] ? CANVAS_P[sC][0] : ((/^#[0-9A-Fa-f]{6}$/.test(sC)) ? sC : CANVAS_P[DEFAULT_C][0]));
+            /* Normalize: if stored value is a hex that matches a preset's base, recover the key.
+               This fixes sessions where the key was accidentally overwritten with a hex. */
+            if(!CANVAS_P[sC]) {
+              Object.keys(CANVAS_P).forEach(function(k){
+                if(CANVAS_P[k][0].toUpperCase()===sC.toUpperCase()) sC=k;
+              });
+            }
+            if(CANVAS_P[sC]) {
+              /* Preset key: apply the hand-tuned ramp, then sync picker display only */
+              applyCanvas(sC);
+              cPicker.syncDisplay(CANVAS_P[sC][0]);
+            } else {
+              /* Custom hex: normal flow — applyCanvas called inside setHex via applyFn */
+              cPicker.setHex(/^#[0-9A-Fa-f]{6}$/.test(sC) ? sC : CANVAS_P[DEFAULT_C][0]);
+            }
           })();
           </script>
 
