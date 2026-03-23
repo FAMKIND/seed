@@ -364,13 +364,18 @@
 }
 
 /* Left and center dropdowns: position:fixed so they clear overflow:hidden bounds.
-   top/left/right are set by JS at open time. */
+   top/left/right are set by JS at open time.
+   z-index: overlay (300) beats the sticky topbar's z-index: sticky (200), which
+   would otherwise paint on top of the menu since both compete in the root
+   stacking context. The base .seed-layout__menu z-index: dropdown (100) is
+   insufficient here. */
 .seed-layout__left   .seed-layout__menu,
 .seed-layout__center .seed-layout__menu {
     position: fixed;
     top:      auto;
     right:    auto;
     left:     auto;
+    z-index:  var(--seed-z-overlay);
 }
 
 .seed-layout__menu-trigger {
