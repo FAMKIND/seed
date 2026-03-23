@@ -1001,20 +1001,324 @@
 
         <!-- ── name-logo ───────────────────────────────── -->
         <div class="ds-section" data-section="name-logo">
-          <p class="content-body">
-            The Seed identity — minimal wordmark, sprout mark, and a warm neutral
-            foundation. Built for open source, made to grow.
-          </p>
-          <div class="content-actions">
-            <button class="seed-button seed-button--primary seed-button--md">Primary</button>
-            <button class="seed-button seed-button--secondary seed-button--md">Secondary</button>
+          <style>
+            /* ── Name & Logo section ── */
+            .nl-desc {
+              font-size:     var(--seed-text-sm);
+              color:         var(--soil-text-muted);
+              line-height:   var(--seed-leading-normal);
+              max-width:     560px;
+              margin-bottom: var(--seed-space-8);
+            }
+            .nl-sub {
+              font-size:      var(--seed-text-xs);
+              font-weight:    var(--seed-weight-semibold);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color:          var(--soil-text-muted);
+              margin-bottom:  var(--seed-space-4);
+            }
+            .nl-divider {
+              height:     1px;
+              background: var(--soil-border-subtle);
+              margin:     var(--seed-space-8) 0;
+            }
+
+            /* ── Hero lockup ── */
+            .nl-hero {
+              display:         flex;
+              align-items:     center;
+              justify-content: center;
+              padding:         var(--seed-space-16) var(--seed-space-8);
+              background:      var(--soil-bg-surface);
+              border:          1px solid var(--soil-border-subtle);
+              border-radius:   var(--seed-radius-lg);
+              margin-bottom:   var(--seed-space-8);
+            }
+            .nl-lockup {
+              display:     flex;
+              align-items: center;
+              gap:         16px;
+            }
+            .nl-mark {
+              font-size:   56px;
+              line-height: 1;
+              flex-shrink: 0;
+            }
+            .nl-wordmark {
+              font-family: var(--seed-font-ui);
+              font-weight: var(--seed-weight-semibold);
+              font-size:   56px;
+              line-height: 1;
+              color:       var(--soil-text);
+              letter-spacing: -0.02em;
+            }
+
+            /* ── Variants row ── */
+            .nl-variants {
+              display:   flex;
+              gap:       var(--seed-space-3);
+              flex-wrap: wrap;
+              margin-bottom: var(--seed-space-8);
+            }
+            .nl-variant {
+              flex:            1;
+              min-width:       140px;
+              display:         flex;
+              flex-direction:  column;
+              align-items:     center;
+              gap:             var(--seed-space-4);
+              padding:         var(--seed-space-8) var(--seed-space-6);
+              background:      var(--soil-bg-surface);
+              border:          1px solid var(--soil-border-subtle);
+              border-radius:   var(--seed-radius-lg);
+            }
+            .nl-variant-display {
+              display:     flex;
+              align-items: center;
+              gap:         10px;
+              min-height:  48px;
+            }
+            .nl-variant-mark  { font-size: 36px; line-height: 1; }
+            .nl-variant-word  {
+              font-family:    var(--seed-font-ui);
+              font-weight:    var(--seed-weight-semibold);
+              font-size:      32px;
+              line-height:    1;
+              color:          var(--soil-text);
+              letter-spacing: -0.02em;
+            }
+            .nl-variant-label {
+              font-size:  var(--seed-text-xs);
+              color:      var(--soil-text-muted);
+              text-align: center;
+            }
+
+            /* ── Color contexts ── */
+            .nl-contexts {
+              display:   flex;
+              gap:       var(--seed-space-3);
+              flex-wrap: wrap;
+              margin-bottom: var(--seed-space-8);
+            }
+            .nl-context {
+              flex:          1;
+              min-width:     160px;
+              border-radius: var(--seed-radius-lg);
+              border:        1px solid var(--soil-border-subtle);
+              padding:       var(--seed-space-8) var(--seed-space-6);
+              display:       flex;
+              flex-direction: column;
+              align-items:   center;
+              gap:           var(--seed-space-4);
+            }
+            .nl-context--canvas { background: var(--soil-bg-canvas); }
+            .nl-context--dark   { background: #131B17; }
+            .nl-context--green  { background: #09A950; border-color: #07803F; }
+            .nl-context-lockup  { display: flex; align-items: center; gap: 10px; }
+            .nl-context-mark    { font-size: 28px; line-height: 1; }
+            .nl-context-word    {
+              font-family:    var(--seed-font-ui);
+              font-weight:    var(--seed-weight-semibold);
+              font-size:      28px;
+              line-height:    1;
+              letter-spacing: -0.02em;
+            }
+            .nl-context-word--light { color: var(--soil-text); }
+            .nl-context-word--dark  { color: #F9F8F4; }
+            .nl-context-word--white { color: #FFFFFF; }
+            .nl-context-label       {
+              font-size:  var(--seed-text-xs);
+              text-align: center;
+            }
+            .nl-context-label--light { color: var(--soil-text-muted); }
+            .nl-context-label--dark  { color: rgba(249,248,244,0.5); }
+            .nl-context-label--white { color: rgba(255,255,255,0.65); }
+
+            /* ── Clear space diagram ── */
+            .nl-clearspace {
+              display:         inline-flex;
+              align-items:     center;
+              justify-content: center;
+              position:        relative;
+              padding:         32px;
+              background:      var(--soil-bg-surface);
+              border:          1px solid var(--soil-border-subtle);
+              border-radius:   var(--seed-radius-lg);
+            }
+            .nl-clearspace-inner {
+              display:     flex;
+              align-items: center;
+              gap:         10px;
+              padding:     4px;
+              outline:     1.5px dashed var(--soil-border);
+              outline-offset: 18px;
+            }
+            .nl-clearspace-mark { font-size: 28px; line-height: 1; }
+            .nl-clearspace-word {
+              font-family:    var(--seed-font-ui);
+              font-weight:    var(--seed-weight-semibold);
+              font-size:      28px;
+              line-height:    1;
+              color:          var(--soil-text);
+              letter-spacing: -0.02em;
+            }
+            .nl-clearspace-note {
+              font-size:   var(--seed-text-xs);
+              color:       var(--soil-text-muted);
+              margin-top:  var(--seed-space-3);
+            }
+
+            /* ── Guidance list ── */
+            .nl-guidance {
+              display:        flex;
+              flex-direction: column;
+              gap:            var(--seed-space-3);
+            }
+            .nl-guidance-row {
+              display:     flex;
+              gap:         var(--seed-space-3);
+              align-items: baseline;
+              font-size:   var(--seed-text-sm);
+            }
+            .nl-guidance-key {
+              flex-shrink: 0;
+              width:       160px;
+              font-weight: var(--seed-weight-medium);
+              color:       var(--soil-text);
+            }
+            .nl-guidance-val {
+              color:       var(--soil-text-muted);
+              line-height: var(--seed-leading-normal);
+            }
+            code.nl-code {
+              font-size:     var(--seed-text-xs);
+              background:    var(--calm-bg-subtle-default);
+              border:        1px solid var(--soil-border-subtle);
+              border-radius: var(--seed-radius-sm);
+              padding:       1px 6px;
+              font-family:   monospace;
+              color:         var(--soil-text);
+            }
+          </style>
+
+          <!-- description -->
+          <p class="nl-desc">Seed is the design foundation for the FAM open source ecosystem. It starts with tokens — color, typography, spacing, shadow — and grows into a full component library. Built for mission-driven artists, designers, and builders who need a clean, composable foundation without opinionated frameworks getting in the way.</p>
+
+          <!-- ── 1. Hero lockup ── -->
+          <p class="nl-sub">Logo lockup</p>
+          <div class="nl-hero">
+            <div class="nl-lockup">
+              <span class="nl-mark" aria-hidden="true">🌱</span>
+              <span class="nl-wordmark">seed</span>
+            </div>
           </div>
-          <div class="content-divider"></div>
-          <p class="content-body">
-            Font family: <strong>Montserrat Semibold</strong> for the wordmark.
-            Icon: the 🌱 sprout emoji as placeholder — swap for a custom SVG mark later.
-            Maintain clear space equal to the avatar height on all sides.
-          </p>
+
+          <!-- ── 2. Variants ── -->
+          <p class="nl-sub">Variants</p>
+          <div class="nl-variants">
+
+            <div class="nl-variant">
+              <div class="nl-variant-display">
+                <span class="nl-variant-mark" aria-hidden="true">🌱</span>
+                <span class="nl-variant-word">seed</span>
+              </div>
+              <span class="nl-variant-label">Full lockup</span>
+            </div>
+
+            <div class="nl-variant">
+              <div class="nl-variant-display">
+                <span class="nl-variant-mark" style="font-size:44px" aria-hidden="true">🌱</span>
+              </div>
+              <span class="nl-variant-label">Mark only</span>
+            </div>
+
+            <div class="nl-variant">
+              <div class="nl-variant-display">
+                <span class="nl-variant-word" style="font-size:40px">seed</span>
+              </div>
+              <span class="nl-variant-label">Wordmark only</span>
+            </div>
+
+          </div>
+
+          <div class="nl-divider"></div>
+
+          <!-- ── 3. Color contexts ── -->
+          <p class="nl-sub">Color contexts</p>
+          <div class="nl-contexts">
+
+            <div class="nl-context nl-context--canvas">
+              <div class="nl-context-lockup">
+                <span class="nl-context-mark" aria-hidden="true">🌱</span>
+                <span class="nl-context-word nl-context-word--light">seed</span>
+              </div>
+              <span class="nl-context-label nl-context-label--light">On canvas</span>
+            </div>
+
+            <div class="nl-context nl-context--dark">
+              <div class="nl-context-lockup">
+                <span class="nl-context-mark" aria-hidden="true">🌱</span>
+                <span class="nl-context-word nl-context-word--dark">seed</span>
+              </div>
+              <span class="nl-context-label nl-context-label--dark">On dark</span>
+            </div>
+
+            <div class="nl-context nl-context--green">
+              <div class="nl-context-lockup">
+                <span class="nl-context-mark" aria-hidden="true">🌱</span>
+                <span class="nl-context-word nl-context-word--white">seed</span>
+              </div>
+              <span class="nl-context-label nl-context-label--white">On primary green</span>
+            </div>
+
+          </div>
+
+          <div class="nl-divider"></div>
+
+          <!-- ── 4. Clear space ── -->
+          <p class="nl-sub">Clear space</p>
+          <div>
+            <div class="nl-clearspace">
+              <div class="nl-clearspace-inner">
+                <span class="nl-clearspace-mark" aria-hidden="true">🌱</span>
+                <span class="nl-clearspace-word">seed</span>
+              </div>
+            </div>
+            <p class="nl-clearspace-note">Minimum clear space: equal to the mark height on all sides. Do not crowd the logo.</p>
+          </div>
+
+          <div class="nl-divider"></div>
+
+          <!-- ── 5. Guidance ── -->
+          <p class="nl-sub">Guidance</p>
+          <div class="nl-guidance">
+            <div class="nl-guidance-row">
+              <span class="nl-guidance-key">Wordmark font</span>
+              <span class="nl-guidance-val"><code class="nl-code">var(--seed-font-ui)</code> Semibold (600), lowercase</span>
+            </div>
+            <div class="nl-guidance-row">
+              <span class="nl-guidance-key">Mark</span>
+              <span class="nl-guidance-val">🌱 sprout emoji as placeholder — swap for a custom SVG mark when ready</span>
+            </div>
+            <div class="nl-guidance-row">
+              <span class="nl-guidance-key">Clear space</span>
+              <span class="nl-guidance-val">Equal to the mark height on all four sides</span>
+            </div>
+            <div class="nl-guidance-row">
+              <span class="nl-guidance-key">Minimum mark size</span>
+              <span class="nl-guidance-val">24px — below this the mark becomes illegible</span>
+            </div>
+            <div class="nl-guidance-row">
+              <span class="nl-guidance-key">Minimum wordmark</span>
+              <span class="nl-guidance-val">16px — use wordmark-only at small sizes where the mark would be too small</span>
+            </div>
+            <div class="nl-guidance-row">
+              <span class="nl-guidance-key">Do not</span>
+              <span class="nl-guidance-val">Rotate, recolor, stretch, add effects, or pair with a different typeface</span>
+            </div>
+          </div>
+
         </div>
 
         <!-- ── color-palette ──────────────────────────── -->
